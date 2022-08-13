@@ -1,61 +1,58 @@
 class Solution {
     private Map<String, Integer> wordCount = new HashMap();
-    private int n, wordLength, substringSize, k;
+    private int n, wordLength, maxSubstringLength, numWords;
+    private List<Integer> answer = new ArrayList();
     
     public List<Integer> findSubstring(String s, String[] words) {
         n = s.length();
-        k = words.length;
-        wordLength = words[0].length();
-        substringSize = wordLength * k;
+        numWords = words.length;
+        wordLength = words[0].length();   
+        maxSubstringLength = wordLength * numWords;
         
-        for (String word : words) {
+        for(String word : words) 
             wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
-        }
         
-        List<Integer> answer = new ArrayList<>();
-        for (int i = 0; i < wordLength; i++) 
-            slidingWindow(i, s, answer);        
-        
+        //Iterate up to wordLength starting characters in case of offset
+        for(int i = 0; i < wordLength; i++)
+            slidingWindow(i, s);
         return answer;
     }
     
-    private void slidingWindow(int left, String s, List<Integer> answer) {
-        Map<String, Integer> wordsFound = new HashMap();
+    private void slidingWindow(int left, String s){
+        Map<String, Integer> wordsSeen = new HashMap();
         int wordsUsed = 0;
         boolean excessWord = false;
         
-        // Do the same iteration pattern as the previous approach - iterate
-        // word_length at a time, and at each iteration we focus on one word
-        for (int right = left; right <= n - wordLength; right += wordLength) {
-            
+        for(int right = left; right <= n - wordLength; right+=wordLength){
             String sub = s.substring(right, right + wordLength);
-            if (!wordCount.containsKey(sub)) {
-                // Mismatched word - reset the window
-                wordsFound.clear();
+            //Case 1: Word not in array, clear and shift left wordLength chars
+            if(!wordCount.containsKey(sub)){
+                wordsSeen.clear();
                 wordsUsed = 0;
-                excessWord = false;
+                excessWord = false;   
                 left = right + wordLength;
-            } else {
-                // If we reached max window size or have an excess word
-                while (right - left == substringSize || excessWord) {
-                    String leftmostWord = s.substring(left, left + wordLength);
-                    left += wordLength;
-                    wordsFound.put(leftmostWord, wordsFound.get(leftmostWord) - 1);
-                    // This word was an excess word
-                    if (wordsFound.get(leftmostWord) >= wordCount.get(leftmostWord)) excessWord = false;
-                    // Otherwise we actually needed it
-                    else  wordsUsed--;
+            }else{
+                //Case 2: Max Window Size or excess word present
+                while(right-left == maxSubstringLength || excessWord){
+                    String leftmostWord = s.substring(left, left+wordLength);
+                    left+=wordLength;
+                    wordsSeen.put(leftmostWord, wordsSeen.get(leftmostWord) -1);
+                    //Case 2a. excess word removed
+                    if(wordsSeen.get(leftmostWord) >= wordCount.get(leftmostWord)) excessWord = false;
+                    //Case 2b. word needed, remove from words used
+                    else wordsUsed--;
                 }
                 
-                // Keep track of how many times this word occurs in the window
-                wordsFound.put(sub, wordsFound.getOrDefault(sub, 0) + 1);
-                if (wordsFound.get(sub) <= wordCount.get(sub)) wordsUsed++;
-                // Found too many instances already
+                //Add occurrence of word seen
+                wordsSeen.put(sub, wordsSeen.getOrDefault(sub, 0) + 1);
+                //If not past limit increment wordsUsed
+                if(wordsSeen.get(sub) <= wordCount.get(sub)) wordsUsed++;
+                //Otherwise flag excessWord
                 else excessWord = true;
                 
-                // Found a valid substring
-                if (wordsUsed == k && !excessWord) answer.add(left);
+                //Case 3: Have reached conditions for substring
+                if(wordsUsed == numWords && !excessWord) answer.add(left);
             }
         }
-    }        
+    }      
 }
