@@ -1,20 +1,13 @@
 class Solution {
-    //Tabulation
-    //Time: O(nlog(n) + O(n^2)) ~ O(n^2)
+    //Greedy Approach: O(nlog(n))
     public int findLongestChain(int[][] pairs) {
-        Arrays.sort(pairs, (a,b) -> a[0] - b[0]);
-        int[] dp = new int[pairs.length];
-        Arrays.fill(dp, 1);
-        int ans = 1;
-        for(int j = 1; j < pairs.length; j++){
-            int curr = 1;
-            for(int i = 0; i < j; i++){
-                if(pairs[i][1] < pairs[j][0]){
-                    dp[j] = Math.max(dp[j], dp[i] + 1);
-                    curr = Math.max(curr, dp[j]);
-                }
+        Arrays.sort(pairs, (a, b) -> a[1] - b[1]);
+        int cur = Integer.MIN_VALUE, ans = 0;
+        for (int[] pair: pairs) {
+            if (cur < pair[0]) {
+                cur = pair[1];
+                ans++;
             }
-            ans = Math.max(ans, curr);
         }
         return ans;
     }
