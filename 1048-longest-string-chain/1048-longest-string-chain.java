@@ -1,37 +1,29 @@
-
 class Solution {
     Map<String, Integer> memo = new HashMap();
     Set<String> wordsPresent = new HashSet();
     
-    public int longestStrChain(String[] words) {      
+    public int longestStrChain(String[] words) {
         Collections.addAll(wordsPresent, words);
         int ans = 0;
-        for (String word : words) {
-            ans = Math.max(ans, dfs(word));
-        }
+        for(String word : words) ans = Math.max(ans, dfs(word));
         return ans;
     }
     
-    private int dfs(String currentWord) {
-        // If the word is encountered previously we just return its value present in the map (memoization).
-        if (memo.containsKey(currentWord)) return memo.get(currentWord);
+    private int dfs(String word){
+        if(memo.containsKey(word)) return memo.get(word);
         
-        // This stores the maximum length of word sequence possible with the 'currentWord' as the
         int maxLength = 1;
-        StringBuilder sb = new StringBuilder(currentWord);
-
-        // creating all possible strings taking out one character at a time from the `currentWord`
-        for (int i = 0; i < currentWord.length(); i++) {
+        StringBuilder sb = new StringBuilder(word);
+        
+        for(int i = 0; i < word.length(); i++){
             sb.deleteCharAt(i);
-            String newWord = sb.toString();
-            // If the new word formed is present in the list, we do a dfs search with this newWord.
-            if (wordsPresent.contains(newWord)) {
-                int currentLength = 1 + dfs(newWord);
+            if(wordsPresent.contains(sb.toString())){
+                int currentLength = 1 + dfs(sb.toString());
                 maxLength = Math.max(maxLength, currentLength);
             }
-            sb.insert(i, currentWord.charAt(i));
+            sb.insert(i, word.charAt(i));
         }
-        memo.put(currentWord, maxLength);
+        memo.put(word, maxLength);
         return maxLength;
     }
 }
