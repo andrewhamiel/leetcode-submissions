@@ -1,29 +1,28 @@
 class Solution {
-    Map<String, Integer> memo = new HashMap();
-    Set<String> wordsPresent = new HashSet();
-    
+    /*
+    * Tabulation approach
+    * Runtime complexity: O(nlog(n) + n(L^2))
+    * O(nlog(n)): Sorting array
+    * O(n(L^2)): Iterate through each word n, first L from iterating each character, second L from predecessor creation
+    */
     public int longestStrChain(String[] words) {
-        Collections.addAll(wordsPresent, words);
-        int ans = 0;
-        for(String word : words) ans = Math.max(ans, dfs(word));
-        return ans;
-    }
-    
-    private int dfs(String word){
-        if(memo.containsKey(word)) return memo.get(word);
+        Map<String, Integer> dp = new HashMap();
         
-        int maxLength = 1;
-        StringBuilder sb = new StringBuilder(word);
+        //Sort by ascending length
+        Arrays.sort(words, (a,b) -> a.length() - b.length());
         
-        for(int i = 0; i < word.length(); i++){
-            sb.deleteCharAt(i);
-            if(wordsPresent.contains(sb.toString())){
-                int currentLength = 1 + dfs(sb.toString());
-                maxLength = Math.max(maxLength, currentLength);
+        int longestChain = 1;
+        for(String word : words){
+            int currLength = 1;
+            for(int i = 0; i < word.length(); i++){
+                StringBuilder predecessor = new StringBuilder(word);
+                predecessor.deleteCharAt(i);
+                int predecessorLength = dp.getOrDefault(predecessor.toString(), 0);
+                currLength = Math.max(currLength, predecessorLength + 1);
             }
-            sb.insert(i, word.charAt(i));
+            dp.put(word, currLength);
+            longestChain = Math.max(longestChain, currLength);
         }
-        memo.put(word, maxLength);
-        return maxLength;
+        return longestChain;
     }
 }
