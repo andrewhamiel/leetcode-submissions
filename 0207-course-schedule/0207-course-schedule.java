@@ -1,5 +1,8 @@
 class Solution {
     Map<Integer, List<Integer>> map = new HashMap();
+    
+    //Postorder DFS. Time: O(E + V), E = # dependencies, V = number courses
+    //Space: O(E + V)
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         for(int[] course : prerequisites){
             map.putIfAbsent(course[1], new ArrayList());
