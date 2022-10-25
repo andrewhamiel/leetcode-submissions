@@ -1,34 +1,60 @@
+
+
+
 class Solution {
-    Map<Integer, List<Integer>> map = new HashMap();
     
-    //Postorder DFS. Time: O(E + V), E = # dependencies, V = number courses
-    //Space: O(E + V)
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        for(int[] course : prerequisites){
-            map.putIfAbsent(course[1], new ArrayList());
-            map.get(course[1]).add(course[0]);
-        }
-        
-        boolean[] path = new boolean[numCourses], checked = new boolean[numCourses];
-        for(int[] course : prerequisites) if(isCyclic(course[1], path, checked)) return false;
-        return true;
-    }
+class GNode {
+  int inDegrees = 0;
+  List<Integer> outNodes = new ArrayList();
+}
     
-    private boolean isCyclic(int course, boolean[] path, boolean[] checked){
-        //if we already checked this node, or if key isn't present, no cycle
-        if(checked[course] || !map.containsKey(course)) return false;
-        //if we have repeated along same path, cycle found
-        if(path[course]) return true;
-        
-        //mark before backtracking
-        path[course] = true;
-        boolean isCycle = false;
-        for(Integer prereq : map.get(course)){
-            isCycle = isCyclic(prereq, path, checked);
-            if(isCycle) break;
-        }
-        path[course] = false;
-        checked[course] = true;
-        return isCycle;
+    // course -> list of next courses
+    Map<Integer, GNode> graph = new HashMap();
+
+  public boolean canFinish(int numCourses, int[][] prerequisites) {
+// no cycle could be formed in empty graph.
+    if (prerequisites.length == 0) return true;  
+
+    // build the graph first
+    for (int[] relation : prerequisites) {
+      // relation[1] -> relation[0]
+      GNode prevCourse = getCreateGNode(relation[1]), nextCourse = getCreateGNode(relation[0]);
+      prevCourse.outNodes.add(relation[0]);
+      nextCourse.inDegrees++;
     }
+
+    // We start from courses that have no prerequisites.
+    int totalDeps = prerequisites.length;
+    Queue<Integer> noDepCourses = new LinkedList();
+      
+    for (Map.Entry<Integer, GNode> entry : graph.entrySet()) {
+      GNode node = entry.getValue();
+      if (entry.getValue().inDegrees == 0) noDepCourses.add(entry.getKey());
+    }
+
+      //Remove in edges
+    int removedEdges = 0;
+    while (noDepCourses.size() > 0) {
+      Integer course = noDepCourses.poll();
+
+      for (Integer nextCourse : graph.get(course).outNodes) {
+        GNode childNode = graph.get(nextCourse);
+        graph.get(nextCourse).inDegrees--;
+        removedEdges++;
+        if(childNode.inDegrees == 0) noDepCourses.add(nextCourse);
+      }
+    }
+        // if there are still some edges left, then there exist some cycles
+      // Due to the dead-lock (dependencies), we cannot remove the cyclic edges
+      return removedEdges == totalDeps ? true : false;
+  }
+
+  /**
+   * Retrieve the existing <key, value> from graph, otherwise create a new one.
+   */
+  private GNode getCreateGNode(Integer course) {
+      if (graph.containsKey(course)) return graph.get(course);
+      graph.put(course, new GNode());
+      return graph.get(course);
+  }
 }
