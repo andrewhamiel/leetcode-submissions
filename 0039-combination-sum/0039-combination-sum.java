@@ -1,6 +1,6 @@
 class Solution {
-    List<List<Integer>> result = new ArrayList();
-    int[] candidates;
+    private List<List<Integer>> result = new ArrayList();
+    private int[] candidates;
     
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         this.candidates = candidates;
@@ -8,16 +8,16 @@ class Solution {
         return result;
     }
     
-    private void dfs(int i, int target, List<Integer> comb){
+    private void dfs(int start, int target, List<Integer> comb){
+        if(target < 0) return;
         if(target == 0){
             result.add(new ArrayList(comb));
             return;
         }
-        if(target < 0) return;
         
-        for(int start = i; start < candidates.length; start++){
-            comb.add(candidates[start]);
-            dfs(start, target - candidates[start], comb);
+        for(int i = start; i < candidates.length; i++){
+            comb.add(candidates[i]);
+            dfs(i, target-candidates[i], comb);
             comb.remove(comb.size() - 1);
         }
     }
