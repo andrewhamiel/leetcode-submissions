@@ -1,16 +1,25 @@
 class Solution {
-    //naive O(n^2)
-    public int longestRepeatingSubstring(String s) {
-        int[][] dp = new int[s.length() + 1][s.length() + 1];
-        int max = 0;
-        for(int i = 0; i < s.length(); i++){
-            for(int j = i + 1; j < s.length(); j++){
-                if(s.charAt(i) == s.charAt(j)){
-                    dp[i+1][j+1] = dp[i][j] + 1;
-                    max = Math.max(max, dp[i+1][j+1]);
-                }
-            }
-        }
-        return max;
+  
+    //Binary Search + HashSet of seen strings. T: O(nlog(n))
+  public int longestRepeatingSubstring(String S) {
+    int left = 1, right = S.length();
+    while (left <= right) {
+      int mid = left + (right - left) / 2;
+      if (search(mid, S.length(), S) != -1) left = mid + 1;
+      else right = mid - 1;
     }
+
+    return left - 1;
+  }
+    
+  public int search(int L, int n, String S) {
+    HashSet<String> seen = new HashSet();
+    String tmp;
+    for(int start = 0; start < n - L + 1; ++start) {
+      tmp = S.substring(start, start + L);
+      if (seen.contains(tmp)) return start;
+      seen.add(tmp);
+    }
+    return -1;
+  }
 }
