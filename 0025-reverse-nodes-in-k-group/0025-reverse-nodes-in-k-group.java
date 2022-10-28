@@ -16,30 +16,28 @@ class Solution {
             while(count < k && curr != null){
                 curr = curr.next;
                 count++;
-            }
-            //if curr is not null
+            } 
+            //If curr is not null still
             if(count == k){
-                ListNode reverseHead = reverseK(head, k);
-                if(new_head == null) new_head = reverseHead;
-                if(k_tail != null) k_tail.next = reverseHead;
+                ListNode reverse_head = reverseK(head, k);
+                if(new_head == null) new_head = reverse_head;
+                if(k_tail != null) k_tail.next = reverse_head;
                 k_tail = head;
                 head = curr;
             }
         }
-        //clean up remaining node
-        if(k_tail != null){
-            k_tail.next = head;
-        }
+        //If loose element remains
+        if(k_tail != null) k_tail.next = head;
         return new_head;
     }
     
     private ListNode reverseK(ListNode head, int k){
         ListNode curr = head, prev = null;
         while(k-- > 0){
-            ListNode nextNode = curr.next;
+            ListNode next_node = curr.next;
             curr.next = prev;
             prev = curr;
-            curr = nextNode;
+            curr = next_node;
         }
         return prev;
     }
