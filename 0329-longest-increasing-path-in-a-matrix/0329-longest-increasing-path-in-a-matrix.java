@@ -1,27 +1,28 @@
-// DFS + Memoization Solution
-// Accepted and Recommended
-public class Solution {
-    private static final int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-    private int m, n;
-
+class Solution {
+    private int[][] memo;
+    private int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    
     public int longestIncreasingPath(int[][] matrix) {
-        if (matrix.length == 0) return 0;
-        m = matrix.length; n = matrix[0].length;
-        int[][] cache = new int[m][n];
-        int ans = 0;
-        for (int i = 0; i < m; ++i)
-            for (int j = 0; j < n; ++j)
-                ans = Math.max(ans, dfs(matrix, i, j, cache));
-        return ans;
-    }
-
-    private int dfs(int[][] matrix, int i, int j, int[][] cache) {
-        if (cache[i][j] != 0) return cache[i][j];
-        for (int[] d : dirs) {
-            int x = i + d[0], y = j + d[1];
-            if (0 <= x && x < m && 0 <= y && y < n && matrix[x][y] > matrix[i][j])
-                cache[i][j] = Math.max(cache[i][j], dfs(matrix, x, y, cache));
+        memo = new int[matrix.length][matrix[0].length];
+        int max = 0;
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                max = Math.max(max, dfs(i, j, matrix));
+            }
         }
-        return ++cache[i][j];
+        return max;
+    }
+    
+    private int dfs(int i, int j, int[][] matrix){
+        if(i < 0 || i >= matrix.length || j < 0 || j >= matrix[0].length) return 0;
+        if(memo[i][j] != 0) return memo[i][j];
+        int max = 0;
+        for(int[] dir : dirs){
+            int x = i + dir[0], y = j + dir[1];
+            if(x >= 0 && x < matrix.length && y >= 0 && y < matrix[0].length && matrix[x][y] > matrix[i][j])
+                max = Math.max(max, dfs(x, y, matrix));
+        }
+        memo[i][j] = max + 1;
+        return memo[i][j];
     }
 }
