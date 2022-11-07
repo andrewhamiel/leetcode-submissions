@@ -1,18 +1,18 @@
 class MaxStack {
     private Stack<int[]> stack;
-    private Queue<int[]> heap;
+    private PriorityQueue<int[]> heap;
     private Set<Integer> removed;
-    private int cnt;
+    private int cnt = 0;
 
     public MaxStack() {
-        stack = new Stack<>();
+        stack = new Stack();
         heap = new PriorityQueue<>((a, b) -> b[0] - a[0] == 0 ? b[1] - a[1] : b[0] - a[0]);
-        removed = new HashSet<>();
+        removed = new HashSet();
     }
 
     public void push(int x) {
-        stack.add(new int[] { x, cnt });
-        heap.add(new int[] { x, cnt });
+        stack.add(new int[] {x, cnt});
+        heap.add(new int[] {x, cnt});
         cnt++;
     }
 
