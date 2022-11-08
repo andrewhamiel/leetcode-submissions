@@ -1,20 +1,26 @@
 class Solution {
-  int M = 1000000007;
-
-  public int findPaths(int m, int n, int N, int i, int j) {
-    int[][][] memo = new int[m][n][N + 1];
-    for (int[][] l : memo) for (int[] sl : l) Arrays.fill(sl, -1);
-    return findPaths(m, n, N, i, j, memo);
-  }
-
-  public int findPaths(int m, int n, int N, int i, int j, int[][][] memo) {
-    if (i == m || j == n || i < 0 || j < 0) return 1;
-    if (N == 0) return 0;
-    if (memo[i][j][N] >= 0) return memo[i][j][N];
-    memo[i][j][N] = (
-        (findPaths(m, n, N - 1, i - 1, j, memo) + findPaths(m, n, N - 1, i + 1, j, memo)) % M +
-        (findPaths(m, n, N - 1, i, j - 1, memo) + findPaths(m, n, N - 1, i, j + 1, memo)) % M
-    ) % M;
-    return memo[i][j][N];
-  }
+    int[][][] memo;
+    int m = 0, n = 0;
+    int mod = 1000000007;
+    //memoization: O(m*n*maxMove)
+    public int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+        this.m = m;
+        this.n = n;
+        memo = new int[m][n][maxMove+1];     
+        for(int[][] mat : memo)
+            for(int[] row : mat) Arrays.fill(row, -1);
+        
+        return dp(startRow, startColumn, maxMove);
+    }
+    
+    private int dp(int i, int j, int moves){
+        if(i < 0 || i == m || j < 0 || j == n) return 1;
+        if(moves == 0) return 0;
+        if(memo[i][j][moves] >= 0) return memo[i][j][moves];
+        memo[i][j][moves] = (
+            (dp(i-1, j, moves-1) + dp(i+1, j, moves-1))%mod 
+            + ((dp(i, j-1, moves-1) + dp(i, j+1, moves-1)) % mod)
+        ) % mod;
+        return memo[i][j][moves];
+    }
 }
