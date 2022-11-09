@@ -1,4 +1,6 @@
 class Solution {
+    //2D DP. Time: O(n^2 * d)
+    //Space: O(nd)
     public int minDifficulty(int[] jobDifficulty, int d) {
         int n = jobDifficulty.length;
         // Initialize the minDiff matrix to record the minimum difficulty
