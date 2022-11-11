@@ -14,34 +14,26 @@
  * }
  */
 class Solution {
-    private int i = 0;
-    Stack<String> prefix = new Stack();
-    Stack<Character> ops = new Stack();
+    private int ind = 0;
+    private Stack<String> prefix = new Stack();
+    private Stack<Character> ops = new Stack();
     
     public Node expTree(String s) {
-        return createTree(convertToPrefix(s));
+        return buildTree(createPrefixExpString(s));
     }
     
-    private Node createTree(String str){
-        char c = str.charAt(i++);
+    private Node buildTree(String str){
+        char c = str.charAt(ind++);
         Node node = new Node(c);
         if(c == '+' || c == '-' || c == '*' || c == '/'){
-            if(node.left == null) node.left = createTree(str);
-            if(node.right == null) node.right = createTree(str);
+            if(node.left == null) node.left = buildTree(str);
+            if(node.right == null) node.right = buildTree(str);
         }
         return node;
     }
     
-    /*
-        * Build binary expression string
-        * 4 cases:
-        * 1. c == '('
-        * 2. c == ')'
-        * 3. c == operator
-        * 4. c == number
-        */
-    private String convertToPrefix(String s){
-        
+    private String createPrefixExpString(String s){
+        //4 cases
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
             //case 1: c == '('
@@ -49,23 +41,24 @@ class Solution {
             //case 2: c == ')'
             else if(c == ')'){
                 while(ops.peek() != '('){
-                    prefix.push(buildPrefixString());
+                    prefix.push(buildPrefix());
                 }
-                ops.pop(); //remove '('
+                ops.pop(); //clean up '('
             }
-            //case 3: c is operator
+            //case 3: c is an operator
             else if(c == '+' || c == '-' || c == '*' || c == '/'){
                 while(!ops.isEmpty() && ops.peek() != '(' && precedence(c) <= precedence(ops.peek())){
-                    prefix.push(buildPrefixString());
+                    prefix.push(buildPrefix());
                 }
                 ops.push(c);
             }
             //case 4: c is a number
             else prefix.push(String.valueOf(c));
         }
-        //combine remaining binary expressions
+        
+        //build any remaining ops
         while(!ops.isEmpty()){
-            prefix.push(buildPrefixString());
+            prefix.push(buildPrefix());
         }
         return prefix.pop();
     }
@@ -74,7 +67,7 @@ class Solution {
         return c == '+' || c == '-' ? 1 : 2;
     }
     
-    private String buildPrefixString(){
+    private String buildPrefix(){
         String val2 = prefix.pop(), val1 = prefix.pop();
         char op = ops.pop();
         return new StringBuilder().append(op).append(val1).append(val2).toString();
