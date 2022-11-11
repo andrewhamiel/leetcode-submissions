@@ -1,58 +1,52 @@
 class Solution {
-    
-    public int minSwaps(String s) {
-        int[] counts = getCount(s);
-        int diff = Math.abs(counts[0]-counts[1]);
-        if(diff>=2) return -1;
-        if(counts[1]>counts[0]){
-            String alt = createAltString(counts,true);
-            return minhelper(s,alt);
-        }else if(counts[0]>counts[1]){
-            String alt = createAltString(counts,false);
-            return minhelper(s,alt);
-        }else return Math.min(minhelper(s,createAltString(counts,true)),minhelper(s,createAltString(counts,false)));
-    }
-    private int[] getCount(String s){
-        int[] arr = new int[2];
-        for(char ch:s.toCharArray()){
-            arr[(ch-'0')]++;
-        }   
-        return arr;
-    }
-    
-    private String createAltString(int[] counts,boolean isOne){
-        int len = counts[0]+counts[1], prev = 1;
-        StringBuilder sb = new StringBuilder();
-        if(isOne) prev = 0;
-        for(int i = 0;i<len;i++) {
-            int val = Math.abs(prev-1);
-            sb.append(val);
-            prev = (val==0?0:1);
+    //the alternating pattern can be either 010101... or 101010...
+    //so we will check the no. of places where our string differs for both these patterns
+    public int minSwaps(String s) {       
+        //start1 denotes the first char and dif1 keeps count of differences for 010101...
+        //start2 denotes the first char and dif2 keeps count of differences for 101010...
+        
+        //we will also store the count of 0's and 1's as if difference is >1 then no alternating seq possible
+        char start1 = '0', start2 = '1';
+        int diff1 = 0, diff2 = 0;
+        int[] count = new int[2];
+        for(char c : s.toCharArray()){
+            count[c - '0']++;
+            if(c != start1) diff1++;
+            if(c != start2) diff2++;
+            
+            //swap
+            char tmp = start1;
+            start1 = start2;
+            start2 = tmp;
         }
-        return sb.toString();    
+        
+        if(Math.abs(count[0] - count[1]) <= 1){
+            if(diff1 % 2 == 0 && diff2 % 2 == 0) return Math.min(diff1, diff2)/2;
+            else if(diff1 % 2 == 0) return diff1/2;
+            else if(diff2 % 2 == 0) return diff2/2;
+        }
+        return -1;
+
+//         for(char c : s.toCharArray()){
+//             //increase the count for the corresponding char
+//             count[c-'0']++;     
+//             //if current char is not same as what we expect for our pattern we increase the diff for that pattern
+//             if(c!=start1) dif1++;
+//             if(c!=start2) dif2++;
+            
+//             //swapping the next expected char for both patterns
+//             char temp=start1;
+//             start1=start2;
+//             start2=temp;
+//         }
+//         //if absolute diff > 1 then no ans possible
+//         if(Math.abs(count[0]-count[1])<=1){
+//             // to get an ans the no. of diff for the pattern should be even as then only swapping would solve it
+//             if(dif2 % 2 == 0 && dif1 % 2 == 0) return Math.min(dif1,dif2)/2;
+//             if(dif2%2==0) return dif2/2;
+//             if(dif1%2==0) return dif1/2;
+//         }
+//         return -1;
     }
     
-    private int minhelper(String s,String alt){
-        int co = 0, cz = 0,min = 0, len = s.length();
-        for(int i = 0;i<len;i++) {
-            char ch1 = s.charAt(i),ch2 = alt.charAt(i);
-            if(ch1!=ch2) {
-                if(ch2=='1') {
-                    if(co>0) co--;
-                    else {
-                        min++;
-                        cz++;
-                    }
-                }
-                else {
-                    if(cz>0) cz--;
-                    else{
-                        min++;
-                        co++;
-                    }
-                }
-            }
-        }
-        return min;
-    }   
 }
