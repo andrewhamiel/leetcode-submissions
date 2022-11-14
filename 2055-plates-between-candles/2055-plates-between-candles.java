@@ -1,23 +1,51 @@
 class Solution {
     public int[] platesBetweenCandles(String s, int[][] queries) {
-        int len = s.length(), leftPlateCount = 0;
-        int[]left= new int[len];
-        TreeSet<Integer> candles = new TreeSet();
-        for(int i=0;i<s.length();i++){
-            if(s.charAt(i)=='|') {
-                candles.add(i);
-                left[i] = leftPlateCount;
-            }else leftPlateCount++;
+        int n= s.length();
+        int sum=0;
+        int[] psum= new int[n];
+        //1. psum
+        for(int i=0;i<n;++i){
+            if(s.charAt(i)=='|'){
+                psum[i]=sum;
+            }else{
+                sum+=1;
+            }
+            psum[i]=sum;
         }
-        int[] result = new int[queries.length];
-        int i=0;
-        for(int query[] : queries){
-            Integer leftMostCandle = candles.ceiling(query[0]), rightMostCandle = candles.floor(query[1]);
-            if(leftMostCandle!=null && rightMostCandle!=null && leftMostCandle<rightMostCandle)
-                result[i] = left[rightMostCandle]-left[leftMostCandle];
+        //2. left sum
+        int[] leftCand= new int[n];
+        Arrays.fill(leftCand,-1);
+        for(int i=0;i<n;++i){
+            if(s.charAt(i)=='|')
+                leftCand[i]=i;
+            else{
+                leftCand[i]=i-1>=0?leftCand[i-1]:-1;
+                }
+        }
+        //3. right sum
+        int[] rightCand= new int[n];
+        Arrays.fill(rightCand,-1);
+        for(int i=n-1;i>=0;--i){
+            if(s.charAt(i)=='|')
+                rightCand[i]=i;
+            else{
+                rightCand[i]=i+1<n?rightCand[i+1]:-1;
+            }
+        }
+        //4. ans
+        int[] ans= new int[queries.length];
+        for(int i=0;i<queries.length;++i){
+            int l= queries[i][0];
+            int r= queries[i][1];
             
-            i++;
+            int lCand= rightCand[l];
+            int rCand= leftCand[r];
+            if(lCand==-1 || rCand==-1 || lCand>=rCand)
+                ans[i]=0;
+            else
+            ans[i]=psum[rCand]-psum[lCand];
         }
-        return result;
+        
+        return ans;
     }
 }
