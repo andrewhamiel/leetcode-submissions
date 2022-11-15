@@ -9,7 +9,9 @@ class SORTracker {
     //T: O(log(n))
     //S: O(n)
     public void add(String name, int score) {
+        PriorityQueue<String> tmpMin = minHeap, tmpMax = maxHeap;
     	String s = String.format("%05d%s", 100000 - score, name);
+        //if < largest in minHeap, replace to remain ith best location property
         if (!minHeap.isEmpty() && minHeap.peek().compareTo(s) > 0) {
         	maxHeap.offer(minHeap.poll());
         	minHeap.offer(s);
@@ -19,6 +21,7 @@ class SORTracker {
     //T: O(log(n))
     //S: O(n)
     public String get() {
+        PriorityQueue<String> tmpMin = minHeap, tmpMax = maxHeap;
         String s = maxHeap.poll();
         minHeap.offer(s);
         return s.substring(5);
