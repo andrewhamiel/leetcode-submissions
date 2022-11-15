@@ -1,29 +1,22 @@
 class SORTracker {
     PriorityQueue<String> minHeap, maxHeap;
-    
+
     public SORTracker() {
-        minHeap = new PriorityQueue<>(Collections.reverseOrder());
-        maxHeap = new PriorityQueue<>();
+        maxHeap = new PriorityQueue<String>(Collections.reverseOrder());
+        minHeap = new PriorityQueue<String>();
     }
     
-    //T: O(log(n))
-    //S: O(n)
     public void add(String name, int score) {
-        PriorityQueue<String> tmpMin = minHeap, tmpMax = maxHeap;
-    	String s = String.format("%05d%s", 100000 - score, name);
-        //if < largest in minHeap, replace to remain ith best location property
-        if (!minHeap.isEmpty() && minHeap.peek().compareTo(s) > 0) {
-        	maxHeap.offer(minHeap.poll());
-        	minHeap.offer(s);
-        } else maxHeap.offer(s);
+        String s = String.format("%05d%s", 100000 - score, name);
+        if(!maxHeap.isEmpty() && maxHeap.peek().compareTo(s) > 0){
+            minHeap.offer(maxHeap.poll());
+            maxHeap.offer(s);
+        }else minHeap.offer(s);
     }
     
-    //T: O(log(n))
-    //S: O(n)
     public String get() {
-        PriorityQueue<String> tmpMin = minHeap, tmpMax = maxHeap;
-        String s = maxHeap.poll();
-        minHeap.offer(s);
+        String s = minHeap.poll();
+        maxHeap.offer(s);
         return s.substring(5);
     }
 }
