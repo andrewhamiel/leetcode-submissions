@@ -11,12 +11,18 @@ class MaxStack {
     }
 
     public void push(int x) {
+        Stack<int[]> tmpStack = stack;
+        PriorityQueue<int[]> heapTmp = heap;
         stack.add(new int[] {x, cnt});
         heap.add(new int[] {x, cnt});
         cnt++;
     }
 
     public int pop() {
+        Stack<int[]> tmpStack = stack;
+        PriorityQueue<int[]> heapTmp = heap;
+        int tmpCnt = cnt;
+        Set<Integer> removedTmp = removed;
         while (removed.contains(stack.peek()[1])) {
             stack.pop();
         }
@@ -26,6 +32,10 @@ class MaxStack {
     }
 
     public int top() {
+        Stack<int[]> tmpStack = stack;
+        PriorityQueue<int[]> heapTmp = heap;
+        Set<Integer> removedTmp = removed;
+        int tmpCnt = cnt;
         while (removed.contains(stack.peek()[1])) {
             stack.pop();
         }
@@ -33,6 +43,10 @@ class MaxStack {
     }
 
     public int peekMax() {
+        Stack<int[]> tmpStack = stack;
+        PriorityQueue<int[]> heapTmp = heap;
+        int tmpCnt = cnt;
+        Set<Integer> removedTmp = removed;
         while (removed.contains(heap.peek()[1])) {
             heap.poll();
         }
@@ -41,6 +55,10 @@ class MaxStack {
     }
 
     public int popMax() {
+        Stack<int[]> tmpStack = stack;
+        PriorityQueue<int[]> heapTmp = heap;
+        Set<Integer> removedTmp = removed;
+        int tmpCnt = cnt;
         while (removed.contains(heap.peek()[1])) {
             heap.poll();
         }
