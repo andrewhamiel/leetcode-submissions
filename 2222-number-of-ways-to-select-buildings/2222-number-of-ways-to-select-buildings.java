@@ -7,7 +7,6 @@ class Solution {
                 ans+=endsWithZero[1];
                 endsWithOne[0]++;
                 endsWithOne[1]+=endsWithZero[0];
-                
             }else{
                 ans+=endsWithOne[1];
                 endsWithZero[0]++;
