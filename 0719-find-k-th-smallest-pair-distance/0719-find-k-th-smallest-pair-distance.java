@@ -1,4 +1,9 @@
 class Solution {
+    //Binary Search + Sliding Window. n = nums.length, w = Math.max(nums[i])
+    //Time: O(nlog(n) + nlog(w))
+    //nlog(n) from Arrays.sort
+    //binary search is O(log(w)), sliding window is O(n)
+    //Space: O(1)
     public int smallestDistancePair(int[] nums, int k) {
         //sort the array & initialize variable
         Arrays.sort(nums); //O(nlog(n))
