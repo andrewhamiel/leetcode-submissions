@@ -1,30 +1,25 @@
 class Solution {
     public long subArrayRanges(int[] nums) {
-        int n = nums.length;
         long answer = 0;
-        Stack<Integer> stack = new Stack<>();    
-
-        // Find the sum of all the minimum.
-        for (int right = 0; right <= n; ++right) {
-            while (!stack.isEmpty() && (right == n || nums[stack.peek()] >= nums[right])) {
-                int mid = stack.peek();
-                stack.pop();
+        Stack<Integer> stack = new Stack();
+        //find sum of minimums
+        for(int right = 0; right <= nums.length; right++){
+            while(!stack.isEmpty() && (right == nums.length || nums[stack.peek()] >= nums[right])){
+                int mid = stack.pop();
                 int left = stack.isEmpty() ? -1 : stack.peek();
-                answer -= (long)nums[mid] * (right - mid) * (mid - left);   
+                answer-= (long) nums[mid] * (right - mid) * (mid - left);
             }
-            stack.add(right);
+            stack.push(right);
         }
-        
-        // Find the sum of all the maximum.
         stack.clear();
-        for (int right = 0; right <= n; ++right) {
-            while (!stack.isEmpty() && (right == n || nums[stack.peek()] <= nums[right])) {
-                int mid = stack.peek();
-                stack.pop();
+        //find sum of maximums
+        for(int right = 0; right <= nums.length; right++){
+            while(!stack.isEmpty() && (right == nums.length || nums[stack.peek()] <= nums[right])){
+                int mid = stack.pop();
                 int left = stack.isEmpty() ? -1 : stack.peek();
-                answer += (long)nums[mid] * (right - mid) * (mid - left);   
+                answer+= (long) nums[mid] * (right - mid) * (mid - left);
             }
-            stack.add(right);
+            stack.push(right);
         }
         return answer;
     }
