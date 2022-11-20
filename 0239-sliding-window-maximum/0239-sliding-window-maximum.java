@@ -1,12 +1,12 @@
 class Solution {
-    private ArrayDeque<Integer> deq = new ArrayDeque();
+    private Deque<Integer> deq = new ArrayDeque();
     
     public int[] maxSlidingWindow(int[] nums, int k) {
         //first sliding window
         int localMax = 0;
         for(int i = 0; i < k; i++){
             cleanDeque(i, k, nums);
-            deq.add(i);
+            deq.addLast(i);
             if(nums[i] > nums[localMax]) localMax = i;
         }
         
@@ -15,7 +15,7 @@ class Solution {
         for(int i = k; i < nums.length; i++){
             cleanDeque(i, k, nums);
             deq.add(i);
-            answer[i-k+1] = nums[deq.peek()];
+            answer[i - k + 1] = nums[deq.peek()];
         }
         return answer;
     }
