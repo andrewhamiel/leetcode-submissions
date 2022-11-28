@@ -1,19 +1,19 @@
 class Solution {
     public int longestPalindromeSubseq(String s) {
-        int[][] dp = new int[s.length()][s.length()];
-        for(int subseqLen = 0; subseqLen < s.length(); subseqLen++){
-            for(int i = 0, j = subseqLen; j < s.length(); i++, j++){
-                if(subseqLen == 0) dp[i][j] = 1;
-                else if(subseqLen == 1){
-                    if(s.charAt(i) == s.charAt(j)) dp[i][j] = 2;
-                    else dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]);
-                }else{
-                    if(s.charAt(i) == s.charAt(j)) dp[i][j] = 2 + dp[i+1][j-1];
-                    else dp[i][j] = Math.max(dp[i][j], Math.max(dp[i+1][j], dp[i][j-1]));
-                }
+        return longestCommonSubsequence(s, new StringBuilder(s).reverse().toString());
+    }
+    
+    private int longestCommonSubsequence(String text1, String text2){
+        if(text2.length() < text1.length()) return longestCommonSubsequence(text2, text1);
+        int[] previous = new int[text1.length() + 1];
+        for(int col = text2.length() - 1; col >= 0; col--){
+            int[] current = new int[text1.length() + 1];
+            for(int row = text1.length() - 1; row >= 0; row--){
+                if(text2.charAt(col) == text1.charAt(row)) current[row] = 1 + previous[row+1];
+                else current[row] = Math.max(current[row+1], previous[row]);
             }
+            previous = current;
         }
-        return dp[0][s.length() - 1];
-        
+        return previous[0];
     }
 }
