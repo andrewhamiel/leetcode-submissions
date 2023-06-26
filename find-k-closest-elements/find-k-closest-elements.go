@@ -4,10 +4,9 @@ func findClosestElements(arr []int, k int, x int) []int {
         mid := left + (right - left)/2
         if x - arr[mid] > arr[mid + k] - x {
             left = mid + 1
-        }else {
+        }else{
             right = mid
         }
     }
-    ans := arr[left:left+k]
-    return ans
+    return arr[left:left+k]
 }
