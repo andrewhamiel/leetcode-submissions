@@ -1,21 +1,20 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        List<Integer> subArr = new ArrayList<>();
-        subArr.add(nums[0]);
+        List<Integer> sub = new ArrayList<>();
+        sub.add(nums[0]);
         for(int i = 1; i < nums.length; i++){
-            if(nums[i] > subArr.get(subArr.size() - 1)) subArr.add(nums[i]);
-            else subArr.set(binarySearch(subArr, nums[i]), nums[i]);
+            if(nums[i] > sub.get(sub.size() - 1)) sub.add(nums[i]);
+            else sub.set(binarySearch(sub, nums[i]), nums[i]);
         }
-        return subArr.size();
+        return sub.size();
     }
 
-    private int binarySearch(List<Integer> subArr, int target){
-        int left = 0, right = subArr.size() - 1;
-        while(left < right){
+    private int binarySearch(List<Integer> nums, int target){
+        int left = 0, right = nums.size() - 1;
+        while(left <= right){
             int mid = left + (right - left)/2;
-            if(subArr.get(mid) == target) return mid;
-            else if(subArr.get(mid) < target) left = mid + 1;
-            else right = mid;
+            if(nums.get(mid) < target) left = mid + 1;
+            else right = mid - 1;
         }
         return left;
     }
