@@ -36,6 +36,7 @@ func maxEnvelopes(envelopes [][]int) int {
     })
 
     dp := []int{}
+    
     for i := 0; i < len(envelopes); i++ {
         dp = append(dp, envelopes[i][1])
     }    
