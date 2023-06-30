@@ -1,23 +1,15 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        ArrayList<Integer> sub = new ArrayList<>();
-        sub.add(nums[0]);
-        
-        for (int i = 1; i < nums.length; i++) {
-            int num = nums[i];
-            if (num > sub.get(sub.size() - 1)) {
-                sub.add(num);
-            } else {
-                // Find the first element in sub that is greater than or equal to num
+        List<Integer> subArr = new ArrayList<>();
+        subArr.add(nums[0]);
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] > subArr.get(subArr.size() - 1)) subArr.add(nums[i]);
+            else{
                 int j = 0;
-                while (num > sub.get(j)) {
-                    j += 1;
-                }
-                
-                sub.set(j, num);
+                while(subArr.get(j) < nums[i]) j++;
+                subArr.set(j, nums[i]);
             }
         }
-        
-        return sub.size();
+        return subArr.size();
     }
 }
