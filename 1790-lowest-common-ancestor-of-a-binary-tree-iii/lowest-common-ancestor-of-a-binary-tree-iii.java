@@ -10,27 +10,24 @@ class Node {
 
 class Solution {
     Node ans;
-
     public Node lowestCommonAncestor(Node p, Node q) {
-        Node root = findRoot(p);
-        isSubtree(p, q, root);
+        Node parent = findParent(p);
+        lca(parent, p, q);
         return ans;
     }
 
-    private Node findRoot(Node p){
-        Node root = p;
-        while(root.parent != null) root = root.parent;
-        return root;
+    private Node findParent(Node p){
+        Node node = p;
+        while(node.parent != null) node = node.parent;
+        return node;
     }
 
-    private boolean isSubtree(Node p, Node q, Node curr){
-        if(curr == null) return false;
-        int left = isSubtree(p, q, curr.left) ? 1 : 0;
-        int right = isSubtree(p, q, curr.right) ? 1 : 0;
-        int mid = (curr.val == p.val || curr.val == q.val) ? 1 : 0;
-        if(left + right + mid >= 2) ans = curr;
-        return left + right + mid > 0;
+    private boolean lca(Node root, Node p, Node q){
+        if(root == null) return false;
+        int sum = root.val == p.val || root.val == q.val ? 1 : 0;
+        int left = lca(root.left, p, q) ? 1 : 0;
+        int right = lca(root.right, p, q) ? 1 : 0;
+        if(sum + left + right >= 2) ans = root;
+        return sum + left + right >= 1;
     }
-
-
 }
