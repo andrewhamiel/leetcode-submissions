@@ -1,25 +1,22 @@
 class Solution {
     public boolean validWordAbbreviation(String word, String abbr) {
-        int wordInd = 0;
-        for(int i = 0; i < abbr.length(); i++){
-            //Case 1: Character is numeric
-            if(Character.isDigit(abbr.charAt(i))){
-                int subLength = 0;
-                //Until the number has been evaluated completely
-                while(i < abbr.length() && Character.isDigit(abbr.charAt(i))){
-                    if(subLength == 0 && (int)(abbr.charAt(i) - '0') == 0) return false;
-                    subLength*=10;
-                    subLength += (int)(abbr.charAt(i++) - '0');
-                }
-                i--;
-                if(wordInd + subLength - 1 < word.length()) wordInd+= subLength;
-                else return false; //If end of string, false
+        int currNumber = 0;
+        int wordPtr = 0;
+        for(Character c : abbr.toCharArray()){
+            if(wordPtr >= word.length()) return false;
+            if(Character.isDigit(c)){
+                if((int)(c - '0') == 0 && currNumber == 0) return false;
+                currNumber*=10;
+                currNumber+= (int)(c - '0');
+            }else if(currNumber != 0){
+                wordPtr+= currNumber;
+                currNumber = 0;
+                if(wordPtr >= word.length() || word.charAt(wordPtr++) != c) return false;
+            }else{
+                if(word.charAt(wordPtr++) != c) return false;
             }
-            //Case 2: Literal Character
-            else if(wordInd < word.length() && word.charAt(wordInd) == abbr.charAt(i)) wordInd++;
-            //Case 3: Character mismatch, return false
-            else return false;
         }
-        return wordInd == word.length();
+        if(currNumber != 0) wordPtr += currNumber;
+        return wordPtr == word.length();
     }
 }
