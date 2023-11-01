@@ -30,13 +30,13 @@ class Solution {
     }
 
     private void helper(Node node){
-      if(node == null) return;
-      helper(node.left);
-      if(last != null){
-        last.right = node;
-        node.left = last;
-      }else first = node;
-      last = node;
-      helper(node.right);
+        if(node == null) return;
+        helper(node.left);
+        if(last != null){
+            last.right = node;
+            node.left = last;
+        }else first = node;
+        last = node;
+        helper(node.right);
     }
 }
