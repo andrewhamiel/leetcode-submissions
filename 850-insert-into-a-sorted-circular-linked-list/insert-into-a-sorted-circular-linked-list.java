@@ -25,11 +25,14 @@ class Solution {
             head.next = head;
             return head;
         }
-        Node curr = head, nextNode = head.next, original = head;
+        Node curr = head, nextNode = head.next;
         boolean isInserted = false;
         while(!isInserted){
-            //3 Cases
-            if((curr.val != nextNode.val) &&
+            //3 Cases:
+            //1. In between 2 values
+            //2. Max value at end
+            //3. Min value at beginning
+            if((curr.val != nextNode.val) && 
             (curr.val <= insertVal && nextNode.val >= insertVal && curr.val <= nextNode.val
             || curr.val <= insertVal && nextNode.val <= insertVal && curr.val >= nextNode.val
             || curr.val >= insertVal && nextNode.val >= insertVal && curr.val >= nextNode.val)){
@@ -40,12 +43,13 @@ class Solution {
             }
             curr = curr.next;
             nextNode = nextNode.next;
-            if(curr == original) isInserted = true;
+            if(curr == head) isInserted = true;
         }
-        //Case 4: All duplicate values, can insert after first node
+        //If we have a LinkedList of all duplicates, can insert after first element
+        curr = head;
         Node ans = new Node(insertVal);
-        ans.next = original.next;
-        original.next = ans;
-        return original;
+        ans.next = curr.next;
+        curr.next = ans;
+        return head;
     }
 }
