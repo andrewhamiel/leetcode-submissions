@@ -20,7 +20,8 @@ class Node {
 */
 
 class Solution {
-    Node first, last;
+    private Node first, last;
+
     public Node treeToDoublyList(Node root) {
         if(root == null) return null;
         helper(root);
