@@ -4,7 +4,7 @@ class Solution {
     }
 
     private double binaryExp(double x, long n){
-        if(n == 0) return 1.0;
+        if (n == 0) return 1.0;
 
         if(n < 0){
             n*= -1;
@@ -18,7 +18,7 @@ class Solution {
                 n--;
             }
             x*= x;
-            n/=2;
+            n/= 2;
         }
         return result;
     }
