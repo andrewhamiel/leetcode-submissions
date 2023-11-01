@@ -32,7 +32,6 @@ class Solution {
             curr = curr.next.next;
         }
 
-        //Outerweave
         Node newHead = head.next, oldPtr = head, newPtr = head.next;
         while(oldPtr != null){
             oldPtr.next = oldPtr.next.next;
