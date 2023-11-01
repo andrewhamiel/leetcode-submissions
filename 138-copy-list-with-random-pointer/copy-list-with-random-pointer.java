@@ -16,7 +16,6 @@ class Node {
 class Solution {
     public Node copyRandomList(Node head) {
         if(head == null) return head;
-
         Node curr = head;
         while(curr != null){
             Node tmp = new Node(curr.val);
@@ -32,6 +31,7 @@ class Solution {
             curr = curr.next.next;
         }
 
+        //Outerweave
         Node newHead = head.next, oldPtr = head, newPtr = head.next;
         while(oldPtr != null){
             oldPtr.next = oldPtr.next.next;
