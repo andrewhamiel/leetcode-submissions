@@ -6,17 +6,16 @@ class Solution {
     public boolean isNumber(String s) {
         boolean isDigit = false, isExponent = false, isSign = false, isDot = false;
         for(int i = 0; i < s.length(); i++){
-            char c = s.charAt(i);
-            if(Character.isDigit(c)) isDigit = true;
-            else if(c == 'e' || c == 'E'){
+            if(Character.isDigit(s.charAt(i))) isDigit = true;
+            else if(s.charAt(i) == 'e' || s.charAt(i) == 'E'){
                 if(i == 0 || isExponent || !isDigit) return false;
                 isExponent = true;
                 isDigit = false;
-            }else if(c == '+' || c == '-'){
+            }else if(s.charAt(i) == '+' || s.charAt(i) == '-'){
                 if(i > 0 && s.charAt(i-1) != 'e' && s.charAt(i-1) != 'E') return false;
                 isSign = true;
                 isDigit = false;
-            }else if(c == '.'){
+            }else if(s.charAt(i) == '.'){
                 if(isDot || isExponent) return false;
                 isDot = true;
             }else return false;
