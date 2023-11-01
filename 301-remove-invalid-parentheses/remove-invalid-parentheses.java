@@ -25,20 +25,18 @@ class Solution {
                 helper(s, expr, ind + 1, removed, leftCount + 1, rightCount); //add
                 expr.deleteCharAt(currLength);
                 helper(s, expr, ind + 1, removed + 1, leftCount, rightCount); //remove
-            }else if(c == ')'){ //Case 2: ')' - check to see if enough left count. add and remove if enough, just remove if not
+            }else if(c == ')'){ //Case 2: ')' - try adding if leftCount > rightCount, try deleting regardless
                 if(leftCount > rightCount){
                     expr.append(c);
                     helper(s, expr, ind + 1, removed, leftCount, rightCount + 1); //add
                     expr.deleteCharAt(currLength);
                 }
                 helper(s, expr, ind + 1, removed + 1, leftCount, rightCount); //remove
-            }else{ //Case 3: Everything else - add
+            }else{  //Case 3: Everything else - add 
                 expr.append(c);
-                helper(s, expr, ind + 1, removed, leftCount, rightCount);
+                helper(s, expr, ind + 1, removed, leftCount, rightCount); //add
                 expr.deleteCharAt(currLength);
             }
-            
-            
         }
     }
 }
