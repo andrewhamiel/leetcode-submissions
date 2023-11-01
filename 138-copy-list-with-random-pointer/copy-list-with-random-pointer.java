@@ -16,21 +16,22 @@ class Node {
 class Solution {
     public Node copyRandomList(Node head) {
         if(head == null) return null;
-        //First, link old/new together. A -> A' -> B -> B' ->C ->C'
         Node curr = head;
         while(curr != null){
-            Node new_ptr = new Node(curr.val);
-            new_ptr.next = curr.next;
-            curr.next = new_ptr;
-            curr = new_ptr.next;
+            Node newPtr = new Node(curr.val);
+            newPtr.next = curr.next;
+            curr.next = newPtr;
+            curr = newPtr.next;
         }
-        //Set randoms
+
         curr = head;
+        //interweave
         while(curr != null){
             curr.next.random = curr.random != null ? curr.random.next : null;
             curr = curr.next.next;
         }
-        //Unweave
+
+        //outerweave
         Node new_head = head.next, oldPtr = head, newPtr = head.next;
         while(oldPtr != null){
             oldPtr.next = oldPtr.next.next;
