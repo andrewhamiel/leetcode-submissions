@@ -25,14 +25,16 @@ class Solution {
                 helper(s, expr, ind + 1, removed, leftCount + 1, rightCount); //add
                 expr.deleteCharAt(currLength);
                 helper(s, expr, ind + 1, removed + 1, leftCount, rightCount); //remove
-            }else if(c == ')'){ //Case 2: ')' - try adding if leftCount > rightCount, try deleting regardless
+            }else if(c == ')'){
+                //Case 2: ')' - try adding if leftCount > rightCount, try removing
                 if(leftCount > rightCount){
                     expr.append(c);
                     helper(s, expr, ind + 1, removed, leftCount, rightCount + 1); //add
                     expr.deleteCharAt(currLength);
                 }
                 helper(s, expr, ind + 1, removed + 1, leftCount, rightCount); //remove
-            }else{  //Case 3: Everything else - add 
+            }else{
+                //Case 3: Everything else - try adding
                 expr.append(c);
                 helper(s, expr, ind + 1, removed, leftCount, rightCount); //add
                 expr.deleteCharAt(currLength);
