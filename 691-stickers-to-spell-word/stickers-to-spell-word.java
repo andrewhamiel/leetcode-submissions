@@ -18,11 +18,11 @@ class Solution {
         int minStickers = 0;
         StringBuilder remainingTarget = new StringBuilder();
         if(currSticker != null){
-            for(int i = 0; i < target.length(); i++){
-                if(currSticker[target.charAt(i) - 'a'] > 0){
-                    currSticker[target.charAt(i) - 'a']--;
+            for(Character c : target.toCharArray()){
+                if(currSticker[c - 'a'] > 0){
+                    currSticker[c - 'a']--;
                     minStickers = 1;
-                }else remainingTarget.append(target.charAt(i));
+                }else remainingTarget.append(c);
             }
         }else remainingTarget = new StringBuilder(target);
 
@@ -35,7 +35,6 @@ class Solution {
             }
             memo.put(remainingTarget.toString(), minAdditional);
             minStickers = minAdditional == Integer.MAX_VALUE ? Integer.MAX_VALUE : minStickers + minAdditional;
-
         }
         return minStickers;
     }
