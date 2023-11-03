@@ -39,6 +39,6 @@ class Solution {
         int right = getIslandSize(i, j+1, grid, islandId);
         int up = getIslandSize(i-1, j, grid, islandId);
         int down = getIslandSize(i+1, j, grid, islandId);
-        return 1 + left + right + up + down;
+        return left + right + up + down + 1;
     }
 }
