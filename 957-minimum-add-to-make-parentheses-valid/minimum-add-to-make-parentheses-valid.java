@@ -1,13 +1,13 @@
 class Solution {
     public int minAddToMakeValid(String s) {
-        Deque<Character> stack = new ArrayDeque<>();
-        int count = 0;
+        int count = 0, leftCount = 0;
         for(Character c : s.toCharArray()){
-            if(c == ')'){
-                if(stack.isEmpty()) count++;
-                else stack.removeFirst();
-            }else if(c == '(') stack.push(c);
+            if(c == '(') leftCount++;
+            else if(c == ')'){
+                if(leftCount <= 0) count++;
+                else leftCount--;
+            }
         }
-        return count + stack.size();
+        return count + leftCount;
     }
 }
