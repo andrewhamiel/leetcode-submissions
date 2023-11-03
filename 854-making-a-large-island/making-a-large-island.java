@@ -1,85 +1,45 @@
 class Solution {
-    class DSU {
-        int[] parent;
-        int[] size;
-
-        public DSU(int size) {
-            this.size = new int[size];
-            parent = new int[size];
-            for (int i = 0; i < size; i++) {
-                parent[i] = i;
-                this.size[i] = 1;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x)
-                parent[x] = find(parent[x]);
-            return parent[x];
-        }
-
-        // Union By Size
-
-        public boolean union(int x, int y) {
-            int xr = find(x), yr = find(y);
-            if (xr == yr) {
-                return false;
-            } else if (size[xr] < size[yr]) {
-                parent[xr] = yr;
-                size[yr] += size[xr];
-            }
-           else {
-                parent[yr] = xr;
-                size[xr] += size[yr];
-            }
-            return true;
-        }
-    }
-
-    private int[][] drc = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    private int[][] dirs = new int[][]{{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 
     public int largestIsland(int[][] grid) {
-        int n = grid.length;
-        DSU dsu = new DSU(n*n);
+        int maxSize = 0, islandId = 2;
+        Map<Integer, Integer> islandSizes = new HashMap<>();
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 0)
-                    continue;
-                
-                for (int[] d : drc){
-                    int r = d[0] + i, c = d[1] + j;
-                    if (r >= 0 && r < n && c >= 0 && c < n && grid[r][c] == 1){
-                        dsu.union(i*n + j, r*n + c);
-                    }
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
+                if(grid[i][j] == 1){
+                    int size = getIslandSize(i, j, grid, islandId);
+                    islandSizes.put(islandId++, size);
+                    maxSize = Math.max(maxSize, size);
                 }
             }
         }
-        int maxSize = 0;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 1){
-                    maxSize = Math.max(maxSize, dsu.size[dsu.find(i*n + j)]);
-                    continue;
-                }
-                int[][] drc = {{1,0}, {-1,0}, {0,1}, {0,-1}};
-                HashSet<Integer> visited = new HashSet<>();
-                int currSize = 0;
-                for (int[] d : drc){
-                    int r = d[0] + i, c = d[1] + j;
-                    boolean rbound = 0 <= r && r < n;
-                    boolean cbound = 0 <= c && c < n;
-
-                    if (rbound && cbound && grid[r][c] == 1 && !visited.contains(dsu.find(r*n + c))){
-                        visited.add(dsu.find(r*n + c));
-                        currSize += dsu.size[dsu.parent[r*n + c]];
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
+                if(grid[i][j] == 0){
+                    Set<Integer> nums = new HashSet<>();
+                    int sum = 1;
+                    for(int[] dir : dirs){
+                        int newRow = i + dir[0], newCol = j + dir[1];
+                        if(newRow >= 0 && newRow < grid.length && newCol >= 0 && newCol < grid[0].length
+                            && grid[newRow][newCol] != 0) nums.add(grid[newRow][newCol]);
                     }
+                    for(int num : nums) sum+= islandSizes.get(num);
+                    maxSize = Math.max(maxSize, sum);
                 }
-                maxSize = Math.max(maxSize, currSize + 1);
             }
         }
+        return maxSize;    
+    }
 
-        return maxSize;
-    }    
+    private int getIslandSize(int i, int j, int[][] grid, int islandId){
+        if(i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] != 1) return 0;
+        grid[i][j] = islandId;
+        int left = getIslandSize(i, j-1, grid, islandId);
+        int right = getIslandSize(i, j+1, grid, islandId);
+        int up = getIslandSize(i-1, j, grid, islandId);
+        int down = getIslandSize(i+1, j, grid, islandId);
+        return 1 + left + right + up + down;
+    }
 }
