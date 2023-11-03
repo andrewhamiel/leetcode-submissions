@@ -4,7 +4,6 @@ class Solution {
     public int largestIsland(int[][] grid) {
         int maxSize = 0, islandId = 2;
         Map<Integer, Integer> islandSizes = new HashMap<>();
-
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
                 if(grid[i][j] == 1){
@@ -19,18 +18,18 @@ class Solution {
             for(int j = 0; j < grid[0].length; j++){
                 if(grid[i][j] == 0){
                     Set<Integer> nums = new HashSet<>();
-                    int sum = 1;
                     for(int[] dir : dirs){
                         int newRow = i + dir[0], newCol = j + dir[1];
                         if(newRow >= 0 && newRow < grid.length && newCol >= 0 && newCol < grid[0].length
                             && grid[newRow][newCol] != 0) nums.add(grid[newRow][newCol]);
                     }
+                    int sum = 1;
                     for(int num : nums) sum+= islandSizes.get(num);
                     maxSize = Math.max(maxSize, sum);
                 }
             }
         }
-        return maxSize;    
+        return maxSize;
     }
 
     private int getIslandSize(int i, int j, int[][] grid, int islandId){
