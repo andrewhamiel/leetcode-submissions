@@ -33,11 +33,11 @@ class Solution {
       for(int i = 0; i < 4; i++){
         int newDir = (dir + i) % 4;
         int newRow = row + dirs[newDir][0], newCol = col + dirs[newDir][1];
-        if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()) {
+        if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()){
           backtrack(newRow, newCol, newDir);
           goBack();
         }
-        //turn robot following chosen direciton: clockwise
+        //turn clockwise
         robot.turnRight();
       }
     }
