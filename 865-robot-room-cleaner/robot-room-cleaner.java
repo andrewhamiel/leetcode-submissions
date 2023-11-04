@@ -17,9 +17,9 @@
  */
 
 class Solution {
-    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //up/right/down/left
-    Set<Pair<Integer, Integer>> visited = new HashSet<>();
-    Robot robot;
+    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; 
+    private Set<Pair<Integer, Integer>> visited = new HashSet<>();
+    private Robot robot;
 
     public void cleanRoom(Robot robot) {
         this.robot = robot;
@@ -36,7 +36,8 @@ class Solution {
                 backtrack(newRow, newCol, newDir);
                 goBack();
             }
-            //turn clockwise
+
+            //clockwise
             robot.turnRight();
         }
     }
