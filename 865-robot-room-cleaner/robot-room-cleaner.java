@@ -17,10 +17,10 @@
  */
 
 class Solution {
-    //right-hand rule
-    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //up/right/down/left
-    private Set<Pair<Integer, Integer>> visited = new HashSet<>();
-    private Robot robot;
+  //right-hand rule
+  private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //up/down/left/right
+  private Set<Pair<Integer, Integer>> visited = new HashSet<>();
+  private Robot robot;
 
     public void cleanRoom(Robot robot) {
         this.robot = robot;
@@ -37,7 +37,7 @@ class Solution {
           backtrack(newRow, newCol, newDir);
           goBack();
         }
-        //turn clockwise
+        //go clockwise
         robot.turnRight();
       }
     }
