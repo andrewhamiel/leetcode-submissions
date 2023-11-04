@@ -17,14 +17,13 @@
  */
 
 class Solution {
-    //right hand rule
-    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-    private Set<Pair<Integer, Integer>> visited = new HashSet<>();
-    private Robot robot;
+    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //up/right/down/left
+    Set<Pair<Integer, Integer>> visited = new HashSet<>();
+    Robot robot;
 
     public void cleanRoom(Robot robot) {
         this.robot = robot;
-        backtrack(0, 0, 0);        
+        backtrack(0, 0, 0);
     }
 
     private void backtrack(int row, int col, int dir){
@@ -32,12 +31,12 @@ class Solution {
         robot.clean();
         for(int i = 0; i < 4; i++){
             int newDir = (dir + i) % 4;
-            int newRow = dirs[newDir][0] + row, newCol = dirs[newDir][1] + col;
+            int newRow = row + dirs[newDir][0], newCol = col + dirs[newDir][1];
             if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()){
                 backtrack(newRow, newCol, newDir);
                 goBack();
             }
-            //clockwise
+            //turn clockwise
             robot.turnRight();
         }
     }
