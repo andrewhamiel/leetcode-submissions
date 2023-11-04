@@ -31,10 +31,11 @@ class BSTIterator {
         TreeNode topmost = stack.removeFirst();
         if(topmost.right != null) leftmost(topmost.right);
         return topmost.val;
+        
     }
     
     public boolean hasNext() {
-        return stack.size() > 0;
+        return stack.size() > 0;    
     }
 }
 
