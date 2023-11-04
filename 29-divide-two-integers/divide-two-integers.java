@@ -1,5 +1,5 @@
 class Solution {
-    private static int HALF_INT_MIN = -1073741824;
+        private static int HALF_INT_MIN = -1073741824;
 
     public int divide(int dividend, int divisor) {
         if(dividend == Integer.MIN_VALUE && divisor == -1) return Integer.MAX_VALUE;
