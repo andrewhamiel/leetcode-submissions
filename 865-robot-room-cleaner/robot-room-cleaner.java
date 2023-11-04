@@ -17,36 +17,36 @@
  */
 
 class Solution {
-  //right-hand rule
-  private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //up/down/left/right
-  private Set<Pair<Integer, Integer>> visited = new HashSet<>();
-  private Robot robot;
+    //right hand rule
+    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    private Set<Pair<Integer, Integer>> visited = new HashSet<>();
+    private Robot robot;
 
     public void cleanRoom(Robot robot) {
         this.robot = robot;
-        backtrack(0, 0, 0);
+        backtrack(0, 0, 0);        
     }
 
     private void backtrack(int row, int col, int dir){
-      visited.add(new Pair<>(row, col));
-      robot.clean();
-      for(int i = 0; i < 4; i++){
-        int newDir = (dir + i) % 4;
-        int newRow = row + dirs[newDir][0], newCol = col + dirs[newDir][1];
-        if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()){
-          backtrack(newRow, newCol, newDir);
-          goBack();
+        visited.add(new Pair<>(row, col));
+        robot.clean();
+        for(int i = 0; i < 4; i++){
+            int newDir = (dir + i) % 4;
+            int newRow = dirs[newDir][0] + row, newCol = dirs[newDir][1] + col;
+            if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()){
+                backtrack(newRow, newCol, newDir);
+                goBack();
+            }
+            //clockwise
+            robot.turnRight();
         }
-        //go clockwise
-        robot.turnRight();
-      }
     }
 
     private void goBack(){
-      robot.turnRight();
-      robot.turnRight();
-      robot.move();
-      robot.turnRight();
-      robot.turnRight();
+        robot.turnRight();
+        robot.turnRight();
+        robot.move();
+        robot.turnRight();
+        robot.turnRight();
     }
 }
