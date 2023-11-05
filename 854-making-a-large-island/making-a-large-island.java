@@ -1,9 +1,9 @@
 class Solution {
     private int[][] dirs = new int[][]{{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+    private Map<Integer, Integer> islandSizes = new HashMap<>();
 
     public int largestIsland(int[][] grid) {
         int islandId = 2, maxIslandSize = 0;
-        Map<Integer, Integer> islandSizes = new HashMap<>();
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
                 if(grid[i][j] == 1){
@@ -20,9 +20,7 @@ class Solution {
                     Set<Integer> nums = new HashSet<>();
                     for(int[] dir : dirs){
                         int row = i + dir[0], col = j + dir[1];
-                        if(row >= 0 && row < grid.length && col >= 0 && col < grid[0].length && grid[row][col] != 0){
-                            nums.add(grid[row][col]);
-                        }
+                        if(row >= 0 && row < grid.length && col >= 0 && col < grid[0].length && grid[row][col] != 0) nums.add(grid[row][col]);
                     }
                     int sum = 1;
                     for(int num : nums) sum+= islandSizes.get(num);
