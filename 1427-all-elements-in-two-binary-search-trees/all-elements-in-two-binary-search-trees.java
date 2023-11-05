@@ -27,7 +27,6 @@ class Solution {
             stack2.addFirst(root2);
             root2 = root2.left;
           }
-
           if(stack2.isEmpty() || !stack1.isEmpty() && stack1.peekFirst().val <= stack2.peekFirst().val){
             root1 = stack1.removeFirst();
             output.add(root1.val);
