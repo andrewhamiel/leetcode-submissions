@@ -1,5 +1,5 @@
 class Solution {
-    //4 Cases:
+    //4 Cases
     //1. Digit
     //2. Exponent
     //3. Sign
@@ -10,7 +10,7 @@ class Solution {
             Character c = s.charAt(i);
             if(Character.isDigit(c)) isDigit = true;
             else if(c == 'e' || c == 'E'){
-                if(i == 0 || !isDigit || isExponent) return false;
+                if(i == 0 || isExponent || !isDigit) return false;
                 isExponent = true;
                 isDigit = false;
             }else if(c == '+' || c == '-'){
@@ -20,7 +20,6 @@ class Solution {
             }else if(c == '.'){
                 if(isDot || isExponent) return false;
                 isDot = true;
-
             }else return false;
         }
         return isDigit;
