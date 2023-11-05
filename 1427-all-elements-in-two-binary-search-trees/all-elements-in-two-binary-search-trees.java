@@ -15,66 +15,62 @@
  */
 class Solution {
     public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
-        TreeNode current1 = root1, current2 = root2;
+        TreeNode curr1 = root1, curr2 = root2;
         List<Integer> result = new ArrayList<>();
+        while(curr1 != null && curr2 != null){
+          //Setup temp cycle for curr1/curr2
+          while(curr1.left != null){
+            TreeNode tmp = curr1.left;
+            while(tmp.right != null && tmp.right != curr1) tmp = tmp.right;
 
-        while(current1 != null && current2 != null){
-          //Get predecessor for current1 and current2
-          while(current1.left != null){
-            TreeNode predecessor = current1.left;
-            while(predecessor.right != null && predecessor.right != current1) predecessor = predecessor.right;
-
-            if(predecessor.right == null){
-              predecessor.right = current1;
-              current1 = current1.left;
-            }else break;
+            if(tmp.right == null){
+              tmp.right = curr1;
+              curr1 = curr1.left;
+            }else break; //connection already established
           }
-          while(current2.left != null){
-            TreeNode predecessor = current2.left;
-            while(predecessor.right != null && predecessor.right != current2) predecessor = predecessor.right;
+          while(curr2.left != null){
+            TreeNode tmp = curr2.left;
+            while(tmp.right != null && tmp.right != curr2) tmp = tmp.right;
 
-            if(predecessor.right == null){
-              predecessor.right = current2;
-              current2 = current2.left;
+            if(tmp.right == null){
+              tmp.right = curr2;
+              curr2 = curr2.left;
             }else break;
           }
 
           //Compare
-          if(current1.val <= current2.val){
-            result.add(current1.val);
-            current1 = current1.right;
+          if(curr1.val <= curr2.val){
+            result.add(curr1.val);
+            curr1 = curr1.right;
           }else{
-            result.add(current2.val);
-            current2 = current2.right;
+            result.add(curr2.val);
+            curr2 = curr2.right;
           }
         }
-
-        //Handle any remaining nodes if one not null
-        inorderTraversalUsingMorris(current1, result);
-        inorderTraversalUsingMorris(current2, result);
-
+        //Any remaining nodes if one tree larger
+        inorderTraversalUsingMorris(curr1, result);
+        inorderTraversalUsingMorris(curr2, result);
         return result;
     }
 
     private void inorderTraversalUsingMorris(TreeNode root, List<Integer> result){
-      TreeNode current = root;
-      while(current != null){
-        //Find predecessor
-        if(current.left != null){
-          TreeNode predecessor = current.left;
-          while(predecessor.right != null && predecessor.right != current) predecessor = predecessor.right;
+      TreeNode curr = root;
+      while(curr != null){
+        if(curr.left != null){
+          TreeNode tmp = curr.left;
+          while(tmp.right != null && tmp.right != curr) tmp = tmp.right;
 
-          if(predecessor.right == null){
-            predecessor.right = current;
-            current = current.left;
+          if(tmp.right == null){
+            tmp.right = curr;
+            curr = curr.left;
           }else{
-            predecessor.right = null;
-            result.add(current.val);
-            current = current.right;
+            tmp.right = null;
+            result.add(curr.val);
+            curr = curr.right;
           }
         }else{
-          result.add(current.val);
-          current = current.right;
+          result.add(curr.val);
+          curr = curr.right;
         }
       }
     }
