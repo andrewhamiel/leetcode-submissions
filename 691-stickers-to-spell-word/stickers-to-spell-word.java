@@ -8,21 +8,21 @@ class Solution {
             for(Character c : sticker.toCharArray()) freq[c - 'a']++;
             freqs.add(freq);
         }
-        int ans = helper(target, null);
-        return ans == Integer.MAX_VALUE ? -1 : ans;
+        int minStickers = helper(target, null);
+        return minStickers == Integer.MAX_VALUE ? -1 : minStickers;
     }
 
     private int helper(String target, int[] currSticker){
-        if(target.length() == 0) return 0;
         if(memo.containsKey(target)) return memo.get(target);
-        int minStickers = 0;
         StringBuilder remainingTarget = new StringBuilder();
+        int minStickers = 0;
         if(currSticker != null){
             for(Character c : target.toCharArray()){
-                if(currSticker[c - 'a'] > 0){
+                if(currSticker[c - 'a'] > 0) {
                     currSticker[c - 'a']--;
                     minStickers = 1;
-                }else remainingTarget.append(c);
+                }
+                else remainingTarget.append(c);
             }
         }else remainingTarget = new StringBuilder(target);
 
@@ -34,7 +34,7 @@ class Solution {
                 }
             }
             memo.put(remainingTarget.toString(), minAdditional);
-            minStickers = minAdditional == Integer.MAX_VALUE ? Integer.MAX_VALUE : minStickers + minAdditional;
+            minStickers = minAdditional == Integer.MAX_VALUE ? minAdditional : minStickers + minAdditional;
         }
         return minStickers;
     }
