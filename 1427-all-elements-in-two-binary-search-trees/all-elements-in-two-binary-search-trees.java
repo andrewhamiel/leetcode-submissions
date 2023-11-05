@@ -17,7 +17,7 @@ class Solution {
     public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
         Deque<TreeNode> stack1 = new ArrayDeque<>(), stack2 = new ArrayDeque<>();
         List<Integer> output = new ArrayList<>();
-
+        
         while(root1 != null || root2 != null || !stack1.isEmpty() || !stack2.isEmpty()){
           while(root1 != null){
             stack1.addFirst(root1);
