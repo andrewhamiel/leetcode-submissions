@@ -37,6 +37,7 @@ class Solution {
     private void dfs(int node, boolean[] visited){
         visited[node] = true;
         if(!adj.containsKey(node)) return;
+
         for(int component : adj.get(node)){
             if(!visited[component]){
                 visited[component] = true;
