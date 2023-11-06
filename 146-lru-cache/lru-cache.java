@@ -1,12 +1,13 @@
 class LRUCache {
     class Node {
-        Node prev;
         Node next;
+        Node prev;
         int key;
         int value;
     }
 
-    Node head, tail;
+    Node head;
+    Node tail;
     Map<Integer, Node> cache = new HashMap<>();
     int capacity = 0;
 
@@ -21,6 +22,7 @@ class LRUCache {
     private void add(Node node){
         node.next = head.next;
         node.prev = head;
+        
         head.next.prev = node;
         head.next = node;
     }
