@@ -21,7 +21,6 @@ class LRUCache {
     private void add(Node node){
         node.next = head.next;
         node.prev = head;
-        
         head.next.prev = node;
         head.next = node;
     }
@@ -52,7 +51,11 @@ class LRUCache {
     }
     
     public void put(int key, int value) {
-        if(!cache.containsKey(key)){
+        if(cache.containsKey(key)){
+            Node node = cache.get(key);
+            node.value = value;
+            moveToFront(node);
+        }else{
             Node node = new Node();
             node.key = key;
             node.value = value;
@@ -62,10 +65,6 @@ class LRUCache {
                 Node poppedTail = popTail();
                 cache.remove(poppedTail.key);
             }
-        }else{
-            Node node = cache.get(key);
-            node.value = value;
-            moveToFront(node);
         }
     }
 }
