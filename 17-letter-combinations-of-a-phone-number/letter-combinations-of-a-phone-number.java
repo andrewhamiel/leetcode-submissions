@@ -31,7 +31,7 @@ class Solution {
         for(int i = 2; i <= 9; i++){
             List<Character> list = new ArrayList<>();
             for(int j = 0; j < 3; j++) list.add(c++);
-            if(i == 7 || i ==9) list.add(c++);
+            if(i == 7 || i == 9) list.add(c++);
             map.put(i, list);
         }
         return map;
