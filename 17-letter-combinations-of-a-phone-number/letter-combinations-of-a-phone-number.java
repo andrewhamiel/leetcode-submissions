@@ -1,8 +1,8 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
         if(digits == null || digits.length() == 0) return new ArrayList<>();
-        List<String> result = new ArrayList<>();
         Map<Integer, List<Character>> map = populateMap();
+        List<String> result = new ArrayList<>();
         dfs(0, digits.toCharArray(), result, map);
         return result;
     }
@@ -14,14 +14,14 @@ class Solution {
         }
 
         for(int i = start; i < digits.length; i++){
-            Character c = digits[i];
+            char c = digits[i];
             if(Character.isDigit(c)){
-                for(Character digit : map.get((int)(c - '0'))){
-                    digits[i] = digit;
+                for(Character letter : map.get((int)(c - '0'))){
+                    digits[i] = letter;
                     dfs(start+1, digits, result, map);
                 }
+                digits[i] = c;
             }
-            digits[i] = c;
         }
     }
 
