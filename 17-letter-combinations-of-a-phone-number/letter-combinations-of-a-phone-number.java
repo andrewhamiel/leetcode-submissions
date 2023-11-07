@@ -1,8 +1,8 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
         if(digits == null || digits.length() == 0) return new ArrayList<>();
-        Map<Integer, List<Character>> map = populateMap();
         List<String> result = new ArrayList<>();
+        Map<Integer, List<Character>> map = populateMap();
         dfs(0, digits.toCharArray(), result, map);
         return result;
     }
