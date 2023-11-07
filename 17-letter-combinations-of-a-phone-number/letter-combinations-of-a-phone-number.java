@@ -1,8 +1,7 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
         if(digits == null || digits.isEmpty()) return new ArrayList<>();
-        Map<Integer, List<Character>> map = new HashMap<>();
-        populateMap(map);
+        Map<Integer, List<Character>> map = populateMap();
         List<String> result = new ArrayList<>();
         dfs(0, digits.toCharArray(), result, map);
         return result;
@@ -26,7 +25,8 @@ class Solution {
         }
     }
 
-    private void populateMap(Map<Integer, List<Character>> map){
+    private Map<Integer, List<Character>> populateMap(){
+        Map<Integer, List<Character>> map = new HashMap<>();
         char c = 'a';
         for(int i = 2; i <= 9; i++){
             List<Character> list = new ArrayList<>();
@@ -34,5 +34,6 @@ class Solution {
             if(i == 7 || i == 9) list.add(c++);
             map.put(i, list);
         }
+        return map;
     }
 }
