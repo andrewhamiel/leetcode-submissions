@@ -1,7 +1,7 @@
 class Solution {
     public void nextPermutation(int[] nums) {
         int i = nums.length - 2;
-        while(i >= 0 && nums[i] >= nums[i+1]) i--;
+        while(i>= 0 && nums[i] >= nums[i+1]) i--;
         if(i >= 0){
             int j = nums.length - 1;
             while(j >= 0 && nums[j] <= nums[i]) j--;
@@ -15,7 +15,7 @@ class Solution {
         nums[i] = nums[j];
         nums[j] = tmp;
     }
-
+    
     private void reverse(int i, int[] nums){
         int j = nums.length - 1;
         while(i < j) swap(i++, j--, nums);
