@@ -23,12 +23,13 @@ class Solution {
 
     private void preorder(TreeNode root, int curr){
         if(root == null) return;
+
         curr*= 10;
         curr+= root.val;
 
-        //leaf node
+        //Leaf node
         if(root.left == null && root.right == null) rootToLeaf+= curr;
-        
+
         preorder(root.left, curr);
         preorder(root.right, curr);
     }
