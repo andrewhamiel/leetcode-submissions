@@ -1,32 +1,33 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
-    private List<Integer> rightside = new ArrayList<>();
-
     public List<Integer> rightSideView(TreeNode root) {
-        if(root == null) return rightside;
+        if (root == null) return new ArrayList<Integer>();
+        
+        Queue<TreeNode> q = new LinkedList(){{ offer(root); offer(null); }};
+        TreeNode prev, curr = root;
+        List<Integer> rightside = new ArrayList();
+        
+        while (!q.isEmpty()) {
+            prev = curr;
+            curr = q.poll();
 
-        helper(root, 0);
-        return rightside; 
-    }
+            while (curr != null) {
+                // add child nodes in the queue
+                if (curr.left != null) q.offer(curr.left);    
 
-    private void helper(TreeNode root, int level){
-        if(level == rightside.size())rightside.add(root.val);
+                if (curr.right != null) q.offer(curr.right);
+                
+                prev = curr;
+                curr = q.poll();
+            }      
 
-        if(root.right != null) helper(root.right, level + 1);
-        if(root.left != null) helper(root.left, level + 1);
+            // the current level is finished
+            // and prev is its rightmost element
+            rightside.add(prev.val);
+            // add a sentinel to mark the end
+            // of the next level
+            if (!q.isEmpty())
+                q.offer(null);
+        }
+        return rightside;
     }
 }
