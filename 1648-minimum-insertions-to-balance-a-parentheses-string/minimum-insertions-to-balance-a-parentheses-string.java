@@ -4,8 +4,8 @@ class Solution {
         for(Character c : s.toCharArray()){
             if(c == '('){
                 if(rightCount % 2 > 0){
-                    rightCount--;
                     result++;
+                    rightCount--;
                 }
                 rightCount+= 2;
             }else{
@@ -16,6 +16,6 @@ class Solution {
                 }
             }
         }
-        return result + rightCount;
+        return rightCount + result;
     }
 }
