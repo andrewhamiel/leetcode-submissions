@@ -18,14 +18,13 @@ class Solution {
 
     public int averageOfSubtree(TreeNode root) {
         postorder(root);
-        return count;
+        return count;    
     }
 
     private Pair<Integer, Integer> postorder(TreeNode root){
         if(root == null) return new Pair<>(0, 0);
 
-        Pair<Integer, Integer> left = postorder(root.left);
-        Pair<Integer, Integer> right = postorder(root.right);
+        Pair<Integer, Integer> left = postorder(root.left), right = postorder(root.right);
 
         int sum = left.getKey() + right.getKey() + root.val;
         int numNodes = left.getValue() + right.getValue() + 1;
