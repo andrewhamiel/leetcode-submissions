@@ -1,7 +1,7 @@
 class Solution {
     public int[] findDiagonalOrder(List<List<Integer>> nums) {
         Queue<Pair<Integer, Integer>> q = new LinkedList<>();
-        q.add(new Pair(0, 0));
+        q.add(new Pair<>(0, 0));
         List<Integer> ans = new ArrayList<>();
 
         while(!q.isEmpty()){
