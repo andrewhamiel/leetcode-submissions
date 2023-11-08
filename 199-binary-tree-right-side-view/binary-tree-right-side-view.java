@@ -18,11 +18,10 @@ class Solution {
         if(root == null) return new ArrayList<>();
 
         Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        q.add(null);
-        TreeNode curr = root, prev;
+        q.add(root);q.add(null);
+        TreeNode curr = root, prev = null;
         List<Integer> rightside = new ArrayList<>();
-
+        
         while(!q.isEmpty()){
             prev = curr;
             curr = q.poll();
