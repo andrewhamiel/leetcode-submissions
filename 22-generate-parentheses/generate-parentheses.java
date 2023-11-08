@@ -1,29 +1,28 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
-        if(n == 0) return new ArrayList();
-        
-        List<String> result = new ArrayList();
+        if(n == 0) return new ArrayList<>();
+
+        List<String> result = new ArrayList<>();
         dfs(n, n, new StringBuilder(), result, 0);
         return result;
     }
-    
-    private void dfs(int left, int right, StringBuilder sb, List<String> result, int start){
-        if(left == 0 && right == 0){
-            result.add(sb.toString());           
+
+    private void dfs(int leftCount, int rightCount, StringBuilder sb, List<String> result, int start){
+        if(leftCount == 0 && rightCount == 0){
+            result.add(sb.toString());
             return;
         }
 
         int currLength = sb.length();
-        if(left > 0) {
+        if(leftCount > 0){
             sb.append("(");
-            dfs(left-1, right, sb, result, start + 1);
-            sb.deleteCharAt(currLength); 
-        } 
-        if(right > left){
+            dfs(leftCount - 1, rightCount, sb, result, start + 1);
+            sb.deleteCharAt(currLength);
+        }
+        if(rightCount > leftCount){
             sb.append(")");
-            dfs(left, right - 1, sb, result, start + 1);
-            sb.deleteCharAt(currLength); 
-        }        
+            dfs(leftCount, rightCount - 1, sb, result, start + 1);
+            sb.deleteCharAt(currLength);
+        }
     }
-
 }
