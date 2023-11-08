@@ -20,6 +20,7 @@ class Solution {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         boolean nullNodeFound = false;
+
         while(!q.isEmpty()){
             TreeNode curr = q.poll();
             if(curr == null) nullNodeFound = true;
