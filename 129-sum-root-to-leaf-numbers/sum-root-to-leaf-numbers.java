@@ -25,6 +25,7 @@ class Solution {
         if(root == null) return;
         curr*= 10;
         curr+= root.val;
+
         //leaf node
         if(root.left == null && root.right == null) rootToLeaf+= curr;
         
