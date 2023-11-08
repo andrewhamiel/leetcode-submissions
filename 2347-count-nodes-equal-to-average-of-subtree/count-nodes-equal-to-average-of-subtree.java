@@ -24,7 +24,7 @@ class Solution {
     private Pair<Integer, Integer> postorder(TreeNode root){
         if(root == null) return new Pair<>(0, 0);
 
-        Pair<Integer, Integer> left= postorder(root.left);
+        Pair<Integer, Integer> left = postorder(root.left);
         Pair<Integer, Integer> right = postorder(root.right);
 
         int sum = left.getKey() + right.getKey() + root.val;
