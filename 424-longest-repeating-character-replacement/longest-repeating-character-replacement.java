@@ -1,6 +1,6 @@
 class Solution {
     public int characterReplacement(String s, int k) {
-        if(s.length() == 1) return 1;
+        if(s.length() == 0) return 1;
         int[] count = new int[26];
 
         int left = 0, maxCount = 0, result = 0;
