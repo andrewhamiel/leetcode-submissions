@@ -7,7 +7,7 @@ class Solution {
             else if(matrix[mid][0] < target) left = mid + 1;
             else right = mid - 1;
         }
-        
+
         int row = left == 0 ? 0 : left - 1;
         left = 0; right = matrix[0].length - 1;
         while(left <= right){
