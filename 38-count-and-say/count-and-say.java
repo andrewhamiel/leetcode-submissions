@@ -17,7 +17,7 @@ class Solution {
             else{
                 sb.append(count);
                 sb.append(c);
-                
+
                 count = 1;
                 c = s.charAt(i);
             }
