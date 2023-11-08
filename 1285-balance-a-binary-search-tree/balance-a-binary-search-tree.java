@@ -15,10 +15,11 @@
  */
 class Solution {
     public TreeNode balanceBST(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
         if(root == null) return root;
 
+        List<Integer> list = new ArrayList<>();
         inorder(root, list);
+
         TreeNode ans = balance(0, list.size() - 1, list);
         return ans;
     }
@@ -35,8 +36,8 @@ class Solution {
 
       int mid = left + (right - left)/2;
       TreeNode root = new TreeNode(list.get(mid));
-      root.left = balance(left, mid-1, list);
-      root.right = balance(mid+1, right, list);
+      root.left = balance(left, mid - 1, list);
+      root.right = balance(mid + 1, right, list);
       return root;
     }
 }
