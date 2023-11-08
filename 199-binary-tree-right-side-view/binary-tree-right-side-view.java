@@ -26,7 +26,6 @@ class Solution {
         while(!q.isEmpty()){
             prev = curr;
             curr = q.poll();
-
             while(curr != null){
                 if(curr.left != null) q.add(curr.left);
                 if(curr.right != null) q.add(curr.right);
@@ -36,7 +35,7 @@ class Solution {
             }
 
             rightside.add(prev.val);
-            if(!q.isEmpty()) q.offer(null);
+            if(!q.isEmpty()) q.add(null);
         }
         return rightside;
     }
