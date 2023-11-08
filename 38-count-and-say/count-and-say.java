@@ -15,13 +15,15 @@ class Solution {
         for(int i = 0; i < s.length(); i++){
             if(s.charAt(i) == c) count++;
             else{
-                sb.append(count).append(c);
+                sb.append(count);
+                sb.append(c);
 
                 count = 1;
                 c = s.charAt(i);
             }
         }
-        sb.append(count).append(c);
+        sb.append(count);
+        sb.append(c);
         return sb.toString();
     }
 }
