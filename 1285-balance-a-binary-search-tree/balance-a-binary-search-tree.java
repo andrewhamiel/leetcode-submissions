@@ -15,7 +15,7 @@
  */
 class Solution {
     public TreeNode balanceBST(TreeNode root) {
-        if(root == null) return null;
+        if(root == null) return root;
 
         List<Integer> list = new ArrayList<>();
         inorder(root, list);
