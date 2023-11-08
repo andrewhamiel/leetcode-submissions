@@ -32,7 +32,6 @@ class Solution {
                 prev = curr;
                 curr = q.poll();
             }
-
             rightside.add(prev.val);
             if(!q.isEmpty()) q.add(null);
         }
