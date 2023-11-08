@@ -8,7 +8,7 @@ class Solution {
         if(n == 1) return "1";
 
         StringBuilder sb = new StringBuilder();
-        String s = dp(n-1);
+        String s = dp(n - 1);
         int count = 0;
         char c = s.charAt(0);
 
@@ -22,11 +22,9 @@ class Solution {
                 c = s.charAt(i);
             }
 
-            if(i == s.length() - 1){
-                sb.append(count);
-                sb.append(c);
-            }
         }
+        sb.append(count);
+        sb.append(c);
         return sb.toString();
     }
 }
