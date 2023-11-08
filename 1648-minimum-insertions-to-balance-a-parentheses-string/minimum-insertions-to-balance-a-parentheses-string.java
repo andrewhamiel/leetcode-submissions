@@ -11,8 +11,8 @@ class Solution {
             }else{
                 rightCount--;
                 if(rightCount < 0){
-                    result++;
                     rightCount+= 2;
+                    result++;
                 }
             }
         }
