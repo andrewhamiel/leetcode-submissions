@@ -8,7 +8,7 @@ class Solution {
     }
 
     private void helper(int leftCount, int rightCount, StringBuilder sb, List<String> result, int start){
-        if(leftCount == 0 && rightCount == 0) {
+        if(leftCount == 0 && rightCount == 0){
             result.add(sb.toString());
             return;
         }
