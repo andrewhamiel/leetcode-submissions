@@ -27,7 +27,8 @@ class Solution {
             if(root != null){
                 curr*= 10;
                 curr+= root.val;
-                if(root.left == null && root.right == null) rootToLeaf+= curr; //Leaf node
+
+                if(root.left == null && root.right == null) rootToLeaf+= curr; //Leaf Node
                 else{
                     stack.addFirst(new Pair(root.right, curr));
                     stack.addFirst(new Pair(root.left, curr));
