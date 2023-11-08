@@ -1,20 +1,24 @@
 class Solution {
     public int[] findDiagonalOrder(List<List<Integer>> nums) {
-        Queue<Pair<Integer, Integer>> q = new LinkedList<>();
-        q.add(new Pair<>(0, 0));
-        List<Integer> ans = new ArrayList<>();
-
-        while(!q.isEmpty()){
-            Pair<Integer, Integer> p = q.poll();
-            int row = p.getKey(), col = p.getValue();
-            ans.add(nums.get(row).get(col));
-
-            if(col == 0 && row + 1 < nums.size()) q.add(new Pair<>(row + 1, col));
-            if(col + 1 < nums.get(row).size()) q.add(new Pair<>(row, col + 1));
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int total = 0;
+        for(int row = nums.size() - 1; row >= 0; row--){
+            for(int col = 0; col < nums.get(row).size(); col++){
+                int diagonal = row + col;
+                map.putIfAbsent(diagonal, new ArrayList<>());
+                map.get(diagonal).add(nums.get(row).get(col));
+                total++;
+            }
         }
 
-        int[] result = new int[ans.size()];
-        for(int i = 0; i < result.length; i++) result[i] = ans.get(i);
+        int[] result = new int[total];
+        int curr = 0, i = 0;
+        while(map.containsKey(curr)){
+            for(Integer num : map.get(curr)){
+                result[i++] = num; 
+            }
+            curr++;
+        }
         return result;
     }
 }
