@@ -18,7 +18,6 @@ class Solution {
 
     private void reverse(int i, int[] nums){
         int j = nums.length - 1;
-        while(i < j ) swap(i++, j--, nums);
-        
+        while(i < j) swap(i++, j--, nums);
     }
 }
