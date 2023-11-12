@@ -19,14 +19,14 @@ class BSTIterator {
     public BSTIterator(TreeNode root) {
         leftmost(root);
     }
-
+    
     private void leftmost(TreeNode root){
         while(root != null){
             stack.addFirst(root);
             root = root.left;
         }
     }
-    
+
     public int next() {
         TreeNode topmost = stack.removeFirst();
         if(topmost.right != null) leftmost(topmost.right);
