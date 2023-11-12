@@ -6,7 +6,7 @@ class RandomizedSet {
     public RandomizedSet() {
         map = new HashMap<>();
         list = new ArrayList<>();
-        rand = new Random();
+        rand = new Random();       
     }
     
     public boolean insert(int val) {
