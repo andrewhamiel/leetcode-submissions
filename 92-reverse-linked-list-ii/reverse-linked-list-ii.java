@@ -1,38 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        // Empty list
-        if (head == null) return null;
+        if(head == null) return null;
 
-        // Move the two pointers until they reach the proper starting point
-        // in the list.
-        ListNode cur = head, prev = null;
-        while (left > 1) {
-            prev = cur;
-            cur = cur.next;
+        ListNode curr = head, prev = null;
+        while(left > 1){
+            prev = curr;
+            curr = curr.next;
             left--;
             right--;
         }
 
-        // The two pointers that will fix the final connections.
-        ListNode con = prev, tail = cur;
-
-        // Iteratively reverse the nodes until n becomes 0.        
-        while (right > 0) {
-            ListNode tmp = cur.next;
-            cur.next = prev;
-            prev = cur;
-            cur = tmp;
+        ListNode connecting = prev, tail = curr;
+        while(right > 0){
+            ListNode tmp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = tmp;
             right--;
         }
 
-        // Adjust the final connections as explained in the algorithm
-        if (con != null) {
-            con.next = prev;
-        } else {
-            head = prev;
-        }
+        if(connecting != null) connecting.next = prev;
+        else head = prev;
 
-        tail.next = cur;
+        tail.next = curr;
         return head;
     }
 }
