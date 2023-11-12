@@ -10,23 +10,21 @@
  */
 class Solution {
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        if(head == null) return null;
+        if(head == null) return head;
 
         ListNode curr = head, prev = null;
-        while(left > 1){
+        while(left-- > 1){
             prev = curr;
             curr = curr.next;
-            left--;
             right--;
         }
 
         ListNode connecting = prev, tail = curr;
-        while(right > 0){
+        while(right-- > 0){
             ListNode tmp = curr.next;
             curr.next = prev;
             prev = curr;
             curr = tmp;
-            right--;
         }
 
         if(connecting != null) connecting.next = prev;
