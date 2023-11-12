@@ -3,6 +3,7 @@ class Solution {
         Set<List<Integer>> result = new HashSet<>();
         Set<Integer> dups = new HashSet<>();
         Map<Integer, Integer> seen = new HashMap<>();
+        
         for(int i = 0; i < nums.length; i++){
             if(dups.add(nums[i])){
                 for(int j = i + 1; j < nums.length; j++){
