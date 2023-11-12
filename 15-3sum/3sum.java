@@ -4,8 +4,7 @@ class Solution {
         Set<Integer> dups = new HashSet<>();
         Map<Integer, Integer> seen = new HashMap<>();
         for(int i = 0; i < nums.length; i++){
-            if(!dups.contains(nums[i])){
-                dups.add(nums[i]);
+            if(dups.add(nums[i])){
                 for(int j = i + 1; j < nums.length; j++){
                     int complement = -nums[i] - nums[j];
                     if(seen.containsKey(complement) && seen.get(complement) == i){
