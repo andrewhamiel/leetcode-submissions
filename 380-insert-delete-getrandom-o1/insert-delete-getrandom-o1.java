@@ -20,8 +20,8 @@ class RandomizedSet {
         if(!map.containsKey(val)) return false;
         int ind = map.get(val);
         int lastElement = list.get(list.size() - 1);
-        map.put(lastElement, ind);
         list.set(ind, lastElement);
+        map.put(lastElement, ind);
         map.remove(val);
         list.remove(list.size() - 1);
         return true;
