@@ -23,7 +23,7 @@ class RandomizedSet {
         list.set(ind, lastElement);
         map.put(lastElement, ind);
         map.remove(val);
-        list.remove(list.size() - 1);
+        list.remove(list.size() -1);
         return true;
     }
     
