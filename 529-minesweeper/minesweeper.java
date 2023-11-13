@@ -30,10 +30,8 @@ class Solution {
         int mines = 0;
         for(int[] dir : dirs){
             int newRow = row + dir[0], newCol = col + dir[1];
-            if(newRow >= 0 && newRow < board.length && newCol >= 0 && newCol < board[0].length 
-                && (board[newRow][newCol] == 'M' || board[newRow][newCol] == 'X')){
-                    mines++;
-                }
+            if(newRow >= 0 && newRow < board.length && newCol >= 0 && newCol < board[0].length
+                && (board[newRow][newCol] == 'M' || board[newRow][newCol] == 'X')) mines++;
         }
         return mines;
     }
