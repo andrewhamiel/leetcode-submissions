@@ -1,38 +1,35 @@
 class Solution {
-    public List < Integer > majorityElement(int[] nums) {
-        // 1st pass
+    public List<Integer> majorityElement(int[] nums) {
         int count1 = 0, count2 = 0;
         Integer candidate1 = null, candidate2 = null;
 
-        for (int n: nums) {
-            if (candidate1 != null && candidate1 == n) count1++;
-            else if (candidate2 != null && candidate2 == n) count2++;
-            else if (count1 == 0) {
-                candidate1 = n;
+        //First pass
+        for(int num : nums){
+            if(candidate1 != null && num == candidate1) count1++;
+            else if(candidate2 != null && num == candidate2) count2++;
+            else if(count1 == 0){
+                candidate1 = num;
                 count1++;
-            } else if (count2 == 0) {
-                candidate2 = n;
+            }else if(count2 == 0){
+                candidate2 = num;
                 count2++;
-            } else {
+            }else{
                 count1--;
                 count2--;
             }
         }
 
-        // 2nd pass
-        List result = new ArrayList <> ();
+        //Second pass
+        List<Integer> result = new ArrayList<>();
+        count1 = 0; count2 = 0;
 
-        count1 = 0;
-        count2 = 0;
-
-        for (int n: nums) {
-            if (candidate1 != null && n == candidate1) count1++;
-            if (candidate2 != null && n == candidate2) count2++;
+        for(int num : nums){
+            if(candidate1 != null && num == candidate1) count1++;
+            if(candidate2 != null && num == candidate2) count2++;
         }
 
-        if (count1 > nums.length/3) result.add(candidate1);
-        if (count2 > nums.length/3) result.add(candidate2);
-
+        if(count1 > nums.length/3) result.add(candidate1);
+        if(count2 > nums.length/3) result.add(candidate2);
         return result;
     }
 }
