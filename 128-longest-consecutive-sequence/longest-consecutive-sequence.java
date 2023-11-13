@@ -5,7 +5,7 @@ class Solution {
 
         int longestStreak = 0;
         for(int num : seen){
-            if(!seen.contains(num-1)){
+            if(!seen.contains(num - 1)){
                 int currentNum = num, currentStreak = 1;
                 while(seen.contains(currentNum+1)){
                     currentNum++;
