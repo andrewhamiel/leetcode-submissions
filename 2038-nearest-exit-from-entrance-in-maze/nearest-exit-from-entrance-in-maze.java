@@ -13,13 +13,13 @@ class Solution {
                 if(newRow < 0 || newRow >= maze.length || newCol < 0 || newCol >= maze[0].length){
                     if(maze[row][col] != 'e') return steps;
                 }
-                if(newRow >= 0 && newRow < maze.length && newCol >= 0 && newCol < maze[0].length 
+                if(newRow >= 0 && newRow < maze.length && newCol >= 0 && newCol < maze[0].length
                     && maze[newRow][newCol] == '.'){
                         maze[newRow][newCol] = '+';
                         q.add(new int[]{newRow, newCol, steps + 1});
                     }
             }
-        }
+        }    
         return -1;
     }
 }
