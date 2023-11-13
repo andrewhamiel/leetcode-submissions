@@ -9,7 +9,7 @@ class NumMatrix {
                 rowSum+= matrix[row][col];
                 mat[row+1][col+1] = mat[row][col+1] + rowSum;
             }
-        }
+        }     
     }
     
     public int sumRegion(int row1, int col1, int row2, int col2) {
