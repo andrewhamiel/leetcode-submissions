@@ -15,7 +15,7 @@
  */
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
-        if(root == null) return root;
+        if(root == null) return null;
 
         if(root.val < key) root.right = deleteNode(root.right, key);
         else if(root.val > key) root.left = deleteNode(root.left, key);
@@ -25,7 +25,7 @@ class Solution {
                 root.val = inorderSuccessor(root);
                 root.right = deleteNode(root.right, root.val);
             }else{
-                root.val = preorder(root);
+                root.val = predecessor(root);
                 root.left = deleteNode(root.left, root.val);
             }
         }
@@ -38,7 +38,7 @@ class Solution {
         return leftmost.val;
     }
 
-    private int preorder(TreeNode root){
+    private int predecessor(TreeNode root){
         TreeNode rightmost = root.left;
         while(rightmost.right != null) rightmost = rightmost.right;
         return rightmost.val;
