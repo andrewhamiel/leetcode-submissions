@@ -15,16 +15,15 @@
  */
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
-        if(root == null) return null;
-
+        if(root == null) return root;
         if(root.val < key) root.right = deleteNode(root.right, key);
         else if(root.val > key) root.left = deleteNode(root.left, key);
-        else if(root.val == key){
+        else{
             if(root.left == null && root.right == null) root = null;
             else if(root.right != null){
                 root.val = inorderSuccessor(root);
                 root.right = deleteNode(root.right, root.val);
-            }else if(root.left != null){
+            }else{
                 root.val = predecessor(root);
                 root.left = deleteNode(root.left, root.val);
             }
