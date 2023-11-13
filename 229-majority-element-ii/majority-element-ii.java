@@ -24,7 +24,7 @@ class Solution {
         count1 = 0; count2 = 0;
 
         for(int num : nums){
-            if(candidate1 != null && num == candidate1) count1++;
+            if(candidate1 != null && candidate1 == num) count1++;
             if(candidate2 != null && num == candidate2) count2++;
         }
 
