@@ -7,7 +7,7 @@ class Solution {
         for(int num : seen){
             if(!seen.contains(num - 1)){
                 int currNum = num, currStreak = 1;
-                while(seen.contains(currNum + 1)){
+                while(seen.contains(currNum+1)){
                     currNum++;
                     currStreak++;
                 }
