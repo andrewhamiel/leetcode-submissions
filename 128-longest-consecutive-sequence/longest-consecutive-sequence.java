@@ -6,12 +6,12 @@ class Solution {
         int longestStreak = 0;
         for(int num : seen){
             if(!seen.contains(num - 1)){
-                int currentNum = num, currentStreak = 1;
-                while(seen.contains(currentNum+1)){
-                    currentNum++;
-                    currentStreak++;
+                int currNum = num, currStreak = 1;
+                while(seen.contains(currNum + 1)){
+                    currNum++;
+                    currStreak++;
                 }
-                longestStreak = Math.max(longestStreak, currentStreak);
+                longestStreak = Math.max(longestStreak, currStreak);
             }
         }
         return longestStreak;
