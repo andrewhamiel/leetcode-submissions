@@ -23,7 +23,7 @@ class Solution {
                 }
             }
         }
-        return board;    
+        return board;
     }
 
     private int getMines(int row, int col, char[][] board){
@@ -31,7 +31,9 @@ class Solution {
         for(int[] dir : dirs){
             int newRow = row + dir[0], newCol = col + dir[1];
             if(newRow >= 0 && newRow < board.length && newCol >= 0 && newCol < board[0].length 
-                && (board[newRow][newCol] == 'M' || board[newRow][newCol] == 'X')) mines++; 
+                && (board[newRow][newCol] == 'M' || board[newRow][newCol] == 'X')){
+                    mines++;
+                }
         }
         return mines;
     }
