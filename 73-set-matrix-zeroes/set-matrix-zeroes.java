@@ -13,7 +13,7 @@ class Solution {
             }
         }
 
-        //zero out rows/columns that have been marked
+        //update rows/columns that have been marked
         for(int i = 1; i < matrix.length; i++){
             for(int j = 1; j < matrix[0].length; j++){
                 if(matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;
