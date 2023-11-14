@@ -7,8 +7,8 @@ class Solution {
             else right = mid;
         }
 
-        List<Integer> ans = new ArrayList<>();
-        for(int i = left; i < left + k; i++) ans.add(arr[i]);
-        return ans;
+        List<Integer> result = new ArrayList<>();
+        for(int i = left; i < left + k; i++) result.add(arr[i]);
+        return result;
     }
 }
