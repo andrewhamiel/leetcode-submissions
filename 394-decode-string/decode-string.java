@@ -1,24 +1,23 @@
 class Solution {
-    int index = 0;
+    int ind = 0;
 
     public String decodeString(String s) {
         StringBuilder result = new StringBuilder();
-        while(index < s.length() && s.charAt(index) != ']'){
-            if(!Character.isDigit(s.charAt(index))) result.append(s.charAt(index++));
+
+        while(ind < s.length() && s.charAt(ind) != ']'){
+            if(!Character.isDigit(s.charAt(ind))) result.append(s.charAt(ind++));
             else{
                 int k = 0;
-                while(index < s.length() && Character.isDigit(s.charAt(index))){
+                while(ind < s.length() && Character.isDigit(s.charAt(ind))){
                     k*= 10;
-                    k+= s.charAt(index++) - '0';
+                    k+= s.charAt(ind++) - '0';
                 }
-                //ignore openitng bracket
-                index++;
+                ind++; //ignore opening bracket
                 String decodedString = decodeString(s);
-                //ignore closing bracket
-                index++;
+                ind++; //ignore closing bracket
                 while(k-- > 0) result.append(decodedString);
             }
-        }
-        return result.toString();    
+        }    
+        return result.toString();
     }
 }
