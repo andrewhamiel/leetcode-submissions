@@ -2,7 +2,7 @@ class Solution {
     public void setZeroes(int[][] matrix) {
         boolean isCol = false;
 
-        //mark first row/col as 0
+        //if zero is found, mark first row/col
         for(int i = 0; i < matrix.length; i++){
             if(matrix[i][0] == 0) isCol = true;
             for(int j = 1; j < matrix[0].length; j++){
@@ -13,7 +13,7 @@ class Solution {
             }
         }
 
-        //zero out rows/cols that were marked
+        //update rows/cols that have been marked
         for(int i = 1; i < matrix.length; i++){
             for(int j = 1; j < matrix[0].length; j++){
                 if(matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;
