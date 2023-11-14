@@ -1,11 +1,11 @@
 class Solution {
-    int ind = 0;
+    private int ind = 0;
 
     public String decodeString(String s) {
-        StringBuilder result = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
         while(ind < s.length() && s.charAt(ind) != ']'){
-            if(!Character.isDigit(s.charAt(ind))) result.append(s.charAt(ind++));
+            if(!Character.isDigit(s.charAt(ind))) sb.append(s.charAt(ind++));
             else{
                 int k = 0;
                 while(ind < s.length() && Character.isDigit(s.charAt(ind))){
@@ -15,9 +15,9 @@ class Solution {
                 ind++; //ignore opening bracket
                 String decodedString = decodeString(s);
                 ind++; //ignore closing bracket
-                while(k-- > 0) result.append(decodedString);
+                while(k-- > 0) sb.append(decodedString);
             }
-        }    
-        return result.toString();
+        }
+        return sb.toString();
     }
 }
