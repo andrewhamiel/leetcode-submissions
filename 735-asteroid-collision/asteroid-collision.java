@@ -3,11 +3,11 @@ class Solution {
         Deque<Integer> stack = new ArrayDeque<>();
         for(int asteroid : asteroids){
             while(!stack.isEmpty() && stack.peekFirst() > 0 && asteroid < 0){
-                int sum = asteroid + stack.peekFirst();
+                int sum = stack.peekFirst() + asteroid;
                 if(sum < 0) stack.removeFirst();
                 else if(sum == 0){
-                    stack.removeFirst();
                     asteroid = 0;
+                    stack.removeFirst();
                 }else if(sum > 0){
                     asteroid = 0;
                     break;
