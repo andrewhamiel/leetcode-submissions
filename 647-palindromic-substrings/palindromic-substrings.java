@@ -2,15 +2,15 @@ class Solution {
     public int countSubstrings(String s) {
         int count = 0;
         for(int i = 0; i < s.length(); i++){
-            count+= countPalindromesFromCenter(s, i, i); //Odd-length palindromes. Center length == 1
-            count+= countPalindromesFromCenter(s, i, i+1); //Even-length palindromes. Center length == 2
+            count+= middleOut(i, i, s); //odd count
+            count+= middleOut(i, i + 1, s); //even count
         }
         return count;
     }
-    
-    private int countPalindromesFromCenter(String s, int start, int end){
+
+    private int middleOut(int left, int right, String s){
         int count = 0;
-        while(start >= 0 && end < s.length() && s.charAt(start--) == s.charAt(end++)) count++;
+        while(left >= 0 && right < s.length() && s.charAt(left--) == s.charAt(right++)) count++;
         return count;
     }
 }
