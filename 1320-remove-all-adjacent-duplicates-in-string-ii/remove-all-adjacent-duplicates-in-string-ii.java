@@ -1,30 +1,24 @@
 class Solution {
-    class Pair {
-    int cnt;
-    char ch;
-    public Pair(int cnt, char ch) {
-        this.ch = ch;
-        this.cnt = cnt;
-    }
-}
-public String removeDuplicates(String s, int k) {
-    Stack<Pair> counts = new Stack<>();
-    for (int i = 0; i < s.length(); ++i) {
-        if (counts.empty() || s.charAt(i) != counts.peek().ch) {
-            counts.push(new Pair(1, s.charAt(i)));
-        } else {
-            if (++counts.peek().cnt == k) {
-                counts.pop();
+    public String removeDuplicates(String s, int k) {
+        Deque<Pair<Character, Integer>> stack = new ArrayDeque<>();
+        for(int i = 0; i < s.length(); i++){
+            if(stack.isEmpty() || s.charAt(i) != stack.peekFirst().getKey()){
+                stack.push(new Pair<Character, Integer>(s.charAt(i), 1));
+            }else{
+                Pair<Character, Integer> p = stack.removeFirst();
+                if(p.getValue() + 1 < k){
+                    stack.addFirst(new Pair(p.getKey(), p.getValue() + 1));
+                }
             }
         }
-    }
-    StringBuilder b = new StringBuilder();
-    while (!counts.empty()) {
-        Pair p = counts.pop();
-        for (int i = 0; i < p.cnt; i++) {
-            b.append(p.ch);
+        StringBuilder sb = new StringBuilder();
+        while(!stack.isEmpty()){
+            Pair<Character, Integer> p = stack.removeLast();
+            int count = p.getValue();
+            while(count-- != 0){
+                sb.append(p.getKey());
+            }
         }
+        return sb.toString();
     }
-    return b.reverse().toString();
-}
 }
