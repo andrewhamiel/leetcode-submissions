@@ -1,22 +1,21 @@
 class Solution {
     public int[] asteroidCollision(int[] asteroids) {
-        Stack<Integer> stack = new Stack();
+        Deque<Integer> stack = new ArrayDeque<>();
         for(int asteroid : asteroids){
-            while(!stack.isEmpty() && stack.peek() > 0 && asteroid < 0){
-                if(asteroid+stack.peek() < 0) stack.pop();
-                else if(asteroid+stack.peek() == 0){
-                    stack.pop();
+            while(!stack.isEmpty() && stack.peekFirst() > 0 && asteroid < 0) {
+                if(asteroid + stack.peekFirst() < 0)stack.removeFirst();
+                else if(asteroid + stack.peek() == 0){
+                    stack.removeFirst();
                     asteroid = 0;
-                }
-                else if(asteroid + stack.peek() > 0) {
+                }else if(asteroid + stack.peekFirst() > 0){
                     asteroid = 0;
                     break;
                 }
             }
-            if(asteroid != 0) stack.push(asteroid);
+            if(asteroid != 0) stack.addFirst(asteroid);
         }
-        int[] results = new int[stack.size()];
-        for(int i = results.length-1; i>=0; i--) results[i] = stack.pop();
-        return results;
+        int[] result = new int[stack.size()];
+        for(int i = 0; i < result.length; i++) result[i] = stack.removeLast();
+        return result;
     }
 }
