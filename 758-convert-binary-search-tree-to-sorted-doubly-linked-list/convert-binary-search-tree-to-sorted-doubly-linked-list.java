@@ -30,14 +30,14 @@ class Solution {
         return first;
     }
 
-    private void helper(Node node){
-        if(node == null) return;
-        helper(node.left);
+    private void helper(Node root){
+        if(root == null) return;
+        helper(root.left);
         if(last != null){
-            last.right = node;
-            node.left = last;
-        }else first = node;
-        last = node;
-        helper(node.right);
+            last.right = root;
+            root.left = last;
+        }else first = root;
+        last = root;
+        helper(root.right);
     }
 }
