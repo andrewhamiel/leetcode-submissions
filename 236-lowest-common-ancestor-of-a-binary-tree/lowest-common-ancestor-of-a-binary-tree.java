@@ -8,20 +8,16 @@
  * }
  */
 class Solution {
-    TreeNode ans;
-
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        lca(root, p, q);
-        return ans;
-    }
+        if(root == null) return root;
 
-    private boolean lca(TreeNode root, TreeNode p, TreeNode q){
-        if(root == null) return false;
+        if(root == p || root == q) return root;
 
-        int left = lca(root.left, p, q) ? 1 : 0;
-        int mid = root.val == p.val || root.val == q.val ? 1 : 0;
-        int right = lca(root.right, p, q) ? 1 : 0;
-        if(left + right + mid >= 2) ans = root;
-        return left + right + mid >= 1;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if(left != null && right != null) return root;
+
+        return left != null ? left : right;
     }
 }
