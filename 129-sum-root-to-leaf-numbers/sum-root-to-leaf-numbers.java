@@ -1,36 +1,59 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
-    public int sumNumbers(TreeNode root) {
-        Queue<Pair<TreeNode, Integer>> q = new LinkedList<>();
-        q.add(new Pair<>(root, 0));
-        int sum = 0;
+  public int sumNumbers(TreeNode root) {
+    int rootToLeaf = 0, currNumber = 0;
+    int steps;
+    TreeNode predecessor;
 
-        while(!q.isEmpty()){
-            Pair<TreeNode, Integer> p = q.poll();
-            TreeNode node = p.getKey();
-            int currSum = p.getValue();
-
-            currSum*=10;
-            currSum+= node.val;
-
-            if(node.left == null && node.right == null) sum+= currSum; //leaf node
-            if(node.left != null) q.add(new Pair<>(node.left, currSum));
-            if(node.right != null) q.add(new Pair<>(node.right, currSum));
+    while (root != null) {
+      // If there is a left child,
+      // then compute the predecessor.
+      // If there is no link predecessor.right = root --> set it.
+      // If there is a link predecessor.right = root --> break it.
+      if (root.left != null) {
+        predecessor = root.left;
+        steps = 1;
+        while (predecessor.right != null && predecessor.right != root) {
+          predecessor = predecessor.right;
+          ++steps;
         }
-        return sum;
+
+        // Set link predecessor.right = root
+        // and go to explore the left subtree
+        if (predecessor.right == null) {
+          currNumber = currNumber * 10 + root.val;
+          predecessor.right = root;
+          root = root.left;
+        }
+        // Break the link predecessor.right = root
+        // Once the link is broken,
+        // it's time to change subtree and go to the right
+        else {
+          // If you're on the leaf, update the sum
+          if (predecessor.left == null) rootToLeaf += currNumber;
+          // This part of tree is explored, backtrack
+          for(int i = 0; i < steps; ++i) {
+            currNumber /= 10;
+          }
+          predecessor.right = null;
+          root = root.right;
+        }
+      }
+
+      // If there is no left child
+      // then just go right.
+      else {
+        currNumber = currNumber * 10 + root.val;
+        // if you're on the leaf, update the sum
+        if (root.right == null) rootToLeaf += currNumber;
+        root = root.right;
+      }
     }
+    return rootToLeaf;
+  }
+
+  private TreeNode predecessor(TreeNode root){
+      TreeNode rightmost = root.left;
+      while(rightmost.right != null) rightmost = rightmost.right;
+      return rightmost;
+  }
 }
