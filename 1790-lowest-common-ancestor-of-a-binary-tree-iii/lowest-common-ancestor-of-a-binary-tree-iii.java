@@ -9,25 +9,27 @@ class Node {
 */
 
 class Solution {
-    Node ans;
     public Node lowestCommonAncestor(Node p, Node q) {
-        Node parent = findParent(p);
-        lca(parent, p, q);
-        return ans;
+        Node root = findParent(p);
+        return lca(root, p, q);
     }
 
-    private Node findParent(Node p){
-        Node node = p;
-        while(node.parent != null) node = node.parent;
-        return node;
+    private Node findParent(Node node){
+        Node root = node;
+        while(root.parent != null) root = root.parent;
+        return root;
     }
 
-    private boolean lca(Node root, Node p, Node q){
-        if(root == null) return false;
-        int sum = root.val == p.val || root.val == q.val ? 1 : 0;
-        int left = lca(root.left, p, q) ? 1 : 0;
-        int right = lca(root.right, p, q) ? 1 : 0;
-        if(sum + left + right >= 2) ans = root;
-        return sum + left + right >= 1;
+    private Node lca(Node root, Node p, Node q){
+        if(root == null) return null;
+
+        if(root == p || root == q) return root;
+
+        Node left = lca(root.left, p, q);
+        Node right = lca(root.right, p, q);
+
+        if(left != null && right != null) return root;
+
+        return left != null ? left : right;
     }
 }
