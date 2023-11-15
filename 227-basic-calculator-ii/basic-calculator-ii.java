@@ -1,25 +1,27 @@
 class Solution {
     public int calculate(String s) {
-        int currNumber = 0, prevNumber = 0, ans = 0;
         char operation = '+';
+        int curr = 0, prev = 0, result = 0;
+        Deque<Integer> stack = new ArrayDeque<>();
+
         for(int i = 0; i < s.length(); i++){
-            Character c = s.charAt(i);
+            char c = s.charAt(i);
             if(Character.isDigit(c)){
-                currNumber*= 10;
-                currNumber+= (int)(c - '0');
+                curr*= 10;
+                curr+= (int)(c - '0');
             }
-            if(i == s.length() - 1 || (!Character.isWhitespace(c) && !Character.isDigit(c))){
+            if(i == s.length() - 1 || (!Character.isDigit(c) && !Character.isWhitespace(c))){
                 if(operation == '+' || operation == '-'){
-                    if(operation == '-') currNumber*= -1;
-                    ans+= prevNumber;
-                    prevNumber = currNumber;
-                }else if(operation == '*') prevNumber *= currNumber;
-                else if(operation == '/') prevNumber /= currNumber;
+                    if(operation == '-') curr*= -1;
+                    result+= prev;
+                    prev = curr;
+                }else if(operation == '*') prev*= curr;
+                else if(operation == '/') prev/= curr;
+                curr = 0;
                 operation = c;
-                currNumber = 0;
             }
         }
-        ans+= prevNumber;
-        return ans;
+        result+= prev;
+        return result;
     }
 }
