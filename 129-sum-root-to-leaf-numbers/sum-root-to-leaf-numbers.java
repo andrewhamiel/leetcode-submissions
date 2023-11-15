@@ -15,27 +15,22 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        int rootToLeaf = 0, curr = 0;
-        Deque<Pair<TreeNode, Integer>> stack = new ArrayDeque<>();
-        stack.addFirst(new Pair(root, 0));
+        Queue<Pair<TreeNode, Integer>> q = new LinkedList<>();
+        q.add(new Pair<>(root, 0));
+        int sum = 0;
 
-        while(!stack.isEmpty()){
-            Pair<TreeNode, Integer> p = stack.removeFirst();
-            root = p.getKey();
-            curr = p.getValue();
+        while(!q.isEmpty()){
+            Pair<TreeNode, Integer> p = q.poll();
+            TreeNode node = p.getKey();
+            int currSum = p.getValue();
 
-            if(root != null){
-                curr*= 10;
-                curr+= root.val;
+            currSum*=10;
+            currSum+= node.val;
 
-                //Leaf node
-                if(root.left == null && root.right == null) rootToLeaf+= curr;
-                else{
-                    stack.addFirst(new Pair(root.right, curr));
-                    stack.addFirst(new Pair(root.left, curr));
-                }
-            }
+            if(node.left == null && node.right == null) sum+= currSum; //leaf node
+            if(node.left != null) q.add(new Pair<>(node.left, currSum));
+            if(node.right != null) q.add(new Pair<>(node.right, currSum));
         }
-        return rootToLeaf;
+        return sum;
     }
 }
