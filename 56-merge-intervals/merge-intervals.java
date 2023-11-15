@@ -1,6 +1,6 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-		Itnode root=new Itnode(intervals[0][0], intervals[0][1]);
+		IntervalNode root=new IntervalNode(intervals[0][0], intervals[0][1]);
 		
 		for(int i=1;i<intervals.length;i++) {
 			add(root, intervals[i]);
@@ -14,16 +14,16 @@ class Solution {
 		return ans;
 	}
 
-    class Itnode{
+    class IntervalNode{
 		int low,high,max;
-		Itnode left,right;
-		Itnode(int l,int h){
+		IntervalNode left,right;
+		IntervalNode(int l,int h){
 			this.low=l;this.high=h;this.max=h;
 			this.left=this.right=null;
 		}
 	}
 	
-	private List<int[]> merge(Itnode root){
+	private List<int[]> merge(IntervalNode root){
 		List<int[]> res=new ArrayList<>();
 		if(root==null) return res;
 		
@@ -36,7 +36,7 @@ class Solution {
 				inserted=true;
 				i[0]=Math.min(i[0], root.low);
 				i[1]=Math.max(i[1], root.high);
-				root=new Itnode(i[0], i[1]);
+				root=new IntervalNode(i[0], i[1]);
 			}
 			res.add(i);
 		}
@@ -57,8 +57,8 @@ class Solution {
 		
 	}
 	
-	private Itnode add(Itnode root,int[] i) {
-		if(root==null) return new Itnode(i[0], i[1]);
+	private IntervalNode add(IntervalNode root,int[] i) {
+		if(root==null) return new IntervalNode(i[0], i[1]);
 		
 		if(i[0]<root.low)
 			root.left=add(root.left, i);
