@@ -16,25 +16,25 @@ class Node {
 class Solution {
     public Node copyRandomList(Node head) {
         if(head == null) return head;
+        
         Node curr = head;
         while(curr != null){
-            Node tmp = new Node(curr.val);
-            tmp.next = curr.next;
-            curr.next = tmp;
-            curr = tmp.next;
+            Node nextNode = new Node(curr.val);
+            nextNode.next = curr.next;
+            curr.next = nextNode;
+            curr = nextNode.next;
         }
 
-        //Interweave
         curr = head;
         while(curr != null){
             curr.next.random = curr.random != null ? curr.random.next : null;
             curr = curr.next.next;
         }
 
-        Node newHead = head.next, oldPtr = head, newPtr = head.next;
+        Node oldPtr = head, newPtr = head.next, newHead = newPtr;
         while(oldPtr != null){
             oldPtr.next = oldPtr.next.next;
-            newPtr.next = newPtr.next != null ? newPtr.next.next : null;
+            newPtr.next = oldPtr.next != null ? newPtr.next.next : null;
             oldPtr = oldPtr.next;
             newPtr = newPtr.next;
         }
