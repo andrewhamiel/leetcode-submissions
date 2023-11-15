@@ -19,37 +19,33 @@ class Node {
 
 class Solution {
     public Node insert(Node head, int insertVal) {
-        //Case 0: head is null
-        if(head == null){
+        if(head == null) {
             head = new Node(insertVal);
             head.next = head;
             return head;
         }
-        Node curr = head, nextNode = head.next;
+        Node original = head, curr = head;
         boolean isInserted = false;
         while(!isInserted){
-            //3 Cases:
-            //1. In between curr and nextNode
-            //2. Max element at end
-            //3. Min element at beginning
-            if((curr.val != nextNode.val) &&
-            ((curr.val <= insertVal && nextNode.val >= insertVal && curr.val <= nextNode.val)
-            || (curr.val <= insertVal && nextNode.val <= insertVal && curr.val >= nextNode.val)
-            || (curr.val >= insertVal && nextNode.val >= insertVal && curr.val >= nextNode.val))){
-                Node ans = new Node(insertVal);
-                ans.next = curr.next;
-                curr.next = ans;
+            //3 cases
+            if((curr.val != curr.next.val) &&
+            ((insertVal >= curr.val && insertVal <= curr.next.val && curr.val <= curr.next.val)
+            || (insertVal >= curr.val && insertVal >= curr.next.val && curr.val >= curr.next.val)
+            || (insertVal <= curr.val && insertVal <= curr.next.val && curr.val >= curr.next.val))){
+                Node node = new Node(insertVal);
+                node.next = curr.next;
+                curr.next = node;
                 return head;
             }
             curr = curr.next;
-            nextNode = nextNode.next;
-            if(curr == head) isInserted = true;
+            if(curr == original) isInserted = true;
         }
-        //Case 4: All duplicates. If we reach this point, can insert after first element
+
+        //case 4: all duplicates
         curr = head;
-        Node ans = new Node(insertVal);
-        ans.next = curr.next;
-        curr.next = ans;
+        Node node = new Node(insertVal);
+        node.next = curr.next;
+        curr.next = node;
         return head;
     }
 }
