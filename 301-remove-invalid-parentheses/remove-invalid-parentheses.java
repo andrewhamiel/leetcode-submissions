@@ -1,44 +1,46 @@
 class Solution {
-    Set<String> validStrings = new HashSet<>();
+    Set<String> result = new HashSet<>();
     int minRemoved = Integer.MAX_VALUE;
 
     public List<String> removeInvalidParentheses(String s) {
-        helper(s, new StringBuilder(), 0, 0, 0, 0);
-        return new ArrayList<>(validStrings);
+        helper(0, 0, 0, 0, new StringBuilder(), s);
+        return new ArrayList<>(result);
     }
 
-    private void helper(String s, StringBuilder expr, int ind, int removed, int leftCount, int rightCount){
-        if(ind == s.length()){
-            if(removed <= minRemoved && leftCount == rightCount){
+    private void helper(int ind, int leftCount, int rightCount, int removed, StringBuilder sb, String s){
+        if(ind >= s.length()){
+            if(leftCount == rightCount && removed <= minRemoved){
                 if(removed < minRemoved){
-                    validStrings = new HashSet<>();
                     minRemoved = removed;
+                    result = new HashSet<>();
                 }
-                validStrings.add(expr.toString());
+                result.add(sb.toString());
             }
+            return;
+        }
+
+        int currLength = sb.length();
+
+        if(s.charAt(ind) == '('){
+            //try add and remove
+            sb.append(s.charAt(ind));
+            helper(ind + 1, leftCount + 1, rightCount, removed, sb, s);
+            sb.deleteCharAt(currLength);
+            helper(ind + 1, leftCount, rightCount, removed + 1, sb, s);
+        }else if(s.charAt(ind) == ')'){
+            //try add and remove if enough leftCount, just remove otherwise
+            if(leftCount > rightCount){
+                sb.append(s.charAt(ind));
+                helper(ind + 1, leftCount, rightCount + 1, removed, sb, s);
+                sb.deleteCharAt(currLength);
+            }
+            helper(ind + 1, leftCount, rightCount, removed + 1, sb, s); //remove
         }else{
-            char c = s.charAt(ind);
-            int currLength = expr.length();
-            //Case 1: '(' - try adding and removing
-            if(c == '('){
-                expr.append(c);
-                helper(s, expr, ind + 1, removed, leftCount + 1, rightCount); //add
-                expr.deleteCharAt(currLength);
-                helper(s, expr, ind + 1, removed + 1, leftCount, rightCount); //remove
-            }else if(c == ')'){
-                //Case 2: ')' - try adding if leftCount > rightCount, try removing
-                if(leftCount > rightCount){
-                    expr.append(c);
-                    helper(s, expr, ind + 1, removed, leftCount, rightCount + 1); //add
-                    expr.deleteCharAt(currLength);
-                }
-                helper(s, expr, ind + 1, removed + 1, leftCount, rightCount); //remove
-            }else{
-                //Case 3: Everything else - try adding
-                expr.append(c);
-                helper(s, expr, ind + 1, removed, leftCount, rightCount); //add
-                expr.deleteCharAt(currLength);
-            }
+            //for everything else, just add
+            sb.append(s.charAt(ind));
+            helper(ind + 1, leftCount, rightCount, removed, sb, s);
+            sb.deleteCharAt(currLength);
         }
     }
+
 }
