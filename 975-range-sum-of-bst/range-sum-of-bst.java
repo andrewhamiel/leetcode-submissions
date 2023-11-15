@@ -16,11 +16,23 @@
 class Solution {
     public int rangeSumBST(TreeNode root, int low, int high) {
         if(root == null) return 0;
+
         int sum = 0;
-        if(root.val >= low && root.val <= high){
-            sum = root.val + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high);
-        }else if(root.val < low) sum = rangeSumBST(root.right, low, high);
-        else if(root.val > high) sum = rangeSumBST(root.left, low, high);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while(!q.isEmpty()){
+            TreeNode curr = q.poll();
+            if(curr.val >= low && curr.val <= high) {
+                sum+= curr.val;
+                if(curr.left != null) q.add(curr.left);
+                if(curr.right != null) q.add(curr.right);
+            }else if(curr.val < low){
+                if(curr.right != null) q.add(curr.right);
+            } else if(curr.val > high){
+                if(curr.left != null) q.add(curr.left);
+            }
+        }
         return sum;
     }
 }
