@@ -1,22 +1,23 @@
 class Solution {
     public boolean validWordAbbreviation(String word, String abbr) {
-        int currNumber = 0;
-        int wordPtr = 0;
-        for(Character c : abbr.toCharArray()){
-            if(wordPtr >= word.length()) return false;
+        int wordPtr = 0, abbrPtr = 0, digits = 0;
+        while(wordPtr < word.length() && abbrPtr < abbr.length()){
+            char c = abbr.charAt(abbrPtr);
             if(Character.isDigit(c)){
-                if((int)(c - '0') == 0 && currNumber == 0) return false;
-                currNumber*=10;
-                currNumber+= (int)(c - '0');
-            }else if(currNumber != 0){
-                wordPtr+= currNumber;
-                currNumber = 0;
-                if(wordPtr >= word.length() || word.charAt(wordPtr++) != c) return false;
+                if(digits == 0 && c == '0') return false;
+                digits*= 10;
+                digits+= (int)(c - '0');
+                abbrPtr++;
+            }else if(digits != 0){
+                    wordPtr+= digits;
+                    digits = 0;
             }else{
-                if(word.charAt(wordPtr++) != c) return false;
+                if(word.charAt(wordPtr) != c) return false;
+                wordPtr++;
+                abbrPtr++;
             }
         }
-        if(currNumber != 0) wordPtr += currNumber;
-        return wordPtr == word.length();
+        if(digits != 0) wordPtr+= digits;
+        return wordPtr == word.length() && abbrPtr == abbr.length();
     }
 }
