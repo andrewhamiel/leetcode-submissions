@@ -1,24 +1,26 @@
 class Solution {
     public int maximumSwap(int num) {
-        if(num < 10) return num;
-        char[] digits = String.valueOf(num).toCharArray();
-        int[] rightmostIndex = new int[10];
-        for(int i = 0; i < digits.length; i++) rightmostIndex[(int)(digits[i] - '0')] = i;
-        for(int i = 0; i < digits.length; i++){
-            int digit = (int)(digits[i] - '0');
-            for(int nextNum = 9; nextNum > digit; nextNum--){
-                if(rightmostIndex[nextNum] > i){
-                    swap(i, rightmostIndex[nextNum], digits);
-                    return Integer.parseInt(new String(digits));
+        char[] arr = String.valueOf(num).toCharArray();
+
+        int[] rightmost = new int[10];
+        for(int i = 0; i < arr.length; i++) rightmost[arr[i] - '0'] = i;
+
+        for(int i = 0; i < arr.length; i++){
+            int currDigit = arr[i] - '0';
+            for(int j = 9; j > currDigit; j--){
+                if(rightmost[j] > i){
+                    swap(i, rightmost[j], arr);
+                    return Integer.parseInt(new String(arr));
                 }
+                
             }
         }
-        return Integer.parseInt(new String(digits));
+        return num;
     }
 
-    private void swap(int i, int j, char[] digits){
-        char tmp = digits[i];
-        digits[i] = digits[j];
-        digits[j] = tmp;
+    private void swap(int i, int j, char[] nums){
+        char tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 }
