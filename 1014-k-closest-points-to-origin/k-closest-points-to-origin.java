@@ -1,38 +1,45 @@
 class Solution {
+    private int[][] points;
+
     public int[][] kClosest(int[][] points, int k) {
-        quickselect(0, points.length - 1, points, k);
-        int[][] ans = new int[k][2];
-        for(int i = 0; i < ans.length; i++) ans[i] = points[i];
-        return ans;
+        this.points = points;
+        quickselect(0, points.length - 1, k);
+
+        int[][] result = new int[k][2];
+        for(int i = 0; i < result.length; i++) result[i] = points[i];
+        return result;
     }
 
-    private void quickselect(int left, int right, int[][] points, int k){
+    private void quickselect(int left, int right, int k){
         if(left >= right) return;
 
-        int pivotIndex = new Random().nextInt(right - left + 1) + left;
-        pivotIndex = partition(left, right, points, pivotIndex);
+        int pivotIndex = new Random().nextInt(right - left) + left;
+        pivotIndex = partition(left, right, pivotIndex);
+
         if(pivotIndex == k) return;
-        else if(pivotIndex < k) quickselect(pivotIndex + 1, right, points, k);
-        else quickselect(left, pivotIndex - 1, points, k);
+        else if(pivotIndex < k) quickselect(pivotIndex + 1, right, k);
+        else quickselect(left, pivotIndex - 1, k);
     }
 
-    private int partition(int left, int right, int[][] points, int pivotIndex){
-        int pivotDistance = getDistance(points[pivotIndex]);
-        swap(pivotIndex, right, points);
-        pivotIndex = left;
+    private int partition(int left, int right, int pivotIndex){
+        int pivotDistance = getDistance(pivotIndex);
+        swap(pivotIndex, right);
+        int swapIndex = left;
+
         for(int i = left; i <= right; i++){
-            if(getDistance(points[i]) <= pivotDistance) swap(i, pivotIndex++, points);
+            if(getDistance(i) < pivotDistance) swap(swapIndex++, i);
         }
-        return pivotIndex - 1;
+        swap(swapIndex, right);
+        return swapIndex;
     }
 
-    private void swap(int i, int j, int[][] points){
+    private void swap(int i, int j){
         int[] tmp = points[i];
         points[i] = points[j];
         points[j] = tmp;
     }
 
-    private int getDistance(int[] point){
-        return (point[0] * point[0]) + (point[1] * point[1]);
+    private int getDistance(int pivotIndex){
+        return (points[pivotIndex][0] * points[pivotIndex][0]) + (points[pivotIndex][1] * points[pivotIndex][1]);
     }
 }
