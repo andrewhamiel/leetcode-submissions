@@ -1,70 +1,65 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-		IntervalNode root=new IntervalNode(intervals[0][0], intervals[0][1]);
-		
-		for(int i=1;i<intervals.length;i++) {
-			add(root, intervals[i]);
-		}
-		
-		List<int[]> list=merge(root);
-		int[][] ans=new int[list.size()][2];
-		for(int i=0;i<ans.length;i++) {
-			ans[i]=list.get(i);
-		}
-		return ans;
-	}
+        IntervalNode root = new IntervalNode(intervals[0][0], intervals[0][1]);
 
-    class IntervalNode{
-		int low,high;
-		IntervalNode left,right;
-		IntervalNode(int l,int h){
-			this.low=l;
-			this.high=h;
-		}
-	}
-	
-	private List<int[]> merge(IntervalNode root){
-		List<int[]> res=new ArrayList<>();
-		if(root==null) return res;
-		int lowTmp = root.low, highTmp = root.high;
-		List<int[]> left=merge(root.left);
-		List<int[]> right=merge(root.right);
-		
-		boolean inserted=false;
-		for(int[] i:left) {
-			if(i[1]>=root.low) {
-				inserted=true;
-				i[0]=Math.min(i[0], root.low);
-				i[1]=Math.max(i[1], root.high);
-				root=new IntervalNode(i[0], i[1]);
+				//1. Add
+				for(int[] interval : intervals) add(root, interval);
+
+				//2. Merge
+				List<int[]> list = merge(root);
+
+				//3. Build result
+				int[][] result = new int[list.size()][2];
+				for(int i = 0; i < result.length; i++) result[i] = list.get(i);
+				return result;
+    }
+
+		private List<int[]> merge(IntervalNode root){
+			if(root == null) return new ArrayList<>();
+			List<int[]> result = new ArrayList<>();
+
+			List<int[]> left = merge(root.left);
+			List<int[]> right = merge(root.right);
+
+			boolean isInserted = false;
+			for(int[] interval : left){
+				if(interval[1] >= root.low){
+					isInserted = true;
+					interval[0] = Math.min(interval[0], root.low);
+					interval[1] = Math.max(interval[1], root.high);
+					root = new IntervalNode(interval[0], interval[1]);
+				}
+				result.add(interval);
 			}
-			res.add(i);
-		}
-		
-		if(!inserted) res.add(new int[] {root.low,root.high});
-		
-		for(int[] i:right) {
-			if(i[0]<=root.high) {
-				inserted=true;
-				i[0]=Math.min(i[0], root.low);
-				i[1]=Math.max(i[1], root.high);
-				res.remove(res.size()-1);
+
+			if(!isInserted) result.add(new int[]{root.low, root.high});
+
+			for(int[] interval : right){
+				if(interval[0] <= root.high){
+					interval[0] = Math.min(interval[0], root.low);
+					interval[1] = Math.max(interval[1], root.high);
+					result.remove(result.size() - 1);
+				}
+				result.add(interval);
 			}
-			res.add(i);
+			return result;
 		}
-		
-		return res;
-		
-	}
-	
-	private IntervalNode add(IntervalNode root,int[] i) {
-		
-		if(root==null) return new IntervalNode(i[0], i[1]);
-		int lowTmp = root.low, highTmp = root.high;
-		if(i[0]<root.low)
-			root.left=add(root.left, i);
-		else
-			root.right=add(root.right,i);
-		return root;
-	}
+
+		private IntervalNode add(IntervalNode root, int[] interval){
+			if(root == null) return new IntervalNode(interval[0], interval[1]);
+
+			if(interval[0] < root.low) root.left = add(root.left, interval);
+			else root.right = add(root.right, interval);
+			return root;
+		}
+
+		class IntervalNode {
+			int low, high;
+			IntervalNode left, right;
+
+			public IntervalNode(int low, int high){
+				this.low = low;
+				this.high = high;
+			}
+		}
 }
