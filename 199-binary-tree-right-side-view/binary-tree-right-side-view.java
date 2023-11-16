@@ -17,24 +17,20 @@ class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         if(root == null) return new ArrayList<>();
 
+        List<Integer> result = new ArrayList<>();
         Queue<TreeNode> q = new LinkedList<>();
-        q.add(root); q.add(null);
-        TreeNode curr = root, prev = null;
-        List<Integer> rightside = new ArrayList<>();
+        q.add(root);
 
         while(!q.isEmpty()){
-            prev = curr;
-            curr = q.poll();
-            while(curr != null){
+            int size = q.size();
+            for(int i = 0; i < size; i++){
+                TreeNode curr = q.poll();
+                if(i == size - 1) result.add(curr.val);
+
                 if(curr.left != null) q.add(curr.left);
                 if(curr.right != null) q.add(curr.right);
-
-                prev = curr;
-                curr = q.poll();
             }
-            rightside.add(prev.val);
-            if(!q.isEmpty()) q.add(null);
         }
-        return rightside;
+        return result;
     }
 }
