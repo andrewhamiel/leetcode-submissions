@@ -1,29 +1,31 @@
 class Solution {
     public int[] findDiagonalOrder(int[][] mat) {
-        if(mat == null) return new int[0];
-        int N = mat.length, M = mat[0].length, k = 0;
-        int[] result = new int[N * M];
-        int row = 0, col = 0, direction = 1;
-        while(row < N && col < M){
+        int rows = mat.length, cols = mat[0].length;
+        int row = 0, col = 0, k = 0, direction = 1;
+        int[] result = new int[rows * cols];
+
+        while(row < rows && col < cols){
             result[k++] = mat[row][col];
             int newRow = row, newCol = col;
+            //Diagnoally traverse
             if(direction == 1){
                 newRow--;
                 newCol++;
             }else{
-                newRow++;
                 newCol--;
+                newRow++;
             }
 
-            if(newRow < 0 || newRow == N || newCol < 0 || newCol == M){
+            //Update rows/cols at bounds
+            if(newRow < 0 || newRow == rows || newCol < 0 || newCol == cols){
                 if(direction == 1){
-                    row+= (col == M - 1 ? 1 : 0);
-                    col+= (col < M - 1 ? 1 : 0);
+                    row+= (col == cols - 1 ? 1 : 0);
+                    col+= (col < cols - 1 ? 1 : 0);
                 }else{
-                    col+= (row == N - 1 ? 1 : 0);
-                    row+= (row < N - 1 ? 1 : 0);
+                    col+= (row == rows - 1 ? 1 : 0);
+                    row+= (row < rows - 1 ? 1 : 0);
                 }
-                direction = 1 - direction;
+                direction*= -1;
             }else{
                 row = newRow;
                 col = newCol;
