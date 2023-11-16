@@ -10,7 +10,7 @@ class Solution {
                 if(grid[i][j] == 1) minDistance = bfs(i, j, emptyLandValue--, grid, total);
             }
         }
-        return minDistance == Integer.MAX_VALUE ? -1 : minDistance;    
+        return minDistance == Integer.MAX_VALUE ? -1 : minDistance;
     }
 
     private int bfs(int i, int j, int emptyLandValue, int[][] grid, int[][] total){
@@ -28,8 +28,8 @@ class Solution {
                     int newRow = row + dir[0], newCol = col + dir[1];
                     if(newRow >= 0 && newRow < grid.length && newCol >= 0 && newCol < grid[0].length 
                         && grid[newRow][newCol] == emptyLandValue){
-                            total[newRow][newCol]+= steps;
                             grid[newRow][newCol]--;
+                            total[newRow][newCol]+= steps;
                             q.add(new int[]{newRow, newCol});
                             minDistance = Math.min(minDistance, total[newRow][newCol]);
                         }
