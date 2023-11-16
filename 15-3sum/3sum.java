@@ -4,7 +4,7 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>();
 
         for(int i = 0; i < nums.length && nums[i] <= 0; i++){
-            if(i == 0 || nums[i] != nums[i-1]) twoSumSorted(i, nums, result);
+            if(i == 0 || nums[i] != nums[i - 1]) twoSumSorted(i, nums, result);
         }
         return result;
     }
@@ -15,7 +15,7 @@ class Solution {
             int sum = nums[i] + nums[left] + nums[right];
             if(sum == 0){
                 result.add(List.of(nums[i], nums[left++], nums[right--]));
-                //Filter out duplicates for left
+                //Filter out duplicates on left hand side
                 while(left < right && nums[left] == nums[left - 1]) left++;
             }else if(sum < 0) left++;
             else right--;
