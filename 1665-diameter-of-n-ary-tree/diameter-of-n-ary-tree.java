@@ -1,51 +1,36 @@
-/*
-// Definition for a Node.
-class Node {
-    public int val;
-    public List<Node> children;
-
-    
-    public Node() {
-        children = new ArrayList<Node>();
-    }
-    
-    public Node(int _val) {
-        val = _val;
-        children = new ArrayList<Node>();
-    }
-    
-    public Node(int _val,ArrayList<Node> _children) {
-        val = _val;
-        children = _children;
-    }
-};
-*/
-
 class Solution {
     private int diameter = 0;
 
     public int diameter(Node root) {
-        height(root);
+        this.diameter = 0;
+        maxDepth(root, 0);
         return diameter;
     }
 
-    private int height(Node root){
-        if(root == null) return 0;
+    /**
+     * return the maximum depth of leaves nodes descending from the given node
+     */
+    private int maxDepth(Node node, int currDepth) {
+        if (node.children.size() == 0) return currDepth;
 
-        int maxHeight1 = 0, maxHeight2 = 0;
-        for(Node child : root.children){
-            int parentHeight = height(child) + 1;
-
-            //determine if parent height in top two heights
-            if(parentHeight > maxHeight1){
-                maxHeight2 = maxHeight1;
-                maxHeight1 = parentHeight;
-            }else if(parentHeight > maxHeight2) maxHeight2 = parentHeight;
-
-            //calculate longest path
-            int distance = maxHeight1 + maxHeight2;
-            diameter = Math.max(diameter, distance);
+        // select the top two largest depths
+        int maxDepth1 = currDepth, maxDepth2 = 0;
+        for (Node child : node.children) {
+            int depth = maxDepth(child, currDepth + 1);
+            //determine if top 2 depths
+            if (depth > maxDepth1) {
+                maxDepth2 = maxDepth1;
+                maxDepth1 = depth;
+            } else if (depth > maxDepth2) {
+                maxDepth2 = depth;
+            }
+            // calculate the distance between the two farthest leaves nodes.
+            int distance = maxDepth1 + maxDepth2 - 2 * currDepth;
+            this.diameter = Math.max(this.diameter, distance);
         }
-        return maxHeight1;
+
+        return maxDepth1;
     }
+
+    
 }
