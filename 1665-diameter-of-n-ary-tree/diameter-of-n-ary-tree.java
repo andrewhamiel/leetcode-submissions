@@ -36,7 +36,7 @@ class Solution {
         for(Node child : root.children){
             int newDepth = depth(child, currDepth + 1);
 
-            //see if new depth in top two
+            //see if new depth in top 2
             if(newDepth > maxDepth1){
                 maxDepth2 = maxDepth1;
                 maxDepth1 = newDepth;
