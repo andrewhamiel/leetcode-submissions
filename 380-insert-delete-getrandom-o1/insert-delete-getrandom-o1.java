@@ -18,6 +18,7 @@ class RandomizedSet {
     
     public boolean remove(int val) {
         if(!map.containsKey(val)) return false;
+        
         int ind = map.get(val);
         int lastElement = list.get(list.size() - 1);
         map.put(lastElement, ind);
