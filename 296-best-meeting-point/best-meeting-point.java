@@ -2,7 +2,7 @@ class Solution {
     public int minTotalDistance(int[][] grid) {
     List<Integer> rows = collectRows(grid);
     List<Integer> cols = collectCols(grid);
-    return minDistance1D(rows) + minDistance1D(cols);
+    return get1DDistance(rows) + get1DDistance(cols);
 }
 
 private List<Integer> collectRows(int[][] grid) {
@@ -29,14 +29,10 @@ private List<Integer> collectCols(int[][] grid) {
     return cols;
 }
 
-private int minDistance1D(List<Integer> points) {
-    int distance = 0;
-    int i = 0;
-    int j = points.size() - 1;
-    while (i < j) {
-        distance += points.get(j) - points.get(i);
-        i++;
-        j--;
+private int get1DDistance(List<Integer> points){
+    int left = 0, right = points.size() - 1, distance = 0;
+    while(left < right){
+        distance+= points.get(right--) - points.get(left++);
     }
     return distance;
 }
