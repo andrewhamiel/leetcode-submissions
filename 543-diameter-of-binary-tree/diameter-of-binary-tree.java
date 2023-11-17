@@ -26,7 +26,9 @@ class Solution {
 
         int leftPath = dfs(root.left);
         int rightPath = dfs(root.right);
+
         diameter = Math.max(diameter, leftPath + rightPath);
+
         return Math.max(leftPath, rightPath) + 1;
     }
 }
