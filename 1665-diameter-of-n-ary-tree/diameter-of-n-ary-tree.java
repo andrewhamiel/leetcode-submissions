@@ -36,13 +36,13 @@ class Solution {
         for(Node child : root.children){
             int parentHeight = height(child) + 1;
 
-            //determine if parent height top 2
+            //determine if parent height in top two heights
             if(parentHeight > maxHeight1){
                 maxHeight2 = maxHeight1;
                 maxHeight1 = parentHeight;
             }else if(parentHeight > maxHeight2) maxHeight2 = parentHeight;
 
-            //determine longest path
+            //calculate longest path
             int distance = maxHeight1 + maxHeight2;
             diameter = Math.max(diameter, distance);
         }
