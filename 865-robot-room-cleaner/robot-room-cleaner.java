@@ -17,27 +17,31 @@
  */
 
 class Solution {
-    int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-    Set<Pair<Integer, Integer>> visited = new HashSet<>();
-    Robot robot;
+    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //right-hand rule -> up, right, down left
+    private Set<Pair<Integer, Integer>> visited = new HashSet<>();
+    private Robot robot;
+
     public void cleanRoom(Robot robot) {
         this.robot = robot;
         backtrack(0, 0, 0);
     }
 
     private void backtrack(int row, int col, int dir){
-        visited.add(new Pair(row, col));
+        visited.add(new Pair<>(row, col));
         robot.clean();
+
         for(int i = 0; i < 4; i++){
-            int newDir = (dir + i ) % 4;
+            int newDir = (dir + i) % 4;
+
             int newRow = row + dirs[newDir][0], newCol = col + dirs[newDir][1];
-            if(!visited.contains(new Pair(newRow, newCol)) && robot.move()){
+            if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()){
                 backtrack(newRow, newCol, newDir);
                 goBack();
             }
             robot.turnRight();
         }
     }
+
     private void goBack(){
         robot.turnRight();
         robot.turnRight();
