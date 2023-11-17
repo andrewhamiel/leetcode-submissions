@@ -39,8 +39,9 @@ class Solution {
 
         TreeNode left = lca(root.left, first, last);
         TreeNode right = lca(root.right, first, last);
-
+        
         if(left != null && right != null) return root;
-        return left != null ? left : right;
+
+        return left != null ? left :  right;
     }
 }
