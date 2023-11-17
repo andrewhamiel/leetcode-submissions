@@ -1,45 +1,22 @@
-/**
- * Time Complexity: O(N * L) = O(N)
- *
- * Space Complexity: O(N/2) = O(N)
- *
- * N = Length of the input list of logs. L = Average length of each log. This
- * can be considered as constant.
- */
 class Solution {
     public int[] exclusiveTime(int n, List<String> logs) {
         int[] result = new int[n];
-        if (n == 0 || logs == null || logs.size() == 0) {
-            return result;
-        }
+        if(n == 0 || logs == null || logs.size() == 0) return result;
 
-        // This stack will store the function ids
         Deque<Integer> stack = new ArrayDeque<>();
-        // Previous time = start/resume time of the previous function
         int prevTime = 0;
-
-        for (String log : logs) {
-            String[] logParts = log.split(":");
-            int curTime = Integer.parseInt(logParts[2]);
-
-            if ("start".equals(logParts[1])) {
-                // Function is starting now
-                if (!stack.isEmpty()) {
-                    // Add the exclusive time of previous function
-                    result[stack.peek()] += curTime - prevTime;
-                }
-                stack.push(Integer.parseInt(logParts[0]));
-                // Setting the start time for next log.
-                prevTime = curTime;
-            } else {
-                // Function is ending now.
-                // Make sure to +1 to as end takes the whole unit of time.
-                result[stack.pop()] += curTime - prevTime + 1;
-                // prevTime = resume time of the function. Thus adding 1.
-                prevTime = curTime + 1;
+        for(String log : logs){
+            String[] colonDelimited = log.split(":");
+            int currTime = Integer.parseInt(colonDelimited[2]);
+            if("start".equals(colonDelimited[1])){
+                if(!stack.isEmpty()) result[stack.peek()] += currTime - prevTime;
+                stack.push(Integer.parseInt(colonDelimited[0]));
+                prevTime = currTime;
+            }else{
+                result[stack.pop()] += currTime - prevTime + 1; //ending function takes 1 unit of time
+                prevTime = currTime + 1;
             }
         }
-
         return result;
     }
 }
