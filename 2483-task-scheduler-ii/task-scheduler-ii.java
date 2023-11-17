@@ -2,10 +2,10 @@ class Solution {
     public long taskSchedulerII(int[] tasks, int space) {
         Map<Integer, Long> map = new HashMap<>();
         long days = 0;
-        for(int taskType : tasks){
-            if(map.containsKey(taskType)) days = Math.max(days, map.get(taskType) + space);
+        for(int task : tasks){
+            if(map.containsKey(task)) days = Math.max(days, map.get(task) + space);
             days++;
-            map.put(taskType, days);
+            map.put(task, days);
         }
         return days;
     }
