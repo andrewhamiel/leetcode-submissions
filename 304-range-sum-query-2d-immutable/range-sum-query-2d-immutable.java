@@ -16,7 +16,7 @@ class NumMatrix {
     
     //principle of inclusion-exclusion
     //sum(oa) covered twice in sum(ob) and sum(oc)
-    //sum(abcd) = sum(ad) - sum(ob) - sum(oc) + sum(oa)
+    //sum(abcd) = sum(od) - sum(oc) - sum(ob) + sum(oa)
     public int sumRegion(int row1, int col1, int row2, int col2) {
         return mat[row2 + 1][col2 + 1] - mat[row1][col2 + 1] - mat[row2 + 1][col1] + mat[row1][col1];
     }
