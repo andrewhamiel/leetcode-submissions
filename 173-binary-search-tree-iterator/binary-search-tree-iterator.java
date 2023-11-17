@@ -14,13 +14,13 @@
  * }
  */
 class BSTIterator {
-    Deque<TreeNode> stack = new ArrayDeque<>();
+    private Deque<TreeNode> stack = new ArrayDeque<>();
 
     public BSTIterator(TreeNode root) {
         leftmost(root);
     }
 
-private void leftmost(TreeNode root){
+    private void leftmost(TreeNode root){
         while(root != null){
             stack.addFirst(root);
             root = root.left;
