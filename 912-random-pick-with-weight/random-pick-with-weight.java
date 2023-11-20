@@ -1,17 +1,16 @@
 class Solution {
-    int[] w;
-    int totalSum = 0;
+    private int[] w;
+    private int totalSum = 0;
 
     public Solution(int[] w) {
-        for(int i = 1; i < w.length; i++) w[i]+= w[i-1];
+        for(int i = 1; i < w.length; i++) w[i]+= w[i - 1];
         this.w = w;
         totalSum = w[w.length - 1];
     }
     
     public int pickIndex() {
-        int left = 0, right = w.length;
         double target = totalSum * Math.random();
-
+        int left = 0, right = w.length;
         while(left < right){
             int mid = left + (right - left)/2;
             if(w[mid] < target) left = mid + 1;
