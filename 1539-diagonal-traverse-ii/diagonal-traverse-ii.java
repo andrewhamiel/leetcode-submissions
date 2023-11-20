@@ -5,7 +5,7 @@ class Solution {
         List<Integer> list = new ArrayList<>();
 
         while(!q.isEmpty()){
-            Pair<Integer, Integer> p = q.poll();
+            Pair<Integer, Integer> p  = q.poll();
             int row = p.getKey(), col = p.getValue();
             list.add(nums.get(row).get(col));
 
