@@ -4,11 +4,10 @@ class Solution {
         Deque<String> stack = new ArrayDeque<>();
 
         for(String dir : dirs){
-            if(dir.equals("/") || dir.equals(".") || dir.isEmpty()) continue;
+            if(dir.equals(".") || dir.isEmpty() || dir.equals("/")) continue;
             else if(dir.equals("..")){
                 if(!stack.isEmpty()) stack.removeFirst();
-            } 
-            else stack.addFirst(dir);
+            }else stack.addFirst(dir);
         }
 
         StringBuilder result = new StringBuilder();
@@ -16,7 +15,6 @@ class Solution {
             result.append("/");
             result.append(stack.removeLast());
         }
-        
-        return result.isEmpty() ? "/" : result.toString();
+        return result.length() == 0 ? "/" : result.toString();
     }
 }
