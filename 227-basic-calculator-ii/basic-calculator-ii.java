@@ -1,9 +1,7 @@
 class Solution {
     public int calculate(String s) {
         char operation = '+';
-        int curr = 0, prev = 0, result = 0;
-        Deque<Integer> stack = new ArrayDeque<>();
-
+        int ans = 0, prev = 0, curr = 0;
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
             if(Character.isDigit(c)){
@@ -13,15 +11,18 @@ class Solution {
             if(i == s.length() - 1 || (!Character.isDigit(c) && !Character.isWhitespace(c))){
                 if(operation == '+' || operation == '-'){
                     if(operation == '-') curr*= -1;
-                    result+= prev;
+                    ans+= prev;
                     prev = curr;
                 }else if(operation == '*') prev*= curr;
                 else if(operation == '/') prev/= curr;
+
                 curr = 0;
                 operation = c;
             }
         }
-        result+= prev;
-        return result;
+
+        ans+= prev;
+
+        return ans;
     }
 }
