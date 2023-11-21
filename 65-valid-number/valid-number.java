@@ -1,25 +1,24 @@
 class Solution {
-    // 4 cases
-    // 1. Digit
-    // 2. Exponent
-    // 3. Sign
-    // 4. Dot
+    //4 cases
+    //1. Number
+    //2. Exponent
+    //3. Sign
+    //4. Dot
     public boolean isNumber(String s) {
         boolean isDigit = false, isExponent = false, isSign = false, isDot = false;
         for(int i = 0; i < s.length(); i++){
-            Character c = s.charAt(i);
-            //Case 1
+            char c = s.charAt(i);
             if(Character.isDigit(c)) isDigit = true;
-            else if(c == 'e' || c == 'E'){
+            else if(c == 'E' || c == 'e'){
                 if(i == 0 || !isDigit || isExponent) return false;
                 isExponent = true;
                 isDigit = false;
             }else if(c == '+' || c == '-'){
-                if(i > 0 && s.charAt(i - 1) != 'e' && s.charAt(i - 1) != 'E') return false;
+                if(i > 0 && s.charAt(i-1) != 'E' && s.charAt(i-1) != 'e') return false;
                 isSign = true;
                 isDigit = false;
             }else if(c == '.'){
-                if(isDot || isExponent) return false;
+                if(isExponent || isDot) return false;
                 isDot = true;
             }else return false;
         }
