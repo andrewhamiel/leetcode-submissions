@@ -6,6 +6,6 @@ class Solution {
             if(nums[mid] - nums[0] - mid < k) left = mid;
             else right = mid - 1;
         }
-        return nums[0] + k + left;
+        return nums[0] + left + k;
     }
 }
