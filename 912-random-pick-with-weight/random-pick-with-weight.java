@@ -3,9 +3,7 @@ class Solution {
     private int totalSum = 0;
 
     public Solution(int[] w) {
-        for(int i = 1; i < w.length; i++){
-            w[i]+= w[i-1];
-        }
+        for(int i = 1; i < w.length; i++) w[i]+= w[i-1];
         this.w = w;
         totalSum = w[w.length - 1];
     }
