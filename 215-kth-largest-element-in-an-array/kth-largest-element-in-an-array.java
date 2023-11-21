@@ -27,7 +27,7 @@ class Solution {
         int swapIndex = left;
 
         for(int i = left; i <= right; i++){
-            if(nums[i] < pivotValue) swap(swapIndex++, i, nums);
+            if(nums[i] < pivotValue) swap(i, swapIndex++, nums);
         }
         swap(swapIndex, right, nums);
         return swapIndex;
