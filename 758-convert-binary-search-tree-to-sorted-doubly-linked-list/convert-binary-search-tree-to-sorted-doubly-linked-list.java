@@ -20,7 +20,7 @@ class Node {
 */
 
 class Solution {
-    Node first, last;
+    Node first = null, last = null;
 
     public Node treeToDoublyList(Node root) {
         if(root == null) return root;
@@ -32,7 +32,9 @@ class Solution {
 
     private void helper(Node root){
         if(root == null) return;
+        
         helper(root.left);
+
         if(last != null){
             last.right = root;
             root.left = last;
