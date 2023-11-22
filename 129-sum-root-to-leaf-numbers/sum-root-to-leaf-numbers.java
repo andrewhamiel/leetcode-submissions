@@ -15,25 +15,24 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        int rootToLeaf = 0, currNumber = 0;
-
+        int rootToLeaves = 0, currNumber = 0;
         while(root != null){
           if(root.left != null){
             TreeNode predecessor = root.left;
             int steps = 1;
-            while(predecessor.right != null && predecessor.right != root) {
+            while(predecessor.right != null && predecessor.right != root){
               predecessor = predecessor.right;
               steps++;
             }
-            //unexplored
+            //has not been explored
             if(predecessor.right == null){
               currNumber*= 10;
               currNumber+= root.val;
               predecessor.right = root;
               root = root.left;
             }else{
-              //explored, need to unlink
-              if(predecessor.left == null) rootToLeaf+= currNumber; //leaf node
+              if(predecessor.left == null) rootToLeaves+= currNumber;
+              //already visited - need to unlink
               for(int i = 0; i < steps; i++){
                 currNumber/= 10;
               }
@@ -41,13 +40,12 @@ class Solution {
               root = root.right;
             }
           }else{
-              //No left child
-              currNumber*= 10;
-              currNumber+= root.val;
-              if(root.right == null) rootToLeaf+= currNumber;
-              root = root.right;
+            currNumber*= 10;
+            currNumber+= root.val;
+            if(root.right == null) rootToLeaves+= currNumber;
+            root = root.right;
           }
         }
-        return rootToLeaf;
+        return rootToLeaves;
     }
 }
