@@ -1,57 +1,33 @@
-
 class Solution {
     public int numSquarefulPerms(int[] nums) {
         Arrays.sort(nums);
-        int[] res = new int[]{0};
-        dfs(nums, 0, res);
-        return res[0];
+        int[] result = new int[]{0};
+        dfs(nums, 0, result);
+        return result[0];
     }
-    public void dfs(int[] nums, int level, int[] count) {
-        int n = nums.length;
-        if(level == nums.length){
-            count[0]++;
-        }
-        if(level == 0) {
-            for(int i = 0; i<n; i++) {
-                swap(nums, level, i);
-                dfs(nums,level+1, count);
-                swap(nums, i, level);
-                while(i+1<n && nums[i] == nums[i+1]) {
-                    i++;
-                }
-            }
-        } else {
-            for(int i = level; i<n; i++) {
-                if(nums[i] == nums[level] && i!= level) {
-                    continue;
-                }
-                if(isSquareful(nums[level-1] + nums[i])) {                    
-                    swap(nums, level, i);               
-                    dfs(nums,level+1, count);
-                    swap(nums, i, level);                   
-                }
-                while(i+1<n && nums[i] == nums[i+1]) {
-                    i++;
-                }
-            }
+
+    private void dfs(int[] nums, int level, int[] count){
+        if(level == nums.length) count[0]++;
+
+        for(int i = level; i < nums.length; i++){
+            if(level != 0 && nums[i] == nums[level] && i != level) continue;
+            if(level == 0 || isSquareful(nums[level - 1] + nums[i])){
+                swap(i, level, nums);
+                dfs(nums, level + 1, count);
+                swap(i, level, nums);
+                while(i + 1 < nums.length && nums[i] == nums[i + 1]) i++; //move past duplicates
+            } 
         }
     }
-    private void swap(int[] nums, int l, int r) {
-        int temp = nums[l];
-        nums[l] = nums[r];
-        nums[r] = temp;
+
+    private void swap(int i, int j, int[] nums){
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
+
     private boolean isSquareful(int num){
-        int temp = (int)Math.sqrt(num);
-        if(temp * temp == num) {
-            return true;
-        }
-        return false;
-    }
-    private int factorial(int dup) {
-        if(dup ==1 || dup == 2) {
-            return dup;
-        }
-        return dup * factorial(dup-1);
+        int tmp = (int) Math.sqrt(num);
+        return tmp * tmp == num;
     }
 }
