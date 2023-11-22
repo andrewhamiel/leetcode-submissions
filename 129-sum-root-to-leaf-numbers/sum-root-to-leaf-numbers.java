@@ -21,17 +21,18 @@ class Solution {
           if(root.left != null){
             TreeNode predecessor = root.left;
             int steps = 1;
-            while(predecessor.right != null && predecessor.right != root){
+            while(predecessor.right != null && predecessor.right != root) {
               predecessor = predecessor.right;
               steps++;
             }
-
+            //unexplored
             if(predecessor.right == null){
-              currNumber*=10;
+              currNumber*= 10;
               currNumber+= root.val;
               predecessor.right = root;
               root = root.left;
             }else{
+              //explored, need to unlink
               if(predecessor.left == null) rootToLeaf+= currNumber; //leaf node
               for(int i = 0; i < steps; i++){
                 currNumber/= 10;
@@ -40,11 +41,11 @@ class Solution {
               root = root.right;
             }
           }else{
-            //No left child
-            currNumber*= 10;
-            currNumber+= root.val;
-            if(root.right == null) rootToLeaf+= currNumber; //leaf node
-            root = root.right;
+              //No left child
+              currNumber*= 10;
+              currNumber+= root.val;
+              if(root.right == null) rootToLeaf+= currNumber;
+              root = root.right;
           }
         }
         return rootToLeaf;
