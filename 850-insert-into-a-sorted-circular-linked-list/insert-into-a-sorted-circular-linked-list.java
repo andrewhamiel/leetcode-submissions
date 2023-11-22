@@ -20,15 +20,18 @@ class Node {
 class Solution {
     public Node insert(Node head, int insertVal) {
         if(head == null){
-            head = new Node(insertVal);
-            head.next = head;
-            return head;
+            Node node = new Node(insertVal);
+            node.next = node;
+            return node;
         }
         Node curr = head;
-        boolean isInserted = false;
-        while(!isInserted){
-            if((curr.val != curr.next.val) && 
-            ((curr.val <= insertVal && insertVal <= curr.next.val && curr.val <= curr.next.val)
+        boolean isLoopCompleted = false;
+        while(!isLoopCompleted){
+            //Case 1: in between two elements
+            //Case 2: End of list, max element
+            //Case 3: End of list, minimum element
+            if((curr.val != curr.next.val) &&
+            ((curr.val <= insertVal && curr.next.val >= insertVal && curr.val <= curr.next.val)
             || (curr.val <= insertVal && curr.next.val <= insertVal && curr.val >= curr.next.val)
             || (curr.val >= insertVal && curr.next.val >= insertVal && curr.val >= curr.next.val))){
                 Node node = new Node(insertVal);
@@ -37,11 +40,11 @@ class Solution {
                 return head;
             }
             curr = curr.next;
-            if(curr == head) isInserted = true;
+            if(curr == head) isLoopCompleted = true;
         }
-        //case 4: all duplicates
-        curr = head;
+        //Case 4: all duplicates. insert after first element
         Node node = new Node(insertVal);
+        curr = head;
         node.next = curr.next;
         curr.next = node;
         return head;
