@@ -5,7 +5,7 @@ class Solution {
     }
 
     private int backtrack(int level, int[] nums){
-        if(level == nums.length) return 1;
+        if(level == nums.length)  return 1;
 
         int count = 0;
         for(int i = level; i < nums.length; i++){
