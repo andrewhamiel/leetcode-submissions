@@ -24,25 +24,24 @@ class Solution {
               predecessor = predecessor.right;
               steps++;
             }
-            //has not been explored
+
             if(predecessor.right == null){
+              //unexplored
               currNumber*= 10;
               currNumber+= root.val;
               predecessor.right = root;
               root = root.left;
             }else{
-              if(predecessor.left == null) rootToLeaves+= currNumber;
-              //already visited - need to unlink
-              for(int i = 0; i < steps; i++){
-                currNumber/= 10;
-              }
+              //already explored, need to unlink
+              if(predecessor.left == null) rootToLeaves+= currNumber; //leaf node
+              for(int i = 0; i < steps; i++) currNumber/= 10;
               predecessor.right = null;
               root = root.right;
             }
           }else{
             currNumber*= 10;
             currNumber+= root.val;
-            if(root.right == null) rootToLeaves+= currNumber;
+            if(root.right == null) rootToLeaves+= currNumber; //leaf node
             root = root.right;
           }
         }
