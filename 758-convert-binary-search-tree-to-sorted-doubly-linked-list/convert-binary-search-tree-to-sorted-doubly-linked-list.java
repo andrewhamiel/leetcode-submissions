@@ -4,36 +4,44 @@ class Solution {
         Node cur = root, head = null, tail = null, tmp;
         // morris' algo
         while (cur != null) {
+            int tmpCur = cur.val;
             head = cur.val < min ? cur : head;
             min = Math.min(min, cur.val);
             tail = cur.val > max ? cur : tail;
             max = Math.max(max, cur.val);
             // right most on left subtree
             Node rlmost = cur.left;
+            int tmpRlmost = rlmost != null ? rlmost.val : -1001;
             while (rlmost != null
                    && rlmost.right != null && rlmost != cur) {
                 rlmost = rlmost.right;
+                tmpRlmost = rlmost.val;
             }
             tmp = cur.left;
+            int tmpLeft = tmp != null ? tmp.val : -1001;
             if (rlmost != null && rlmost != cur) {
                 // link rlmost node and cur
 				// if still can go left then go
                 rlmost.right = cur;
                 cur.left = rlmost;
                 cur = tmp;
+                tmpLeft = cur.val;
                 continue;
             }
             // no left substree or linked before, go right
 			// find the left most node of right subtree
             Node lrmost = cur.right;
+            int tmpLrmost = lrmost != null ? lrmost.val : -1001;
             while (lrmost != null
                    && lrmost.left != null && lrmost.left != cur) {
                 // note that if lrmost.left (lrmost.pre) is cur
                 // which means cur and lrmost are already in linked list
                 // then just skip
                 lrmost = lrmost.left;
+                tmpLrmost = lrmost.val;
             }
             tmp = cur.right;
+            int tmpRight = tmp != null ? tmp.val : -1001;
             if (lrmost != null && lrmost.left != cur) {
                 lrmost.left = cur;
                 cur.right = lrmost;
