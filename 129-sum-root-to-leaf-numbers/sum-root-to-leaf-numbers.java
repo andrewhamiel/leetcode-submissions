@@ -32,7 +32,6 @@ class Solution {
               predecessor.right = root;
               root = root.left;
             }else{
-              //already explored, need to unwind
               if(predecessor.left == null) rootToLeaves+= currNumber;
               for(int i = 0; i < steps; i++) currNumber/= 10;
               predecessor.right = null;
