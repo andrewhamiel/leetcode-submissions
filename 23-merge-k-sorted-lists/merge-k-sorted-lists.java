@@ -16,7 +16,7 @@ class Solution {
 
     private ListNode mergeK(int left, int right, ListNode[] lists){
         if(left >= right) return lists[left];
-        
+
         int mid = left + (right - left)/2;
         ListNode leftNode = mergeK(left, mid, lists), rightNode = mergeK(mid + 1, right, lists);
         return merge(leftNode, rightNode);
@@ -24,6 +24,7 @@ class Solution {
 
     private ListNode merge(ListNode a, ListNode b){
         ListNode result = new ListNode(), curr = result;
+
         while(a != null || b != null){
             if(a != null && b != null){
                 if(a.val <= b.val){
