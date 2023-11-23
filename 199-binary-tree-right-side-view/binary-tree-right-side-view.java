@@ -1,36 +1,38 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-        if(root == null) return new ArrayList<>();
-
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        List<Integer> result = new ArrayList<>();
-
-        while(!q.isEmpty()){
-            int size = q.size();
-            for(int i = 0; i < size; i++){
-                TreeNode curr = q.poll();
-                if(i == size - 1) result.add(curr.val);
-
-                if(curr.left != null) q.add(curr.left);
-                if(curr.right != null) q.add(curr.right);
+        List<Integer> list = new ArrayList<>();
+        
+        int masH = 1, minH = 0;
+        TreeNode temp = null;
+        while(root!=null) {
+            if(root.right == null) {
+                //check
+                if(list.size()<masH) list.add(root.val);
+                masH++;
+                root = root.left;
+            }
+            else {
+                temp = root.right;
+                minH = 1;
+                while(temp.left!=null && temp.left!=root) {
+                    temp = temp.left;
+                    minH++;
+                }
+                if(temp.left == null) {
+                    //check
+                    if(list.size()<masH) list.add(root.val);
+                    temp.left = root;
+                    masH++;
+                    root = root.right;
+                }
+                else {
+                    temp.left = null;
+                    //subtract from height as we are climbing back up
+                    masH-=minH;
+                    root = root.left;
+                }
             }
         }
-        return result;
+        return list;
     }
 }
