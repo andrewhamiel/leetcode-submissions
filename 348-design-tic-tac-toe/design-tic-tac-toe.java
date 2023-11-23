@@ -1,6 +1,6 @@
 class TicTacToe {
     private int n = 0, diag = 0, antiDiag = 0;
-    private int[] rows, cols;
+    int[] rows, cols;
 
     public TicTacToe(int n) {
         this.n = n;
@@ -14,7 +14,7 @@ class TicTacToe {
         rows[row]+= playerVal;
         cols[col]+= playerVal;
         if(row == col) diag+= playerVal;
-        if(n - row - 1 == col || n - col - 1 == row) antiDiag+= playerVal;
+        if(n - 1 - row == col || n - 1 - col == row) antiDiag+= playerVal;
 
         return Math.abs(rows[row]) == n || Math.abs(cols[col]) == n || Math.abs(diag) == n || Math.abs(antiDiag) == n
             ? player : 0;
