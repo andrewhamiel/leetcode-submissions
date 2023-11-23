@@ -6,6 +6,7 @@ class Solution {
 
         while(row < rows && col < cols){
             result[k++] = mat[row][col];
+
             //diagonally traverse
             int newRow = row, newCol = col;
             if(direction == 1){
@@ -16,7 +17,7 @@ class Solution {
                 newRow++;
             }
 
-            //reset if at boundary
+            //reset at boundary
             if(newRow < 0 || newRow >= rows || newCol < 0 || newCol >= cols){
                 if(direction == 1){
                     row+= (col == cols - 1 ? 1 : 0);
