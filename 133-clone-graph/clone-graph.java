@@ -25,12 +25,12 @@ class Solution {
         if(node == null) return node;
         if(visited.containsKey(node)) return visited.get(node);
 
-        Node clonedNode = new Node(node.val);
-        visited.put(node, clonedNode);
+        Node newNode = new Node(node.val);
+        visited.put(node, newNode);
 
-        for(Node neighbor : node.neighbors){
-            clonedNode.neighbors.add(cloneGraph(neighbor));
+        for(Node oldNeighbor : node.neighbors){
+            newNode.neighbors.add(cloneGraph(oldNeighbor));
         }
-        return clonedNode;
+        return newNode;
     }
 }
