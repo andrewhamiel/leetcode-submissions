@@ -17,7 +17,8 @@
  */
 
 class Solution {
-    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //right hand rule: up -> right -> down -> left
+    //right hand rule
+    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //up -> right -> down -> left
     private Set<Pair<Integer, Integer>> visited = new HashSet<>();
     private Robot robot;
 
@@ -32,7 +33,6 @@ class Solution {
 
         for(int i = 0; i < 4; i++){
             int newDir = (dir + i) % 4;
-
             int newRow = row + dirs[newDir][0], newCol = col + dirs[newDir][1];
             if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()){
                 backtrack(newRow, newCol, newDir);
