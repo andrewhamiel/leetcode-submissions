@@ -12,10 +12,6 @@ class Solution {
     private int dfs(int i, int j, int[][] grid){
         if(i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] != 1) return 0;
         grid[i][j] = 0;
-        int left = dfs(i, j-1, grid);
-        int right = dfs(i, j+1, grid);
-        int up = dfs(i-1, j, grid);
-        int down = dfs(i+1, j, grid);
-        return 1 + left + right + up + down;
+        return 1 + dfs(i, j - 1, grid) + dfs(i, j + 1, grid) + dfs(i - 1, j, grid) + dfs(i + 1, j, grid);
     }
 }
