@@ -35,14 +35,14 @@ class Solution {
                     level++;
                 }else{
                     //Already explored, time to unlink
-                    level-= backDepth;
                     successor.left = null;
+                    level-=backDepth;
                     root = root.left;
                 }
             }else{
                 if(level == result.size()) result.add(root.val);
-                root = root.left;
                 level++;
+                root = root.left;
             }
         }
         return result;
