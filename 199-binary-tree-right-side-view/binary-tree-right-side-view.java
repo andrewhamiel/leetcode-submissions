@@ -22,26 +22,25 @@ class Solution {
             if(root.right != null){
                 TreeNode successor = root.right;
                 int backDepth = 1;
-                while(successor.left != null  && successor.left != root){
+                while(successor.left != null && successor.left != root){
                     successor = successor.left;
                     backDepth++;
                 }
 
                 if(successor.left == null){
                     //Unexplored
-                    if(result.size() == level) result.add(root.val);
-                    level++;
+                    if(level == result.size()) result.add(root.val);
                     successor.left = root;
-                    root = root.right; 
+                    root = root.right;
+                    level++;
                 }else{
-                    //Already visited, time to unlink
+                    //Already explored, time to unlink
                     level-= backDepth;
                     successor.left = null;
                     root = root.left;
                 }
             }else{
-                //preorder visit
-                if(result.size() == level) result.add(root.val);
+                if(level == result.size()) result.add(root.val);
                 root = root.left;
                 level++;
             }
