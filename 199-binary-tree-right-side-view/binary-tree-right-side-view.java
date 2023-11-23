@@ -30,13 +30,13 @@ class Solution {
                 if(successor.left == null){
                     //Unexplored
                     if(level == result.size()) result.add(root.val);
+                    level++;
                     successor.left = root;
                     root = root.right;
-                    level++;
                 }else{
-                    //Already explored, time to unlink
+                    //Already explored, need to unlink
+                    level-= backDepth;
                     successor.left = null;
-                    level-=backDepth;
                     root = root.left;
                 }
             }else{
