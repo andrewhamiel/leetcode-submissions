@@ -1,9 +1,9 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
         if(nums == null || nums.length == 0) return new int[]{-1, -1};
-
         int firstIndex = binarySearch(nums, target, true);
         if(firstIndex == -1) return new int[]{-1, -1};
+        
         int secondIndex = binarySearch(nums, target, false);
         return new int[]{firstIndex, secondIndex};
     }
@@ -19,7 +19,7 @@ class Solution {
             }else{
                 if(nums[mid] == target && (mid == nums.length - 1 || nums[mid + 1] != target)) return mid;
                 else if(nums[mid] <= target) left = mid + 1;
-                else right = mid;
+                else right = mid - 1;
             }
         }
         return -1;
