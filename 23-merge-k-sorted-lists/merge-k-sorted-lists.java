@@ -15,33 +15,32 @@ class Solution {
     }
 
     private ListNode mergeK(int left, int right, ListNode[] lists){
-        if(left == right) return lists[left];
+        if(left >= right) return lists[left];
         int mid = left + (right - left)/2;
         ListNode leftNode = mergeK(left, mid, lists), rightNode = mergeK(mid + 1, right, lists);
         return merge(leftNode, rightNode);
     }
 
     private ListNode merge(ListNode a, ListNode b){
-        ListNode ans = new ListNode();
-        ListNode head = ans;
+        ListNode result = new ListNode(), curr = result;
         while(a != null || b != null){
             if(a != null && b != null){
                 if(a.val <= b.val){
-                    ans.next = new ListNode(a.val);
+                    curr.next = a;
                     a = a.next;
                 }else{
-                    ans.next = new ListNode(b.val);
+                    curr.next = b;
                     b = b.next;
                 }
             }else if(a != null){
-                ans.next = new ListNode(a.val);
+                curr.next = a;
                 a = a.next;
             }else{
-                ans.next = new ListNode(b.val);
+                curr.next = b;
                 b = b.next;
             }
-            ans = ans.next;
+            curr = curr.next;
         }
-        return head.next;
+        return result.next;
     }
 }
