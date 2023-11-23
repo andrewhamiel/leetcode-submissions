@@ -15,8 +15,7 @@ class Solution {
             return;
         }
 
-        List<Character> list = map.get(digits.charAt(ind));
-        for(char c : list){
+        for(char c : map.get(digits.charAt(ind))){
             sb.append(c);
             backtrack(ind + 1, digits, sb);
             sb.deleteCharAt(sb.length() - 1);
