@@ -1,38 +1,37 @@
 class Solution {
+    List<String> combs = new ArrayList<>();
+
     public List<String> letterCombinations(String digits) {
-        if(digits == null || digits.length() == 0) return new ArrayList<>();
-        List<String> result = new ArrayList<>();
-        Map<Integer, List<Character>> map = populateMap();
-        dfs(0, digits.toCharArray(), result, map);
-        return result;
+        if(digits.length() == 0) return combs;
+        Map<Character, List<Character>> map = getChars();
+        helper(0, digits, new StringBuilder(), map);
+        return new ArrayList<>(combs);
     }
 
-    private void dfs(int start, char[] digits, List<String> result, Map<Integer, List<Character>> map){
-        if(start >= digits.length){
-            result.add(new String(digits));
+    private void helper(int ind, String digits, StringBuilder result, Map<Character, List<Character>> map){
+        if(result.length() == digits.length()){
+            combs.add(result.toString());
             return;
         }
 
-        for(int i = start; i < digits.length; i++){
-            char c = digits[i];
-            if(Character.isDigit(c)){
-                for(Character letter : map.get((int)(c - '0'))){
-                    digits[i] = letter;
-                    dfs(start+1, digits, result, map);
-                }
-                digits[i] = c;
-            }
+        char digit = digits.charAt(ind);
+        List<Character> list = map.get(digit);
+        int currLength = result.length();
+        for(int i = 0; i < list.size(); i++){
+            result.append(list.get(i));
+            helper(ind + 1, digits, result, map);
+            result.deleteCharAt(result.length() - 1);
         }
     }
 
-    private Map<Integer, List<Character>> populateMap(){
-        Map<Integer, List<Character>> map = new HashMap<>();
+    private Map<Character, List<Character>> getChars(){
+        Map<Character, List<Character>> map = new HashMap<>();
         char c = 'a';
-        for(int i = 2; i <= 9; i++){
-            List<Character> list = new ArrayList<>();
-            for(int j = 0; j < 3; j++) list.add(c++);
-            if(i == 7 || i == 9) list.add(c++);
-            map.put(i, list);
+        for(char i = '2'; i <= '9'; i++){
+            List<Character> letters = new ArrayList<>();
+            for(int j = 0; j < 3; j++) letters.add(c++);
+            if(i == '7' || i == '9') letters.add(c++);
+            map.put(i, letters);
         }
         return map;
     }
