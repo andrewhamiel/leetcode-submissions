@@ -1,8 +1,7 @@
 class NumMatrix {
-    int[][] mat;
+    private int[][] mat;
 
     public NumMatrix(int[][] matrix) {
-        //cumulative region sum
         mat = new int[matrix.length + 1][matrix[0].length + 1];
         for(int row = 0; row < matrix.length; row++){
             int rowSum = 0;
@@ -14,9 +13,6 @@ class NumMatrix {
         }
     }
     
-    //principle of inclusion-exclusion
-    //sum(oa) covered twice in sum(ob) and sum(oc)
-    //sum(abcd) = sum(od) - sum(oc) - sum(ob) + sum(oa)
     public int sumRegion(int row1, int col1, int row2, int col2) {
         return mat[row2 + 1][col2 + 1] - mat[row1][col2 + 1] - mat[row2 + 1][col1] + mat[row1][col1];
     }
