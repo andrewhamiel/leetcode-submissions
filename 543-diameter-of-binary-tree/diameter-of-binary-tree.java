@@ -24,11 +24,8 @@ class Solution {
     private int dfs(TreeNode root){
         if(root == null) return 0;
 
-        int leftPath = dfs(root.left);
-        int rightPath = dfs(root.right);
-
-        diameter = Math.max(diameter, leftPath + rightPath);
-
-        return Math.max(leftPath, rightPath) + 1;
+        int left = dfs(root.left), right = dfs(root.right);
+        diameter = Math.max(diameter, left + right);
+        return Math.max(left, right) + 1;
     }
 }
