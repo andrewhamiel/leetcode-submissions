@@ -13,7 +13,7 @@ class Solution {
         //Step 1: Connect components
         for(int i = 0; i < words.length - 1; i++){
             String word1 = words[i], word2 = words[i + 1];
-            //Ensure this is not a substring
+            //Make sure word2 not a substring of word1
             if(word1.length() > word2.length() && word1.startsWith(word2)) return "";
             for(int wordInd = 0; wordInd < Math.min(word1.length(), word2.length()); wordInd++){
                 char c1 = word1.charAt(wordInd), c2 = word2.charAt(wordInd);
@@ -25,22 +25,20 @@ class Solution {
             }
         }
 
-        //Step 3: BFS
+        //Step 2: Topological Sort
         Queue<Character> q = new LinkedList<>();
-        for(char c : deps.keySet()) if(deps.get(c) == 0) q.add(c);
+        for(char key : deps.keySet()) if(deps.get(key) == 0) q.add(key);
         StringBuilder result = new StringBuilder();
 
         while(!q.isEmpty()){
             char curr = q.poll();
             result.append(curr);
-
             for(char nextChar : adj.get(curr)){
                 deps.put(nextChar, deps.get(nextChar) - 1);
                 if(deps.get(nextChar) == 0) q.add(nextChar);
             }
         }
-
-        //Step 4: Validate all characters have been collected
+        //Step 4: Validate all characters have been included
         return result.length() == deps.size() ? result.toString() : "";
     }
 }
