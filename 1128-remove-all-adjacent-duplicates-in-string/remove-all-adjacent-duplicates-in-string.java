@@ -1,15 +1,15 @@
 class Solution {
     public String removeDuplicates(String s) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         int ind = -1;
         for(char c : s.toCharArray()){
-          if(ind >= 0 && c == sb.charAt(ind)){
-            sb.deleteCharAt(ind--);
+          if(ind >= 0 && c == result.charAt(ind)){
+            result.deleteCharAt(ind--);
           }else{
-            sb.append(c);
+            result.append(c);
             ind++;
           }
         }
-        return sb.toString();
+        return result.toString();
     }
 }
