@@ -1,16 +1,16 @@
 class Solution {
     public boolean isToeplitzMatrix(int[][] matrix) {
-        //first col
-        for(int j = 0; j < matrix[0].length - 1; j++) if(!isToeplitz(0, j, matrix)) return false;
-        //first row
-        for(int i = 0; i < matrix.length - 1; i++) if(!isToeplitz(i, 0, matrix)) return false;
+        //check starting at each row
+        for(int row = 0; row < matrix.length; row++) if(!isToeplitz(row, 0, matrix)) return false;
+        //check starting in first row at each column after zero
+        for(int col = 1; col < matrix[0].length; col++) if(!isToeplitz(0, col, matrix)) return false;
         return true;
     }
 
-    private boolean isToeplitz(int i, int j, int[][] matrix){
-        int value = matrix[i][j];
-        while(i < matrix.length && j < matrix[0].length){
-            if(matrix[i++][j++] != value) return false;
+    private boolean isToeplitz(int row, int col, int[][] matrix){
+        int originalValue = matrix[row][col];
+        while(row < matrix.length && col < matrix[0].length){
+            if(matrix[row++][col++] != originalValue) return false;
         }
         return true;
     }
