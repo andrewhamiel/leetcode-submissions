@@ -15,18 +15,18 @@ class Solution {
         parent.put(root, null);
 
         while(!parent.containsKey(p) || !parent.containsKey(q)){
-            TreeNode node = stack.removeFirst();
+            TreeNode curr = stack.removeFirst();
 
-            if(node.left != null){
-                parent.put(node.left, node);
-                stack.addFirst(node.left);
+            if(curr.left != null){
+                parent.put(curr.left, curr);
+                stack.addFirst(curr.left);
             }
-            if(node.right != null){
-                parent.put(node.right, node);
-                stack.addFirst(node.right);
+            if(curr.right != null){
+                parent.put(curr.right, curr);
+                stack.addFirst(curr.right);
             }
         }
-        
+
         Set<TreeNode> ancestors = new HashSet<>();
         while(p != null){
             ancestors.add(p);
