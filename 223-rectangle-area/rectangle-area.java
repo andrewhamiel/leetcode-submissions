@@ -11,10 +11,12 @@ class Solution {
         int yOverlap = top - bottom;
 
         int sharedArea = 0;
-        if(xOverlap > 0 && yOverlap > 0) sharedArea = xOverlap * yOverlap;
+        if(xOverlap > 0 && yOverlap > 0){
+            sharedArea = xOverlap * yOverlap;
+        }
 
         int areaA = (ax2 - ax1) * (ay2 - ay1);
         int areaB = (bx2 - bx1) * (by2 - by1);
-        return areaA + areaB - sharedArea; 
+        return areaA + areaB - sharedArea;
     }
 }
