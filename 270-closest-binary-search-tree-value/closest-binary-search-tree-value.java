@@ -1,15 +1,29 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-  //Time: O(H) -> Height of tree
-  //Space: O(1)
-  public int closestValue(TreeNode root, double target) {
-    int closest = root.val;
-    while (root != null) {
-      int val = root.val;
-      if((Math.abs(val - target) < Math.abs(closest - target))
-        || (Math.abs(val - target) == Math.abs(closest - target) && val < closest)) closest = val;
-
-      root =  target < root.val ? root.left : root.right;
+    public int closestValue(TreeNode root, double target) {
+        int closest = root.val;
+        while(root != null){
+          int currVal = root.val;
+          if((Math.abs(target - currVal) < Math.abs(target - closest))
+            || (Math.abs(target - currVal) == Math.abs(target - closest) && currVal < closest)){
+              closest = currVal;
+            }
+          root = currVal <= target ? root.right : root.left;
+        }
+        return closest;
     }
-    return closest;
-  }
 }
