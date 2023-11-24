@@ -15,20 +15,14 @@
  */
 class Solution {
     public int closestValue(TreeNode root, double target) {
-        int closest = root.val;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        while(!q.isEmpty()){
-          TreeNode curr = q.poll();
-          if(curr.val == target) return curr.val;
-          
-          if(Math.abs(target - curr.val) < Math.abs(target - closest) || (Math.abs(target - curr.val) == Math.abs(target - closest) && curr.val < closest)){
-            closest = curr.val;
-          }
+        if(root == null) return Integer.MAX_VALUE;
 
-          if(curr.val > target && curr.left != null) q.add(curr.left);
-          else if(curr.val < target && curr.right != null) q.add(curr.right);
-        }
+        int closest = root.val;
+        int left = closestValue(root.left, target);
+        int right = closestValue(root.right, target);
+
+        if(Math.abs(target - left) <= Math.abs(target - closest)) closest = left;
+        if(Math.abs(target - right) < Math.abs(target - closest)) closest = right;
         return closest;
     }
 }
