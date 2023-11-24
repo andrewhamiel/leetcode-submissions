@@ -3,7 +3,7 @@ class Solution {
         StringBuilder result = new StringBuilder();
         int ind = -1;
         for(char c : s.toCharArray()){
-          if(ind >= 0 && result.charAt(ind) == c){
+          if(ind >= 0 && c == result.charAt(ind)){
             result.deleteCharAt(ind--);
           }else{
             result.append(c);
