@@ -1,8 +1,8 @@
 class Solution {
     public int missingElement(int[] nums, int k) {
         //prevent overflow
-        int missingNumAmount = nums[nums.length - 1] - nums[0] - (nums.length - 1);
-        if(missingNumAmount < k) return nums[nums.length - 1] + k - missingNumAmount;
+        int totalMissing = nums[nums.length - 1] - nums[0] - (nums.length - 1);
+        if(totalMissing < k) return nums[nums.length - 1] + k - totalMissing;
 
         int left = 0, right = nums.length - 1;
         while(left < right){
