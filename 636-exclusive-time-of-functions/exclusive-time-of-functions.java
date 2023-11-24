@@ -4,7 +4,7 @@ class Solution {
         if(n == 0 || logs == null || logs.size() == 0) return result;
         Deque<Integer> stack = new ArrayDeque<>();
         int prevTime = 0;
-        
+
         for(String log : logs){
             String[] colonDelimited = log.split(":");
             int currTime = Integer.parseInt(colonDelimited[2]);
