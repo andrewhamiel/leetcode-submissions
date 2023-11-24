@@ -18,8 +18,8 @@ class Solution {
         int closest = root.val;
         while(root != null){
           if((Math.abs(target - root.val) < Math.abs(target - closest))
-          || (Math.abs(target - root.val) == Math.abs(target - closest) && root.val < closest)){
-            closest = root.val;
+            || (Math.abs(target - root.val) == Math.abs(target - closest) && root.val < closest)){
+              closest = root.val;
           }
           root = root.val < target ? root.right : root.left;
         }
