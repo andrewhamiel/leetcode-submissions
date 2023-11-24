@@ -14,6 +14,7 @@ class Solution {
         Map<TreeNode, TreeNode> parent = new HashMap<>();
         parent.put(root, null);
 
+        //1
         while(!parent.containsKey(p) || !parent.containsKey(q)){
             TreeNode curr = stack.removeFirst();
 
@@ -27,12 +28,14 @@ class Solution {
             }
         }
 
+        //2
         Set<TreeNode> ancestors = new HashSet<>();
         while(p != null){
             ancestors.add(p);
             p = parent.get(p);
         }
 
+        //3
         while(!ancestors.contains(q)){
             q = parent.get(q);
         }
