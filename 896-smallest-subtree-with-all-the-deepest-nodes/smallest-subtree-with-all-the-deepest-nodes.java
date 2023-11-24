@@ -18,6 +18,7 @@ class Solution {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         TreeNode first = null, last = null;
+        
         while(!q.isEmpty()){
             int size = q.size();
             for(int i = 0; i < size; i++){
@@ -29,19 +30,19 @@ class Solution {
                 if(curr.right != null) q.add(curr.right);
             }
         }
+
         return lca(root, first, last);
     }
 
-    private TreeNode lca(TreeNode root, TreeNode first, TreeNode last){
+    private TreeNode lca(TreeNode root, TreeNode p, TreeNode q){
         if(root == null) return root;
 
-        if(root == first || root == last) return root;
+        if(root == p || root == q) return root;
 
-        TreeNode left = lca(root.left, first, last);
-        TreeNode right = lca(root.right, first, last);
-        
+        TreeNode left = lca(root.left, p, q);
+        TreeNode right = lca(root.right, p, q);
+
         if(left != null && right != null) return root;
-
-        return left != null ? left :  right;
+        return left != null ? left : right;
     }
 }
