@@ -8,6 +8,7 @@ class Solution {
         for(String log : logs){
             String[] colonDelimited = log.split(":");
             int currTime = Integer.parseInt(colonDelimited[2]);
+
             if("start".equals(colonDelimited[1])){
                 if(!stack.isEmpty()) result[stack.peekFirst()]+= currTime - prevTime;
                 stack.addFirst(Integer.parseInt(colonDelimited[0]));
