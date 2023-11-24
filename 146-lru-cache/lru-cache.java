@@ -6,24 +6,22 @@ class LRUCache {
         int value;
     }
 
-    Node head;
-    Node tail;
-    Map<Integer, Node> cache = new HashMap<>();
+    Node head, tail;
     int capacity = 0;
+    Map<Integer, Node> cache = new HashMap<>();
 
     public LRUCache(int capacity) {
         head = new Node();
         tail = new Node();
-        head.next = tail;
         tail.prev = head;
+        head.next = tail; 
         this.capacity = capacity;
     }
 
     private void add(Node node){
         node.next = head.next;
         node.prev = head;
-        
-        head.next.prev = node;
+        node.next.prev = node;
         head.next = node;
     }
 
@@ -41,7 +39,7 @@ class LRUCache {
 
     private Node popTail(){
         Node poppedTail = tail.prev;
-        remove(poppedTail);
+        remove(tail.prev);
         return poppedTail;
     }
     
@@ -57,6 +55,7 @@ class LRUCache {
             Node node = cache.get(key);
             node.value = value;
             moveToFront(node);
+            cache.put(key, node);
         }else{
             Node node = new Node();
             node.key = key;
