@@ -6,21 +6,23 @@ class Solution {
         Queue<int[]> q = new LinkedList<>();
         q.add(start);
         visited[start[0]][start[1]] = true;
+
         while(!q.isEmpty()){
             int[] curr = q.poll();
-            if(curr[0] == destination[0] && curr[1] == destination[1]) return true;
+            int row = curr[0], col = curr[1];
+            if(row == destination[0] && col == destination[1]) return true;
             for(int[] dir : dirs){
-                int row = curr[0] + dir[0], col = curr[1] + dir[1];
-                while(row >= 0 && row < maze.length && col >= 0 && col < maze[0].length && maze[row][col] == 0){
-                    row+= dir[0];
-                    col+= dir[1];
+                int newRow = row + dir[0], newCol = col + dir[1];
+                while(newRow >= 0 && newRow < maze.length && newCol >= 0 && newCol < maze[0].length
+                    && maze[newRow][newCol] == 0){
+                        newRow+= dir[0];
+                        newCol+= dir[1];
                 }
-
-                row-= dir[0];
-                col-= dir[1];
-                if(!visited[row][col]){
-                    visited[row][col] = true;
-                    q.add(new int[]{row, col});
+                newRow-= dir[0];
+                newCol-= dir[1];
+                if(!visited[newRow][newCol]){
+                    visited[newRow][newCol] = true;
+                    q.add(new int[]{newRow, newCol});
                 }
             }
         }
