@@ -1,5 +1,5 @@
 class Solution {
-    Map<Integer, Integer> count = new HashMap<>();
+    private Map<Integer, Integer> count = new HashMap<>();
 
     public int[] topKFrequent(int[] nums, int k) {
         for(int num : nums) count.put(num, count.getOrDefault(num, 0) + 1);
