@@ -1,102 +1,68 @@
-
-
 class Solution {
-    public List<List<String>> accountsMerge(List<List<String>> accountList) {
-        int accountListSize = accountList.size();
-        DSU dsu = new DSU(accountListSize);
-        
-        // Maps email to their component index
-        Map<String, Integer> emailGroup = new HashMap<>();
-        
-        for (int i = 0; i < accountListSize; i++) {
-            int accountSize = accountList.get(i).size();
-            
-            for (int j = 1; j < accountSize; j++) {
-                String email = accountList.get(i).get(j);
-                String accountName = accountList.get(i).get(0);
-                
-                // If this is the first time seeing this email then
-                // assign component group as the account index
-                if (!emailGroup.containsKey(email)) {
-                    emailGroup.put(email, i);
-                } else {
-                    // If we have seen this email before then union this
-                    // group with the previous group of the email
-                    dsu.unionBySize(i, emailGroup.get(email));
-                }
+    public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        UnionFind uf = new UnionFind(accounts.size());
+        Map<String, Integer> groups = new HashMap<>();
+        for(int i = 0; i < accounts.size(); i++){
+            List<String> account = accounts.get(i);
+            for(int j = 1; j < account.size(); j++){
+                String email = account.get(j);
+                if(!groups.containsKey(email)) groups.put(email, i);
+                else uf.union(i, groups.get(email));
             }
         }
-        
-        // Store emails corresponding to the component's representative
-        Map<Integer, List<String>> components = new HashMap<Integer, List<String>>();
-        for (String email : emailGroup.keySet()) {
-            int group = emailGroup.get(email);
-            int groupRep = dsu.findRepresentative(group);
-            
-            if (!components.containsKey(groupRep)) {
-                components.put(groupRep, new ArrayList<String>());
-            }
-            
-            components.get(groupRep).add(email);
+
+        //2. rank components
+        Map<Integer, List<String>> components = new HashMap<>(); 
+        for(String email : groups.keySet()){
+            int unranked = groups.get(email);
+            int rankedGroup = uf.find(unranked);
+            components.putIfAbsent(rankedGroup, new ArrayList<>());
+            components.get(rankedGroup).add(email);
         }
-        
-        // Sort the components and add the account name
-        List<List<String>> mergedAccounts = new ArrayList<>();
-        for (int group : components.keySet()) {
-            List<String> component = components.get(group);
-            Collections.sort(component); 
-            component.add(0, accountList.get(group).get(0));
-            mergedAccounts.add(component);
+
+        //3. Build result
+        List<List<String>> result = new ArrayList<>();
+        for(Integer group : components.keySet()){
+            List<String> emails = components.get(group);
+            Collections.sort(emails);
+            String accountName = accounts.get(group).get(0);
+            List<String> toAdd = new ArrayList<>();
+            toAdd.add(accountName);
+            toAdd.addAll(emails);
+            result.add(toAdd);
         }
-        
-        return mergedAccounts;
+        return result;
     }
 
-    class DSU {
-    int representative [];
-    int size [];
-    
-    DSU(int sz) {
-        representative = new int[sz];
-        size = new int[sz];
-        
-        for (int i = 0; i < sz; ++i) {
-            // Initially each group is its own representative
-            representative[i] = i;
-            // Intialize the size of all groups to 1
-            size[i] = 1;
+    class UnionFind {
+        int[] group;
+        int[] rank;
+
+        public UnionFind(int size){
+            group = new int[size];
+            rank = new int[size];
+            for(int i = 0; i < size; i++){
+                group[i] = i;
+                rank[i] = 1;
+            }
+        }
+
+        public int find(int x){
+            if(group[x] != x) group[x] = find(group[x]);
+            return group[x];
+        }
+
+        public void union(int a, int b){
+            int groupA = find(a), groupB = find(b);
+            if(groupA == groupB) return;
+
+            if(rank[groupA] >= rank[groupB]){
+                rank[groupA]+= rank[groupB];
+                group[groupB] = group[groupA];
+            }else{
+                rank[groupB]+= rank[groupA];
+                group[groupA] = group[groupB];
+            }
         }
     }
-    
-    // Finds the representative of group x
-    public int findRepresentative(int x) {
-        if (x == representative[x]) {
-            return x;
-        }
-        
-        // This is path compression
-        return representative[x] = findRepresentative(representative[x]);
-    }
-    
-    // Unite the group that contains "a" with the group that contains "b"
-    public void unionBySize(int a, int b) {
-        int representativeA = findRepresentative(a);
-        int representativeB = findRepresentative(b);
-        
-        // If nodes a and b already belong to the same group, do nothing.
-        if (representativeA == representativeB) {
-            return;
-        }
-        
-        // Union by size: point the representative of the smaller
-        // group to the representative of the larger group.
-        if (size[representativeA] >= size[representativeB]) {
-            size[representativeA] += size[representativeB];
-            representative[representativeB] = representativeA;
-        } else {
-            size[representativeB] += size[representativeA];
-            representative[representativeA] = representativeB;
-        }
-    }
-}
 }
