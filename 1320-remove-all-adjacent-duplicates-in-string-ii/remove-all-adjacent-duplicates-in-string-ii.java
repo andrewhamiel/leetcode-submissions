@@ -5,16 +5,16 @@ class Solution {
             if(stack.isEmpty() || stack.peekFirst().getKey() != s.charAt(i)) stack.addFirst(new Pair<>(s.charAt(i), 1));
             else{
                 Pair<Character, Integer> p = stack.removeFirst();
-                if(p.getValue() + 1 < k) stack.addFirst(new Pair<>(p.getKey(), p.getValue() + 1));
+                if(p.getValue() + 1 < k) stack.addFirst(new Pair<>(s.charAt(i), p.getValue() + 1));
             }
         }
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         while(!stack.isEmpty()){
             Pair<Character, Integer> p = stack.removeLast();
             int count = p.getValue();
-            while(count-- > 0) sb.append(p.getKey());
+            while(count-- > 0) result.append(p.getKey());
         }
-        return sb.toString();
+        return result.toString();
     }
 }
