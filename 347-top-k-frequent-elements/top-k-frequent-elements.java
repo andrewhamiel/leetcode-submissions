@@ -7,9 +7,9 @@ class Solution {
         int ind = 0;
         for(int num : count.keySet()) unique[ind++] = num;
 
-        quickselect(0, unique.length - 1, unique, unique.length - k);
+        quickselect(0, unique.length - 1, unique, k);
         int[] result = new int[k];
-        for(int i = 0; i < result.length; i++) result[i] = unique[unique.length - k + i];
+        for(int i = 0; i < result.length; i++) result[i] = unique[i];
         return result;
     }
 
@@ -30,7 +30,7 @@ class Solution {
         int swapIndex = left;
 
         for(int i = left; i <= right; i++){
-            if(count.get(nums[i]) < pivotValue) swap(i, swapIndex++, nums);
+            if(count.get(nums[i]) > pivotValue) swap(i, swapIndex++, nums);
         }
         swap(swapIndex, right, nums);
         return swapIndex;
