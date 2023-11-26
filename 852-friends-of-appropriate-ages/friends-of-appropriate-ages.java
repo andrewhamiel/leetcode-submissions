@@ -6,10 +6,10 @@ class Solution {
         for(int i = 1; i < freq.length; i++) freq[i]+= freq[i - 1];
 
         int totalFriendRequests = 0;
-        for(int i = 0; i < ages.length; i++){
-            int condition = ages[i]/2 + 7;
-            if(condition >= ages[i]) continue;
-            totalFriendRequests+= freq[ages[i]] - freq[condition] - 1;
+        for(int age : ages){
+            int condition = age/2 + 7;
+            if(condition >= age) continue;
+            totalFriendRequests+= freq[age] - freq[condition] - 1;
         }
         return totalFriendRequests;
     }
