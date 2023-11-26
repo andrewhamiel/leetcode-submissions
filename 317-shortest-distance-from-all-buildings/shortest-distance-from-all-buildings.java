@@ -10,7 +10,7 @@ class Solution {
                 if(grid[i][j] == 1) minDistance = bfs(i, j, grid, total, emptyLandValue--);
             }
         }
-        return minDistance == Integer.MAX_VALUE ? -1 : minDistance;    
+        return minDistance == Integer.MAX_VALUE ? -1 : minDistance;
     }
 
     private int bfs(int i, int j, int[][] grid, int[][] total, int emptyLandValue){
