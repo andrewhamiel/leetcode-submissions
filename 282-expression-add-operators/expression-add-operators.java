@@ -21,11 +21,11 @@ class Solution {
             return;
         }
 
-        //1. Correct current operand to shift base 10
+        //1. Correct currOperand to shift base 10
         currOperand*= 10;
         currOperand+= (int)(num.charAt(ind) - '0');
 
-        //2. No op if currOperand > 0 to avoid leading zeroes
+        //2. No op if value > 0 to avoid leading zeroes
         if(currOperand > 0) helper(ind + 1, value, prevOperand, currOperand, expression);
 
         //3. Addition
