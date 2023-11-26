@@ -7,13 +7,13 @@ class Solution {
 
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
-                if(grid[i][j] == 1) minDistance = bfs(i, j, emptyLandValue--, grid, total);
+                if(grid[i][j] == 1) minDistance = bfs(i, j, grid, total, emptyLandValue--);
             }
         }
-        return minDistance == Integer.MAX_VALUE ? -1 : minDistance;
+        return minDistance == Integer.MAX_VALUE ? -1 : minDistance;    
     }
 
-    private int bfs(int i, int j, int emptyLandValue, int[][] grid, int[][] total){
+    private int bfs(int i, int j, int[][] grid, int[][] total, int emptyLandValue){
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{i, j});
         int minDistance = Integer.MAX_VALUE, steps = 0;
