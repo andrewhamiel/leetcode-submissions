@@ -9,11 +9,11 @@ class Solution {
     }
 
     private void backtrack(int ind, List<Integer> subset){
-        //0. Exit condition
         if(ind == nums.length){
             result.add(new ArrayList<>(subset));
             return;
         }
+
         //no op
         backtrack(ind + 1, subset);
         for(int i = ind; i < nums.length; i++){
@@ -21,6 +21,5 @@ class Solution {
             backtrack(i + 1, subset);
             subset.remove(subset.size() - 1);
         }
-        
     }
 }
