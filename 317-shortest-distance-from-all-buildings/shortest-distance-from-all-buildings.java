@@ -32,7 +32,7 @@ class Solution {
                             total[newRow][newCol]+= steps;
                             q.add(new int[]{newRow, newCol});
                             minDistance = Math.min(minDistance, total[newRow][newCol]);
-                        }
+                    }
                 }
             }
         }
