@@ -32,22 +32,24 @@ class Solution {
         expression.add("+");
         expression.add(Long.toString(currOperand));
         helper(ind + 1, value + currOperand, currOperand, 0, expression);
-        expression.remove(expression.size() - 1);
-        expression.remove(expression.size() - 1);
+        cleanupBacktrack(expression);
 
         if(expression.size() > 0){
             //4. Subtraction
             expression.add("-");
             expression.add(Long.toString(currOperand));
             helper(ind + 1, value - currOperand, -currOperand, 0, expression);
-            expression.remove(expression.size() - 1);
-            expression.remove(expression.size() - 1);
+            cleanupBacktrack(expression);
             //5. Multiplication
             expression.add("*");
             expression.add(Long.toString(currOperand));
             helper(ind + 1, value - prevOperand + (prevOperand * currOperand), prevOperand * currOperand, 0, expression);
-            expression.remove(expression.size() - 1);
-            expression.remove(expression.size() - 1);
+            cleanupBacktrack(expression);
         }
+    }
+
+    private void cleanupBacktrack(List<String> expression){
+        expression.remove(expression.size() - 1);
+        expression.remove(expression.size() - 1);
     }
 }
