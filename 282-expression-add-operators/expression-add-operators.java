@@ -1,81 +1,56 @@
 class Solution {
+    List<String> ans = new ArrayList<>();
+    String num;
+    int target = 0;
 
-  public ArrayList<String> answer;
-  public String digits;
-  public long target;
-
-   public List<String> addOperators(String num, int target) {
-
-    if (num.length() == 0) {
-      return new ArrayList<String>();
+    public List<String> addOperators(String num, int target) {
+        this.num = num;
+        this.target = target;
+        helper(0, 0, 0, 0, new ArrayList<>());
+        return ans;
     }
 
-    this.target = target;
-    this.digits = num;
-    this.answer = new ArrayList<String>();
-    this.recurse(0, 0, 0, 0, new ArrayList<String>());
-    return this.answer;
-  }
+    private void helper(int index, long value, long prevOperand, long currOperand, List<String> expression){
+        //if index == nums.length and no curr ops to evaluate
+        if(index == num.length() ){
+            if(currOperand == 0 && value == target){
+                StringBuilder sb = new StringBuilder();
+                for(int i = 1; i < expression.size(); i++) sb.append(expression.get(i));
+                ans.add(sb.toString());
+            }
+            return;
+        }
 
-  public void recurse(
-      int index, long previousOperand, long currentOperand, long value, ArrayList<String> ops) {
-    String nums = this.digits;
+        //convert to correct digit
+        long correctDigit = (currOperand * 10) + Character.getNumericValue(num.charAt(index));
 
-    // Done processing all the digits in num
-    if (index == nums.length()) {
+        //No Op. Need to make sure current operand not zero to avoid leading zero
+        if(correctDigit > 0){
+            helper(index + 1, value, prevOperand, correctDigit, expression);
+        }
+        
 
-      // If the final value == target expected AND
-      // no operand is left unprocessed
-      if (value == this.target && currentOperand == 0) {
-        StringBuilder sb = new StringBuilder();
-        ops.subList(1, ops.size()).forEach(v -> sb.append(v));
-        this.answer.add(sb.toString());
-      }
-      return;
+        //Addition
+        expression.add("+");
+        expression.add(Long.toString(correctDigit));
+        helper(index + 1, value + correctDigit, correctDigit, 0, expression);
+        expression.remove(expression.size() - 1);
+        expression.remove(expression.size() - 1);
+        
+        if(expression.size() > 0){
+            //Subtraction
+            expression.add("-");
+            expression.add(Long.toString(correctDigit));
+            helper(index + 1, value - correctDigit, -correctDigit, 0, expression);
+            expression.remove(expression.size() - 1);
+            expression.remove(expression.size() - 1);
+            //Multiplication
+            expression.add("*");
+            expression.add(Long.toString(correctDigit));
+            helper(index + 1, value - prevOperand + (correctDigit * prevOperand) ,correctDigit * prevOperand, 0, expression);
+            expression.remove(expression.size() - 1);
+            expression.remove(expression.size() - 1);
+        }
+
     }
-
-    // Extending the current operand by one digit
-    currentOperand = currentOperand * 10 + Character.getNumericValue(nums.charAt(index));
-    String current_val_rep = Long.toString(currentOperand);
-    int length = nums.length();
-
-    // To avoid cases where we have 1 + 05 or 1 * 05 since 05 won't be a
-    // valid operand. Hence this check
-    if (currentOperand > 0) {
-
-      // NO OP recursion
-      recurse(index + 1, previousOperand, currentOperand, value, ops);
-    }
-
-    // ADDITION
-    ops.add("+");
-    ops.add(current_val_rep);
-    recurse(index + 1, currentOperand, 0, value + currentOperand, ops);
-    ops.remove(ops.size() - 1);
-    ops.remove(ops.size() - 1);
-
-    if (ops.size() > 0) {
-
-      // SUBTRACTION
-      ops.add("-");
-      ops.add(current_val_rep);
-      recurse(index + 1, -currentOperand, 0, value - currentOperand, ops);
-      ops.remove(ops.size() - 1);
-      ops.remove(ops.size() - 1);
-
-      // MULTIPLICATION
-      ops.add("*");
-      ops.add(current_val_rep);
-      recurse(
-          index + 1,
-          currentOperand * previousOperand,
-          0,
-          value - previousOperand + (currentOperand * previousOperand),
-          ops);
-      ops.remove(ops.size() - 1);
-      ops.remove(ops.size() - 1);
-    }
-  }
-
- 
 }
