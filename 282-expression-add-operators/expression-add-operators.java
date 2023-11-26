@@ -21,11 +21,11 @@ class Solution {
             return;
         }
 
-        //1. convert to correct digit
+        //1. Correct current operand to shift base 10
         currOperand*= 10;
-        currOperand+= Character.getNumericValue(num.charAt(ind));
+        currOperand+= (int)(num.charAt(ind) - '0');
 
-        //2. No op. Make sure curr operand != 0 to avoid leading zeroes
+        //2. No op if currOperand > 0 to avoid leading zeroes
         if(currOperand > 0) helper(ind + 1, value, prevOperand, currOperand, expression);
 
         //3. Addition
@@ -45,7 +45,7 @@ class Solution {
             //5. Multiplication
             expression.add("*");
             expression.add(Long.toString(currOperand));
-            helper(ind + 1, value - prevOperand + (prevOperand * currOperand), currOperand * prevOperand, 0, expression);
+            helper(ind + 1, value - prevOperand + (prevOperand * currOperand), prevOperand * currOperand, 0, expression);
             expression.remove(expression.size() - 1);
             expression.remove(expression.size() - 1);
         }
