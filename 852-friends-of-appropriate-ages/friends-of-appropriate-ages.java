@@ -1,9 +1,9 @@
 class Solution {
     public int numFriendRequests(int[] ages) {
         int[] freq = new int[121];
-        for(int i = 0; i < ages.length; i++) freq[ages[i]]++;
+        for(int age : ages) freq[age]++;
 
-        for(int i = 1; i < 121; i++) freq[i]+= freq[i-1];
+        for(int i = 1; i < freq.length; i++) freq[i]+= freq[i - 1];
 
         int totalFriendRequests = 0;
         for(int i = 0; i < ages.length; i++){
