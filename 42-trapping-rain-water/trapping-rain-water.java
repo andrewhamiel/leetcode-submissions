@@ -1,15 +1,15 @@
 class Solution {
     public int trap(int[] height) {
-        int left = 0, right = height.length - 1, leftMax = height[left], rightMax = height[right], vol = 0;
+        int left = 0, right = height.length - 1, leftMax = height[left], rightMax = height[right], volume = 0;
         while(left < right){
-            if(height[left] < height[right]){
-                leftMax = Math.max(leftMax, height[left]);
-                vol+= leftMax - height[left++];
-            }else{
+            if(height[left] > height[right]){
                 rightMax = Math.max(rightMax, height[right]);
-                vol+= rightMax - height[right--];
+                volume+= rightMax - height[right--];
+            }else{
+                leftMax = Math.max(leftMax, height[left]);
+                volume+= leftMax - height[left++];
             }
         }
-        return vol;
+        return volume;
     }
 }
