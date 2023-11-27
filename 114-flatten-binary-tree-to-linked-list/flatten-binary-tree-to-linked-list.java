@@ -14,7 +14,6 @@
  * }
  */
 class Solution {
-    //Morris traversal
     public void flatten(TreeNode root) {
         while(root != null){
             if(root.left != null){
@@ -27,6 +26,6 @@ class Solution {
             }else{
                 root = root.right;
             }
-        }        
+        }
     }
 }
