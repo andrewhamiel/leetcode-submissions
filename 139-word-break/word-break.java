@@ -1,11 +1,7 @@
 class Solution {
     class TrieNode {
-        Map<Character, TrieNode> children;
-        boolean isWord;
-        public TrieNode(){
-            children = new HashMap<>();
-            isWord = false;
-        }
+        Map<Character, TrieNode> children = new HashMap<>();
+        boolean isWord = false;
     }
     public boolean wordBreak(String s, List<String> wordDict) {
         //1. Build Trie
@@ -28,7 +24,7 @@ class Solution {
                     char c = s.charAt(j);
                     if(!curr.children.containsKey(c)) break;
                     curr = curr.children.get(c);
-                    if(curr.isWord)dp[j] = true;
+                    if(curr.isWord) dp[j] = true;
                 }
             }
         }
