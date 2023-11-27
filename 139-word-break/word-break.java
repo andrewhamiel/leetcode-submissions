@@ -1,37 +1,39 @@
 class Solution {
     class TrieNode {
-        boolean isWord;
         Map<Character, TrieNode> children;
-        TrieNode() {
-            this.children = new HashMap<>();
+        boolean isWord;
+        public TrieNode(){
+            children = new HashMap<>();
+            isWord = false;
         }
     }
+
     public boolean wordBreak(String s, List<String> wordDict) {
+        //1. Build Trie
         TrieNode root = new TrieNode();
-        for (String word: wordDict) {
+        for(String word : wordDict){
             TrieNode curr = root;
-            for (char c: word.toCharArray()) {
-                if (!curr.children.containsKey(c)) curr.children.put(c, new TrieNode());
+            for(char c : word.toCharArray()){
+                curr.children.putIfAbsent(c, new TrieNode());
                 curr = curr.children.get(c);
             }
-            
             curr.isWord = true;
         }
-        
+
+        //2. Bottom-up DP
         boolean[] dp = new boolean[s.length()];
-        for (int i = 0; i < s.length(); i++) {
-            if (i == 0 || dp[i - 1]) {
+        for(int i = 0; i < s.length(); i++){
+            if(i == 0 || dp[i - 1]){
                 TrieNode curr = root;
-                for (int j = i; j < s.length(); j++) {
+                for(int j = i; j < s.length(); j++){
                     char c = s.charAt(j);
-                    // No words exist
-                    if (!curr.children.containsKey(c)) break;
-                    
+                    if(!curr.children.containsKey(c)) break;
+
                     curr = curr.children.get(c);
-                    if (curr.isWord) dp[j] = true;
+                    if(curr.isWord) dp[j] = true;
                 }
             }
-        }     
+        }
         return dp[s.length() - 1];
     }
 }
