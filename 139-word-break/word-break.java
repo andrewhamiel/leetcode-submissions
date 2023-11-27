@@ -1,18 +1,37 @@
 class Solution {
+    class TrieNode {
+        boolean isWord;
+        Map<Character, TrieNode> children;
+        TrieNode() {
+            this.children = new HashMap<>();
+        }
+    }
     public boolean wordBreak(String s, List<String> wordDict) {
+        TrieNode root = new TrieNode();
+        for (String word: wordDict) {
+            TrieNode curr = root;
+            for (char c: word.toCharArray()) {
+                if (!curr.children.containsKey(c)) curr.children.put(c, new TrieNode());
+                curr = curr.children.get(c);
+            }
+            
+            curr.isWord = true;
+        }
+        
         boolean[] dp = new boolean[s.length()];
-        for(int i = 0; i < s.length(); i++){
-            for(String word : wordDict){
-                if(i < word.length() - 1) continue;
-
-                if(i == word.length() - 1 || dp[i - word.length()]){
-                    if(s.substring(i - word.length() + 1, i + 1).equals(word)){
-                        dp[i] = true;
-                        break;
-                    }
+        for (int i = 0; i < s.length(); i++) {
+            if (i == 0 || dp[i - 1]) {
+                TrieNode curr = root;
+                for (int j = i; j < s.length(); j++) {
+                    char c = s.charAt(j);
+                    // No words exist
+                    if (!curr.children.containsKey(c)) break;
+                    
+                    curr = curr.children.get(c);
+                    if (curr.isWord) dp[j] = true;
                 }
             }
-        }
+        }     
         return dp[s.length() - 1];
     }
 }
