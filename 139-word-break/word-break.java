@@ -7,7 +7,6 @@ class Solution {
             isWord = false;
         }
     }
-
     public boolean wordBreak(String s, List<String> wordDict) {
         //1. Build Trie
         TrieNode root = new TrieNode();
@@ -28,9 +27,8 @@ class Solution {
                 for(int j = i; j < s.length(); j++){
                     char c = s.charAt(j);
                     if(!curr.children.containsKey(c)) break;
-
                     curr = curr.children.get(c);
-                    if(curr.isWord) dp[j] = true;
+                    if(curr.isWord)dp[j] = true;
                 }
             }
         }
