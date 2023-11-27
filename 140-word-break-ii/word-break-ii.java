@@ -34,12 +34,12 @@ class Solution {
             curr = curr.children.get(c);
             sb.append(c);
             if(curr.isWord){
-                //2 options: use or do not use
+                //2 choices: use or do not use
                 //1. use
                 StringBuilder usingWord = new StringBuilder(sb);
                 if(i != s.length() - 1) usingWord.append(" ");
                 dp(s.substring(i + 1), usingWord, root, result);
-                //2. Do not use. Just continue
+                //2. Do not use. just continue
             }
         }
     }
