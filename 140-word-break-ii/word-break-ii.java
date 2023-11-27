@@ -5,6 +5,7 @@ class Solution {
     }
 
     public List<String> wordBreak(String s, List<String> wordDict) {
+        //1. Build Trie
         TrieNode root = new TrieNode();
         for(String word : wordDict){
             TrieNode curr = root;
@@ -15,6 +16,7 @@ class Solution {
             curr.isWord = true;
         }
 
+        //2. Top Down
         List<String> result = new ArrayList<>();
         dp(s, new StringBuilder(), root, result);
         return result;
@@ -39,7 +41,7 @@ class Solution {
                 StringBuilder usingWord = new StringBuilder(sb);
                 if(i != s.length() - 1) usingWord.append(" ");
                 dp(s.substring(i + 1), usingWord, root, result);
-                //2. Do not use. just continue
+                //2. do not use. just continue
             }
         }
     }
