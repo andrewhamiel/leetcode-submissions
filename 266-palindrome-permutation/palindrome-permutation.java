@@ -4,7 +4,7 @@ class Solution {
         int oddCount = 0;
         for(char c : s.toCharArray()){
             freq[c - 'a']++;
-            oddCount+= freq[c -'a'] % 2 == 0 ? -1 : 1;          
+            oddCount+= freq[c - 'a'] % 2 == 0 ? -1 : 1;
         }
         return oddCount <= 1;
     }
