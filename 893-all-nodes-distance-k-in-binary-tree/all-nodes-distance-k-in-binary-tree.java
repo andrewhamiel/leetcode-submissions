@@ -40,7 +40,7 @@ class Solution {
             graph.get(root.val).add(parent.val);
             graph.get(parent.val).add(root.val);
         }
-        
+
         if(root.left != null) buildGraph(root.left, root);
         if(root.right != null) buildGraph(root.right, root);
     }
