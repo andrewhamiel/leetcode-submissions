@@ -1,13 +1,14 @@
 public class Solution {
     public boolean canPermutePalindrome(String s) {
-        HashMap < Character, Integer > map = new HashMap <> ();
+        int[] freq = new int[26];
+        int oddCount = 0;
         for (int i = 0; i < s.length(); i++) {
-            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+            freq[s.charAt(i) - 'a']++;
+            if (freq[s.charAt(i) - 'a'] % 2 == 0)
+                oddCount--;
+            else
+                oddCount++;
         }
-        int count = 0;
-        for (char key: map.keySet()) {
-            count += map.get(key) % 2;
-        }
-        return count <= 1;
+        return oddCount <= 1;
     }
 }
