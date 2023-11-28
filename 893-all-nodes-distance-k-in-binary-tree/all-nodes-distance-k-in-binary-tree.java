@@ -16,7 +16,7 @@ class Solution {
         List<Integer> result = new ArrayList<>();
         Set<Integer> visited = new HashSet<>();
         visited.add(target.val);
-        
+
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{target.val, 0});
 
