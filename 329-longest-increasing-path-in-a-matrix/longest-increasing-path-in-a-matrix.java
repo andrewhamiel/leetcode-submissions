@@ -20,7 +20,7 @@ class Solution {
         int max = 0;
         for(int[] dir : dirs){
             int row = i + dir[0], col = j + dir[1];
-            if(row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length
+            if(row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length 
                 && matrix[row][col] > matrix[i][j]) max = Math.max(max, dfs(row, col, matrix));
         }
         memo[i][j] = 1 + max;
