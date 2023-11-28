@@ -9,8 +9,8 @@
  */
 class Solution {
     Map<Integer, List<Integer>> graph = new HashMap<>();
-    List<Integer> result = new ArrayList<>();
     Set<Integer> visited = new HashSet<>();
+    List<Integer> result = new ArrayList<>();
 
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         buildGraph(root, null);
@@ -40,7 +40,7 @@ class Solution {
             graph.get(root.val).add(parent.val);
             graph.get(parent.val).add(root.val);
         }
-
+        
         if(root.left != null) buildGraph(root.left, root);
         if(root.right != null) buildGraph(root.right, root);
     }
