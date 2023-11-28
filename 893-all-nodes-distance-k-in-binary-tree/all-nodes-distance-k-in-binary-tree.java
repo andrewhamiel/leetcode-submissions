@@ -33,15 +33,15 @@ class Solution {
         }
     }
 
-    private void buildGraph(TreeNode curr, TreeNode parent){
-        if(curr != null && parent != null){
-            graph.putIfAbsent(curr.val, new ArrayList<>());
+    private void buildGraph(TreeNode root, TreeNode parent){
+        if(root != null && parent != null){
+            graph.putIfAbsent(root.val, new ArrayList<>());
             graph.putIfAbsent(parent.val, new ArrayList<>());
-            graph.get(curr.val).add(parent.val);
-            graph.get(parent.val).add(curr.val);
+            graph.get(root.val).add(parent.val);
+            graph.get(parent.val).add(root.val);
         }
 
-        if(curr.left != null) buildGraph(curr.left, curr);
-        if(curr.right != null) buildGraph(curr.right, curr);
+        if(root.left != null) buildGraph(root.left, root);
+        if(root.right != null) buildGraph(root.right, root);
     }
 }
