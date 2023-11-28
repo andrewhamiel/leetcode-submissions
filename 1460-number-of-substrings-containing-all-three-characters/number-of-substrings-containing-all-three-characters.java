@@ -3,8 +3,7 @@ class Solution {
         int[] count = new int[3];
         int left = 0, right = 0, result = 0;
         while(right < s.length()){
-            char c = s.charAt(right);
-            count[c - 'a']++;
+            count[s.charAt(right) - 'a']++;
             while(isValidSubstring(count)){
                 result+= s.length() - right;
                 count[s.charAt(left++) - 'a']--;
