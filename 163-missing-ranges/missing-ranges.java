@@ -11,7 +11,7 @@ class Solution {
 
         for(int i = 1; i < nums.length; i++){
             if(nums[i] - nums[i - 1] <= 1) continue;
-            result.add(List.of(nums[i-1] + 1, nums[i] - 1));
+            result.add(List.of(nums[i - 1] + 1, nums[i] - 1));
         }
 
         if(upper > nums[nums.length - 1]) result.add(List.of(nums[nums.length - 1] + 1, upper));
