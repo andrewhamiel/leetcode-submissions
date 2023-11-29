@@ -4,16 +4,13 @@ class Solution {
 
     public Solution(int[] nums) {
         this.nums = nums;
-        rand = new Random();
+        this.rand = new Random();
     }
     
     public int pick(int target) {
-        int count = 0, index = 0;
+        int count = 1, index = 0;
         for(int i = 0; i < nums.length; i++){
-            if(nums[i] == target){
-                count++;
-                if(rand.nextInt(count) == 0) index = i;
-            }
+            if(nums[i] == target && rand.nextInt(count++) == 0) index = i;
         }
         return index;
     }
