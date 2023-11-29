@@ -32,7 +32,6 @@ class Solution {
 
     private void helper(Node root){
         if(root == null) return;
-
         helper(root.left);
 
         if(last != null){
