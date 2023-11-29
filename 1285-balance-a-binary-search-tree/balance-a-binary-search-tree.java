@@ -17,7 +17,6 @@ class Solution {
     public TreeNode balanceBST(TreeNode root) {
         List<Integer> list = new ArrayList<>();
         inorder(root, list);
-
         return balance(0, list.size() - 1, list);
     }
 
