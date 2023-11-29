@@ -12,14 +12,15 @@ class Solution {
             else{
                 int mines = getMines(row, col, board);
                 if(mines > 0) board[row][col] = (char)(mines + '0');
-                else{
+                else {
                     board[row][col] = 'B';
                     for(int[] dir : dirs){
                         int newRow = row + dir[0], newCol = col + dir[1];
-                        if(newRow >= 0 && newRow < board.length && newCol >= 0 && newCol < board[0].length && (board[newRow][newCol] == 'E')){
-                            board[newRow][newCol] = 'B';
-                            q.add(new int[]{newRow, newCol});
-                        }
+                        if(newRow >= 0 && newRow < board.length && newCol >= 0 && newCol < board[0].length
+                            && board[newRow][newCol] == 'E'){
+                                board[newRow][newCol] = 'B';
+                                q.add(new int[]{newRow, newCol});
+                            }
                     }
                 }
             }
