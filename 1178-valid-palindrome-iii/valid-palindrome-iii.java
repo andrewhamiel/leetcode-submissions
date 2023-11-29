@@ -1,6 +1,6 @@
 class Solution {
     public boolean isValidPalindrome(String s, int k) {
-        return longestPalindromicSubstring(s) + k >= s.length();        
+        return longestPalindromicSubstring(s) + k >= s.length();
     }
 
     private int longestPalindromicSubstring(String s){
