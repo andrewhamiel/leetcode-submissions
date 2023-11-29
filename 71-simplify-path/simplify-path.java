@@ -4,7 +4,7 @@ class Solution {
         String[] dirs = path.split("/");
 
         for(String dir : dirs){
-            if(dir.isEmpty() || dir.equals("/") || dir.equals(".")) continue;
+            if(dir.equals("/") || dir.equals(".") || dir.isEmpty()) continue;
             else if(dir.equals("..")){
                 if(!stack.isEmpty()) stack.removeFirst();
             }else stack.addFirst(dir);
@@ -15,6 +15,6 @@ class Solution {
             result.append("/");
             result.append(stack.removeLast());
         }
-        return result.isEmpty() ? "/" : result.toString();
+        return result.isEmpty() ? "/" : result.toString(); 
     }
 }
