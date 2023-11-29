@@ -23,7 +23,6 @@ class Solution {
 
     private void inorder(TreeNode root, List<Integer> list){
       if(root == null) return;
-
       inorder(root.left, list);
       list.add(root.val);
       inorder(root.right, list);
@@ -31,7 +30,6 @@ class Solution {
 
     private TreeNode balance(int left, int right, List<Integer> list){
       if(left > right) return null;
-
       int mid = left + (right - left)/2;
       TreeNode root = new TreeNode(list.get(mid));
       root.left = balance(left, mid - 1, list);
