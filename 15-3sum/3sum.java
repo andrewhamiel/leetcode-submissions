@@ -13,7 +13,7 @@ class Solution {
         while(left < right){
             int sum = nums[i] + nums[left] + nums[right];
             if(sum == 0){
-                result.add(List.of(nums[i], nums[left++], nums[right--]));
+                result.add(Arrays.asList(nums[i], nums[left++], nums[right--]));
                 while(left < right && nums[left] == nums[left - 1]) left++;
             }else if(sum < 0) left++;
             else right--;
