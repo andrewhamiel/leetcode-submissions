@@ -35,7 +35,8 @@ class Solution {
                 //explore right subtree
                 root = root.right;           
             }else {
-                Node predecessor = findPredecessor(root);
+                Node predecessor = root.left;
+                while(predecessor.right != null && predecessor.right != root) predecessor = predecessor.right;
 
                 if(predecessor.right == root){
                     //done exploration of left tree               
@@ -56,15 +57,4 @@ class Solution {
         first.left = last;     
         return first; 
     }
-
-    public Node findPredecessor(Node node){
-        Node cur = node;
-        if(cur.left == null) return null;
-        
-        cur = cur.left;
-        while(cur.right != null && cur.right != node) cur = cur.right;
-
-        return cur;
-    }
-
 }
