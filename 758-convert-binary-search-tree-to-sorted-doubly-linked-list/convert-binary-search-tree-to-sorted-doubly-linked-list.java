@@ -22,47 +22,47 @@ class Node {
 class Solution {
     //better, morris traversal, O(1) space
     public Node treeToDoublyList(Node root) {
-        if(root==null) return root;
-        Node cur=root, head=null, prev=null;
+        if(root == null) return root;
+        Node first = null, last = null;
     
-        while(cur!=null){       
-            if(cur.left==null){
-                if(head==null)head=cur;
+        while(root != null){       
+            if(root.left == null){
+                if(first == null) first = root;
                 //do something
-                if(prev!=null) prev.right=cur;
-                cur.left=prev;
-                prev=cur;
+                if(last != null) last.right = root;
+                root.left = last;
+                last = root;
                 //explore right subtree
-                cur=cur.right;           
+                root = root.right;           
             }else {
-                Node pred= findPredecessor(cur);
+                Node predecessor = findPredecessor(root);
 
-                if(pred.right==cur){
+                if(predecessor.right == root){
                     //done exploration of left tree               
                     //do something
-                    if(prev!=null) prev.right=cur;
-                    cur.left=prev;
-                    prev=cur;             
+                    if(last != null) last.right = root;
+                    root.left = last;
+                    last = root;             
                     //explore right subtree
-                    cur=cur.right;            
+                    root = root.right;            
                 }else{
-                    pred.right=cur;
-                    cur=cur.left;
+                    predecessor.right = root;
+                    root = root.left;
                 }      
             }        
         }
-        prev.right=head;
-        head.left=prev;
-        
-        return head; 
+
+        last.right = first;
+        first.left = last;     
+        return first; 
     }
 
     public Node findPredecessor(Node node){
-        Node cur=node;
-        if(cur.left==null) return null;
+        Node cur = node;
+        if(cur.left == null) return null;
         
-        cur=cur.left;
-        while(cur.right!=null&&cur.right!=node) cur=cur.right;
+        cur = cur.left;
+        while(cur.right != null && cur.right != node) cur = cur.right;
 
         return cur;
     }
