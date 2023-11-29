@@ -19,7 +19,7 @@ class Solution {
             if(root.left != null){
                 TreeNode predecessor = root.left;
                 while(predecessor.right != null && predecessor.right != root) predecessor = predecessor.right;
-
+                
                 predecessor.right = root.right;
                 root.right = root.left;
                 root.left = null;
