@@ -1,9 +1,9 @@
 class Solution {
     public double myPow(double x, int n) {
-        return binaryExponentiation(x, (long) n);
+        return binaryExp(x, (long) n);
     }
 
-    private double binaryExponentiation(double x, long n){
+    private double binaryExp(double x, long n){
         if(n == 0) return 1.0;
 
         if(n < 0){
