@@ -30,10 +30,10 @@ class Solution {
                 while(predecessor.right != null && predecessor.right != root) predecessor = predecessor.right;
 
                 if(predecessor.right == null){
+                    //unexplored
                     predecessor.right = root;
                     root = root.left;
                 }else{
-                    //already visited
                     if(last != null) last.right = root;
                     root.left = last;
                     last = root;
