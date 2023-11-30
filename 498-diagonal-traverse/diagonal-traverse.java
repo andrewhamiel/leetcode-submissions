@@ -1,14 +1,12 @@
 class Solution {
     public int[] findDiagonalOrder(int[][] mat) {
         int rows = mat.length, cols = mat[0].length;
-        int row = 0, col = 0, k = 0, direction = 1;
         int[] result = new int[rows * cols];
-
+        int row = 0, col = 0, k = 0, direction = 1;
         while(row < rows && col < cols){
             result[k++] = mat[row][col];
-
-            //diagonally traverse
             int newRow = row, newCol = col;
+            //Diagonally traverse
             if(direction == 1){
                 newRow--;
                 newCol++;
@@ -17,7 +15,7 @@ class Solution {
                 newRow++;
             }
 
-            //reset at boundary
+            //Correct if at bounds
             if(newRow < 0 || newRow >= rows || newCol < 0 || newCol >= cols){
                 if(direction == 1){
                     row+= (col == cols - 1 ? 1 : 0);
