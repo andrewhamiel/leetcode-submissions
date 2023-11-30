@@ -6,7 +6,7 @@ class Solution {
             else swap(zero++, nonZero++, nums);
         }
     }
-    
+
     private void swap(int i, int j, int[] nums){
         int tmp = nums[i];
         nums[i] = nums[j];
