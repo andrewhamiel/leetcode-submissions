@@ -7,7 +7,11 @@ class Solution {
             if(missingNums(arr, mid) < k) left = mid + 1;
             else right = mid - 1;
         }
-        return left + k;
+        //left == right + 1
+        //kth missing is arr[right] + k - missingNums(arr, right)
+        //-> arr[right] + k - (arr[right] - 1 - right)
+        //-> k + 1 + right -> k + left
+        return k + left;
     }
 
     private int missingNums(int[] nums, int ind){
