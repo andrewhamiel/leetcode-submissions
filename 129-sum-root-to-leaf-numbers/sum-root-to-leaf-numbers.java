@@ -15,35 +15,23 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        int rootToLeaves = 0, currNumber = 0;
-        while(root != null){
-          if(root.left != null){
-            TreeNode predecessor = root.left;
-            int steps = 1;
-            while(predecessor.right != null && predecessor.right != root){
-              predecessor = predecessor.right;
-              steps++;
-            }
+        Queue<Pair<TreeNode, Integer>> q = new LinkedList<>();
+        q.add(new Pair<>(root, 0));
+        int sum = 0;
 
-            if(predecessor.right == null){
-              //unexplored
-              currNumber*= 10;
-              currNumber+= root.val;
-              predecessor.right = root;
-              root = root.left;
-            }else{
-              if(predecessor.left == null) rootToLeaves+= currNumber;
-              for(int i = 0; i < steps; i++) currNumber/= 10;
-              predecessor.right = null;
-              root = root.right;
+        while(!q.isEmpty()){
+            Pair<TreeNode, Integer> p = q.poll();
+            TreeNode curr = p.getKey();
+            int levelSum = p.getValue();
+            levelSum*= 10;
+            levelSum+= curr.val;
+            if(curr.left == null && curr.right == null){
+                sum+= levelSum;
+                continue;
             }
-          }else{
-            currNumber*= 10;
-            currNumber+= root.val;
-            if(root.right == null) rootToLeaves+= currNumber;
-            root = root.right;
-          }
+            if(curr.left != null) q.add(new Pair<>(curr.left, levelSum));
+            if(curr.right != null) q.add(new Pair<>(curr.right, levelSum));
         }
-        return rootToLeaves;
+        return sum;
     }
 }
