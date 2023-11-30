@@ -1,9 +1,9 @@
 class Solution {
     public void moveZeroes(int[] nums) {
-        int lastZero = 0, lastNonZero = 0;
-        while(lastNonZero < nums.length){
-            if(nums[lastNonZero] == 0) lastNonZero++;
-            else swap(lastZero++, lastNonZero++, nums);
+        int zero = 0, nonZero = 0;
+        while(nonZero < nums.length){
+            if(nums[nonZero] == 0) nonZero++;
+            else swap(zero++, nonZero++, nums);
         }
     }
 
