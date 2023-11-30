@@ -15,32 +15,32 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        int rootToLeaves = 0, currValue = 0;
+        int rootToLeaves = 0, currNum = 0;
         while(root != null){
             if(root.left != null){
-                TreeNode predecessor = root.left;
                 int steps = 1;
-                while(predecessor.right != null && predecessor.right != root) {
-                    steps++;
+                TreeNode predecessor = root.left;
+                while(predecessor.right != null && predecessor.right != root){
                     predecessor = predecessor.right;
+                    steps++;
                 }
 
                 if(predecessor.right == null){
                     //unexplored
-                    currValue*= 10;
-                    currValue+= root.val;
+                    currNum*= 10;
+                    currNum+= root.val;
                     predecessor.right = root;
                     root = root.left;
                 }else{
-                    if(predecessor.left == null) rootToLeaves+= currValue;
-                    for(int i = 0; i < steps; i++) currValue/= 10;
+                    if(predecessor.left == null) rootToLeaves+= currNum;
+                    for(int i = 0; i < steps; i++) currNum/= 10;
                     predecessor.right = null;
                     root = root.right;
                 }
             }else{
-                currValue*= 10;
-                currValue+= root.val;
-                if(root.left == null && root.right == null) rootToLeaves+= currValue;
+                currNum*= 10;
+                currNum+= root.val;
+                if(root.left == null && root.right == null) rootToLeaves+= currNum;
                 root = root.right;
             }
         }
