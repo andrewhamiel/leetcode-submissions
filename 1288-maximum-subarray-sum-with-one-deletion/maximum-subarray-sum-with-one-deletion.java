@@ -4,7 +4,7 @@ class Solution {
         for(int i = 1; i < arr.length; i++){
             oneDelete = Math.max(oneDelete + arr[i], noDelete);
             noDelete = Math.max(noDelete + arr[i], arr[i]);
-            result = Math.max(result, Math.max(noDelete, oneDelete));
+            result = Math.max(result, Math.max(oneDelete, noDelete));
         }
         return result;
     }
