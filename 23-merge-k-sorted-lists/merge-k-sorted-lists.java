@@ -24,7 +24,6 @@ class Solution {
 
     private ListNode merge(ListNode a, ListNode b){
         ListNode result = new ListNode(), curr = result;
-
         while(a != null || b != null){
             if(a != null && b != null){
                 if(a.val <= b.val){
@@ -37,7 +36,7 @@ class Solution {
             }else if(a != null){
                 curr.next = a;
                 a = a.next;
-            }else{
+            }else if(b != null){
                 curr.next = b;
                 b = b.next;
             }
