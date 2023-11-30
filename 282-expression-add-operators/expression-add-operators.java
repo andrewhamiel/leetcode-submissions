@@ -1,13 +1,13 @@
 class Solution {
     List<String> result = new ArrayList<>();
     String num;
-    int target;
+    int target = 0;
 
     public List<String> addOperators(String num, int target) {
         this.num = num;
         this.target = target;
         helper(0, 0, 0, 0, new ArrayList<>());
-        return result;
+        return result; 
     }
 
     private void helper(int ind, long value, long prev, long curr, List<String> expr){
@@ -21,7 +21,7 @@ class Solution {
             return;
         }
 
-        //1. Fix curr, shift left base 10
+        //1. Fix curr, add next digit shifting left base 10
         curr*= 10;
         curr+= (int)(num.charAt(ind) - '0');
 
@@ -35,7 +35,7 @@ class Solution {
         expr.remove(expr.size() - 1);
         expr.remove(expr.size() - 1);
 
-        //if another element is present, we can subtract/divide
+        //if there is another value present, subtract/multiply
         if(expr.size() > 0){
             //4. subtract
             expr.add("-");
@@ -43,7 +43,7 @@ class Solution {
             helper(ind + 1, value - curr, -curr, 0, expr);
             expr.remove(expr.size() - 1);
             expr.remove(expr.size() - 1);
-            //5. multiply
+            //5. Multiply
             expr.add("*");
             expr.add(Long.toString(curr));
             helper(ind + 1, value - prev + (prev * curr), prev * curr, 0, expr);
