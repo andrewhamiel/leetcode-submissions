@@ -30,6 +30,7 @@ class Solution {
                 if(curr.right != null) q.add(curr.right);
             }
         }
+
         return lca(root, first, last);
     }
 
@@ -42,6 +43,7 @@ class Solution {
         TreeNode right = lca(root.right, p, q);
 
         if(left != null && right != null) return root;
+
         return left != null ? left : right;
     }
 }
