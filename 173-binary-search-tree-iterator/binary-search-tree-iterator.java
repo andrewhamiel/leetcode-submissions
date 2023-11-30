@@ -26,6 +26,7 @@ class BSTIterator {
             root = root.left;
         }
     }
+
     
     public int next() {
         TreeNode topmost = stack.removeFirst();
@@ -34,7 +35,7 @@ class BSTIterator {
     }
     
     public boolean hasNext() {
-        return !stack.isEmpty();
+        return stack.size() > 0;
     }
 }
 
