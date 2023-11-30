@@ -1,8 +1,9 @@
 class Solution {
-    private Map<Integer, Integer> count = new HashMap<>();
+    Map<Integer, Integer> count = new HashMap<>();
 
-    public int[] topKFrequent(int[] nums, int k) {
+    public int[] topKFrequent(int[] nums, int k) {       
         for(int num : nums) count.put(num, count.getOrDefault(num, 0) + 1);
+        
         int[] unique = new int[count.size()];
         int ind = 0;
         for(int num : count.keySet()) unique[ind++] = num;
@@ -25,15 +26,15 @@ class Solution {
     }
 
     private int partition(int left, int right, int[] nums, int pivotIndex){
-        int pivotValue = count.get(nums[pivotIndex]);
+        int pivotFreq = count.get(nums[pivotIndex]);
         swap(pivotIndex, right, nums);
-        int swapIndex = left;
+        int swapInd = left;
 
         for(int i = left; i <= right; i++){
-            if(count.get(nums[i]) > pivotValue) swap(i, swapIndex++, nums);
+            if(count.get(nums[i]) > pivotFreq) swap(i, swapInd++, nums);
         }
-        swap(swapIndex, right, nums);
-        return swapIndex;
+        swap(swapInd, right, nums);
+        return swapInd;
     }
 
     private void swap(int i, int j, int[] nums){
