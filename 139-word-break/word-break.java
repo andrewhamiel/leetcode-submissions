@@ -5,7 +5,7 @@ class Solution {
     }
 
     public boolean wordBreak(String s, List<String> wordDict) {
-        //1. Build TrieNode
+        //1. Build Trie
         TrieNode root = new TrieNode();
         for(String word : wordDict){
             TrieNode curr = root;
@@ -14,9 +14,9 @@ class Solution {
                 curr = curr.children.get(c);
             }
             curr.isWord = true;
-        }    
+        }
 
-        //2. Bottom up DP
+        //2. Bottom-up DP
         boolean[] dp = new boolean[s.length()];
         for(int i = 0; i < s.length(); i++){
             if(i == 0 || dp[i - 1]){
@@ -24,12 +24,12 @@ class Solution {
                 for(int j = i; j < s.length(); j++){
                     char c = s.charAt(j);
                     if(!curr.children.containsKey(c)) break;
-
+                    
                     curr = curr.children.get(c);
                     if(curr.isWord) dp[j] = true;
                 }
             }
         }
-        return dp[s.length() - 1];
+        return dp[s.length() - 1];    
     }
 }
