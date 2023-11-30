@@ -2,8 +2,8 @@ class Solution {
     public int shipWithinDays(int[] weights, int days) {
         int maxWeight = 0, totalWeight = 0;
         for(int weight : weights){
-            maxWeight = Math.max(maxWeight, weight);
             totalWeight+= weight;
+            maxWeight = Math.max(maxWeight, weight);
         }
 
         int left = maxWeight, right = totalWeight;
