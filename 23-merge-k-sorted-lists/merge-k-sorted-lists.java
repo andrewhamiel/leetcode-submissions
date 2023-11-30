@@ -36,7 +36,7 @@ class Solution {
             }else if(a != null){
                 curr.next = a;
                 a = a.next;
-            }else if(b != null){
+            }else{
                 curr.next = b;
                 b = b.next;
             }
