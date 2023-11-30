@@ -1,35 +1,24 @@
 class Solution {
-    class TrieNode {
-        Map<Character, TrieNode> children = new HashMap<>();
-        boolean isWord = false;
-    }
-
     public boolean wordBreak(String s, List<String> wordDict) {
-        //1. Build Trie
-        TrieNode root = new TrieNode();
-        for(String word : wordDict){
-            TrieNode curr = root;
-            for(char c : word.toCharArray()){
-                curr.children.putIfAbsent(c, new TrieNode());
-                curr = curr.children.get(c);
-            }
-            curr.isWord = true;
-        }
+        Set<String> words = new HashSet<>(wordDict);
+        boolean[] seen = new boolean[s.length() + 1];
+        Queue<Integer> q = new LinkedList<>();
+        q.add(0);
 
-        //2. Bottom-up DP
-        boolean[] dp = new boolean[s.length()];
-        for(int i = 0; i < s.length(); i++){
-            if(i == 0 || dp[i - 1]){
-                TrieNode curr = root;
-                for(int j = i; j < s.length(); j++){
-                    char c = s.charAt(j);
-                    if(!curr.children.containsKey(c)) break;
-                    
-                    curr = curr.children.get(c);
-                    if(curr.isWord) dp[j] = true;
+        while(!q.isEmpty()){
+            int start = q.poll();
+            if(start == s.length()) return true;
+
+            for(int end = start + 1; end < seen.length; end++){
+                if(seen[end]) continue;
+
+                if(words.contains(s.substring(start, end))){
+                    seen[end] = true;
+                    q.add(end);
                 }
             }
         }
-        return dp[s.length() - 1];    
+        return false;
+
     }
 }
