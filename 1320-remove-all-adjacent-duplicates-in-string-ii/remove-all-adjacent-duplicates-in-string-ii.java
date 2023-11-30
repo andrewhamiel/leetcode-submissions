@@ -1,12 +1,11 @@
 class Solution {
     public String removeDuplicates(String s, int k) {
         Deque<Pair<Character, Integer>> stack = new ArrayDeque<>();
-        for(int i = 0; i < s.length(); i++){
-            if(stack.isEmpty() || stack.peekFirst().getKey() != s.charAt(i)) stack.addFirst(new Pair<>(s.charAt(i), 1));
-            else{
+        for(char c : s.toCharArray()){
+            if(!stack.isEmpty() && stack.peekFirst().getKey() == c){
                 Pair<Character, Integer> p = stack.removeFirst();
-                if(p.getValue() + 1 < k) stack.addFirst(new Pair<>(s.charAt(i), p.getValue() + 1));
-            }
+                if(p.getValue() + 1 < k) stack.addFirst(new Pair<>(c, p.getValue() + 1));
+            }else stack.addFirst(new Pair<>(c, 1));
         }
 
         StringBuilder result = new StringBuilder();
