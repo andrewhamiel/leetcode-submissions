@@ -1,29 +1,19 @@
 class Solution {
-    String s;
-    List<String> wordDict;
-    int[] memo;
-    
     public boolean wordBreak(String s, List<String> wordDict) {
-        this.s = s;
-        this.wordDict = wordDict;
-        memo = new int[s.length()];
-        return dp(s.length() - 1);    
-    }
+        boolean[] dp = new boolean[s.length()];
+        // dp[0] = true;
+        for(int i = 0; i < s.length(); i++){
+            for(String word : wordDict){
+                if(i - word.length() + 1 < 0) continue;
 
-    private boolean dp(int ind){
-        if(ind < 0) return true;
-        
-        if(memo[ind] != 0) return memo[ind] == 1;
-
-        for(String word : wordDict){
-            if(ind - word.length() + 1 < 0) continue;
-
-            if(s.substring(ind - word.length() + 1, ind + 1).equals(word) && dp(ind - word.length())){
-                memo[ind] = 1;
-                return true;
+                if(i == word.length() - 1 || dp[i - word.length()]){
+                    if(s.substring(i - word.length() + 1, i + 1).equals(word)){
+                        dp[i] = true;
+                        break;
+                    }
+                }
             }
         }
-        memo[ind] = -1;
-        return false;
+        return dp[s.length() - 1];
     }
 }
