@@ -1,12 +1,11 @@
 class Solution {
     List<String> result = new ArrayList<>();
     String num;
-    int target = 0;
+    int target;
 
     public List<String> addOperators(String num, int target) {
         this.num = num;
         this.target = target;
-
         helper(0, 0, 0, 0, new ArrayList<>());
         return result;
     }
@@ -15,14 +14,14 @@ class Solution {
         //0. Exit condition
         if(ind == num.length()){
             if(value == target && curr == 0){
-                StringBuilder adding = new StringBuilder();
-                for(int i = 1; i < expr.size(); i++) adding.append(expr.get(i));
-                result.add(adding.toString());
+                StringBuilder sb = new StringBuilder();
+                for(int i = 1; i < expr.size(); i++) sb.append(expr.get(i));
+                result.add(sb.toString());
             }
             return;
         }
 
-        //1. Shift number left base 10
+        //1. Fix curr, shift left base 10
         curr*= 10;
         curr+= (int)(num.charAt(ind) - '0');
 
@@ -33,25 +32,23 @@ class Solution {
         expr.add("+");
         expr.add(Long.toString(curr));
         helper(ind + 1, value + curr, curr, 0, expr);
-        cleanupBacktrack(expr);
+        expr.remove(expr.size() - 1);
+        expr.remove(expr.size() - 1);
 
-
+        //if another element is present, we can subtract/divide
         if(expr.size() > 0){
-            //4. Subtract
+            //4. subtract
             expr.add("-");
             expr.add(Long.toString(curr));
             helper(ind + 1, value - curr, -curr, 0, expr);
-            cleanupBacktrack(expr);
-
+            expr.remove(expr.size() - 1);
+            expr.remove(expr.size() - 1);
             //5. multiply
             expr.add("*");
             expr.add(Long.toString(curr));
             helper(ind + 1, value - prev + (prev * curr), prev * curr, 0, expr);
-            cleanupBacktrack(expr);
+            expr.remove(expr.size() - 1);
+            expr.remove(expr.size() - 1);
         }
-    }
-    private void cleanupBacktrack(List<String> expr){
-        expr.remove(expr.size() - 1);
-        expr.remove(expr.size() - 1);
     }
 }
