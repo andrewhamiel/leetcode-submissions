@@ -1,23 +1,29 @@
 class Solution {
+    String s;
+    List<String> wordDict;
+    int[] memo;
+    
     public boolean wordBreak(String s, List<String> wordDict) {
-        Set<String> words = new HashSet<>(wordDict);
-        boolean[] seen = new boolean[s.length() + 1];
-        Queue<Integer> q = new LinkedList<>();
-        q.add(0);
+        this.s = s;
+        this.wordDict = wordDict;
+        memo = new int[s.length()];
+        return dp(s.length() - 1);    
+    }
 
-        while(!q.isEmpty()){
-            int start = q.poll();
-            if(start == s.length()) return true;
+    private boolean dp(int ind){
+        if(ind < 0) return true;
+        
+        if(memo[ind] != 0) return memo[ind] == 1;
 
-            for(int end = start + 1; end < seen.length; end++){
-                if(seen[end]) continue;
+        for(String word : wordDict){
+            if(ind - word.length() + 1 < 0) continue;
 
-                if(words.contains(s.substring(start, end))){
-                    seen[end] = true;
-                    q.add(end);
-                }
+            if(s.substring(ind - word.length() + 1, ind + 1).equals(word) && dp(ind - word.length())){
+                memo[ind] = 1;
+                return true;
             }
         }
+        memo[ind] = -1;
         return false;
     }
 }
