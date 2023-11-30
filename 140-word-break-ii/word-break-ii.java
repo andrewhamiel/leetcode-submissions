@@ -4,6 +4,8 @@ class Solution {
         boolean isWord = false;
     }
 
+    private String s;
+
     public List<String> wordBreak(String s, List<String> wordDict) {
         //1. Build Trie
         TrieNode root = new TrieNode();
@@ -16,31 +18,32 @@ class Solution {
             curr.isWord = true;
         }
 
-        //2. Top Down
-        List<String> result = new ArrayList<>();
-        dp(s, new StringBuilder(), root, result);
+        //2. Top Down DP
+        List<String> result = new ArrayList<>();    
+        this.s = s;
+        helper(0, new StringBuilder(), root, result);
         return result;
     }
 
-    private void dp(String s, StringBuilder sb, TrieNode root, List<String> result){
-        if(s.length() == 0 && !sb.isEmpty()){
+    private void helper(int ind, StringBuilder sb, TrieNode root, List<String> result){
+        if(ind == s.length() && !sb.isEmpty()){
             result.add(sb.toString());
             return;
         }
 
         TrieNode curr = root;
-        for(int i = 0; i < s.length(); i++){
+        for(int i = ind; i < s.length(); i++){
             char c = s.charAt(i);
-            if(!curr.children.containsKey(c)) return;
+            if(!curr.children.containsKey(c)) break;
 
             curr = curr.children.get(c);
             sb.append(c);
             if(curr.isWord){
-                //2 choices: use or do not use
+                //2 options: use or do not use
                 //1. use
-                StringBuilder usingWord = new StringBuilder(sb);
-                if(i != s.length() - 1) usingWord.append(" ");
-                dp(s.substring(i + 1), usingWord, root, result);
+                StringBuilder using = new StringBuilder(sb);
+                if(i != s.length() - 1) using.append(" ");
+                helper(i + 1, using, root, result);
                 //2. do not use. just continue
             }
         }
