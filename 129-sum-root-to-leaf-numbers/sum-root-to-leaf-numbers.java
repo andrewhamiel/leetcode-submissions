@@ -18,15 +18,15 @@ class Solution {
         int rootToLeaves = 0, currNum = 0;
         while(root != null){
             if(root.left != null){
-                int steps = 1;
                 TreeNode predecessor = root.left;
+                int steps = 1;
                 while(predecessor.right != null && predecessor.right != root){
                     predecessor = predecessor.right;
                     steps++;
                 }
 
                 if(predecessor.right == null){
-                    //unexplored
+                    //Unexplored
                     currNum*= 10;
                     currNum+= root.val;
                     predecessor.right = root;
