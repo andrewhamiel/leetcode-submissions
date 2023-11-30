@@ -1,23 +1,24 @@
 class TicTacToe {
-    private int n = 0, diag = 0, antiDiag = 0;
     int[] rows, cols;
+    int diag = 0, antiDiag = 0, n = 0;
 
     public TicTacToe(int n) {
-        this.n = n;
         rows = new int[n];
         cols = new int[n];
+        this.n = n;
     }
     
     public int move(int row, int col, int player) {
         int playerVal = player == 1 ? 1 : -1;
-
         rows[row]+= playerVal;
         cols[col]+= playerVal;
         if(row == col) diag+= playerVal;
-        if(n - 1 - row == col || n - 1 - col == row) antiDiag+= playerVal;
+        if(rows.length - 1 - row == col) antiDiag+= playerVal;
 
-        return Math.abs(rows[row]) == n || Math.abs(cols[col]) == n || Math.abs(diag) == n || Math.abs(antiDiag) == n
-            ? player : 0;
+        if(Math.abs(rows[row]) == n || Math.abs(cols[col]) == n || Math.abs(diag) == n || Math.abs(antiDiag) == n){
+            return playerVal == 1 ? 1 : 2;
+        }
+        return 0;
     }
 }
 
