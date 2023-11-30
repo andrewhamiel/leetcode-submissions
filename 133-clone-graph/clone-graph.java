@@ -21,9 +21,8 @@ class Node {
 class Solution {
     public Node cloneGraph(Node node) {
         if(node == null) return null;
-        Node newNode = new Node(node.val);
         Map<Node, Node> visited = new HashMap<>();
-        visited.put(node, newNode);
+        visited.put(node, new Node(node.val));
         Queue<Node> q = new LinkedList<>();
         q.add(node);
 
