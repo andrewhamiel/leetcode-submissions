@@ -22,7 +22,6 @@ class Node {
 class Solution {
     public Node treeToDoublyList(Node root) {
         if(root == null) return root;
-        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
         Node first = null, last = null;
 
         while(root != null){
