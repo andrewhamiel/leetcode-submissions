@@ -1,5 +1,5 @@
 class NumMatrix {
-    private int[][] mat;
+    int[][] mat;
 
     public NumMatrix(int[][] matrix) {
         mat = new int[matrix.length + 1][matrix[0].length + 1];
