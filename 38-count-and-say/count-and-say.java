@@ -7,11 +7,11 @@ class Solution {
     private String dp(int n){
         if(n == 1) return "1";
 
-        StringBuilder result = new StringBuilder();
         String s = dp(n - 1);
-        int count = 0;
+        StringBuilder result = new StringBuilder();
         char c = s.charAt(0);
-        
+        int count = 0;
+
         for(int i = 0; i < s.length(); i++){
             if(s.charAt(i) == c) count++;
             else{
