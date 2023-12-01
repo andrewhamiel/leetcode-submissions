@@ -15,7 +15,7 @@ class Solution {
                 swap(level, i, nums);
                 count+= backtrack(level + 1, nums);
                 swap(level, i, nums);
-                while(i + 1 < nums.length && nums[i] == nums[i + 1]) i++;
+                while(i + 1 < nums.length && nums[i] == nums[i + 1]) i++; //avoid duplicates
             }
         }
         return count;
