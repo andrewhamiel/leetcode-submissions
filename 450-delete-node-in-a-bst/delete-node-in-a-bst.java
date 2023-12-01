@@ -27,21 +27,20 @@ class Solution {
             }else{
                 root.val = inorderSuccessor(root);
                 root.right = deleteNode(root.right, root.val);
-                
             }
         }
         return root;
-    }
-
-    private int inorderSuccessor(TreeNode root){
-        TreeNode leftmost = root.right;
-        while(leftmost.left != null) leftmost = leftmost.left;
-        return leftmost.val;
     }
 
     private int predecessor(TreeNode root){
         TreeNode rightmost = root.left;
         while(rightmost.right != null) rightmost = rightmost.right;
         return rightmost.val;
+    }
+
+    private int inorderSuccessor(TreeNode root){
+        TreeNode leftmost = root.right;
+        while(leftmost.left != null) leftmost = leftmost.left;
+        return leftmost.val;
     }
 }
