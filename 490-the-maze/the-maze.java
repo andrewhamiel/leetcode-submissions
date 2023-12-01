@@ -22,9 +22,10 @@ class Solution {
                 newRow-= dir[0];
                 newCol-= dir[1];
 
-                if(!visited.contains(new Pair<>(newRow, newCol))) {
-                    visited.add(new Pair<>(newRow, newCol));
-                    q.add(new Pair<>(newRow, newCol));
+                Pair<Integer, Integer> newPair = new Pair<>(newRow, newCol);
+                if(!visited.contains(newPair)){
+                    visited.add(newPair);
+                    q.add(newPair);
                 }
             }
         }
