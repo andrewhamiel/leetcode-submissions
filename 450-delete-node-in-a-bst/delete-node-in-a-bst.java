@@ -21,12 +21,13 @@ class Solution {
         else if(root.val > key) root.left = deleteNode(root.left, key);
         else{
             if(root.left == null && root.right == null) root = null;
-            else if(root.right != null){
-                root.val = inorderSuccessor(root);
-                root.right = deleteNode(root.right, root.val);
-            }else{
+            else if(root.left != null){
                 root.val = predecessor(root);
                 root.left = deleteNode(root.left, root.val);
+            }else{
+                root.val = inorderSuccessor(root);
+                root.right = deleteNode(root.right, root.val);
+                
             }
         }
         return root;
