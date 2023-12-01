@@ -11,23 +11,21 @@ class Solution {
             }
         }
 
-        //2. rank components
-        Map<Integer, List<String>> components = new HashMap<>(); 
+        Map<Integer, List<String>> components = new HashMap<>();
         for(String email : groups.keySet()){
-            int unranked = groups.get(email);
-            int rankedGroup = uf.find(unranked);
+            int oldGroup = groups.get(email);
+            int rankedGroup = uf.find(oldGroup);
             components.putIfAbsent(rankedGroup, new ArrayList<>());
             components.get(rankedGroup).add(email);
         }
 
-        //3. Build result
         List<List<String>> result = new ArrayList<>();
-        for(Integer group : components.keySet()){
+        for(int group : components.keySet()){
             List<String> emails = components.get(group);
             Collections.sort(emails);
-            String accountName = accounts.get(group).get(0);
+            String account = accounts.get(group).get(0);
             List<String> toAdd = new ArrayList<>();
-            toAdd.add(accountName);
+            toAdd.add(account);
             toAdd.addAll(emails);
             result.add(toAdd);
         }
@@ -35,13 +33,14 @@ class Solution {
     }
 
     class UnionFind {
-        int[] group;
         int[] rank;
+        int[] group;
 
-        public UnionFind(int size){
-            group = new int[size];
-            rank = new int[size];
-            for(int i = 0; i < size; i++){
+        public UnionFind(int n){
+            rank = new int[n];
+            group = new int[n];
+            
+            for(int i = 0; i < rank.length; i++){
                 group[i] = i;
                 rank[i] = 1;
             }
@@ -53,15 +52,15 @@ class Solution {
         }
 
         public void union(int a, int b){
-            int groupA = find(a), groupB = find(b);
-            if(groupA == groupB) return;
+            int group1 = find(a), group2 = find(b);
+            if(group1 == group2) return;
 
-            if(rank[groupA] >= rank[groupB]){
-                rank[groupA]+= rank[groupB];
-                group[groupB] = group[groupA];
-            }else{
-                rank[groupB]+= rank[groupA];
-                group[groupA] = group[groupB];
+            if(rank[group1] >= rank[group2]){
+                rank[group1]+= rank[group2];
+                group[group2] = group[group1];
+            }else {
+                rank[group2]+= rank[group1];
+                group[group1] = group[group2];
             }
         }
     }
