@@ -5,11 +5,17 @@ class Solution {
 
         StringBuilder result = new StringBuilder();
         for(char c : order.toCharArray()){
-            while(sFreq[c - 'a']-- > 0) result.append(c);
+            while(sFreq[c - 'a'] > 0){
+                result.append(c);
+                sFreq[c - 'a']--;
+            }
         }
 
         for(int i = 0; i < 26; i++){
-            while(sFreq[i]-- > 0) result.append((char)(i + 'a'));
+            while(sFreq[i] > 0) {
+                result.append((char)(i + 'a'));
+                sFreq[i]--;
+            }
         }
         return result.toString();
     }
