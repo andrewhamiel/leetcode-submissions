@@ -12,7 +12,7 @@ class Solution {
         }
 
         for(int i = 0; i < 26; i++){
-            while(sFreq[i] > 0) {
+            while(sFreq[i] > 0){
                 result.append((char)(i + 'a'));
                 sFreq[i]--;
             }
