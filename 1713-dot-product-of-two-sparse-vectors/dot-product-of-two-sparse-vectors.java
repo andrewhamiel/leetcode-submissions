@@ -5,14 +5,14 @@ class SparseVector {
         map = new HashMap<>();
         for(int i = 0; i < nums.length; i++){
             if(nums[i] != 0) map.put(i, nums[i]);
-        }       
+        }
     }
     
 	// Return the dotProduct of two sparse vectors
     public int dotProduct(SparseVector vec) {
         int product = 0;
-        for(Integer ind : vec.map.keySet()){
-            if(map.containsKey(ind)) product+= map.get(ind) * vec.map.get(ind);
+        for(int num : vec.map.keySet()){
+            if(map.containsKey(num)) product+= (map.get(num) * vec.map.get(num));
         }
         return product;
     }
