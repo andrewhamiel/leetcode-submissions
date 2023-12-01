@@ -23,12 +23,14 @@ class Solution {
         }
 
         int[] ans = new int[]{-1, -1, -1};
+        int windowSum = Integer.MIN_VALUE;
         for(int j = k; j < windows.length - k; j++){
             int l = left[j - k], r = right[j + k];
-            if(ans[0] == -1 || windows[l] + windows[j] + windows[r] > windows[ans[0]] + windows[ans[1]] + windows[ans[2]]){
+            if(windowSum == Integer.MIN_VALUE || windows[l] + windows[j] + windows[r] > windowSum){
                 ans[0] = l;
                 ans[1] = j;
                 ans[2] = r;
+                windowSum = windows[l] + windows[j] + windows[r];
             }
         }
         return ans;
