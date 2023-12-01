@@ -7,29 +7,30 @@ class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         //1. Build adjacencies
         Map<Integer, GNode> adj = new HashMap<>();
-        for(int[] prerequisite : prerequisites){
-            int nextCourse = prerequisite[0], prevCourse = prerequisite[1];
+        for(int[] p : prerequisites){
+            int nextCourse = p[0], prevCourse = p[1];
             adj.putIfAbsent(nextCourse, new GNode());
             adj.putIfAbsent(prevCourse, new GNode());
             adj.get(nextCourse).inDegrees++;
             adj.get(prevCourse).outDegrees.add(nextCourse);
         }
 
-        //2. Find courses without dependencies
+        //2. Find nodes with no dependencies
         Queue<Integer> q = new LinkedList<>();
         for(int course : adj.keySet()) if(adj.get(course).inDegrees == 0) q.add(course);
 
-        //3. Topological sort
-        int coursesRemoved = 0;
+        //3. Topological Sort
+        int dependenciesRemoved = 0;
         while(!q.isEmpty()){
             int curr = q.poll();
             for(int nextCourse : adj.get(curr).outDegrees){
                 adj.get(nextCourse).inDegrees--;
-                coursesRemoved++;
+                dependenciesRemoved++;
                 if(adj.get(nextCourse).inDegrees == 0) q.add(nextCourse);
             }
         }
+
         //4. Validate all prerequisites removed
-        return coursesRemoved == prerequisites.length;
+        return dependenciesRemoved == prerequisites.length;    
     }
 }
