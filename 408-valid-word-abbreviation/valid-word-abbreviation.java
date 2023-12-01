@@ -7,10 +7,9 @@ class Solution {
                 currNum*= 10;
                 currNum+= (int)(abbr.charAt(abbrPtr++) - '0');
             }else if(currNum > 0){
-                wordPtr+= currNum;
+                wordPtr+= currNum; 
                 currNum = 0;
             }else if(word.charAt(wordPtr++) != abbr.charAt(abbrPtr++)) return false;
-
         }
         if(currNum > 0) wordPtr+= currNum;
         return wordPtr == word.length() && abbrPtr == abbr.length();
