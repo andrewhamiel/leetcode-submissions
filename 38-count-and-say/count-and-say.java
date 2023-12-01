@@ -7,8 +7,8 @@ class Solution {
     private String dp(int n){
         if(n == 1) return "1";
 
-        String s = dp(n - 1);
         StringBuilder result = new StringBuilder();
+        String s = dp(n - 1);
         char c = s.charAt(0);
         int count = 0;
 
