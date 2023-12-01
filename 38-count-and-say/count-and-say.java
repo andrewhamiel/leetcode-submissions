@@ -7,23 +7,22 @@ class Solution {
     private String dp(int n){
         if(n == 1) return "1";
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         String s = dp(n - 1);
         int count = 0;
         char c = s.charAt(0);
-
+        
         for(int i = 0; i < s.length(); i++){
             if(s.charAt(i) == c) count++;
             else{
-                sb.append(count);
-                sb.append(c);
-
+                result.append(count);
+                result.append(c);
                 count = 1;
                 c = s.charAt(i);
             }
         }
-        sb.append(count);
-        sb.append(c);
-        return sb.toString();
+        result.append(count);
+        result.append(c);
+        return result.toString();
     }
 }
