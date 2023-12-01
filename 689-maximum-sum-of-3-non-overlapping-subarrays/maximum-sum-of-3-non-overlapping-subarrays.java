@@ -1,11 +1,11 @@
 class Solution {
     public int[] maxSumOfThreeSubarrays(int[] nums, int k) {
         int[] windows = new int[nums.length - k + 1];
-        int currSum = 0;
+        int sum = 0;
         for(int i = 0; i < nums.length; i++){
-            currSum+= nums[i];
-            if(i >= k) currSum-= nums[i - k];
-            if(i >= k - 1) windows[i - k + 1] = currSum;
+            sum+= nums[i];
+            if(i >= k) sum-= nums[i - k];
+            if(i >= k - 1) windows[i - k + 1] = sum;
         }
 
         int[] left = new int[windows.length];
@@ -16,7 +16,7 @@ class Solution {
         }
 
         int[] right = new int[windows.length];
-        best = windows.length - 1;
+        best = right.length - 1;
         for(int i = right.length - 1; i >= 0; i--){
             if(windows[i] >= windows[best]) best = i;
             right[i] = best;
