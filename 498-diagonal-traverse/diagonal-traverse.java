@@ -14,7 +14,6 @@ class Solution {
                 newCol--;
                 newRow++;
             }
-
             //Correct if at bounds
             if(newRow < 0 || newRow >= rows || newCol < 0 || newCol >= cols){
                 if(direction == 1){
