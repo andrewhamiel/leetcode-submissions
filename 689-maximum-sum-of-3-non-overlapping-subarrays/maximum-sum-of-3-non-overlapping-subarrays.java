@@ -22,15 +22,15 @@ class Solution {
             right[i] = best;
         }
 
-        int[] ans = new int[]{-1, -1, -1};
-        int windowSum = Integer.MIN_VALUE;
+        int[] ans = new int[]{-1 ,-1, -1};
+        int maxWindow = Integer.MIN_VALUE;
         for(int j = k; j < windows.length - k; j++){
             int l = left[j - k], r = right[j + k];
-            if(windowSum == Integer.MIN_VALUE || windows[l] + windows[j] + windows[r] > windowSum){
+            if(maxWindow == Integer.MIN_VALUE || windows[l] + windows[j] + windows[r] > maxWindow){
                 ans[0] = l;
                 ans[1] = j;
                 ans[2] = r;
-                windowSum = windows[l] + windows[j] + windows[r];
+                maxWindow = windows[l] + windows[j] + windows[r];
             }
         }
         return ans;
