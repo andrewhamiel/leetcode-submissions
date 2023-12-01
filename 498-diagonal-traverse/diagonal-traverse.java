@@ -3,10 +3,11 @@ class Solution {
         int rows = mat.length, cols = mat[0].length;
         int[] result = new int[rows * cols];
         int row = 0, col = 0, k = 0, direction = 1;
+        
         while(row < rows && col < cols){
             result[k++] = mat[row][col];
-            int newRow = row, newCol = col;
             //Diagonally traverse
+            int newRow = row, newCol = col;
             if(direction == 1){
                 newRow--;
                 newCol++;
@@ -14,6 +15,7 @@ class Solution {
                 newCol--;
                 newRow++;
             }
+
             //Correct if at bounds
             if(newRow < 0 || newRow >= rows || newCol < 0 || newCol >= cols){
                 if(direction == 1){
