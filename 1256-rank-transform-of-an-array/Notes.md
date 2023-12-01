@@ -1,1 +1,1 @@
-<h2>rank-transform-of-an-array Notes</h2><hr>[ Time taken: 52 s ]
+<h2>rank-transform-of-an-array Notes</h2><hr>[ Time taken: 48 s ]
