@@ -15,9 +15,9 @@ class Solution {
     }
 
     private Node findParent(Node p){
-        Node root = p;
-        while(root.parent != null) root = root.parent;
-        return root;
+        Node curr = p;
+        while(curr.parent != null) curr = curr.parent;
+        return curr;
     }
 
     private Node lca(Node root, Node p, Node q){
@@ -27,7 +27,7 @@ class Solution {
 
         Node left = lca(root.left, p, q);
         Node right = lca(root.right, p, q);
-        
+
         if(left != null && right != null) return root;
         return left != null ? left : right;
     }
