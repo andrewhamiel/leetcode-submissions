@@ -47,7 +47,7 @@ class Solution {
                 root = root.right;
             }
         }
-
+        
         first.left = last;
         last.right = first;
         return first;
