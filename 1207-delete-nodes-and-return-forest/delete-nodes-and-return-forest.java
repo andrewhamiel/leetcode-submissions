@@ -28,7 +28,6 @@ class Solution {
     if(root == null) return true;
 
     if(nodes.contains(root.val)){
-      //Node to be deleted
       if(!delete(root.left, list)) list.add(root.left);
       if(!delete(root.right, list)) list.add(root.right);
 
