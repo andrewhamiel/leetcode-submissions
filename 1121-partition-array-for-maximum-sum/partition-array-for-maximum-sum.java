@@ -2,27 +2,21 @@ class Solution {
     public int maxSumAfterPartitioning(int[] arr, int k) {
         int[] dp = new int[arr.length];
         Arrays.fill(dp, -1);
-
-        return maxSum(arr, k, dp, 0);
+        return dp(arr, k, dp, 0);
     }
 
-    private int maxSum(int[] arr, int k, int[] dp, int start) {
+    private int dp(int[] arr, int k, int[] dp, int start){
         int N = arr.length;
 
-        if (start >= N) return 0;
+        if(start >= N) return 0;
 
-        // Return the already calculated answer.
-        if (dp[start] != -1) return dp[start];
+        if(dp[start] != -1) return dp[start];
 
-        int currMax = 0, ans = 0;
-        int end = Math.min(N, start + k);
-        for (int i = start; i < end; i++) {
+        int end = Math.min(N, start + k), currMax = arr[start], ans = 0;
+        for(int i = start; i < end; i++){
             currMax = Math.max(currMax, arr[i]);
-            // Store the maximum of all options for the current subarray.
-            ans = Math.max(ans, currMax * (i - start + 1) + maxSum(arr, k, dp, i + 1));
+            ans = Math.max(ans, currMax * (i - start + 1) + dp(arr, k, dp, i + 1));
         }
-
-        // Store the answer to be reused.
         return dp[start] = ans;
     }
 }
