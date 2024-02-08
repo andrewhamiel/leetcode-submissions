@@ -1,35 +1,27 @@
 class Solution {
-    private long[][] memo;
-    private int MOD = 1000000007;
     public int countVowelPermutation(int n) {
-        // each row stands for the length of string
-        // each column indicates the vowels
-        // specifically, a: 0, e: 1, i: 2, o: 3, u: 4
-        memo = new long[n][5];
-        long result = 0;
-        for (int i = 0; i < 5; i++){
-            result = (result + vowelPermutationCount(n - 1, i)) % MOD;
-        }
-        return (int)result;
-    }
+        //base case: length is 1, equals 1
+        //if length is 2, equals number of mappable characters
+        //if > 2, dp[i][character]+= sum of all dp[i - 1][mappableCharacters]
+        int MOD = 1_000_000_007;
+        Map<Integer, List<Integer>> map = Map.of(0, List.of(1), 1, List.of(0, 2), 2, List.of(0, 1, 3, 4), 3, List.of(2, 4), 4, List.of(0));
+        int[][] dp = new int[n + 1][5];
+        Arrays.fill(dp[1], 1);
+        if(n == 1) return 5;
+        for(int i = 0; i < 5; i++) dp[2][i] = map.get(i).size();
 
-    public long vowelPermutationCount(int i, int vowel) {
-        if (memo[i][vowel] != 0) return memo[i][vowel];
-        if (i == 0) {
-            memo[i][vowel] = 1;
-        } else {
-            if (vowel == 0) {
-                memo[i][vowel] = (vowelPermutationCount(i - 1, 1) + vowelPermutationCount(i - 1, 2) + vowelPermutationCount(i - 1, 4)) % MOD;
-            } else if (vowel == 1) {
-                memo[i][vowel] = (vowelPermutationCount(i - 1, 0) + vowelPermutationCount(i - 1, 2)) % MOD;
-            } else if (vowel == 2) {
-                memo[i][vowel] = (vowelPermutationCount(i - 1, 1) + vowelPermutationCount(i - 1, 3)) % MOD;
-            } else if (vowel == 3) {
-                memo[i][vowel] = vowelPermutationCount(i - 1, 2);
-            } else if (vowel == 4) {
-                memo[i][vowel] = (vowelPermutationCount(i - 1, 2) + vowelPermutationCount(i - 1, 3)) % MOD;
+        for(int i = 3; i <= n; i++){
+            for(int vowel = 0; vowel < 5; vowel++){
+                List<Integer> mappable = map.get(vowel);
+                for(int nextVowel : mappable){
+                    dp[i][vowel]=  (dp[i][vowel] + dp[i - 1][nextVowel]) % MOD;
+                }
             }
+            
         }
-        return memo[i][vowel];
+
+        int sum = 0;
+        for(int i = 0; i < 5; i++) sum= (sum + dp[dp.length - 1][i]) % MOD;
+        return sum;
     }
 }
