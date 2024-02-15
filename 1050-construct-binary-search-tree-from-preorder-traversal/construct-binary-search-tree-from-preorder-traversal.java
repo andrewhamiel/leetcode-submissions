@@ -1,30 +1,27 @@
 class Solution {
-  int idx = 0;
-  int[] preorder;
-  int n;
-
   public TreeNode bstFromPreorder(int[] preorder) {
-    this.preorder = preorder;
-    n = preorder.length;
-    return helper(Integer.MIN_VALUE, Integer.MAX_VALUE);
-  }
+    int n = preorder.length;
+    if (n == 0) return null;
 
-  public TreeNode helper(int lower, int upper) {
-    int tmpIndex = idx;
-    if (idx == n) return null;
+    TreeNode root = new TreeNode(preorder[0]);
+    Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
+    stack.addFirst(root);
 
-    int val = preorder[idx];
+    for (int i = 1; i < n; i++) {
+      //Take the last element of the deque as a parent
+      // and create a child from the next preorder element
+      TreeNode node = stack.peekFirst();
+      TreeNode child = new TreeNode(preorder[i]);
+      //Adjust the parent 
+      while (!stack.isEmpty() && stack.peekFirst().val < child.val)
+        node = stack.pop();
 
-    if (val < lower || val > upper) return null;
-
-    //Place the current element
-    // and recursively construct subtrees
-    idx++;
-    TreeNode root = new TreeNode(val);
-    root.left = helper(lower, val);
-    root.right = helper(val, upper);
+      // follow BST logic to create a parent-child link
+      if (node.val < child.val) node.right = child;
+      else node.left = child;
+      // add the child into deque
+      stack.addFirst(child);
+    }
     return root;
   }
-
-  
 }
