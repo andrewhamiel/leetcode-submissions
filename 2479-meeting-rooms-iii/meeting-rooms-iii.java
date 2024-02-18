@@ -1,42 +1,42 @@
 class Solution {
     public int mostBooked(int n, int[][] meetings) {
-        long[] roomAvailabilityTime = new long[n];
+        long[] minTimeAvailable = new long[n];
         int[] meetingCount = new int[n];
         Arrays.sort(meetings, (a, b) -> a[0] - b[0]);
-
+        
         for(int[] meeting : meetings){
             int start = meeting[0], end = meeting[1];
-            long minAvailabilityTime = Long.MAX_VALUE;
-            int minAvailableRoom = 0;
+            long minRoomAvailableTime = Long.MAX_VALUE;
+            int minMeetingRoom = 0;
             boolean isRoomFound = false;
 
             for(int i = 0; i < n; i++){
-                if(roomAvailabilityTime[i] <= start){
-                    roomAvailabilityTime[i] = end;
+                if(minTimeAvailable[i] <= start){
+                    minTimeAvailable[i] = end;
                     meetingCount[i]++;
                     isRoomFound = true;
                     break;
                 }
 
-                if(minAvailabilityTime > roomAvailabilityTime[i]){
-                    minAvailabilityTime = roomAvailabilityTime[i];
-                    minAvailableRoom = i;
+                if(minRoomAvailableTime > minTimeAvailable[i]){
+                    minRoomAvailableTime = minTimeAvailable[i];
+                    minMeetingRoom = i;
                 }
             }
 
             if(!isRoomFound){
-                roomAvailabilityTime[minAvailableRoom]+= end - start;
-                meetingCount[minAvailableRoom]++;
+                minTimeAvailable[minMeetingRoom]+= end - start;
+                meetingCount[minMeetingRoom]++;
             }
         }
 
-        int maxMeetingCount = 0, maxMeetingCountRoom = 0;
+        int maxMeetingCount = 0, maxMeetingRoom = 0;
         for(int i = 0; i < n; i++){
             if(meetingCount[i] > maxMeetingCount){
                 maxMeetingCount = meetingCount[i];
-                maxMeetingCountRoom = i;
+                maxMeetingRoom = i;
             }
         }
-        return maxMeetingCountRoom;
+        return maxMeetingRoom;
     }
 }
