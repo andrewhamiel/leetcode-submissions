@@ -18,7 +18,7 @@ class Solution {
 
     public int longestUnivaluePath(TreeNode root) {
         solve(root, -1);
-        return ans;    
+        return ans;
     }
 
     private int solve(TreeNode root, int parent){
@@ -28,6 +28,6 @@ class Solution {
         int right = solve(root.right, root.val);
 
         ans = Math.max(ans, left + right);
-        return root.val == parent ? Math.max(left, right) + 1 : 0;
+        return root.val == parent ? 1 + Math.max(left, right) : 0;
     }
 }
