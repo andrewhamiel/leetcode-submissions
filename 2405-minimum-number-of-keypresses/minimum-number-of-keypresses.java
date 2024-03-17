@@ -1,6 +1,5 @@
 class Solution {
     public int minimumKeypresses(String s) {
-        int result = 0;
         Integer[] count = new Integer[26];
         Arrays.fill(count, 0);
 
@@ -8,10 +7,12 @@ class Solution {
 
         Arrays.sort(count, (a, b) -> b - a);
 
+
+        int result = 0;
         for(int i = 0; i < 26; i++){
             if(i < 9) result+= count[i];
-            else if(i < 18) result+= 2 * count[i];
-            else result+= 3 * count[i];
+            else if( i < 18) result += 2 * count[i];
+            else result += 3 * count[i];
         }
         return result;
     }
