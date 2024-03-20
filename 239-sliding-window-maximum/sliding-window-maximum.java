@@ -7,21 +7,21 @@ class Solution {
             deq.addLast(i);
             if(nums[i] > nums[localMax]) localMax = i;
         }
-        
-        int[] result = new int[nums.length - k + 1];
-        result[0] = nums[localMax];
+
+        int[] answer = new int[nums.length - k + 1];
+        answer[0] = nums[localMax];
         for(int i = k; i < nums.length; i++){
             cleanDeque(i, k, nums, deq);
             deq.addLast(i);
-            result[i - k + 1] = nums[deq.peekFirst()];
+            answer[i - k + 1] = nums[deq.peekFirst()];
         }
-        return result;
+        return answer;
     }
 
     private void cleanDeque(int i, int k, int[] nums, Deque<Integer> deq){
-        //if size of window too large
+        //If window size too large
         if(!deq.isEmpty() && deq.peekFirst() == i - k) deq.removeFirst();
-        //remove elements from deq < curr
+        //Remove numbers from deq < curr
         while(!deq.isEmpty() && nums[i] > nums[deq.peekLast()]) deq.removeLast();
     }
 }
