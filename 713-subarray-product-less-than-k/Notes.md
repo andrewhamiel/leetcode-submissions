@@ -1,1 +1,1 @@
-<h2>subarray-product-less-than-k Notes</h2><hr>[ Time taken: 42 s ]
+<h2>subarray-product-less-than-k Notes</h2><hr>[ Time taken: 35 s ]
