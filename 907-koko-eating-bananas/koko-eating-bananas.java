@@ -12,13 +12,13 @@ class Solution {
         return right;
     }
 
-    private boolean isFeasible(int[] piles, int hours, int capacity){
-        int h = 0;
-        for(int pile : piles){
-            h+= (pile/capacity);
-            int rem = pile % capacity;
-            if(rem > 0) h++;
+    private boolean isFeasible(int[] piles, int h, int capacity){
+        int hours = 0;
+        for(int bananas : piles){
+            hours+= (bananas/capacity);
+            int rem = bananas % capacity;
+            if(rem > 0) hours++;
         }
-        return h <= hours;
+        return hours <= h;
     }
 }
