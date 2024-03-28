@@ -1,1 +1,1 @@
-<h2>copy-list-with-random-pointer Notes</h2><hr>[ Time taken: 3 m 34 s ]
+<h2>copy-list-with-random-pointer Notes</h2><hr>[ Time taken: 2 m 20 s ]
