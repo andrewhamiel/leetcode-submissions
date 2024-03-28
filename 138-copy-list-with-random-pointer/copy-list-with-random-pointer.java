@@ -16,10 +16,9 @@ class Node {
 class Solution {
     public Node copyRandomList(Node head) {
         if(head == null) return null;
-
         //1. Create copies
         Node curr = head;
-        while(curr != null) {
+        while(curr != null){
             Node nextNode = new Node(curr.val);
             nextNode.next = curr.next;
             curr.next = nextNode;
