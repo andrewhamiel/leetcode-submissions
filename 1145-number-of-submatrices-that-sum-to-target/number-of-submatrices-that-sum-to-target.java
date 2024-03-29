@@ -1,37 +1,26 @@
 class Solution {
-  public int numSubmatrixSumTarget(int[][] matrix, int target) {
-    int r = matrix.length, c = matrix[0].length;
-
-    // compute 2D prefix sum
-    int[][] ps = new int[r + 1][c + 1];
-    for (int i = 1; i < r + 1; ++i) {
-      for (int j = 1; j < c + 1; ++j) {
-        ps[i][j] = ps[i - 1][j] + ps[i][j - 1] - ps[i - 1][j - 1] + matrix[i - 1][j - 1];
-      }
-    }
-
-    int count = 0, currSum;
-    Map<Integer, Integer> h = new HashMap();
-    // reduce 2D problem to 1D one
-    // by fixing two rows r1 and r2 and 
-    // computing 1D prefix sum for all matrices using [r1..r2] rows
-    for (int r1 = 1; r1 < r + 1; ++r1) {
-      for (int r2 = r1; r2 < r + 1; ++r2) {
-        h.clear();
-        h.put(0, 1);
-        for (int col = 1; col < c + 1; ++col) {
-          // current 1D prefix sum
-          currSum = ps[r2][col] - ps[r1 - 1][col];
-
-          // add subarrays which sum up to (currSum - target)
-          count += h.getOrDefault(currSum - target, 0);
-
-          // save current prefix sum
-          h.put(currSum, h.getOrDefault(currSum, 0) + 1);
+    public int numSubmatrixSumTarget(int[][] matrix, int target) {
+        //1. Compute prefix sum
+        int[][] prefix = new int[matrix.length + 1][matrix[0].length + 1];
+        for(int row = 1; row < prefix.length; row++){
+            for(int col = 1; col < prefix[0].length; col++){
+                prefix[row][col] = prefix[row - 1][col] + prefix[row][col - 1] - prefix[row - 1][col - 1] + matrix[row - 1][col - 1];
+            }
         }
-      }
-    }
 
-    return count;
-  }
+        //2. Solve as 1D problem with 2-row comparison
+        int count = 0;
+        for(int row1 = 1; row1 < prefix.length; row1++){
+            for(int row2 = row1; row2 < prefix.length; row2++){
+                Map<Integer, Integer> map = new HashMap<>();
+                map.put(0, 1);
+                for(int col = 1; col < prefix[0].length; col++){
+                    int currSum = prefix[row2][col] - prefix[row1 - 1][col];
+                    count+= map.getOrDefault(currSum - target, 0);
+                    map.put(currSum, map.getOrDefault(currSum, 0) + 1);
+                }
+            }
+        }
+        return count;
+    }
 }
