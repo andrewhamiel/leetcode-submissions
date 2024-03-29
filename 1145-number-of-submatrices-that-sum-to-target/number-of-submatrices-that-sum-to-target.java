@@ -8,16 +8,16 @@ class Solution {
             }
         }
 
-        //2. Solve as 1D problem with 2-row comparison
+        //2. Solve as 1D problem comparing 2 rows
         int count = 0;
         for(int row1 = 1; row1 < prefix.length; row1++){
             for(int row2 = row1; row2 < prefix.length; row2++){
-                Map<Integer, Integer> map = new HashMap<>();
-                map.put(0, 1);
+                Map<Integer, Integer> seen = new HashMap<>();
+                seen.put(0, 1);
                 for(int col = 1; col < prefix[0].length; col++){
                     int currSum = prefix[row2][col] - prefix[row1 - 1][col];
-                    count+= map.getOrDefault(currSum - target, 0);
-                    map.put(currSum, map.getOrDefault(currSum, 0) + 1);
+                    count+= seen.getOrDefault(currSum - target, 0);
+                    seen.put(currSum, seen.getOrDefault(currSum, 0) + 1);
                 }
             }
         }
