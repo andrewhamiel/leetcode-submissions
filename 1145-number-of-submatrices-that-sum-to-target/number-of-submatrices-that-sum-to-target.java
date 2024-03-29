@@ -8,7 +8,7 @@ class Solution {
             }
         }
 
-        //2. Solve as 1D problem comparing 2 rows
+        //2. Solve as set of 1D problems by comparing 2 rows
         int count = 0;
         for(int row1 = 1; row1 < prefix.length; row1++){
             for(int row2 = row1; row2 < prefix.length; row2++){
