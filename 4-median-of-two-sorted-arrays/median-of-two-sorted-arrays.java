@@ -7,21 +7,18 @@ class Solution {
             int midAndPartitionA = left + (right - left)/2;
             int partitionB = (nums1.length + nums2.length + 1)/2 - midAndPartitionA;
 
-            int minRightA = midAndPartitionA == nums1.length ? Integer.MAX_VALUE : nums1[midAndPartitionA];
             int maxLeftA = midAndPartitionA == 0 ? Integer.MIN_VALUE : nums1[midAndPartitionA - 1];
-            
-            int minRightB = partitionB == nums2.length ? Integer.MAX_VALUE : nums2[partitionB];
-            int maxLeftB = partitionB == 0 ? Integer.MIN_VALUE : nums2[partitionB - 1];
+            int minRightA = midAndPartitionA == nums1.length ? Integer.MAX_VALUE : nums1[midAndPartitionA];
 
-            //case 1: found right partition
+            int maxLeftB = partitionB == 0 ? Integer.MIN_VALUE : nums2[partitionB - 1];
+            int minRightB = partitionB == nums2.length ? Integer.MAX_VALUE : nums2[partitionB];
+
             if(maxLeftA <= minRightB && maxLeftB <= minRightA){
                 if((nums1.length + nums2.length) % 2 == 0) return (double)(Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB))/2;
                 else return Math.max(maxLeftA, maxLeftB);
-            }//case 2: leftPartition too large
-            else if(maxLeftA > minRightB) right = midAndPartitionA - 1;
-            //case 3: right partition too large
-            else left = midAndPartitionA + 1;
+            }else if(maxLeftA > minRightB) right = midAndPartitionA - 1; //left partition too large
+            else left = midAndPartitionA + 1; //right partition too large
         }
-        return -1;
+        return -1.0;
     }
 }
