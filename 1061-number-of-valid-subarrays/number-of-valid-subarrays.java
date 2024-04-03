@@ -10,7 +10,6 @@ class Solution {
             stack.addFirst(i);
         }
 
-        //all remaining, last element is right bound
         while(!stack.isEmpty()){
             answer+= (nums.length - stack.removeFirst());
         }
