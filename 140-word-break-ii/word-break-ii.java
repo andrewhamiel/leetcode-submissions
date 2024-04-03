@@ -1,14 +1,10 @@
 class Solution {
-    class TrieNode {
-        Map<Character, TrieNode> children = new HashMap<>();
-        boolean isWord = false;
-    }
-
-    private String s;
+    TrieNode root;
+    String s;
 
     public List<String> wordBreak(String s, List<String> wordDict) {
         //1. Build Trie
-        TrieNode root = new TrieNode();
+        root = new TrieNode();
         for(String word : wordDict){
             TrieNode curr = root;
             for(char c : word.toCharArray()){
@@ -18,14 +14,14 @@ class Solution {
             curr.isWord = true;
         }
 
-        //2. Top Down DP
-        List<String> result = new ArrayList<>();    
+        //2. Top-down DP
         this.s = s;
-        helper(0, new StringBuilder(), root, result);
+        List<String> result = new ArrayList<>();
+        dp(0, new StringBuilder(), result);
         return result;
     }
 
-    private void helper(int ind, StringBuilder sb, TrieNode root, List<String> result){
+    private void dp(int ind, StringBuilder sb, List<String> result){
         if(ind == s.length() && !sb.isEmpty()){
             result.add(sb.toString());
             return;
@@ -39,13 +35,18 @@ class Solution {
             curr = curr.children.get(c);
             sb.append(c);
             if(curr.isWord){
-                //2 options: use or do not use
-                //1. use
+                //2 options: use or don't use
+                //1. Use
                 StringBuilder using = new StringBuilder(sb);
                 if(i != s.length() - 1) using.append(" ");
-                helper(i + 1, using, root, result);
-                //2. do not use. just continue
+                dp(i + 1, using, result);
+                //2. Don't use. Just continue
             }
         }
+    }
+
+    class TrieNode {
+        Map<Character, TrieNode> children = new HashMap<>();
+        boolean isWord = false;
     }
 }
