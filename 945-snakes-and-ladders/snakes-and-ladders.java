@@ -18,12 +18,13 @@ class Solution {
             while(size-- > 0){
                 int pos = q.poll();
                 if(pos >= n * n) return moves;
-                if(seen.contains(pos)) continue;
                 for(int i = pos + 1; i <= pos + 6; i++){
                     int nextPos = map.containsKey(i) ? map.get(i) : i;
                     
-                    if(!seen.contains(nextPos)) q.add(nextPos);
-                    seen.add(pos);
+                    if(!seen.contains(nextPos)) {
+                        q.add(nextPos);
+                        seen.add(nextPos);
+                    }
                 }
                 
             }
