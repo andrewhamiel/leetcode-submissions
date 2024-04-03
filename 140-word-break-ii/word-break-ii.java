@@ -3,7 +3,7 @@ class Solution {
     String s;
 
     public List<String> wordBreak(String s, List<String> wordDict) {
-        //1. Build Trie
+        //1. Build TrieNode
         root = new TrieNode();
         for(String word : wordDict){
             TrieNode curr = root;
@@ -12,9 +12,8 @@ class Solution {
                 curr = curr.children.get(c);
             }
             curr.isWord = true;
-        }
+        }    
 
-        //2. Top-down DP
         this.s = s;
         List<String> result = new ArrayList<>();
         dp(0, new StringBuilder(), result);
@@ -40,11 +39,11 @@ class Solution {
                 StringBuilder using = new StringBuilder(sb);
                 if(i != s.length() - 1) using.append(" ");
                 dp(i + 1, using, result);
-                //2. Don't use. Just continue
+                //2. Don't use: Just continue
             }
         }
     }
-
+    
     class TrieNode {
         Map<Character, TrieNode> children = new HashMap<>();
         boolean isWord = false;
