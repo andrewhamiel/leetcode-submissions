@@ -11,6 +11,7 @@
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode curr = head, new_head = null, k_tail = null;
+        
         while(curr != null){
             int count = 0;
             while(curr != null && count < k){
@@ -28,14 +29,14 @@ class Solution {
         if(k_tail != null) k_tail.next = head;
         return new_head;
     }
-    
+
     private ListNode reverse(ListNode head, int k){
         ListNode curr = head, prev = null;
         while(k-- > 0){
-            ListNode next_node = curr.next;
+            ListNode nextNode = curr.next;
             curr.next = prev;
             prev = curr;
-            curr = next_node;
+            curr = nextNode;
         }
         return prev;
     }
