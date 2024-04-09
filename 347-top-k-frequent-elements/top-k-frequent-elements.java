@@ -8,7 +8,7 @@ class Solution {
         int ind = 0;
         for(int num : count.keySet()) unique[ind++] = num;
 
-        quickselect(0, unique.length - 1, unique, k);
+        quickselect(0, unique.length - 1, unique, k - 1);
         int[] result = new int[k];
         for(int i = 0; i < result.length; i++) result[i] = unique[i];
         return result;
