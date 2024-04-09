@@ -14,11 +14,11 @@ class Solution {
         return right;
     }
 
-    private boolean isFeasible(int[] nums, int sum, int k){
+    private boolean isFeasible(int[] nums, int maxSweetness, int k){
         int currSum = 0, cuts = 0;
         for(int num : nums){
             currSum+= num;
-            if(currSum > sum){
+            if(currSum > maxSweetness){
                 cuts++;
                 currSum = 0;
             }
