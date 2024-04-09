@@ -1,6 +1,6 @@
 class Solution {
     public int[][] kClosest(int[][] points, int k) {
-        quickselect(0, points.length - 1, points, k);
+        quickselect(0, points.length - 1, points, k - 1);
         int[][] result = new int[k][2];
         for(int i = 0; i < result.length; i++) result[i] = points[i];
         return result;
