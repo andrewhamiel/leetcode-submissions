@@ -10,8 +10,8 @@ class Node {
 
 class Solution {
     public Node lowestCommonAncestor(Node p, Node q) {
-        Node root = findParent(p);
-        return lca(root, p, q);
+        Node parent = findParent(p);
+        return lca(parent, p, q);
     }
 
     private Node findParent(Node p){
