@@ -9,15 +9,10 @@ class Solution {
     }
     
     public List<String> generateStroboNumbers(int n, int finalLength) {
-        if (n == 0) {
-            // 0-digit strobogrammatic number is an empty string.
-            return new ArrayList<>(List.of(""));
-        }
-        
-        if (n == 1) {
-            // 1-digit strobogrammatic numbers.
-            return new ArrayList<>(List.of("0", "1", "8"));
-        }
+        // 0-digit strobogrammatic number is an empty string.
+        if (n == 0) return new ArrayList<>(List.of(""));
+        // 1-digit strobogrammatic numbers.
+        if (n == 1) return new ArrayList<>(List.of("0", "1", "8"));
         
         List<String> prevStroboNums = generateStroboNumbers(n - 2, finalLength);
         List<String> currStroboNums = new ArrayList<>();
@@ -30,7 +25,6 @@ class Solution {
                 }
             }
         }
-        
         return currStroboNums;
     }
     
