@@ -1,18 +1,16 @@
 class Solution {
 public:
     vector<int> findBuildings(vector<int>& heights) {
-        stack<int> stack;
         vector<int> result;
-        stack.push(heights.size() - 1);
-        for(int i = heights.size() - 2; i >= 0; i--){
-            if(heights[i] > heights[stack.top()]){
-                stack.push(i);
+        int maxHeight = -1;
+        
+        for(int i = heights.size() - 1; i >= 0; i--){
+            if(maxHeight < heights[i]){
+                result.push_back(i);
+                maxHeight = heights[i];
             }
         }
-        while(!stack.empty()){
-            result.push_back(stack.top());
-            stack.pop();
-        }
+        reverse(result.begin(), result.end());
         return result;
     }
 };
