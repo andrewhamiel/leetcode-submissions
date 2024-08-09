@@ -1,10 +1,14 @@
-class Solution {
+public class Solution {
     public int hIndex(int[] citations) {
-        Arrays.sort(citations);
-        int hIndex = 0;
-        for(int i = 0; i < citations.length; i++){
-            hIndex = Math.max(hIndex, Math.min(citations[i], citations.length - i));
-        }
-        return hIndex;
+        int n = citations.length;
+        int[] papers = new int[n + 1];
+        // counting papers for each citation number
+        for (int c: citations)
+            papers[Math.min(n, c)]++;
+        // finding the h-index
+        int k = n;
+        for (int s = papers[n]; k > s; s += papers[k])
+            k--;
+        return k;
     }
 }
