@@ -15,7 +15,6 @@ class Solution {
             if(!stack.isEmpty() && nums[i] < nums[stack.peekFirst()]){
                 stepsArr[i] = maxSteps + 1;
             }
-
             result = Math.max(result, stepsArr[i]);
             stack.addFirst(i);
         }
