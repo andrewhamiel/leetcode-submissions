@@ -5,7 +5,7 @@ class Solution {
 
         int steps = 0;
         int[] stepArr = new int[nums.length];
-        for(int i = 1; i < nums.length; i++) {
+        for(int i = 1; i < nums.length; i++){
             int maxSteps = 0;
             while(!stack.isEmpty() && nums[i] >= nums[stack.peekFirst()]){
                 maxSteps = Math.max(maxSteps, stepArr[stack.peekFirst()]);
