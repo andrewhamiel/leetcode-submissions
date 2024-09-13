@@ -18,7 +18,7 @@ class Solution {
 
     public int diameterOfBinaryTree(TreeNode root) {
         dfs(root);
-        return result;
+        return result;    
     }
 
     private int dfs(TreeNode root) {
