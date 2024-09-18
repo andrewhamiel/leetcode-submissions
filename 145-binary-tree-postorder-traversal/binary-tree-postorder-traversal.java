@@ -17,15 +17,13 @@ class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
 
-        while(root != null){
-            if(root.right != null){
+        while(root != null) {
+            if(root.right != null) {
                 TreeNode successor = root.right;
-                while(successor.left != null && successor.left != root){
-                    successor = successor.left;
-                }
+                while(successor.left != null && successor.left != root) successor = successor.left;
 
-                if(successor.left == null){
-                    //unexplored 
+                if(successor.left == null) {
+                    //unexplored
                     result.add(root.val);
                     successor.left = root;
                     root = root.right;
@@ -38,7 +36,7 @@ class Solution {
                 root = root.left;
             }
         }
-
+        
         Collections.reverse(result);
         return result;
     }
