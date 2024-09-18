@@ -16,6 +16,7 @@
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
+
         while(root != null) {
             if(root.right != null) {
                 TreeNode successor = root.right;
