@@ -20,13 +20,14 @@ class Solution {
         int width = nodes/k, rem = nodes % k;
         ListNode[] result = new ListNode[k];
         curr = head;
-        
+
         for(int i = 0; i < k; i++) {
             ListNode ptr = curr;
             int carry = i < rem ? 1 : 0;
             for(int j = 0; j < width + carry - 1; j++) {
                 if(curr != null) curr = curr.next;
             }
+
             if(curr != null) {
                 ListNode prev = curr;
                 curr = curr.next;
