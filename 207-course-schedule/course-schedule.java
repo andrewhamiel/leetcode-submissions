@@ -1,36 +1,31 @@
 class Solution {
-    class GNode {
-        List<Integer> outDegrees = new ArrayList<>();
-        int inDegrees = 0;
-    }
-
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        //1. Build adjacencies
         Map<Integer, GNode> adj = new HashMap<>();
-        for(int[] p : prerequisites){
-            int nextCourse = p[0], prevCourse = p[1];
-            adj.putIfAbsent(nextCourse, new GNode());
-            adj.putIfAbsent(prevCourse, new GNode());
-            adj.get(nextCourse).inDegrees++;
-            adj.get(prevCourse).outDegrees.add(nextCourse);
+        for(int[] prerequisite : prerequisites) {
+            adj.putIfAbsent(prerequisite[0], new GNode());
+            adj.putIfAbsent(prerequisite[1], new GNode());
+            adj.get(prerequisite[0]).indegrees++;
+            adj.get(prerequisite[1]).outdegrees.add(prerequisite[0]);
         }
 
-        //2. Find nodes with no dependencies
-        Queue<Integer> q = new LinkedList<>();
-        for(int course : adj.keySet()) if(adj.get(course).inDegrees == 0) q.add(course);
+        Queue<Integer> noPrereqs = new LinkedList<>();
+        for(int key : adj.keySet()) if(adj.get(key).indegrees == 0) noPrereqs.add(key);
+        Set<Integer> visited = new HashSet<>();
 
-        //3. Topological Sort
-        int dependenciesRemoved = 0;
-        while(!q.isEmpty()){
-            int curr = q.poll();
-            for(int nextCourse : adj.get(curr).outDegrees){
-                adj.get(nextCourse).inDegrees--;
-                dependenciesRemoved++;
-                if(adj.get(nextCourse).inDegrees == 0) q.add(nextCourse);
+        while(!noPrereqs.isEmpty()){
+            int course = noPrereqs.poll();
+            visited.add(course);
+            for(int nextCourse : adj.get(course).outdegrees){
+                GNode nextNode = adj.get(nextCourse);
+                nextNode.indegrees--;
+                if(nextNode.indegrees == 0) noPrereqs.add(nextCourse); 
             }
         }
+        return visited.size() == adj.keySet().size();
+    }
 
-        //4. Validate all prerequisites removed
-        return dependenciesRemoved == prerequisites.length;    
+    class GNode {
+        List<Integer> outdegrees = new ArrayList<>();
+        int indegrees = 0;
     }
 }
