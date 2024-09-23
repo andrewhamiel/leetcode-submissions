@@ -27,7 +27,7 @@ class Solution {
         Queue<Node> q = new LinkedList<>();
         q.add(node);
 
-        while(!q.isEmpty()) {
+        while(!q.isEmpty()){
             Node curr = q.poll();
             for(Node neighbor : curr.neighbors) {
                 if(!visited.containsKey(neighbor)){
