@@ -20,8 +20,8 @@ class BSTIterator {
         leftmost(root);
     }
 
-    private void leftmost(TreeNode root){
-        while(root != null){
+    private void leftmost(TreeNode root) {
+        while(root != null) {
             stack.addFirst(root);
             root = root.left;
         }
@@ -34,7 +34,7 @@ class BSTIterator {
     }
     
     public boolean hasNext() {
-        return stack.size() > 0;       
+        return stack.size() > 0;
     }
 }
 
