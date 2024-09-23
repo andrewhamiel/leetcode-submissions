@@ -21,15 +21,16 @@ class Node {
 class Solution {
     public Node cloneGraph(Node node) {
         if(node == null) return null;
+
         Map<Node, Node> visited = new HashMap<>();
         visited.put(node, new Node(node.val));
         Queue<Node> q = new LinkedList<>();
         q.add(node);
 
-        while(!q.isEmpty()){
+        while(!q.isEmpty()) {
             Node curr = q.poll();
             for(Node neighbor : curr.neighbors) {
-                if(!visited.containsKey(neighbor)) {
+                if(!visited.containsKey(neighbor)){
                     visited.put(neighbor, new Node(neighbor.val));
                     q.add(neighbor);
                 }
