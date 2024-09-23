@@ -2,9 +2,7 @@ class SparseVector {
     Map<Integer, Integer> map = new HashMap<>();
     
     SparseVector(int[] nums) {
-        for(int i = 0; i < nums.length; i++) {
-            if(nums[i] != 0) map.put(i, nums[i]);
-        }
+        for(int i = 0; i < nums.length; i++) map.put(i, nums[i]);
     }
     
 	// Return the dotProduct of two sparse vectors
