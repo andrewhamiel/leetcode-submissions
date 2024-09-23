@@ -15,9 +15,10 @@
  */
 class Solution {
     public boolean isEvenOddTree(TreeNode root) {
-        int mod = 0;
+        if(root == null) return true;
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
+        int mod = 0;
 
         while(!q.isEmpty()){
             int size = q.size();
