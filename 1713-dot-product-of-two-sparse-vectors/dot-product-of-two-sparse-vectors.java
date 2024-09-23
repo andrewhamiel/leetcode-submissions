@@ -1,9 +1,8 @@
 class SparseVector {
-    Map<Integer, Integer> map;
+    Map<Integer, Integer> map = new HashMap<>();
     
     SparseVector(int[] nums) {
-        map = new HashMap<>();
-        for(int i = 0; i < nums.length; i++){
+        for(int i = 0; i < nums.length; i++) {
             if(nums[i] != 0) map.put(i, nums[i]);
         }
     }
