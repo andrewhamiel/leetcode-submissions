@@ -22,9 +22,9 @@ class Solution {
         while(!q.isEmpty()){
             int size = q.size();
             int prev = mod % 2 == 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-            while(size-- > 0){
+            while(size-- > 0) {
                 TreeNode curr = q.poll();
-                if(mod % 2 == 0){
+                if(mod % 2 == 0) {
                     if(prev >= curr.val || curr.val % 2 == 0) return false;
                 }else{
                     if(prev <= curr.val || curr.val % 2 != 0) return false;
