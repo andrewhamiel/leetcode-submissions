@@ -1,28 +1,19 @@
 class Solution {
     public int numSubarraysWithSum(int[] nums, int goal) {
-        int start = 0;
-        int prefixZeros = 0;
-        int currentSum = 0;
-        int totalCount = 0;
+        int left = 0, currSum = 0, prefixZeroes = 0, totalCount = 0;
 
-        // Loop through the array using end pointer
-        for (int end = 0; end < nums.length; end++) {
-            // Add current element to the sum
-            currentSum += nums[end];
-            
-            // Slide the window while condition is met
-            while (start < end && (nums[start] == 0 || currentSum > goal)) {
-                if (nums[start] == 1) prefixZeros = 0;
-                else prefixZeros++;
-                
-                currentSum -= nums[start];
-                start++;
+        for(int right = 0; right < nums.length; right++) {
+            currSum+= nums[right];
+
+            while(left < right && (nums[left] == 0 || currSum > goal)) {
+                if(nums[left] == 1) prefixZeroes = 0;
+                else prefixZeroes++;
+
+                currSum-= nums[left++];
             }
-            
-            // Count subarrays when window sum matches the goal
-            if (currentSum == goal) totalCount += 1 + prefixZeros;
+
+            if(currSum == goal) totalCount+= 1 + prefixZeroes;
         }
-        
         return totalCount;
     }
 }
