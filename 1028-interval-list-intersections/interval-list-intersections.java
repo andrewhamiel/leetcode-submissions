@@ -4,18 +4,16 @@ class Solution {
 
         int firstInd = 0, secondInd = 0;
         while(firstInd < firstList.length && secondInd < secondList.length) {
-            int[] currFirst = firstList[firstInd], currSecond = secondList[secondInd];
+            int[] first = firstList[firstInd], second = secondList[secondInd];
 
-            //first ends later 
-            int xOverlap = Math.max(currFirst[0], currSecond[0]);
-            int yOverlap = Math.min(currFirst[1], currSecond[1]);
+            int xOverlap = Math.max(first[0], second[0]);
+            int yOverlap = Math.min(first[1], second[1]);
             if(xOverlap <= yOverlap) q.add(new int[]{xOverlap, yOverlap});
 
-            //determine which ends first
-            if(currFirst[1] >= currSecond[1]) secondInd++;
-            else firstInd++;
+            if(first[1] <= second[1]) firstInd++;
+            else secondInd++;
         }
-
+        
         int[][] result = new int[q.size()][2];
         for(int i = 0; i < result.length; i++) result[i] = q.poll();
         return result;
