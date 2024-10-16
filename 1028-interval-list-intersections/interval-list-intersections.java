@@ -13,7 +13,7 @@ class Solution {
             if(first[1] <= second[1]) firstInd++;
             else secondInd++;
         }
-        
+
         int[][] result = new int[q.size()][2];
         for(int i = 0; i < result.length; i++) result[i] = q.poll();
         return result;
