@@ -14,9 +14,9 @@ class Solution {
     }
 
     private int countPairs(int low, int high, int[] nums) {
-        int mid = low + (high - low)/2, count = 0, j = mid + 1;
+        int count = 0, mid = low + (high - low)/2, j = mid + 1;
         for(int i = low; i <= mid; i++) {
-            while(j <= high && nums[i] > 2 *(long) nums[j]) j++;
+            while(j <= high && nums[i] > 2 * (long) nums[j]) j++;
             count+= j - mid - 1;
         }
         return count;
@@ -30,7 +30,7 @@ class Solution {
             if(nums[left] <= nums[right]) tmp.add(nums[left++]);
             else tmp.add(nums[right++]);
         }
-        
+
         while(left <= mid) tmp.add(nums[left++]);
         while(right <= high) tmp.add(nums[right++]);
 
