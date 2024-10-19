@@ -24,7 +24,6 @@ class Solution {
 
     private void merge(int low, int high, int[] nums) {
         List<Integer> tmp = new ArrayList<>();
-
         int mid = low + (high - low)/2, left = low, right = mid + 1;
         while(left <= mid && right <= high) {
             if(nums[left] <= nums[right]) tmp.add(nums[left++]);
