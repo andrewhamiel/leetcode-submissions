@@ -1,15 +1,17 @@
 class SparseVector {
-    Map<Integer, Integer> map = new HashMap<>();
+    private Map<Integer, Integer> map = new HashMap<>();
     
     SparseVector(int[] nums) {
-        for(int i = 0; i < nums.length; i++) map.put(i, nums[i]);
+        for(int i = 0; i < nums.length; i++) if(nums[i] != 0) map.put(i, nums[i]);
     }
     
 	// Return the dotProduct of two sparse vectors
     public int dotProduct(SparseVector vec) {
         int product = 0;
-        for(int num : vec.map.keySet()){
-            if(map.containsKey(num)) product+= (map.get(num) * vec.map.get(num));
+        for(int key : vec.map.keySet()) {
+            if(map.containsKey(key)){
+                product+= vec.map.get(key) * map.get(key);
+            }
         }
         return product;
     }
