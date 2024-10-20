@@ -6,8 +6,10 @@ class Solution {
         if(i >= 0) {
             int j = nums.length - 1;
             while(j >= 0 && nums[j] <= nums[i]) j--;
+
             swap(i, j, nums);
         }
+
         reverse(i + 1, nums);
     }
 
@@ -18,7 +20,7 @@ class Solution {
     }
 
     private void reverse(int left, int[] nums) {
-        int right = nums.length - 1; 
+        int right = nums.length - 1;
         while(left < right) swap(left++, right--, nums);
     }
 }
