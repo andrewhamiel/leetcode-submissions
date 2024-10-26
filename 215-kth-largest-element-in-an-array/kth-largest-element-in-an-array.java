@@ -2,9 +2,9 @@ class Solution {
     public int findKthLargest(int[] nums, int k) {
         return quickselect(0, nums.length - 1, nums, k - 1);
     }
-
+    
     private int quickselect(int left, int right, int[] nums, int k) {
-        if(left >= right) return nums[left];
+        if(left >= right) return nums[k];
 
         int pivotIndex = new Random().nextInt(right - left) + left;
         pivotIndex = partition(left, right, nums, pivotIndex);
