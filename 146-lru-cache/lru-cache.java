@@ -1,70 +1,70 @@
 class LRUCache {
     class Node {
-        Node next;
+        int key = 0;
+        int value = 0;
         Node prev;
-        int key;
-        int value;
+        Node next;
     }
 
-    Node head, tail;
-    int capacity = 0;
-    Map<Integer, Node> cache = new HashMap<>();
+    private Node head, tail;
+    private int capacity = 0;
+    private Map<Integer, Node> map = new HashMap<>();
 
     public LRUCache(int capacity) {
         head = new Node();
         tail = new Node();
+        head.next = tail;
         tail.prev = head;
-        head.next = tail; 
         this.capacity = capacity;
     }
 
-    private void add(Node node){
+    private void add(Node node) {
         node.next = head.next;
+        head.next.prev = node;
         node.prev = head;
-        node.next.prev = node;
         head.next = node;
     }
 
-    private void remove(Node node){
+    private void remove(Node node) {
         Node nextNode = node.next;
         Node prevNode = node.prev;
         nextNode.prev = prevNode;
         prevNode.next = nextNode;
     }
 
-    private void moveToFront(Node node){
+    private void moveToFront(Node node) {
         remove(node);
         add(node);
     }
 
-    private Node popTail(){
+    private Node popTail() {
         Node poppedTail = tail.prev;
-        remove(tail.prev);
+        remove(poppedTail);
         return poppedTail;
     }
     
     public int get(int key) {
-        if(!cache.containsKey(key)) return -1;
-        Node node = cache.get(key);
+        if(!map.containsKey(key)) return -1;
+
+        Node node = map.get(key);
         moveToFront(node);
         return node.value;
     }
     
     public void put(int key, int value) {
-        if(cache.containsKey(key)){
-            Node node = cache.get(key);
-            node.value = value;
+        if(map.containsKey(key)){
+            Node node = map.get(key);
             moveToFront(node);
-            cache.put(key, node);
+            node.value = value;
         }else{
             Node node = new Node();
             node.key = key;
             node.value = value;
             add(node);
-            cache.put(key, node);
-            if(cache.size() > capacity){
+            map.put(key, node);
+            if(map.size() > capacity) {
                 Node poppedTail = popTail();
-                cache.remove(poppedTail.key);
+                map.remove(poppedTail.key);
             }
         }
     }
