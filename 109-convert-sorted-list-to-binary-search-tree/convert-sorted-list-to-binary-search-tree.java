@@ -24,7 +24,7 @@
  * }
  */
 class Solution {
-    ListNode head;
+    private ListNode head;
 
     public TreeNode sortedListToBST(ListNode head) {
         if(head == null) return null;
@@ -38,7 +38,7 @@ class Solution {
             size++;
         }    
 
-        //2. Divide and Conquer Inorder traversal
+        //2. Inorder traversal 
         return divideAndConquer(0, size - 1);
     }
 
@@ -47,7 +47,6 @@ class Solution {
 
         int mid = left + (right - left)/2;
         TreeNode root = new TreeNode();
-
         //Left 
         root.left = divideAndConquer(left, mid - 1);
         //Root 
@@ -55,7 +54,7 @@ class Solution {
         //Right 
         head = head.next;
         root.right = divideAndConquer(mid + 1, right);
-
+        
         return root;
     }
 }
