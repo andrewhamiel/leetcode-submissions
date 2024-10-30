@@ -15,26 +15,22 @@
  */
 class Solution {
     public boolean isEvenOddTree(TreeNode root) {
-        if(root == null) return true;
+        int level = 0;
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
-        int mod = 0;
 
         while(!q.isEmpty()){
-            int size = q.size();
-            int prev = mod % 2 == 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            boolean isEvenLevel = level % 2 == 0;
+            int size = q.size(), prev = isEvenLevel ? 0 : Integer.MAX_VALUE;
             while(size-- > 0) {
                 TreeNode curr = q.poll();
-                if(mod % 2 == 0) {
-                    if(prev >= curr.val || curr.val % 2 == 0) return false;
-                }else{
-                    if(prev <= curr.val || curr.val % 2 != 0) return false;
-                }
+                if(isEvenLevel && (curr.val % 2 == 0 || curr.val <= prev)) return false;
+                else if(!isEvenLevel && (curr.val % 2 != 0 || curr.val >= prev)) return false;
                 prev = curr.val;
                 if(curr.left != null) q.add(curr.left);
                 if(curr.right != null) q.add(curr.right);
             }
-            mod++;
+            level++;
         }
         return true;
     }
