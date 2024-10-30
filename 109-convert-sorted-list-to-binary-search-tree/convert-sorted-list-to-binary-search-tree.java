@@ -25,17 +25,20 @@
  */
 class Solution {
     ListNode head;
+
     public TreeNode sortedListToBST(ListNode head) {
         if(head == null) return null;
         this.head = head;
-        //1. Find size
+
+        //1. Find size 
         int size = 0;
         ListNode curr = head;
         while(curr != null) {
             curr = curr.next;
             size++;
-        }
-        //2. Divide/Conquer inorder traversal
+        }    
+
+        //2. Divide and Conquer Inorder traversal
         return divideAndConquer(0, size - 1);
     }
 
@@ -43,17 +46,16 @@ class Solution {
         if(left > right) return null;
 
         int mid = left + (right - left)/2;
-        
-        //Left 
-        TreeNode leftNode = divideAndConquer(left, mid - 1);
-        //Root 
-        TreeNode root = new TreeNode(head.val);
-        //Right
-        head = head.next;
-        TreeNode rightNode = divideAndConquer(mid + 1, right);
+        TreeNode root = new TreeNode();
 
-        root.left = leftNode;
-        root.right = rightNode;
+        //Left 
+        root.left = divideAndConquer(left, mid - 1);
+        //Root 
+        root.val = head.val;
+        //Right 
+        head = head.next;
+        root.right = divideAndConquer(mid + 1, right);
+
         return root;
     }
 }
