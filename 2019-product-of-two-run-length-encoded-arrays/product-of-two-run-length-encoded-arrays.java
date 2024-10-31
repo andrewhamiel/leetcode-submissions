@@ -12,9 +12,7 @@ class Solution {
                 int prevFreq = result.get(result.size() - 1).get(1);
                 result.get(result.size() - 1).set(1, prevFreq + commonFreq);
             }else {
-                List<Integer> curr = new ArrayList<>();
-                curr.add(product);
-                curr.add(commonFreq);
+                List<Integer> curr = Arrays.asList(product, commonFreq);
                 result.add(curr);
             }
 
