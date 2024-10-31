@@ -19,34 +19,34 @@ class Node {
 
 class Solution {
     public Node insert(Node head, int insertVal) {
-        if(head == null){
-            Node node = new Node(insertVal);
-            node.next = node;
-            return node;
+        if(head == null) {
+            head = new Node(insertVal);
+            head.next = head;
+            return head;
         }
+
         Node curr = head;
-        boolean isLoopCompleted = false;
-        while(!isLoopCompleted){
-            //Case 1: in between two elements
-            //Case 2: End of list, max element
-            //Case 3: End of list, minimum element
-            if((curr.val != curr.next.val) &&
-            ((curr.val <= insertVal && curr.next.val >= insertVal && curr.val <= curr.next.val)
-            || (curr.val <= insertVal && curr.next.val <= insertVal && curr.val >= curr.next.val)
-            || (curr.val >= insertVal && curr.next.val >= insertVal && curr.val >= curr.next.val))){
+        boolean isFirst = false;
+        while(!isFirst) {
+            //3 options: in between two nodes, max node at end, min node at end
+            if(curr.val != curr.next.val && 
+            ((curr.val <= insertVal && curr.next.val >= insertVal && curr.val < curr.next.val)
+            || (curr.val > curr.next.val && curr.val <= insertVal && curr.next.val <= insertVal)
+            || (curr.val > curr.next.val && curr.val >= insertVal && curr.next.val >= insertVal))){
                 Node node = new Node(insertVal);
                 node.next = curr.next;
                 curr.next = node;
                 return head;
             }
+
             curr = curr.next;
-            if(curr == head) isLoopCompleted = true;
+            if(curr == head) isFirst = true;
         }
-        //Case 4: all duplicates. insert after first element
+
+        //4. all equal values, insert after first node
         Node node = new Node(insertVal);
-        curr = head;
-        node.next = curr.next;
-        curr.next = node;
+        node.next = head.next;
+        head.next = node;
         return head;
     }
 }
