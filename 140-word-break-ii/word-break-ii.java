@@ -1,10 +1,10 @@
 class Solution {
-    TrieNode root;
-    String s;
+    private TrieNode root;
+    private String s;
 
     public List<String> wordBreak(String s, List<String> wordDict) {
         this.s = s;
-        //1. Build TrieNode
+        //1. Build Trie 
         root = new TrieNode();
         for(String word : wordDict) {
             TrieNode curr = root;
@@ -15,14 +15,14 @@ class Solution {
             curr.isWord = true;
         }
 
-        //2. Backtrack
+        //2. DP 
         List<String> result = new ArrayList<>();
         dp(0, new StringBuilder(), result);
         return result;
     }
 
     private void dp(int ind, StringBuilder sb, List<String> result) {
-        if(ind == s.length() && !sb.isEmpty()){
+        if(ind == s.length() && !sb.isEmpty()) {
             result.add(sb.toString());
             return;
         }
@@ -40,7 +40,7 @@ class Solution {
                 StringBuilder using = new StringBuilder(sb);
                 if(i != s.length() - 1) using.append(" ");
                 dp(i + 1, using, result);
-                //2. don't use: just continue
+                //2. do not use: just continue
             }
         }
     }
