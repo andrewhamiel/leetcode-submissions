@@ -10,17 +10,16 @@ class Solution {
             int commonFreq = Math.min(first[1], second[1]);
             if(!result.isEmpty() && result.get(result.size() - 1).get(0) == product) {
                 int prevFreq = result.get(result.size() - 1).get(1);
-                result.get(result.size() - 1).set(1, prevFreq + commonFreq);
-            }else {
+                result.get(result.size() - 1).set(1, commonFreq + prevFreq);
+            }else{
                 List<Integer> curr = new ArrayList<>();
                 curr.add(product);
                 curr.add(commonFreq);
                 result.add(curr);
             }
-
             first[1]-= commonFreq;
             second[1]-= commonFreq;
-
+            
             if(first[1] == 0) e1++;
             if(second[1] == 0) e2++;
         }
