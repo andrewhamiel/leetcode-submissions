@@ -1,27 +1,28 @@
 class Solution {
-    private String s;
-    private TrieNode root;
+    TrieNode root;
+    String s;
 
     public List<String> wordBreak(String s, List<String> wordDict) {
-        //1. Build Trie 
+        this.s = s;
+        //1. Build TrieNode
         root = new TrieNode();
         for(String word : wordDict) {
             TrieNode curr = root;
-            for(char c : word.toCharArray()) {
+            for(char c : word.toCharArray()){
                 curr.children.putIfAbsent(c, new TrieNode());
                 curr = curr.children.get(c);
             }
             curr.isWord = true;
         }
 
-        this.s = s;
+        //2. Backtrack
         List<String> result = new ArrayList<>();
         dp(0, new StringBuilder(), result);
         return result;
     }
 
     private void dp(int ind, StringBuilder sb, List<String> result) {
-        if(ind == s.length() && !sb.isEmpty()) {
+        if(ind == s.length() && !sb.isEmpty()){
             result.add(sb.toString());
             return;
         }
@@ -35,11 +36,11 @@ class Solution {
             curr = curr.children.get(c);
             if(curr.isWord) {
                 //2 options: use or don't use 
-                //1. Use 
+                //1. use 
                 StringBuilder using = new StringBuilder(sb);
                 if(i != s.length() - 1) using.append(" ");
                 dp(i + 1, using, result);
-                //2. Don't use. Do nothing, just continue 
+                //2. don't use: just continue
             }
         }
     }
