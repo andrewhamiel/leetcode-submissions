@@ -29,10 +29,10 @@ class Solution {
         boolean isFirst = false;
         while(!isFirst) {
             //3 options: in between two nodes, max node at end, min node at end
-            if(curr.val != curr.next.val && 
-            ((curr.val <= insertVal && curr.next.val >= insertVal && curr.val < curr.next.val)
+            if(
+            ((curr.val < curr.next.val && curr.val <= insertVal && curr.next.val >= insertVal))
             || (curr.val > curr.next.val && curr.val <= insertVal && curr.next.val <= insertVal)
-            || (curr.val > curr.next.val && curr.val >= insertVal && curr.next.val >= insertVal))){
+            || (curr.val > curr.next.val && curr.val >= insertVal && curr.next.val >= insertVal)){
                 Node node = new Node(insertVal);
                 node.next = curr.next;
                 curr.next = node;
@@ -43,7 +43,7 @@ class Solution {
             if(curr == head) isFirst = true;
         }
 
-        //4. all equal values, insert after first node
+        //Option 4: all equal values, insert after first node 
         Node node = new Node(insertVal);
         node.next = head.next;
         head.next = node;
