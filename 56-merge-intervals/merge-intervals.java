@@ -1,23 +1,26 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if (intervals.length == 0) return new int[0][0];
         List<int[]> list = new ArrayList<>();
-        TreeMap<Integer, Integer> map = new TreeMap<>();
-        for(int[] itv : intervals){
-            map.put(itv[0], map.getOrDefault(itv[0], 0)+1);
-            map.put(itv[1], map.getOrDefault(itv[1], 0)-1);
+        TreeMap<Integer, Integer> count = new TreeMap<>();
+        for(int[] interval : intervals) {
+            count.put(interval[0], count.getOrDefault(interval[0], 0) + 1);
+            count.put(interval[1], count.getOrDefault(interval[1], 0) - 1);
         }
-        int count = 0, start = Integer.MAX_VALUE, end = Integer.MIN_VALUE;
-        for (int k : map.keySet()){
-            count+=map.get(k);
+
+        int currCount = 0, start = Integer.MAX_VALUE, end = Integer.MIN_VALUE;
+        for(int k : count.keySet()) {
+            currCount+= count.get(k);
             start = Math.min(start, k);
-            end = Math.max(end, k);
-            if (count==0){
+            end = Math.max(start, k);
+            if(currCount == 0) {
                 list.add(new int[]{start, end});
                 start = Integer.MAX_VALUE;
                 end = Integer.MIN_VALUE;
             }
         }
-        return list.toArray(new int[list.size()][2]);
+
+        int[][] result = new int[list.size()][2];
+        for(int i = 0; i < result.length; i++) result[i] = list.get(i);
+        return result;
     }
 }
