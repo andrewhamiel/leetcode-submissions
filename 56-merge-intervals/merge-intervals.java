@@ -11,7 +11,8 @@ class Solution {
         for(int k : count.keySet()) {
             currCount+= count.get(k);
             start = Math.min(start, k);
-            end = Math.max(start, k);
+            end = Math.max(end, k);
+            
             if(currCount == 0) {
                 list.add(new int[]{start, end});
                 start = Integer.MAX_VALUE;
