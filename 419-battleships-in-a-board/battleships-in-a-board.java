@@ -1,11 +1,11 @@
 class Solution {
     public int countBattleships(char[][] board) {
         int battleships = 0;
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[0].length; j++){
-                if(board[i][j] == 'X' &&
-                    (j == board[0].length - 1 || board[i][j + 1] == '.')
-                    && (i == board.length - 1 || board[i + 1][j] == '.')) battleships++;
+        for(int row = 0; row < board.length; row++) {
+            for(int col = 0; col < board[0].length; col++) {
+                //check for nothing above, nothing to the left 
+                if((board[row][col] == 'X') && (col == 0 || board[row][col - 1] == '.')
+                    && (row == 0 || board[row - 1][col] == '.')) battleships++;
             }
         }
         return battleships;
