@@ -6,10 +6,8 @@ class Solution {
         if(i >= 0) {
             int j = nums.length - 1;
             while(j >= 0 && nums[j] <= nums[i]) j--;
-
             swap(i, j, nums);
         }
-
         reverse(i + 1, nums);
     }
 
