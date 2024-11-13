@@ -1,5 +1,5 @@
 class SparseVector {
-    private Map<Integer, Integer> map = new HashMap<>();
+    Map<Integer, Integer> map = new HashMap<>();
     
     SparseVector(int[] nums) {
         for(int i = 0; i < nums.length; i++) if(nums[i] != 0) map.put(i, nums[i]);
@@ -9,9 +9,7 @@ class SparseVector {
     public int dotProduct(SparseVector vec) {
         int product = 0;
         for(int key : vec.map.keySet()) {
-            if(map.containsKey(key)){
-                product+= vec.map.get(key) * map.get(key);
-            }
+            if(map.containsKey(key)) product+= (vec.map.get(key) * map.get(key)); 
         }
         return product;
     }
