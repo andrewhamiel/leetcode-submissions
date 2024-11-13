@@ -18,16 +18,16 @@ class Solution {
         }
 
         ListNode[] result = new ListNode[k];
-        int parts = size/k, rem = size % k;
+        int width = size / k, rem = size % k;
         curr = head;
         for(int i = 0; i < k; i++) {
             ListNode ptr = curr;
             int carry = i < rem ? 1 : 0;
-            for(int j = 0; j < parts + carry - 1; j++) {
-                 if(curr != null) curr = curr.next;
+            for(int j = 0; j < width + carry - 1; j++) {
+                if(curr != null) curr = curr.next;
             }
 
-            //Delink at end 
+            //delink at end
             if(curr != null) {
                 ListNode prev = curr;
                 curr = curr.next;
