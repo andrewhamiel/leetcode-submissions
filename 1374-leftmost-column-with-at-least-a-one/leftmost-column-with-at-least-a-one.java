@@ -11,7 +11,8 @@ class Solution {
     public int leftMostColumnWithOne(BinaryMatrix binaryMatrix) {
         int rows = binaryMatrix.dimensions().get(0), cols = binaryMatrix.dimensions().get(1);
 
-        int currRow = 0, currCol = cols - 1;
+        //start at top right corner
+        int currRow = 0, currCol = cols - 1; 
         while(currRow < rows && currCol >= 0) {
             if(binaryMatrix.get(currRow, currCol) == 0) currRow++;
             else currCol--;
