@@ -1,5 +1,4 @@
 class Solution {
-
     public int findTheLongestSubstring(String s) {
         //1. Character map
         int[] characterMap = new int[26];
@@ -9,12 +8,12 @@ class Solution {
         characterMap['o' - 'a'] = 8;
         characterMap['u' - 'a'] = 16;
 
-        //2. First seen indeces
+        //2. First seen
         int[] firstSeen = new int[32];
         Arrays.fill(firstSeen, -1);
 
-        //3. Prefix XOR
-        int prefixXOR = 0, longestSubstring = 0;
+        //3. PrefixXOR
+        int longestSubstring = 0, prefixXOR = 0;
         for(int i = 0; i < s.length(); i++) {
             prefixXOR^= characterMap[s.charAt(i) - 'a'];
             if(firstSeen[prefixXOR] == -1 && prefixXOR != 0) firstSeen[prefixXOR] = i;
