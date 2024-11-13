@@ -15,10 +15,9 @@ public class Solution {
         if(tortoise == null) return null;
 
         ListNode hare = head;
-        while(tortoise != head) {
+        while(tortoise != hare) {
             tortoise = tortoise.next;
             hare = hare.next;
-            if(tortoise == hare) break;
         }
         return tortoise;
     }
@@ -30,6 +29,6 @@ public class Solution {
             hare = hare.next.next;
             if(tortoise == hare) return tortoise;
         }
-        return null;
+        return null; //no cycle
     }
 }
