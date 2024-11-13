@@ -22,14 +22,13 @@ class Solution {
     }
 
     private ListNode merge(ListNode a, ListNode b) {
-        ListNode curr = new ListNode(), head = curr;
+        ListNode curr = new ListNode(0), head = curr;
         while(a != null || b != null) {
             if(a != null && b != null) {
                 if(a.val <= b.val) {
                     curr.next = a;
                     a = a.next;
-                }
-                else {
+                }else {
                     curr.next = b;
                     b = b.next;
                 }
