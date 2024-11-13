@@ -6,20 +6,17 @@
  *     public List<Integer> dimensions {}
  * };
  */
+
 class Solution {
     public int leftMostColumnWithOne(BinaryMatrix binaryMatrix) {
-        int rows = binaryMatrix.dimensions().get(0), cols = binaryMatrix.dimensions().get(1);
-
-        // Set pointers to the top-right corner.
-        int currentRow = 0,  currentCol = cols - 1;
-    
-        // Repeat the search until it goes off the grid.
-        while (currentRow < rows && currentCol >= 0) {
-            if (binaryMatrix.get(currentRow, currentCol) == 0) currentRow++;
-            else  currentCol--; 
+        List<Integer> dimensions = binaryMatrix.dimensions();
+        int rows = dimensions.get(0), cols = dimensions.get(1);
+        
+        int currRow = 0, currCol = cols - 1;
+        while(currRow < rows && currCol >= 0) {
+            if(binaryMatrix.get(currRow, currCol) == 0) currRow++;
+            else currCol--;
         }
-    
-        // If we never left the last column, this is because it was all 0's.
-        return currentCol == cols - 1 ? -1 : currentCol + 1;
+        return currCol == cols - 1 ? -1 : currCol + 1;
     }
 }
