@@ -14,36 +14,34 @@
  * }
  */
 class Solution {
-    public List<List<Integer>> verticalOrder(TreeNode root) {
-        if(root == null) return new ArrayList<>();
-        Map<Integer, List<Pair<Integer, Integer>>> map = new HashMap<>();
-        Queue<Pair<TreeNode, int[]>> q = new LinkedList<>();
-        q.add(new Pair<>(root, new int[]{0, 0}));
+    private Map<Integer, List<Pair<TreeNode, Integer>>> map = new HashMap<>();
+    int minCol = 0, maxCol = 0;
 
-        int minCol = 0, maxCol = 0;
-        while(!q.isEmpty()) {
-            Pair<TreeNode, int[]> p = q.poll();
-            TreeNode curr = p.getKey();
-            int[] cell = p.getValue();
-            int row = cell[0], col = cell[1];
-            minCol = Math.min(minCol, col);
-            maxCol = Math.max(maxCol, col);
-            map.putIfAbsent(col, new ArrayList<>());
-            map.get(col).add(new Pair<>(row, curr.val));
-            if(curr.left != null) q.add(new Pair<>(curr.left, new int[]{row + 1, col - 1}));
-            if(curr.right != null) q.add(new Pair<>(curr.right, new int[]{row + 1, col + 1}));
-        }
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        dfs(root, 0, 0);
 
         List<List<Integer>> result = new ArrayList<>();
         for(int i = minCol; i <= maxCol; i++) {
-            if(map.containsKey(i)){
-                List<Pair<Integer, Integer>> pairList = map.get(i);
-                Collections.sort(pairList, (a, b) -> a.getKey() - b.getKey());
+            if(map.containsKey(i)) {
+                List<Pair<TreeNode, Integer>> val = map.get(i);
+                Collections.sort(val, (a, b) -> a.getValue() - b.getValue());
                 List<Integer> list = new ArrayList<>();
-                for(Pair<Integer, Integer> p : pairList) list.add(p.getValue());
+                for(Pair<TreeNode, Integer> p : val) list.add(p.getKey().val);
                 result.add(list);
             }
         }
         return result;
+    }
+
+    private void dfs(TreeNode root, int row, int col) {
+        if(root == null) return;
+
+        map.putIfAbsent(col, new ArrayList<>());
+        map.get(col).add(new Pair<>(root, row));
+        minCol = Math.min(minCol, col);
+        maxCol = Math.max(maxCol, col);
+
+        dfs(root.left, row + 1, col - 1);
+        dfs(root.right, row + 1, col + 1);
     }
 }
