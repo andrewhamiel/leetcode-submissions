@@ -3,12 +3,12 @@ class Solution {
         int unique = 0, nonUnique = 0;
         while(nonUnique < nums.length) {
             if(nonUnique < nums.length - 1 && nums[nonUnique] == nums[nonUnique + 1]) {
-                while(nonUnique < nums.length -1 && nums[nonUnique] == nums[nonUnique + 1]) nonUnique++;
-                nonUnique--; //decrement back to first of two elements
+                swap(unique++, nonUnique++, nums);
+                while(nonUnique < nums.length - 1 && nums[nonUnique] == nums[nonUnique + 1]) nonUnique++;
             }
-            
             swap(unique++, nonUnique++, nums);
         }
+
         return unique;
     }
 
