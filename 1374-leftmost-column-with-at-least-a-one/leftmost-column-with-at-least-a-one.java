@@ -9,9 +9,8 @@
 
 class Solution {
     public int leftMostColumnWithOne(BinaryMatrix binaryMatrix) {
-        List<Integer> dimensions = binaryMatrix.dimensions();
-        int rows = dimensions.get(0), cols = dimensions.get(1);
-        
+        int rows = binaryMatrix.dimensions().get(0), cols = binaryMatrix.dimensions().get(1);
+
         int currRow = 0, currCol = cols - 1;
         while(currRow < rows && currCol >= 0) {
             if(binaryMatrix.get(currRow, currCol) == 0) currRow++;
