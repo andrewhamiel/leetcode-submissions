@@ -1,14 +1,15 @@
 class Solution {
     private TrieNode root;
     private String s;
-
+    Set<String> result = new HashSet<>();
+    
     public List<String> wordBreak(String s, List<String> wordDict) {
         this.s = s;
-        //1. Build Trie 
+        //1. Build Trie
         root = new TrieNode();
         for(String word : wordDict) {
             TrieNode curr = root;
-            for(char c : word.toCharArray()){
+            for(char c : word.toCharArray()) {
                 curr.children.putIfAbsent(c, new TrieNode());
                 curr = curr.children.get(c);
             }
@@ -16,13 +17,12 @@ class Solution {
         }
 
         //2. DP 
-        List<String> result = new ArrayList<>();
-        dp(0, new StringBuilder(), result);
-        return result;
+        dp(0, new StringBuilder());
+        return new ArrayList<>(result);
     }
 
-    private void dp(int ind, StringBuilder sb, List<String> result) {
-        if(ind == s.length() && !sb.isEmpty()) {
+    private void dp(int ind, StringBuilder sb) {
+        if(ind >= s.length() && !sb.isEmpty()) {
             result.add(sb.toString());
             return;
         }
@@ -35,12 +35,12 @@ class Solution {
             sb.append(c);
             curr = curr.children.get(c);
             if(curr.isWord) {
-                //2 options: use or don't use 
-                //1. use 
+                //2 options: use or do not use 
                 StringBuilder using = new StringBuilder(sb);
                 if(i != s.length() - 1) using.append(" ");
-                dp(i + 1, using, result);
-                //2. do not use: just continue
+                //1. Use 
+                dp(i + 1, using);
+                //2. Do not use. Just continue
             }
         }
     }
