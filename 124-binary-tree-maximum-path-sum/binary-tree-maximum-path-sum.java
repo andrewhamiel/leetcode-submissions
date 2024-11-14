@@ -18,7 +18,7 @@ class Solution {
 
     public int maxPathSum(TreeNode root) {
         dfs(root);
-        return maxSum;
+        return maxSum;    
     }
 
     private int dfs(TreeNode root) {
