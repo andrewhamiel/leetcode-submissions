@@ -9,15 +9,14 @@ class Solution {
 
         for(int word2Index = 1; word2Index <= word2.length(); word2Index++) dp[0][word2Index] = word2Index;
 
-        for(int word1Ind = 1; word1Ind < dp.length; word1Ind++) {
-            for(int word2Ind = 1; word2Ind < dp[0].length; word2Ind++) {
-                if(word1.charAt(word1Ind - 1) == word2.charAt(word2Ind - 1)) dp[word1Ind][word2Ind] = dp[word1Ind - 1][word2Ind - 1];
+        for(int word1Index = 1; word1Index < dp.length; word1Index++) {
+            for(int word2Index = 1; word2Index < dp[0].length; word2Index++) {
+                if(word1.charAt(word1Index - 1) == word2.charAt(word2Index - 1)) dp[word1Index][word2Index] = dp[word1Index - 1][word2Index - 1];
                 else {
-                    //3 options: insert, replace, delete
-                    int replace = dp[word1Ind - 1][word2Ind - 1];
-                    int insert = dp[word1Ind][word2Ind - 1];                   
-                    int delete = dp[word1Ind - 1][word2Ind];
-                    dp[word1Ind][word2Ind] = Math.min(insert, Math.min(replace, delete)) + 1;
+                    int replace = dp[word1Index - 1][word2Index - 1];
+                    int insert = dp[word1Index][word2Index - 1];
+                    int delete = dp[word1Index - 1][word2Index];
+                    dp[word1Index][word2Index] = Math.min(insert, Math.min(replace, delete)) + 1;
                 }
             }
         }
