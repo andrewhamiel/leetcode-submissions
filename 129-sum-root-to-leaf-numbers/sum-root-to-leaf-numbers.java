@@ -14,36 +14,22 @@
  * }
  */
 class Solution {
-    public int sumNumbers(TreeNode root) {
-        int rootToLeaves = 0, currNum = 0;
-        while(root != null){
-            if(root.left != null){
-                TreeNode predecessor = root.left;
-                int steps = 1;
-                while(predecessor.right != null && predecessor.right != root){
-                    predecessor = predecessor.right;
-                    steps++;
-                }
+    private int sum = 0;
 
-                if(predecessor.right == null){
-                    //Unexplored
-                    currNum*= 10;
-                    currNum+= root.val;
-                    predecessor.right = root;
-                    root = root.left;
-                }else{
-                    if(predecessor.left == null) rootToLeaves+= currNum;
-                    for(int i = 0; i < steps; i++) currNum/= 10;
-                    predecessor.right = null;
-                    root = root.right;
-                }
-            }else{
-                currNum*= 10;
-                currNum+= root.val;
-                if(root.left == null && root.right == null) rootToLeaves+= currNum;
-                root = root.right;
-            }
+    public int sumNumbers(TreeNode root) {
+        dfs(root, 0);   
+        return sum; 
+    }
+
+    private void dfs(TreeNode root, int currSum) {
+        if(root == null) return;
+
+        currSum*= 10;
+        currSum+= root.val;
+        if(root.left == null && root.right == null) sum+= currSum;
+        else {
+            dfs(root.left, currSum);
+            dfs(root.right, currSum);
         }
-        return rootToLeaves;
     }
 }
