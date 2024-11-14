@@ -11,7 +11,7 @@ class Solution {
                 stack.addFirst(Integer.parseInt(commaDelimited[0]));
                 prevTime = currTime;
             }else {
-                currTime++; //ending function takes one unit of time;
+                currTime++; //ending function takes one unit of time
                 result[stack.removeFirst()]+= currTime - prevTime;
                 prevTime = currTime;
             }
