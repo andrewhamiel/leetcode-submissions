@@ -1,13 +1,13 @@
 class Solution {
     public String longestPalindrome(String s) {
-        int longestSubstring = 0, leftInd = 0, rightInd = 0;
+        int longest = 0, leftInd = 0, rightInd = 0;
         for(int i = 0; i < s.length(); i++) {
             int oddLength = middleOut(i, i, s);
             int evenLength = middleOut(i, i + 1, s);
-            if(oddLength > longestSubstring || evenLength > longestSubstring) {
-                longestSubstring = Math.max(oddLength, evenLength);
-                leftInd = i - (longestSubstring - 1)/2;
-                rightInd = i + longestSubstring/2;
+            if(oddLength > longest || evenLength > longest) {
+                longest = Math.max(oddLength, evenLength);
+                leftInd = i - (longest - 1)/2;
+                rightInd = i + longest/2;
             }
         }
         return s.substring(leftInd, rightInd + 1);
