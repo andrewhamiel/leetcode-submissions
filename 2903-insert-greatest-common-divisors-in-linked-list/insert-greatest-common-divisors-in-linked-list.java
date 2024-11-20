@@ -13,11 +13,12 @@ class Solution {
         if(head.next == null) return head;
 
         ListNode curr = head;
-
         while(curr.next != null) {
             ListNode nextNode = curr.next;
+
             int gcdVal = calculateGcd(curr.val, nextNode.val);
             ListNode gcd = new ListNode(gcdVal);
+
             gcd.next = nextNode;
             curr.next = gcd;
 
