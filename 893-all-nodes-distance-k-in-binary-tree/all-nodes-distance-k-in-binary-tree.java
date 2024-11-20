@@ -9,8 +9,7 @@
  */
 class Solution {
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        Map<TreeNode, Set<TreeNode>> adj = new HashMap<>();
-        buildGraph(root, null, adj);
+        Map<TreeNode, Set<TreeNode>> adj = buildGraph(root);
 
         Queue<TreeNode> q = new LinkedList<>();
         Set<TreeNode> visited = new HashSet<>();
@@ -18,7 +17,7 @@ class Solution {
         visited.add(target);
 
         List<Integer> result = new ArrayList<>();
-
+        
         int dist = 0;
         while(!q.isEmpty()) {
             int size = q.size();
@@ -38,14 +37,29 @@ class Solution {
         return result;
     }
 
-    private void buildGraph(TreeNode root, TreeNode parent, Map<TreeNode, Set<TreeNode>> adj) {
-        if(root != null && parent != null) {
-            adj.putIfAbsent(root, new HashSet<>());
-            adj.putIfAbsent(parent, new HashSet<>());
-            adj.get(root).add(parent);
-            adj.get(parent).add(root);
+    private Map<TreeNode, Set<TreeNode>> buildGraph(TreeNode root) {
+        Map<TreeNode, Set<TreeNode>> adj = new HashMap<>();
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while(!q.isEmpty()) {
+            TreeNode curr = q.poll();
+            adj.putIfAbsent(curr, new HashSet<>());
+
+            if(curr.left != null) {
+                adj.putIfAbsent(curr.left, new HashSet<>());
+                adj.get(curr).add(curr.left);
+                adj.get(curr.left).add(curr);
+                q.add(curr.left);
+            }
+            if(curr.right != null) {
+                adj.putIfAbsent(curr.right, new HashSet<>());
+                adj.get(curr).add(curr.right);
+                adj.get(curr.right).add(curr);
+                q.add(curr.right);
+            }
         }
-        if(root.left != null) buildGraph(root.left, root, adj);
-        if(root.right != null) buildGraph(root.right, root, adj);
+        return adj;
     }
 }
