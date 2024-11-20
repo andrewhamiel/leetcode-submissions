@@ -24,20 +24,20 @@ class Solution {
         NodeValue left = helper(root.left);
         NodeValue right = helper(root.right);
 
-        if(left.maxValue < root.val && root.val < right.minValue) {
-            return new NodeValue(Math.min(left.minValue, root.val), Math.max(root.val, right.maxValue), 1 + left.maxSize + right.maxSize);
+        if(left.maxVal < root.val && root.val < right.minVal) {
+            return new NodeValue(Math.min(left.minVal, root.val), Math.max(root.val, right.maxVal), 1 + left.maxSize + right.maxSize);
         }
         return new NodeValue(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSize, right.maxSize));
     }
 
     class NodeValue {
-        int minValue = 0;
-        int maxValue = 0;
+        int minVal = 0;
+        int maxVal = 0;
         int maxSize = 0;
 
-        public NodeValue(int minValue, int maxValue, int maxSize) {
-            this.minValue = minValue;
-            this.maxValue = maxValue;
+        public NodeValue(int minVal, int maxVal, int maxSize) {
+            this.minVal = minVal;
+            this.maxVal = maxVal;
             this.maxSize = maxSize;
         }
     }
