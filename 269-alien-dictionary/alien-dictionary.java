@@ -1,6 +1,6 @@
 class Solution {
     public String alienOrder(String[] words) {
-        //1. Build adjancencies
+        //1. Build adjacencies 
         Map<Character, List<Character>> adj = new HashMap<>();
         Map<Character, Integer> deps = new HashMap<>();
         for(String word : words) {
@@ -10,10 +10,10 @@ class Solution {
             }
         }
 
-        //2. Connnect components
+        //2. Connect components 
         for(int i = 1; i < words.length; i++) {
             String word1 = words[i - 1], word2 = words[i];
-            if(word1.length() > word2.length() && word1.startsWith(word2)) return ""; //Avoid substrings
+            if(word1.length() > word2.length() && word1.startsWith(word2)) return ""; //prevent substrings
             for(int wordInd = 0; wordInd < Math.min(word1.length(), word2.length()); wordInd++) {
                 char c1 = word1.charAt(wordInd), c2 = word2.charAt(wordInd);
                 if(c1 != c2) {
@@ -24,7 +24,7 @@ class Solution {
             }
         }
 
-        //3. Find vertices with no deps, topological sort
+        //3. Find vertices with no deps, topological sort 
         Queue<Character> q = new LinkedList<>();
         for(char c : deps.keySet()) if(deps.get(c) == 0) q.add(c);
 
@@ -38,7 +38,7 @@ class Solution {
             }
         }
 
-        //4. Make sure all characters added
+        //4. Make sure all characters added 
         return result.length() == deps.size() ? result.toString() : "";
     }
 }
