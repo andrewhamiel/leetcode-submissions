@@ -1,6 +1,6 @@
 class Solution {
-    List<int[]> freqs = new ArrayList<>();
-    Map<String, Integer> memo = new HashMap<>();
+    private Map<String, Integer> memo = new HashMap<>();
+    private List<int[]> freqs = new ArrayList<>();
 
     public int minStickers(String[] stickers, String target) {
         for(String sticker : stickers) {
@@ -9,32 +9,33 @@ class Solution {
             freqs.add(freq);
         }
 
-        int minStickers = dfs(target, null);
+        int minStickers = backtrack(target, null);
         return minStickers == Integer.MAX_VALUE ? -1 : minStickers;
     }
 
-    private int dfs(String target, int[] currSticker) {
-        if(memo.containsKey(target)) return memo.get(target);
+    private int backtrack(String target, int[] currFreq) {
+        if(memo.containsKey(target)) return memo.get(target.toString());
 
-        StringBuilder remaining = new StringBuilder();
+        StringBuilder remain = new StringBuilder();
         int minStickers = 0;
-        if(currSticker != null) {
-            for(char c : target.toCharArray()){
-                minStickers = 1;
-                if(currSticker[c - 'a'] > 0) {
-                    currSticker[c - 'a']--;
-                }else remaining.append(c);
+        if(currFreq != null) {
+            for(char c : target.toCharArray()) {
+                if(currFreq[c - 'a'] > 0){
+                    currFreq[c - 'a']--;
+                    minStickers = 1;
+                } 
+                else remain.append(c);
             }
-        }else remaining = new StringBuilder(target);
+        }else remain = new StringBuilder(target);
 
-        if(!remaining.isEmpty()){
+        if(!remain.isEmpty()) {
             int minAdditional = Integer.MAX_VALUE;
             for(int[] freq : freqs) {
-                if(freq[remaining.charAt(0) - 'a'] > 0) {
-                    minAdditional = Math.min(minAdditional, dfs(remaining.toString(), freq.clone()));
+                if(freq[remain.charAt(0) - 'a'] > 0) {
+                    minAdditional = Math.min(minAdditional, backtrack(remain.toString(), freq.clone()));                    
                 }
             }
-            memo.put(remaining.toString(), minAdditional);
+            memo.put(remain.toString(), minAdditional);
             minStickers = minAdditional == Integer.MAX_VALUE ? Integer.MAX_VALUE : minStickers + minAdditional;
         }
         return minStickers;
