@@ -19,9 +19,9 @@ class Solution {
             double currProb = p.getValue();
             if(currNode == end_node) return currProb;
 
-            for(Pair<Integer, Double> nextPair : graph.getOrDefault(currNode, new ArrayList<>())) {
-                int nextNode = nextPair.getKey();
-                double nextProb = nextPair.getValue();
+            for(Pair<Integer, Double> nextP : graph.getOrDefault(currNode, new ArrayList<>())) {
+                int nextNode = nextP.getKey();
+                double nextProb = nextP.getValue();
                 if(currProb * nextProb > maxProb[nextNode]) {
                     maxProb[nextNode] = currProb * nextProb;
                     maxHeap.add(new Pair<>(nextNode, maxProb[nextNode]));
