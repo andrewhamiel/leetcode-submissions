@@ -14,7 +14,7 @@ class Solution {
     }
 
     private int countPairs(int low, int high, int[] nums) {
-        int count = 0, mid = low + (high - low)/2, right = mid + 1;
+        int mid = low + (high - low)/2, count = 0, right = mid + 1;
         for(int left = low; left <= mid; left++) {
             while(right <= high && nums[left] > 2 * (long) nums[right]) right++;
             count+= right - mid - 1;
@@ -24,6 +24,7 @@ class Solution {
 
     private void merge(int low, int high, int[] nums) {
         List<Integer> tmp = new ArrayList<>();
+
         int mid = low + (high - low)/2, left = low, right = mid + 1;
         while(left <= mid && right <= high) {
             if(nums[left] <= nums[right]) tmp.add(nums[left++]);
