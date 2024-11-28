@@ -1,8 +1,7 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
-        Set<Integer> toBeRemoved = new HashSet<>();
         Deque<Integer> leftParens = new ArrayDeque<>();
-
+        Set<Integer> toBeRemoved = new HashSet<>();
         for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if(c == '(') leftParens.addFirst(i);
@@ -16,6 +15,7 @@ class Solution {
 
         StringBuilder result = new StringBuilder();
         for(int i = 0; i < s.length(); i++) if(!toBeRemoved.contains(i)) result.append(s.charAt(i));
+        
         return result.toString();
     }
 }
