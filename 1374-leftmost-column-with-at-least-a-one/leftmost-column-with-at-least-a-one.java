@@ -10,13 +10,11 @@
 class Solution {
     public int leftMostColumnWithOne(BinaryMatrix binaryMatrix) {
         int rows = binaryMatrix.dimensions().get(0), cols = binaryMatrix.dimensions().get(1);
-
-        //start at top right corner
-        int currRow = 0, currCol = cols - 1; 
-        while(currRow < rows && currCol >= 0) {
-            if(binaryMatrix.get(currRow, currCol) == 0) currRow++;
-            else currCol--;
+        int row = 0, col = cols - 1;
+        while(row < rows && col >= 0) {
+            if(binaryMatrix.get(row, col) == 1) col--;
+            else row++;
         }
-        return currCol == cols - 1 ? -1 : currCol + 1;
+        return col == cols - 1 ? -1 : col + 1;
     }
 }
