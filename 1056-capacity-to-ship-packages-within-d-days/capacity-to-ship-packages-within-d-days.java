@@ -12,7 +12,6 @@ class Solution {
             if(isFeasible(mid, weights, days)) right = mid;
             else left = mid + 1;
         }
-
         return left;
     }
 
