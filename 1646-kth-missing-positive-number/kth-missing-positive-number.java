@@ -1,22 +1,22 @@
 class Solution {
     public int findKthPositive(int[] arr, int k) {
-        if(k > missingNums(arr, arr.length - 1)) return arr[arr.length - 1] + k - missingNums(arr, arr.length - 1);
+        if(missingNums(arr.length - 1, arr) < k) return arr[arr.length - 1] + k - missingNums(arr.length - 1, arr);
 
         int left = 0, right = arr.length - 1;
-        while(left <= right){
+        while(left <= right) {
             int mid = left + (right - left)/2;
-            if(missingNums(arr, mid) < k) left = mid + 1;
-            else right = mid - 1;
+            if(missingNums(mid, arr) < k) left = mid + 1;
+            else right = mid - 1; 
         }
-        //left == right + 1
-        //kth missing number is arr[right] + k - missingNums(arr, right)
-        //-> arr[right] + k - (arr[right] - 1 - right)
-        //-> k + 1 + right
-        //-> k + left
+
+        //arr[right] + k - missingNums(right, arr)
+        //arr[right] + k - arr[right] + right + 1
+        //k + right + 1
+        //k + left
         return k + left;
     }
 
-    private int missingNums(int[] nums, int ind){
-        return nums[ind] - 1 - ind; //1 is first positive number
+    private int missingNums(int ind, int[] nums) {
+        return nums[ind] - ind - 1; //First num is 0
     }
 }
