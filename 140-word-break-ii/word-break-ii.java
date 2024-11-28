@@ -1,8 +1,8 @@
 class Solution {
     private Set<String> result = new HashSet<>();
     private TrieNode root = new TrieNode();
-    private String s;
-    
+    private String s = "";
+
     public List<String> wordBreak(String s, List<String> wordDict) {
         //1. Build Trie
         this.s = s;
@@ -14,7 +14,6 @@ class Solution {
             }
             curr.isWord = true;
         }
-
 
         //2. Backtrack
         backtrack(0, new StringBuilder());
