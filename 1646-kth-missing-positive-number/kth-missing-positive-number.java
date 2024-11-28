@@ -17,6 +17,6 @@ class Solution {
     }
 
     private int missingNums(int ind, int[] nums) {
-        return nums[ind] - ind - 1; // first num is 1
+        return nums[ind] - ind - 1; //first num is 1
     }
 }
