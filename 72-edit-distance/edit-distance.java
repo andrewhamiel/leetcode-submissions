@@ -5,18 +5,19 @@ class Solution {
 
         int[][] dp = new int[word1.length() + 1][word2.length() + 1];
 
-        for(int word1Index = 1; word1Index <= word1.length(); word1Index++) dp[word1Index][0] = word1Index;
+        for(int row = 1; row < dp.length; row++) dp[row][0] = row;
+        for(int col = 1; col < dp[0].length; col++) dp[0][col] = col;
 
-        for(int word2Index = 1; word2Index <= word2.length(); word2Index++) dp[0][word2Index] = word2Index;
-
-        for(int word1Index = 1; word1Index < dp.length; word1Index++) {
-            for(int word2Index = 1; word2Index < dp[0].length; word2Index++) {
-                if(word1.charAt(word1Index - 1) == word2.charAt(word2Index - 1)) dp[word1Index][word2Index] = dp[word1Index - 1][word2Index - 1];
+        for(int word1Ind = 1; word1Ind < dp.length; word1Ind++) {
+            for(int word2Ind = 1; word2Ind < dp[0].length; word2Ind++) {
+                char c1 = word1.charAt(word1Ind - 1), c2 = word2.charAt(word2Ind - 1);
+                if(c1 == c2) dp[word1Ind][word2Ind] = dp[word1Ind - 1][word2Ind - 1];
                 else {
-                    int replace = dp[word1Index - 1][word2Index - 1];
-                    int insert = dp[word1Index][word2Index - 1];
-                    int delete = dp[word1Index - 1][word2Index];
-                    dp[word1Index][word2Index] = Math.min(insert, Math.min(replace, delete)) + 1;
+                    //insert, replace, delete 
+                    int insert = dp[word1Ind][word2Ind - 1];
+                    int replace = dp[word1Ind - 1][word2Ind - 1];
+                    int delete = dp[word1Ind - 1][word2Ind];
+                    dp[word1Ind][word2Ind] = 1 + Math.min(insert, Math.min(replace, delete));
                 }
             }
         }
