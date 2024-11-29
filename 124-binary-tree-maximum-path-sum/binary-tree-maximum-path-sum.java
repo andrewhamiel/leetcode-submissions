@@ -14,7 +14,8 @@
  * }
  */
 class Solution {
-    private int maxSum = Integer.MIN_VALUE;
+    Map<Integer, Integer> map = new HashMap<>();
+    int maxSum = Integer.MIN_VALUE;
 
     public int maxPathSum(TreeNode root) {
         dfs(root);
@@ -24,8 +25,8 @@ class Solution {
     private int dfs(TreeNode root) {
         if(root == null) return 0;
 
-        int left = Math.max(0, dfs(root.left)), right = Math.max(0, dfs(root.right));
-        maxSum = Math.max(maxSum, left + right + root.val);
-        return root.val + Math.max(left, right);
+        int leftSum = Math.max(dfs(root.left), 0), rightSum = Math.max(dfs(root.right), 0);
+        maxSum = Math.max(maxSum, root.val + leftSum + rightSum);
+        return root.val + Math.max(leftSum, rightSum);
     }
 }
