@@ -6,25 +6,23 @@ class Solution {
             List<String> account = accounts.get(i);
             for(int j = 1; j < account.size(); j++) {
                 String email = account.get(j);
-                if(!groups.containsKey(email)) groups.put(email, i);
-                else uf.union(groups.get(email), i);
+                if(groups.containsKey(email)) uf.union(groups.get(email), i);
+                else groups.put(email, i);
             }
         }
 
         Map<Integer, List<String>> components = new HashMap<>();
         for(String email : groups.keySet()) {
-            int oldGroup = groups.get(email);
-            int rankedGroup = uf.find(oldGroup);
-            components.putIfAbsent(rankedGroup, new ArrayList<>());
-            components.get(rankedGroup).add(email);
+            int rankedGroup = uf.find(groups.get(email));
+            components.computeIfAbsent(rankedGroup, k -> new ArrayList<>()).add(email);
         }
 
         List<List<String>> result = new ArrayList<>();
-        for(Integer group : components.keySet()) {
+        for(int group : components.keySet()) {
             List<String> emails = components.get(group);
-            Collections.sort(emails);
             String accountName = accounts.get(group).get(0);
             List<String> list = new ArrayList<>();
+            Collections.sort(emails);
             list.add(accountName);
             list.addAll(emails);
             result.add(list);
@@ -50,17 +48,16 @@ class Solution {
             return group[x];
         }
 
-        public void union(int a, int b) {
+        private void union(int a, int b) {
             int groupA = find(a), groupB = find(b);
-
             if(groupA == groupB) return;
 
-            if(rank[groupA] <= rank[groupB]) {
-                group[groupA] = group[groupB];
+            if(rank[groupA] < rank[groupB]) {
                 rank[groupB]+= rank[groupA];
+                group[groupA] = group[groupB];
             }else {
-                group[groupB] = group[groupA];
                 rank[groupA]+= rank[groupB];
+                group[groupB]= group[groupA];
             }
         }
     }
