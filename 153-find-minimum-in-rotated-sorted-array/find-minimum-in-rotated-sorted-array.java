@@ -1,6 +1,7 @@
 class Solution {
     public int findMin(int[] nums) {
         if(nums[0] < nums[nums.length - 1]) return nums[0];
+
         int left = 0, right = nums.length;
         while(left < right) {
             int mid = left + (right - left)/2;
