@@ -3,9 +3,9 @@ class Solution {
         int unique = 0, nonUnique = 0;
         while(nonUnique < nums.length) {
             if(nonUnique < nums.length - 1 && nums[nonUnique] == nums[nonUnique + 1]) {
-                //first element
+                //first element 
                 swap(unique++, nonUnique++, nums);
-                //find second element
+                //find second element 
                 while(nonUnique < nums.length - 1 && nums[nonUnique] == nums[nonUnique + 1]) nonUnique++;
             }
             swap(unique++, nonUnique++, nums);
