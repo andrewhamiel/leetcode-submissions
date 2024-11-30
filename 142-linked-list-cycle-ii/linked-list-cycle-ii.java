@@ -23,12 +23,13 @@ public class Solution {
     }
 
     private ListNode findCycle(ListNode head) {
+        if(head == null) return head;
         ListNode tortoise = head, hare = head;
         while(hare != null && hare.next != null) {
             tortoise = tortoise.next;
             hare = hare.next.next;
             if(tortoise == hare) return tortoise;
         }
-        return null; //no cycle
+        return null;
     }
 }
