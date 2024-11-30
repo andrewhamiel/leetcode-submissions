@@ -1,44 +1,47 @@
 class Solution {
     public String alienOrder(String[] words) {
-        //1. Build adjacencies 
-        Map<Character, List<Character>> adj = new HashMap<>();
-        Map<Character, Integer> deps = new HashMap<>();
+        //1. Build adjacencies
+        Map<Character, GNode> adj = new HashMap<>();
         for(String word : words) {
             for(char c : word.toCharArray()) {
-                adj.putIfAbsent(c, new ArrayList<>());
-                deps.putIfAbsent(c, 0);
+                adj.putIfAbsent(c, new GNode());
             }
         }
-
-        //2. Connect components 
+        //2. Connect components
         for(int i = 1; i < words.length; i++) {
             String word1 = words[i - 1], word2 = words[i];
-            if(word1.length() > word2.length() && word1.startsWith(word2)) return ""; //prevent substrings
+            if(word1.length() > word2.length() && word1.startsWith(word2)) return ""; //Avoid substrings
             for(int wordInd = 0; wordInd < Math.min(word1.length(), word2.length()); wordInd++) {
                 char c1 = word1.charAt(wordInd), c2 = word2.charAt(wordInd);
                 if(c1 != c2) {
-                    adj.get(c1).add(c2);
-                    deps.put(c2, deps.get(c2) + 1);
+                    adj.get(c1).nextChars.add(c2);
+                    adj.get(c2).dependencies++;
                     break;
                 }
             }
         }
 
-        //3. Find vertices with no deps, topological sort 
+        //3. Topological sort 
         Queue<Character> q = new LinkedList<>();
-        for(char c : deps.keySet()) if(deps.get(c) == 0) q.add(c);
+        for(char key : adj.keySet()) if(adj.get(key).dependencies == 0) q.add(key);
 
         StringBuilder result = new StringBuilder();
         while(!q.isEmpty()) {
-            char c = q.poll();
-            result.append(c);
-            for(char nextChar : adj.get(c)) {
-                deps.put(nextChar, deps.get(nextChar) - 1);
-                if(deps.get(nextChar) == 0) q.add(nextChar);
+            char currChar = q.poll();
+            result.append(currChar);
+
+            for(char nextChar : adj.get(currChar).nextChars) {
+                adj.get(nextChar).dependencies--;
+                if(adj.get(nextChar).dependencies == 0) q.add(nextChar);
             }
         }
+        
+        //4. Make sure all characters accounted for
+        return result.length() == adj.size() ? result.toString() : "";
+    }
 
-        //4. Make sure all characters added 
-        return result.length() == deps.size() ? result.toString() : "";
+    class GNode {
+        int dependencies = 0;
+        List<Character> nextChars = new ArrayList<>();
     }
 }
