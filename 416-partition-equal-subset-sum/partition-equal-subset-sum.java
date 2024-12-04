@@ -9,7 +9,7 @@ class Solution {
         }    
 
         if(totalSum % 2 != 0) return false;
-        int subsetSum = totalSum / 2;
+        int subsetSum = totalSum/2;
         memo = new Boolean[nums.length + 1][subsetSum + 1];
         this.nums = nums;
 
@@ -17,7 +17,7 @@ class Solution {
     }
 
     private boolean dfs(int ind, int sum) {
-        //Base cases
+        //Base cases 
         if(sum == 0) return true;
         if(ind < 0 || sum < 0) return false;
 
