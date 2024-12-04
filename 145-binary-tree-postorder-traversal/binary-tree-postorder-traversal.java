@@ -35,6 +35,7 @@ class Solution {
                 root = root.left;
             }
         }
+
         Collections.reverse(result);
         return result;
     }
