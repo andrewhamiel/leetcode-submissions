@@ -9,7 +9,7 @@ class Solution {
         }    
 
         if(totalSum % 2 != 0) return false;
-        int subsetSum = totalSum/2;
+        int subsetSum = totalSum / 2;
         memo = new Boolean[nums.length + 1][subsetSum + 1];
         this.nums = nums;
 
@@ -21,7 +21,7 @@ class Solution {
         if(sum == 0) return true;
         if(ind < 0 || sum < 0) return false;
 
-        //If already seen 
+        //If already seen
         if(memo[ind][sum] != null) return memo[ind][sum];
 
         //2 choices: use or do not use 
