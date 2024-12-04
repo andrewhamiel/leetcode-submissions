@@ -21,19 +21,20 @@ class Solution {
     private NodeValue helper(TreeNode root) {
         if(root == null) return new NodeValue(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
 
-        NodeValue left = helper(root.left);
-        NodeValue right = helper(root.right);
+        NodeValue left = helper(root.left), right = helper(root.right);
 
         if(left.maxVal < root.val && root.val < right.minVal) {
-            return new NodeValue(Math.min(left.minVal, root.val), Math.max(root.val, right.maxVal), 1 + left.maxSize + right.maxSize);
+            return new NodeValue(Math.min(left.minVal, root.val), 
+                Math.max(root.val, right.maxVal), 
+                1 + left.maxSize + right.maxSize);
         }
         return new NodeValue(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSize, right.maxSize));
     }
 
     class NodeValue {
-        int minVal = 0;
-        int maxVal = 0;
-        int maxSize = 0;
+        int minVal;
+        int maxVal;
+        int maxSize;
 
         public NodeValue(int minVal, int maxVal, int maxSize) {
             this.minVal = minVal;
