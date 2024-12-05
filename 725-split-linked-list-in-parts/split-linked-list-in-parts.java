@@ -17,23 +17,24 @@ class Solution {
             count++;
         }
 
-        int elements = count / k, rem = count % k;
         ListNode[] result = new ListNode[k];
+        int width = count / k, rem = count % k;
+
         curr = head;
         for(int i = 0; i < k; i++) {
             ListNode ptr = curr;
-            int carry = i < rem ? 1 : 0;          
-            //advance to last element
-            for(int j = 0; j < elements + carry - 1; j++) {
+            int carry = i < rem ? 1 : 0;
+            //Advance to last pointer 
+            for(int j = 0; j < width + carry - 1; j++) {
                 if(curr != null) curr = curr.next;
             }
 
-            //If not at end, delink last node
+            //If next ptr not null, delink
             if(curr != null) {
                 ListNode prev = curr;
                 curr = curr.next;
                 prev.next = null;
-            } 
+            }
             result[i] = ptr;
         }
         return result;
