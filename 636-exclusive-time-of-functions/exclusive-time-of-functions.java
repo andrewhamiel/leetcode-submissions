@@ -1,8 +1,9 @@
 class Solution {
     public int[] exclusiveTime(int n, List<String> logs) {
         Deque<Integer> stack = new ArrayDeque<>();
-        int prevTime = 0;
         int[] result = new int[n];
+
+        int prevTime = 0;
         for(String log : logs) {
             String[] commaDelimited = log.split(":");
             int currTime = Integer.parseInt(commaDelimited[2]);
@@ -11,7 +12,7 @@ class Solution {
                 stack.addFirst(Integer.parseInt(commaDelimited[0]));
                 prevTime = currTime;
             }else {
-                currTime++; //ending function takes one unit of time
+                currTime++; //Ending function takes 1 unit of time 
                 result[stack.removeFirst()]+= currTime - prevTime;
                 prevTime = currTime;
             }
