@@ -3,17 +3,17 @@ class Solution {
         Set<Integer> seen = new HashSet<>();
         for(int num : nums) seen.add(num);
 
-        int longestStreak = 0;
-        for(int num : seen){
-            if(!seen.contains(num - 1)){
-                int currNum = num, currStreak = 1;
-                while(seen.contains(currNum + 1)){
+        int longestSequence = 0;
+        for(int num : nums) {
+            if(!seen.contains(num - 1)) {
+                int currSequence = 0, currNum = num;
+                while(seen.contains(currNum)) {
+                    currSequence++;
                     currNum++;
-                    currStreak++;
                 }
-                longestStreak = Math.max(longestStreak, currStreak);
+                longestSequence = Math.max(longestSequence, currSequence);
             }
         }
-        return longestStreak;
+        return longestSequence;
     }
 }
