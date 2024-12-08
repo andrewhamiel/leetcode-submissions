@@ -24,37 +24,35 @@
  * }
  */
 class Solution {
-    private ListNode head;
-
+    private ListNode curr;
+    
     public TreeNode sortedListToBST(ListNode head) {
-        if(head == null) return null;
-        this.head = head;
-
-        //1. Find size 
+        //1. Find list of size
         int size = 0;
-        ListNode curr = head;
+        curr = head;
         while(curr != null) {
-            curr = curr.next;
             size++;
-        }    
-
-        //2. Inorder traversal 
-        return divideAndConquer(0, size - 1);
+            curr = curr.next;
+        }
+        //2. Divide/Conquer in order traversal
+        curr = head;
+        TreeNode result = divideAndConquer(0, size);
+        return result;
     }
 
     private TreeNode divideAndConquer(int left, int right) {
-        if(left > right) return null;
+        if(left >= right) return null;
 
-        int mid = left + (right - left)/2;
+        //In order 
         TreeNode root = new TreeNode();
-        //Left 
-        root.left = divideAndConquer(left, mid - 1);
-        //Root 
-        root.val = head.val;
-        //Right 
-        head = head.next;
+        int mid = left + (right - left)/2;
+        root.left = divideAndConquer(left, mid);
+
+        root.val = curr.val;
+        curr = curr.next;
+
         root.right = divideAndConquer(mid + 1, right);
-        
+
         return root;
     }
 }
