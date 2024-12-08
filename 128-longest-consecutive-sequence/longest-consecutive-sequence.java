@@ -9,7 +9,7 @@ class Solution {
                 int currSequence = 0, currNum = num;
                 while(seen.contains(currNum)) {
                     currSequence++;
-                    currNum++;
+                    seen.remove(currNum++);
                 }
                 longestSequence = Math.max(longestSequence, currSequence);
             }
