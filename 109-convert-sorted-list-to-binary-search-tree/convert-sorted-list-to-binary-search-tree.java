@@ -27,14 +27,14 @@ class Solution {
     private ListNode curr;
 
     public TreeNode sortedListToBST(ListNode head) {
-        //1. Find size of linked list
+        //1. Find size of linked list 
         curr = head;
         int size = 0;
         while(curr != null) {
             curr = curr.next;
             size++;
-        }
-        //2. Divide and Conquer/Inorder traversal    
+        }    
+        //2. Divide and conquer/inorder traversal
         curr = head;
         TreeNode result = divideAndConquer(0, size);
         return result;
@@ -48,10 +48,10 @@ class Solution {
         int mid = left + (right - left)/2;
         //left 
         root.left = divideAndConquer(left, mid);
-        //root
+        //root 
         root.val = curr.val;
         curr = curr.next;
-        //right 
+        //right
         root.right = divideAndConquer(mid + 1, right);
 
         return root;
