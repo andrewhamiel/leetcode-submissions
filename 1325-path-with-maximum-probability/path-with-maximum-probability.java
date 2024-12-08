@@ -24,7 +24,8 @@ class Solution {
             for(Pair<Integer, Double> nextPair : adj.getOrDefault(currNode, new ArrayList<>())) {
                 int nextNode = nextPair.getKey();
                 double nextProb = nextPair.getValue();
-                if(nextProb * currProb > maxProb[nextNode]) {
+                
+                if(currProb * nextProb > maxProb[nextNode]) {
                     maxProb[nextNode] = currProb * nextProb;
                     maxHeap.add(new Pair<>(nextNode, maxProb[nextNode]));
                 }
