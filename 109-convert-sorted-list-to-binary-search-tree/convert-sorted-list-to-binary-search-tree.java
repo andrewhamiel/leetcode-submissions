@@ -25,16 +25,16 @@
  */
 class Solution {
     private ListNode curr;
-    
+
     public TreeNode sortedListToBST(ListNode head) {
-        //1. Find list of size
-        int size = 0;
+        //1. Find size of linked list
         curr = head;
+        int size = 0;
         while(curr != null) {
-            size++;
             curr = curr.next;
+            size++;
         }
-        //2. Divide/Conquer in order traversal
+        //2. Divide and Conquer/Inorder traversal    
         curr = head;
         TreeNode result = divideAndConquer(0, size);
         return result;
@@ -43,14 +43,15 @@ class Solution {
     private TreeNode divideAndConquer(int left, int right) {
         if(left >= right) return null;
 
-        //In order 
+        //Inorder traversal 
         TreeNode root = new TreeNode();
         int mid = left + (right - left)/2;
+        //left 
         root.left = divideAndConquer(left, mid);
-
+        //root
         root.val = curr.val;
         curr = curr.next;
-
+        //right 
         root.right = divideAndConquer(mid + 1, right);
 
         return root;
