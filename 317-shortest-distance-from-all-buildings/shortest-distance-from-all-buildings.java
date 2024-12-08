@@ -1,16 +1,14 @@
 class Solution {
-    private int[][] dirs = new int[][]{{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+    int[][] dirs = new int[][]{{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 
     public int shortestDistance(int[][] grid) {
-        int[][] totalSteps = new int[grid.length][grid[0].length];
         int minDistance = Integer.MAX_VALUE, emptyLandValue = 0;
-
+        int[][] totalSteps = new int[grid.length][grid[0].length];
         for(int row = 0; row < grid.length; row++) {
             for(int col = 0; col < grid[0].length; col++) {
                 if(grid[row][col] == 1) minDistance = bfs(row, col, grid, totalSteps, emptyLandValue--);
             }
         }
-
         return minDistance == Integer.MAX_VALUE ? -1 : minDistance;
     }
 
