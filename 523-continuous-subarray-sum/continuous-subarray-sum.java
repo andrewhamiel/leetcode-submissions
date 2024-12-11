@@ -1,5 +1,6 @@
 class Solution {
     public boolean checkSubarraySum(int[] nums, int k) {
+        //first index of sum % k
         Map<Integer, Integer> map = new HashMap<>();
         map.put(0, 0);
 
