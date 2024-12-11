@@ -10,11 +10,12 @@ class Solution {
         int pairs = mergeSort(start, mid, nums) + mergeSort(mid + 1, end, nums) + countPairs(start, end, nums);
 
         merge(start, end, nums);
+
         return pairs;
     }
 
     private int countPairs(int start, int end, int[] nums) {
-        int count = 0, mid = start + (end - start)/2, right = mid + 1;
+        int mid = start + (end - start)/2, count = 0, right = mid + 1;
         for(int left = start; left <= mid; left++) {
             while(right <= end && nums[left] > 2 * (long) nums[right]) right++;
             count+= right - mid - 1;
