@@ -1,23 +1,20 @@
 class Solution {
-    List<int[]> freqs = new ArrayList<>();
-    Map<String, Integer> memo = new HashMap<>();
+    private List<int[]> freqs = new ArrayList<>();
+    private Map<String, Integer> memo = new HashMap<>();
 
     public int minStickers(String[] stickers, String target) {
         for(String sticker : stickers) {
             int[] freq = new int[26];
-            for(char c : sticker.toCharArray()) {
-                freq[c - 'a']++;
-            }
+            for(char c : sticker.toCharArray()) freq[c - 'a']++;
             freqs.add(freq);
-        }    
+        }
 
-        int minStickers = backtrack(target, null);
+        int minStickers = dfs(target, null);
         return minStickers == Integer.MAX_VALUE ? -1 : minStickers;
     }
 
-    private int backtrack(String target, int[] currSticker) {
+    private int dfs(String target, int[] currSticker) {
         if(memo.containsKey(target)) return memo.get(target);
-
         StringBuilder remaining = new StringBuilder();
         int minStickers = 0;
         if(currSticker != null) {
@@ -33,7 +30,7 @@ class Solution {
             int minAdditional = Integer.MAX_VALUE;
             for(int[] freq : freqs) {
                 if(freq[remaining.charAt(0) - 'a'] > 0) {
-                    minAdditional = Math.min(minAdditional, backtrack(remaining.toString(), freq.clone()));
+                    minAdditional = Math.min(minAdditional, dfs(remaining.toString(), freq.clone()));
                 }
             }
             memo.put(remaining.toString(), minAdditional);
