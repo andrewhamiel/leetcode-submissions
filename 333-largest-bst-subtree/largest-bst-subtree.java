@@ -24,8 +24,7 @@ class Solution {
         NodeValue left = helper(root.left), right = helper(root.right);
 
         if(left.maxVal < root.val && root.val < right.minVal) {
-            return new NodeValue(Math.min(left.minVal, root.val), 
-                Math.max(root.val, right.maxVal), 
+            return new NodeValue(Math.min(left.minVal, root.val), Math.max(root.val, right.maxVal),
                 1 + left.maxSize + right.maxSize);
         }
         return new NodeValue(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSize, right.maxSize));
