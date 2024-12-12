@@ -10,26 +10,28 @@
  */
 class Solution {
     public ListNode[] splitListToParts(ListNode head, int k) {
-        int count = 0;
+        //Find size of linked list
         ListNode curr = head;
+        int size = 0;
         while(curr != null) {
             curr = curr.next;
-            count++;
+            size++;
         }
 
+        int parts = size / k, rem = size % k;
         ListNode[] result = new ListNode[k];
-        int width = count / k, rem = count % k;
-
         curr = head;
         for(int i = 0; i < k; i++) {
             ListNode ptr = curr;
             int carry = i < rem ? 1 : 0;
-            //Advance to last pointer 
-            for(int j = 0; j < width + carry - 1; j++) {
-                if(curr != null) curr = curr.next;
+            for(int j = 0; j < parts + carry - 1; j++) {
+                //Advance to last node in partition
+                if(curr != null) {
+                    curr = curr.next;
+                }
             }
 
-            //If next ptr not null, delink
+            //Delink last node if not null
             if(curr != null) {
                 ListNode prev = curr;
                 curr = curr.next;
