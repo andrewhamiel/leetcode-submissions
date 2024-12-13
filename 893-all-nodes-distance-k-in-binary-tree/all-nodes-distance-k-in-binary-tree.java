@@ -8,38 +8,45 @@
  * }
  */
 class Solution {
-    Map<TreeNode, List<TreeNode>> map = new HashMap<>();
+    Map<TreeNode, Set<TreeNode>> adj = new HashMap<>();
 
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        List<Integer> result = new ArrayList<>();
-        findNeighbors(root, null);
-        Set<TreeNode> visited = new HashSet<>();
-        visited.add(target);
+        buildGraph(root, null);
+
         Queue<TreeNode> q = new LinkedList<>();
         q.add(target);
+        List<Integer> result = new ArrayList<>();
+        Set<Integer> seen = new HashSet<>();
+        seen.add(target.val);
+
         while(!q.isEmpty() && k >= 0) {
             int size = q.size();
             while(size-- > 0) {
                 TreeNode curr = q.poll();
-                if(k == 0) result.add(curr.val);
-                for(TreeNode neighbor : map.getOrDefault(curr, new ArrayList<>())) {
-                    if(!visited.contains(neighbor)) {
-                        visited.add(neighbor);
+                if(k == 0) {
+                    result.add(curr.val);
+                    continue;
+                }
+
+                for(TreeNode neighbor : adj.getOrDefault(curr, new HashSet<>())) {
+                    if(!seen.contains(neighbor.val)) {
+                        seen.add(neighbor.val);
                         q.add(neighbor);
                     }
                 }
             }
             k--;
         }
+
         return result;
     }
 
-    private void findNeighbors(TreeNode child, TreeNode parent) {
+    private void buildGraph(TreeNode child, TreeNode parent) {
         if(parent != null) {
-            map.computeIfAbsent(parent, k -> new ArrayList<>()).add(child);
-            map.computeIfAbsent(child, k -> new ArrayList<>()).add(parent);
+            adj.computeIfAbsent(child, k -> new HashSet<>()).add(parent);
+            adj.computeIfAbsent(parent, k -> new HashSet<>()).add(child);
         }
-        if(child.left != null) findNeighbors(child.left, child);
-        if(child.right != null) findNeighbors(child.right, child);
+        if(child.left != null) buildGraph(child.left, child);
+        if(child.right != null) buildGraph(child.right, child);
     }
 }
