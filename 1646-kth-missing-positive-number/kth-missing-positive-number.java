@@ -8,7 +8,6 @@ class Solution {
             if(missingNums(mid, arr) < k) left = mid + 1;
             else right = mid - 1;
         }
-
         //arr[right] + k - missingNums(right, arr)
         //arr[right] + k - arr[right] + right + 1
         //k + right + 1
@@ -17,6 +16,6 @@ class Solution {
     }
 
     private int missingNums(int ind, int[] nums) {
-        return nums[ind] - ind - 1; //first num is 1
+        return nums[ind] - ind - 1;
     }
 }
