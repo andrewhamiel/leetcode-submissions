@@ -1,7 +1,7 @@
 class Solution {
-    private Set<String> result = new HashSet<>();
     private TrieNode root = new TrieNode();
     private String s = "";
+    private List<String> result = new ArrayList<>();
 
     public List<String> wordBreak(String s, List<String> wordDict) {
         //1. Build Trie
@@ -15,13 +15,13 @@ class Solution {
             curr.isWord = true;
         }
 
-        //2. Backtrack
-        backtrack(0, new StringBuilder());
-        return new ArrayList<>(result);
+        //2. Top-Down DP
+        dp(0, new StringBuilder());
+        return result;
     }
 
-    private void backtrack(int ind, StringBuilder sb) {
-        if(ind == s.length() && !sb.isEmpty()) {
+    private void dp(int ind, StringBuilder sb) {
+        if(ind >= s.length() && !sb.isEmpty()) {
             result.add(sb.toString());
             return;
         }
@@ -35,11 +35,11 @@ class Solution {
             curr = curr.children.get(c);
             if(curr.isWord) {
                 //2 options: use or do not use 
+                //1. Use
                 StringBuilder using = new StringBuilder(sb);
-                if(i != s.length() - 1) using.append(" "); //if not at end of string 
-                //1. Use 
-                backtrack(i + 1, using);
-                //2. Do not use. Just continue
+                if(i != s.length() - 1) using.append(" "); //If not at end of string 
+                dp(i + 1, using);
+                //2. Do not use: just continue
             }
         }
     }
