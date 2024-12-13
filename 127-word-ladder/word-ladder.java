@@ -1,21 +1,23 @@
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         Set<String> words = new HashSet<>(wordList);
-        Queue<String> q = new LinkedList<>();
         if(!words.contains(endWord)) return 0;
+
+        Queue<String> q = new LinkedList<>();
         q.add(beginWord);
         words.remove(beginWord);
+
         int ladderLength = 1;
         while(!q.isEmpty()) {
             int size = q.size();
             while(size-- > 0) {
-                String curr = q.poll();
-                if(curr.equals(endWord)) return ladderLength;
+                String currWord = q.poll();
+                if(currWord.equals(endWord)) return ladderLength;
 
-                for(String neighbor : getNeighbors(curr)) {
-                    if(words.contains(neighbor)) {
-                        words.remove(neighbor);
-                        q.add(neighbor);
+                for(String nextWord : getNeighbors(currWord)) {
+                    if(words.contains(nextWord)) {
+                        words.remove(nextWord);
+                        q.add(nextWord);
                     }
                 }
             }
@@ -24,16 +26,18 @@ class Solution {
         return 0;
     }
 
-    private Set<String> getNeighbors(String str) {
+    private Set<String> getNeighbors(String currWord) {
         Set<String> result = new HashSet<>();
-        char[] chars = str.toCharArray();
-        for(int i = 0; i < chars.length; i++) {
-            char prevChar = chars[i];
+        char[] arr = currWord.toCharArray();
+        for(int i = 0; i < arr.length; i++) {
+            char prevChar = arr[i];
             for(char c = 'a'; c <= 'z'; c++) {
-                if(c != prevChar) chars[i] = c;
-                result.add(new String(chars));
+                if(c != prevChar) {
+                    arr[i] = c;
+                    result.add(new String(arr));
+                }
             }
-            chars[i] = prevChar;
+            arr[i] = prevChar;
         }
         return result;
     }
