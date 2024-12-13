@@ -1,23 +1,24 @@
 class Solution {
-    private int ind = 0;
-
     public String decodeString(String s) {
-        StringBuilder sb = new StringBuilder();
-
-        while(ind < s.length() && s.charAt(ind) != ']'){
-            if(!Character.isDigit(s.charAt(ind))) sb.append(s.charAt(ind++));
-            else{
-                int k = 0;
-                while(ind < s.length() && Character.isDigit(s.charAt(ind))){
-                    k*= 10;
-                    k+= s.charAt(ind++) - '0';
-                }
-                ind++; //ignore opening bracket
-                String decodedString = decodeString(s);
-                ind++; //ignore closing bracket
-                while(k-- > 0) sb.append(decodedString);
-            }
+        Deque<Integer> countStack = new ArrayDeque<>();
+        Deque<StringBuilder> stringStack = new ArrayDeque<>();
+        int currNum = 0;
+        StringBuilder currString = new StringBuilder();
+        for(char c : s.toCharArray()) {
+            if(Character.isDigit(c)) {
+                currNum*= 10;
+                currNum+= c - '0';
+            }else if(c == '[') {
+                countStack.addFirst(currNum);
+                stringStack.addFirst(currString);
+                currNum = 0;
+                currString = new StringBuilder();
+            }else if(c == ']') {
+                StringBuilder decoded = stringStack.removeFirst();
+                for(int i = countStack.removeFirst(); i > 0; i--) decoded.append(currString);
+                currString = decoded;
+            }else currString.append(c);
         }
-        return sb.toString();
+        return currString.toString();
     }
 }
