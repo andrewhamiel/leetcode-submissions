@@ -30,7 +30,7 @@ class Solution {
             if(nums[left] <= nums[right]) tmp.add(nums[left++]);
             else tmp.add(nums[right++]);
         }
-
+        
         while(left <= mid) tmp.add(nums[left++]);
         while(right <= end) tmp.add(nums[right++]);
 
