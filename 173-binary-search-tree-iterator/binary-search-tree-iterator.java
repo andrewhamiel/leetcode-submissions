@@ -14,7 +14,7 @@
  * }
  */
 class BSTIterator {
-    Deque<TreeNode> stack = new ArrayDeque<>();
+    private Deque<TreeNode> stack = new ArrayDeque<>();
 
     public BSTIterator(TreeNode root) {
         leftmost(root);
