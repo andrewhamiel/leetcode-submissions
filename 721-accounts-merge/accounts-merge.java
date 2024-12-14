@@ -1,28 +1,32 @@
 class Solution {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        //1. Find groups
         UnionFind uf = new UnionFind(accounts.size());
         Map<String, Integer> groups = new HashMap<>();
         for(int i = 0; i < accounts.size(); i++) {
             List<String> account = accounts.get(i);
             for(int j = 1; j < account.size(); j++) {
                 String email = account.get(j);
-                if(groups.containsKey(email)) uf.union(groups.get(email), i);
-                else groups.put(email, i);
+                if(!groups.containsKey(email)) groups.put(email, i);
+                else uf.union(groups.get(email), i);
             }
         }
 
+        //2. Connect components
         Map<Integer, List<String>> components = new HashMap<>();
         for(String email : groups.keySet()) {
-            int rankedGroup = uf.find(groups.get(email));
+            int group = groups.get(email);
+            int rankedGroup = uf.find(group);
             components.computeIfAbsent(rankedGroup, k -> new ArrayList<>()).add(email);
         }
 
+        //3. Sort emails and build result
         List<List<String>> result = new ArrayList<>();
-        for(int group : components.keySet()) {
-            List<String> emails = components.get(group);
-            String accountName = accounts.get(group).get(0);
-            List<String> list = new ArrayList<>();
+        for(int rankedGroup : components.keySet()) {
+            List<String> emails = components.get(rankedGroup);
             Collections.sort(emails);
+            String accountName = accounts.get(rankedGroup).get(0);
+            List<String> list = new ArrayList<>();
             list.add(accountName);
             list.addAll(emails);
             result.add(list);
@@ -31,8 +35,8 @@ class Solution {
     }
 
     class UnionFind {
-        int[] group;
-        int[] rank;
+        private int[] group;
+        private int[] rank;
 
         public UnionFind(int n) {
             group = new int[n];
@@ -48,16 +52,17 @@ class Solution {
             return group[x];
         }
 
-        private void union(int a, int b) {
+        public void union(int a, int b) {
             int groupA = find(a), groupB = find(b);
+
             if(groupA == groupB) return;
 
-            if(rank[groupA] < rank[groupB]) {
+            if(rank[groupA] >= rank[groupB]) {
+                rank[groupA]+= rank[groupB];
+                group[groupB] = group[groupA];
+            }else {
                 rank[groupB]+= rank[groupA];
                 group[groupA] = group[groupB];
-            }else {
-                rank[groupA]+= rank[groupB];
-                group[groupB]= group[groupA];
             }
         }
     }
