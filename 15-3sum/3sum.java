@@ -15,7 +15,7 @@ class Solution {
             int sum = nums[left] + nums[right];
             if(sum == target) {
                 result.add(Arrays.asList(-target, nums[left++], nums[right]));
-                while(left < right && nums[left] == nums[left - 1]) left++;
+                while(left < right && nums[left] == nums[left - 1]) left++; //avoid duplicates
             }else if(sum < target) left++;
             else right--;
         }
