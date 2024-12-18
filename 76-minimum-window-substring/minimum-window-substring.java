@@ -1,7 +1,9 @@
 class Solution {
     public String minWindow(String s, String t) {
         Map<Character, Integer> tFreqs = new HashMap<>();
-        for(char c : t.toCharArray()) tFreqs.put(c, tFreqs.getOrDefault(c, 0) + 1);
+        for(char c : t.toCharArray()) {
+            tFreqs.put(c, tFreqs.getOrDefault(c, 0) + 1);
+        }
 
         Map<Character, Integer> seen = new HashMap<>();
         int required = tFreqs.size(), counted = 0;
