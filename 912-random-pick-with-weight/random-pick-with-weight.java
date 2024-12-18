@@ -4,9 +4,7 @@ class Solution {
     private Random rand = new Random();
 
     public Solution(int[] w) {
-        for(int i = 1; i < w.length; i++) {
-            w[i]+= w[i - 1];
-        }
+        for(int i = 1; i < w.length; i++) w[i]+= w[i - 1];
         this.w = w;
         total = w[w.length - 1];
     }
