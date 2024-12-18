@@ -17,22 +17,17 @@ class Solution {
     public boolean isCompleteTree(TreeNode root) {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
-        
-        boolean isNull = false;
+
+        boolean isNullFound = false;
         while(!q.isEmpty()) {
-            int size = q.size();
-            while(size-- > 0) {
-                TreeNode curr = q.poll();
+            TreeNode curr = q.poll();
 
-                if(isNull && (curr.left != null || curr.right != null)) return false;
+            if(curr == null) isNullFound = true;
+            else {
+                if(isNullFound) return false;
 
-                if(curr.left == null || curr.right == null) {
-                    if(curr.left == null && curr.right != null) return false;
-                    else isNull = true;
-                }
-
-                if(curr.left != null) q.add(curr.left);
-                if(curr.right != null) q.add(curr.right);
+                q.add(curr.left);
+                q.add(curr.right);
             }
         }
         return true;
