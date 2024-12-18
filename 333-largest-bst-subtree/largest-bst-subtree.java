@@ -15,17 +15,16 @@
  */
 class Solution {
     public int largestBSTSubtree(TreeNode root) {
-        return helper(root).maxSize;
+        return postorder(root).maxSize;
     }
 
-    private NodeValue helper(TreeNode root) {
+    private NodeValue postorder(TreeNode root) {
         if(root == null) return new NodeValue(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
 
-        NodeValue left = helper(root.left), right = helper(root.right);
+        NodeValue left = postorder(root.left), right = postorder(root.right);
 
         if(left.maxVal < root.val && root.val < right.minVal) {
-            return new NodeValue(Math.min(left.minVal, root.val), Math.max(root.val, right.maxVal),
-                1 + left.maxSize + right.maxSize);
+            return new NodeValue(Math.min(left.minVal, root.val), Math.max(root.val, right.maxVal), 1 + left.maxSize + right.maxSize);
         }
         return new NodeValue(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSize, right.maxSize));
     }
