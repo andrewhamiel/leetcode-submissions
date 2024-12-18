@@ -11,21 +11,19 @@ class Solution {
                 else uf.union(groups.get(email), i);
             }
         }
-
-        //2. Connect components
+        //2. Connect components by group
         Map<Integer, List<String>> components = new HashMap<>();
         for(String email : groups.keySet()) {
             int group = groups.get(email);
             int rankedGroup = uf.find(group);
             components.computeIfAbsent(rankedGroup, k -> new ArrayList<>()).add(email);
         }
-
-        //3. Sort emails and build result
+        //3. Build result
         List<List<String>> result = new ArrayList<>();
         for(int rankedGroup : components.keySet()) {
             List<String> emails = components.get(rankedGroup);
-            Collections.sort(emails);
             String accountName = accounts.get(rankedGroup).get(0);
+            Collections.sort(emails);
             List<String> list = new ArrayList<>();
             list.add(accountName);
             list.addAll(emails);
@@ -35,8 +33,8 @@ class Solution {
     }
 
     class UnionFind {
-        private int[] group;
-        private int[] rank;
+        int[] group;
+        int[] rank;
 
         public UnionFind(int n) {
             group = new int[n];
