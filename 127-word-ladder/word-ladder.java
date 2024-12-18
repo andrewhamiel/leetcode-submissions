@@ -5,7 +5,6 @@ class Solution {
 
         Queue<String> q = new LinkedList<>();
         q.add(beginWord);
-        words.remove(beginWord);
 
         int ladderLength = 1;
         while(!q.isEmpty()) {
@@ -26,9 +25,9 @@ class Solution {
         return 0;
     }
 
-    private Set<String> getNeighbors(String currWord) {
+    private Set<String> getNeighbors(String word) {
         Set<String> result = new HashSet<>();
-        char[] arr = currWord.toCharArray();
+        char[] arr = word.toCharArray();
         for(int i = 0; i < arr.length; i++) {
             char prevChar = arr[i];
             for(char c = 'a'; c <= 'z'; c++) {
