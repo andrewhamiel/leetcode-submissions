@@ -7,13 +7,11 @@ class SeatManager {
     }
     
     public int reserve() {
-        if(!availableSeats.isEmpty()) {
-            return availableSeats.removeFirst();
-        }
-        //otherwise market points to smallest available
-        int seatNumber = marker;
+        if(!availableSeats.isEmpty()) return availableSeats.removeFirst();
+        //otherwise, marker is first seat
+        int seatReserved = marker;
         marker++;
-        return seatNumber;
+        return seatReserved;
     }
     
     public void unreserve(int seatNumber) {
