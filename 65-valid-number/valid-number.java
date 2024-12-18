@@ -8,10 +8,10 @@ class Solution {
                 if(i > 0 && s.charAt(i - 1) != 'e' && s.charAt(i - 1) != 'E') return false;
                 isSign = true;
                 isDigit = false;
-            }else if(c == 'e' || c == 'E') {
-                if(isExp || !isDigit) return false;
-                isExp = true;
+            }else if(c == 'E' || c == 'e') {
+                if(!isDigit || isExp) return false;
                 isDigit = false;
+                isExp = true;
             }else if(c == '.') {
                 if(isDot || isExp) return false;
                 isDot = true;
