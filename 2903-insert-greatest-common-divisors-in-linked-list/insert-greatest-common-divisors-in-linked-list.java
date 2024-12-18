@@ -11,10 +11,11 @@
 class Solution {
     public ListNode insertGreatestCommonDivisors(ListNode head) {
         ListNode curr = head;
+
         while(curr.next != null) {
             ListNode nextNode = curr.next;
 
-            int gcdVal = calculateGCD(curr.val, nextNode.val);
+            int gcdVal = calculateGcd(curr.val, nextNode.val);
             ListNode gcd = new ListNode(gcdVal);
 
             gcd.next = nextNode;
@@ -24,7 +25,7 @@ class Solution {
         return head;
     }
 
-    private int calculateGCD(int a, int b) {
+    private int calculateGcd(int a, int b) {
         while(b != 0) {
             int tmp = b;
             b = a % b;
