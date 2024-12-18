@@ -1,22 +1,32 @@
 class SeatManager {
-    private PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+    // Marker to point to unreserved seats.
+    int marker = 1;
+
+    // Sorted set to store all unreserved seats.
+    TreeSet<Integer> availableSeats;
 
     public SeatManager(int n) {
-        for(int i = 1; i <= n; i++) minHeap.add(i);
+        // Initialize the sorted set.
+        availableSeats = new TreeSet<>();
     }
-    
+
     public int reserve() {
-        return minHeap.poll();
+        // If the sorted set has any element in it, then,
+        // get the smallest-numbered unreserved seat from it.
+        if (!availableSeats.isEmpty()) {
+            int seatNumber = availableSeats.first();
+            availableSeats.remove(seatNumber);
+            return seatNumber;
+        }
+
+        // Otherwise, the marker points to the smallest-numbered seat.
+        int seatNumber = marker;
+        marker++;
+        return seatNumber;
     }
-    
+
     public void unreserve(int seatNumber) {
-        minHeap.add(seatNumber);
+        // Push the unreserved seat in the sorted set.
+        availableSeats.add(seatNumber);
     }
 }
-
-/**
- * Your SeatManager object will be instantiated and called as such:
- * SeatManager obj = new SeatManager(n);
- * int param_1 = obj.reserve();
- * obj.unreserve(seatNumber);
- */
