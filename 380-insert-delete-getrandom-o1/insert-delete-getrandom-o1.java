@@ -9,6 +9,7 @@ class RandomizedSet {
     
     public boolean insert(int val) {
         if(map.containsKey(val)) return false;
+
         map.put(val, list.size());
         list.add(val);
         return true;
@@ -27,7 +28,7 @@ class RandomizedSet {
     }
     
     public int getRandom() {
-        return list.get(rand.nextInt(list.size()));
+        return list.get(rand.nextInt(list.size()));    
     }
 }
 
