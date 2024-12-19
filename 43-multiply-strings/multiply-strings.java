@@ -4,11 +4,11 @@ class Solution {
 
         StringBuilder firstNumber = new StringBuilder(num1), secondNumber = new StringBuilder(num2);
 
-        //Reverse both numbers
+        //Reverse strings
         firstNumber.reverse();
         secondNumber.reverse();
 
-        //Store 0 in each digit for result
+        //Initialize result with all 0 digits
         StringBuilder result = new StringBuilder();
         for(int i = 0; i < firstNumber.length() + secondNumber.length(); i++) result.append('0');
 
@@ -23,14 +23,14 @@ class Solution {
                 int product = digit1 * digit2 + carry;
 
                 //Set ones digit
-                result.setCharAt(currPos, (char) (product % 10 + '0'));
+                result.setCharAt(currPos, (char)(product % 10 + '0'));
                 //Set tens digit
                 carry = (result.charAt(currPos + 1) - '0') + product/10;
                 result.setCharAt(currPos + 1, (char)(carry + '0'));
             }
         }
 
-        //Pop extra 0 at the end
+        //Remove 0 if last digit
         if(result.charAt(result.length() - 1) == '0') result.deleteCharAt(result.length() - 1);
 
         result.reverse();
