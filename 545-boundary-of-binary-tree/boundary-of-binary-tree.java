@@ -14,25 +14,28 @@
  * }
  */
 class Solution {
+    private List<Integer> result = new ArrayList<>();
+
     public List<Integer> boundaryOfBinaryTree(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
         if(root == null) return result;
 
-        //1. Add root
+        //1. Root
         if(!isLeaf(root)) result.add(root.val);
         //2. Left Boundary
-        leftBoundary(root, result);
-
+        leftBoundary(root);
         //3. Leaves
-        addLeaves(root, result);
+        addLeaves(root);
+        //4. Reverse Right Boundary
+        rightBoundary(root);
 
-        //4. Reverse right boundary
-        rightBoundary(root, result);
-
-        return result;
+        return result;    
     }
 
-    private void leftBoundary(TreeNode root, List<Integer> result) {
+    private boolean isLeaf(TreeNode root) {
+        return root.left == null && root.right == null;
+    }
+
+    private void leftBoundary(TreeNode root) {
         TreeNode curr = root.left;
         while(curr != null) {
             if(!isLeaf(curr)) result.add(curr.val);
@@ -40,25 +43,21 @@ class Solution {
         }
     }
 
-    private void rightBoundary(TreeNode root, List<Integer> result) {
-        TreeNode curr = root.right;
+    private void addLeaves(TreeNode root) {
+        if(isLeaf(root)) result.add(root.val);
+        else {
+            if(root.left != null) addLeaves(root.left);
+            if(root.right != null) addLeaves(root.right);
+        } 
+    }
+
+    private void rightBoundary(TreeNode root) {
         Deque<Integer> stack = new ArrayDeque<>();
+        TreeNode curr = root.right;
         while(curr != null) {
             if(!isLeaf(curr)) stack.addFirst(curr.val);
             curr = curr.right != null ? curr.right : curr.left;
         }
         while(!stack.isEmpty()) result.add(stack.removeFirst());
-    }
-
-    private boolean isLeaf(TreeNode root) {
-        return root.left == null && root.right == null;
-    }
-
-    private void addLeaves(TreeNode root, List<Integer> result) {
-        if(isLeaf(root)) result.add(root.val);
-        else {
-            if(root.left != null) addLeaves(root.left, result);
-            if(root.right != null) addLeaves(root.right, result);
-        }
     }
 }
