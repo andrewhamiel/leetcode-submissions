@@ -12,11 +12,11 @@ class Solution {
     private int dfs(int child, int parent, List<Boolean> hasApple, Map<Integer, List<Integer>> adj) {
         if(!adj.containsKey(child)) return 0;
 
-        int totalTime = 0, childTime = 0;
+        int totalTime = 0;
         for(int nextNode : adj.get(child)) {
             if(nextNode == parent) continue;
-            childTime = dfs(nextNode, child, hasApple, adj);
-            if(childTime > 0 || hasApple.get(nextNode)) totalTime+= 2 + childTime; //visit + return takes 2 units of time
+            int childTime = dfs(nextNode, child, hasApple, adj);
+            if(childTime > 0 || hasApple.get(nextNode)) totalTime+= 2 + childTime;
         }
         return totalTime;
     }
