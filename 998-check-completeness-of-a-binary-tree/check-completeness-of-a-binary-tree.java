@@ -17,8 +17,8 @@ class Solution {
     public boolean isCompleteTree(TreeNode root) {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
-        boolean isNullFound = false;
 
+        boolean isNullFound = false;
         while(!q.isEmpty()) {
             int size = q.size();
             while(size-- > 0) {
