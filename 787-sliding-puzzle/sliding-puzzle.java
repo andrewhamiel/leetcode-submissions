@@ -4,25 +4,28 @@ class Solution {
 
     public int slidingPuzzle(int[][] board) {
         StringBuilder startState = new StringBuilder();
-        int zeroInd = 0;
+        int startInd = 0;
         for(int row = 0; row < board.length; row++) {
             for(int col = 0; col < board[0].length; col++) {
                 startState.append(board[row][col]);
-                if(board[row][col] == 0) zeroInd = 3 * row + col;
+                if(board[row][col] == 0) startInd = 3 * row + col;
             }
         }    
 
         Queue<Pair<String, Integer>> q = new LinkedList<>();
-        q.add(new Pair<>(startState.toString(), zeroInd));
+        q.add(new Pair<>(startState.toString(), startInd));
         Set<String> visited = new HashSet<>();
+        visited.add(startState.toString());
 
         int moves = 0;
+        
         while(!q.isEmpty()) {
             int size = q.size();
             while(size-- > 0) {
                 Pair<String, Integer> p = q.poll();
                 String currState = p.getKey();
-                zeroInd = p.getValue();
+                int zeroInd = p.getValue();
+
                 if(currState.equals(target)) return moves;
 
                 for(int nextInd : dirs[zeroInd]) {
