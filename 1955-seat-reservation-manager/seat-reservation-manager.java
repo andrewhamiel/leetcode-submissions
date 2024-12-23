@@ -1,6 +1,6 @@
 class SeatManager {
-    private int marker = 1;
     private TreeSet<Integer> availableSeats = new TreeSet<>();
+    private int currSeat = 1;
 
     public SeatManager(int n) {
         
@@ -8,9 +8,9 @@ class SeatManager {
     
     public int reserve() {
         if(!availableSeats.isEmpty()) return availableSeats.removeFirst();
-        //otherwise, marker is first seat
-        int seatReserved = marker;
-        marker++;
+
+        int seatReserved = currSeat;
+        currSeat++;
         return seatReserved;
     }
     
