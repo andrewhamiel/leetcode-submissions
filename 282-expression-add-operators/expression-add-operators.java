@@ -6,6 +6,7 @@ class Solution {
     public List<String> addOperators(String num, int target) {
         this.num = num;
         this.target = target;
+
         helper(0, 0, 0, 0, new ArrayList<>());
         return result;    
     }
@@ -25,15 +26,14 @@ class Solution {
         curr*= 10;
         curr+= num.charAt(ind) - '0';
 
-        //3. No op if != 0 to avoid leading zeroes
+        //3. No op if curr != 0 to avoid leading zeroes 
         if(curr != 0) helper(ind + 1, value, prev, curr, expr);
 
         //4. Addition
         expr.add("+");
-        // expr.add(Long.toString(curr));
         expr.add(String.valueOf(curr));
         helper(ind + 1, value + curr, curr, 0, expr);
-        expr.remove(expr.size() -1);
+        expr.remove(expr.size() - 1);
         expr.remove(expr.size() - 1);
 
         //Only if elements already added
@@ -43,8 +43,8 @@ class Solution {
             expr.add(String.valueOf(curr));
             helper(ind + 1, value - curr, -curr, 0, expr);
             expr.remove(expr.size() - 1);
-            expr.remove(expr.size() -1);
-            
+            expr.remove(expr.size() - 1);
+
             //6. Multiplication
             expr.add("*");
             expr.add(String.valueOf(curr));
