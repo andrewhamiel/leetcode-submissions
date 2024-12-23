@@ -17,25 +17,23 @@ class Solution {
     private List<Integer> result = new ArrayList<>();
 
     public List<Integer> boundaryOfBinaryTree(TreeNode root) {
-        if(root == null) return result;
-
-        //1. Root 
+        //1. Root
         if(!isLeaf(root)) result.add(root.val);
         //2. Left Boundary
-        leftBoundary(root);
+        addLeftBoundary(root);
         //3. Leaves
         addLeaves(root);
-        //4. Reverse Right Boundary
-        rightBoundary(root);
-
-        return result;    
+        //4. Right Boundary
+        addRightBoundary(root);
+        
+        return result;
     }
 
     private boolean isLeaf(TreeNode root) {
-        return root.left == null && root.right == null;
+        return root != null && root.left == null && root.right == null;
     }
 
-    private void leftBoundary(TreeNode root) {
+    private void addLeftBoundary(TreeNode root) {
         TreeNode curr = root.left;
         while(curr != null) {
             if(!isLeaf(curr)) result.add(curr.val);
@@ -51,9 +49,9 @@ class Solution {
         }
     }
 
-    private void rightBoundary(TreeNode root) {
-        TreeNode curr = root.right;
+    private void addRightBoundary(TreeNode root) {
         Deque<Integer> stack = new ArrayDeque<>();
+        TreeNode curr = root.right;
         while(curr != null) {
             if(!isLeaf(curr)) stack.addFirst(curr.val);
             curr = curr.right != null ? curr.right : curr.left;
