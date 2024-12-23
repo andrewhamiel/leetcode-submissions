@@ -2,21 +2,21 @@ class Solution {
     private static final int MOD = 1_000_000_007;
 
     public int numSubseq(int[] nums, int target) {
-        Arrays.sort(nums); //log(n) space
-
+        Arrays.sort(nums);
+        
         int result = 0, left = 0, right = nums.length - 1;
-        while (left <= right) {
-            if (nums[left] + nums[right] > target) right--;
+        while(left <= right) {
+            if(nums[left] + nums[right] > target) right--;
             else {
-                result = (int)(result + quickPow(2, right - left)) % MOD;
+                result = (int)(result + binaryExp(2, right - left)) % MOD;
                 left++;
             }
-        }
+        }    
         return result;
     }
 
-    private long quickPow(long x, int n){
-        if (n == 0) return 1;
+    private long binaryExp(long x, int n) {
+        if(n == 0) return 1;
 
         long result = 1;
         while(n != 0) {
