@@ -10,13 +10,11 @@ class Solution {
     }
 
     private int dfs(int child, int parent, List<Boolean> hasApple, Map<Integer, List<Integer>> adj) {
-        if(!adj.containsKey(child)) return 0;
-
         int totalTime = 0;
-        for(int nextNode : adj.get(child)) {
+        for(int nextNode : adj.getOrDefault(child, new ArrayList<>())) {
             if(nextNode == parent) continue;
             int childTime = dfs(nextNode, child, hasApple, adj);
-            if(childTime > 0 || hasApple.get(nextNode)) totalTime+= 2 + childTime; //Going to/from nodes takes 2 units of time
+            if(childTime > 0 || hasApple.get(nextNode)) totalTime+= 2 + childTime; //Traveling to/from node takes 2 units of time
         }
         return totalTime;
     }
