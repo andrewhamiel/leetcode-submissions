@@ -16,22 +16,22 @@ class Solution {
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{i, j});
 
-        int minDistance = Integer.MAX_VALUE, steps = 1;
+        int steps = 1, minDistance = Integer.MAX_VALUE;
         while(!q.isEmpty()) {
             int size = q.size();
             while(size-- > 0) {
-                int[] curr = q.poll();
-                int row = curr[0], col = curr[1];
+                int[] cell = q.poll();
+                int row = cell[0], col = cell[1];
 
                 for(int[] dir : dirs) {
                     int newRow = row + dir[0], newCol = col + dir[1];
-                    if(newRow >= 0 && newRow < grid.length && newCol >= 0 && newCol < grid[0].length 
+                    if(newRow >= 0 && newRow < grid.length && newCol >= 0 && newCol < grid[0].length
                         && grid[newRow][newCol] == emptyLandValue) {
                             grid[newRow][newCol]--;
                             totalSteps[newRow][newCol]+= steps;
-                            q.add(new int[]{newRow, newCol});
                             minDistance = Math.min(minDistance, totalSteps[newRow][newCol]);
-                    }
+                            q.add(new int[]{newRow, newCol});
+                        }
                 }
             }
             steps++;
