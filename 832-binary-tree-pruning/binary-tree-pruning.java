@@ -18,12 +18,11 @@ class Solution {
         //Base case
         if(root == null) return root;
 
-        //Children
+        //Children 
         if(root.left != null) root.left = pruneTree(root.left);
         if(root.right != null) root.right = pruneTree(root.right);
 
-        //Postorder -> evaluate root
-        if(root.left == null && root.right == null && root.val != 1) return null;
-        return root;
+        //Postorder -> Evaluate root
+        return root.left == null && root.right == null && root.val != 1 ? null : root;
     }
 }
