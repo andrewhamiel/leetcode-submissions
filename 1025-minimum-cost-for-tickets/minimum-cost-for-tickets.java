@@ -7,19 +7,19 @@ class Solution {
 
         Arrays.fill(dp, -1);
         for(int day : days) isTravelNeeded.add(day);
-        return solve(days, costs, dp, 1);    
+        return solve(costs, dp, 1);    
     }
 
-    private int solve(int[] days, int[] costs, int[] dp, int day) {
+    private int solve(int[] costs, int[] dp, int day) {
         if(day >= dp.length) return 0;
 
         if(dp[day] != -1) return dp[day];
 
-        if(!isTravelNeeded.contains(day)) return solve(days, costs, dp, day + 1);
+        if(!isTravelNeeded.contains(day)) return solve(costs, dp, day + 1);
 
-        int oneDay = costs[0] + solve(days, costs, dp, day + 1);
-        int sevenDay = costs[1] + solve(days, costs, dp, day + 7);
-        int thirtyDay = costs[2] + solve(days, costs, dp, day + 30);
+        int oneDay = costs[0] + solve(costs, dp, day + 1);
+        int sevenDay = costs[1] + solve(costs, dp, day + 7);
+        int thirtyDay = costs[2] + solve(costs, dp, day + 30);
 
         return dp[day] = Math.min(oneDay, Math.min(sevenDay, thirtyDay));
     }
