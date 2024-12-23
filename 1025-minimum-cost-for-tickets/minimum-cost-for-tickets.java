@@ -7,11 +7,11 @@ class Solution {
 
         Arrays.fill(dp, -1);
         for(int day : days) isTravelNeeded.add(day);
-        return solve(days, costs, dp, 1);
+        return solve(days, costs, dp, 1);    
     }
 
     private int solve(int[] days, int[] costs, int[] dp, int day) {
-        if(day > days[days.length - 1]) return 0;
+        if(day >= dp.length) return 0;
 
         if(dp[day] != -1) return dp[day];
 
