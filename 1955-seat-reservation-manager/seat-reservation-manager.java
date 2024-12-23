@@ -9,9 +9,9 @@ class SeatManager {
     public int reserve() {
         if(!availableSeats.isEmpty()) return availableSeats.removeFirst();
 
-        int seatReserved = currSeat;
+        int reservedSeat = currSeat;
         currSeat++;
-        return seatReserved;
+        return reservedSeat;
     }
     
     public void unreserve(int seatNumber) {
