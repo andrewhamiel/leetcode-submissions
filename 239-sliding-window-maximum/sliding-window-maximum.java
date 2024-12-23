@@ -19,9 +19,9 @@ class Solution {
     }
 
     private void cleanDeque(int i, int k, int[] nums, Deque<Integer> deq) {
-        //If window size is too large 
+        //If window size is too large
         if(!deq.isEmpty() && deq.peekFirst() == i - k) deq.removeFirst();
-        //Removing from deq < curr
+        //Removing numbers from deq < curr
         while(!deq.isEmpty() && nums[i] > nums[deq.peekLast()]) deq.removeLast();
     }
 }
