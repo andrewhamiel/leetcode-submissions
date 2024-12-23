@@ -1,33 +1,20 @@
-public class Solution {
-
+class Solution {
     public boolean canChange(String start, String target) {
-        int startLength = start.length();
-        // Pointers for start string and target string
-        int startIndex = 0, targetIndex = 0;
+        int startInd = 0, targetInd = 0;
+        while(startInd < start.length() || targetInd < target.length()) {
+            //Advance past underscores
+            while(startInd < start.length() && start.charAt(startInd) == '_') startInd++;
+            while(targetInd < target.length() && target.charAt(targetInd) == '_') targetInd++;
 
-        while (startIndex < startLength || targetIndex < startLength) {
-            // Skip underscores in start
-            while (startIndex < startLength && start.charAt(startIndex) == '_') {
-                startIndex++;
-            }
-            // Skip underscores in target
-            while (targetIndex < startLength && target.charAt(targetIndex) == '_') {
-                targetIndex++;
-            }
+            //Exit conditions
+            if(startInd == start.length() || targetInd == target.length()) return startInd == start.length() && targetInd == target.length();
+            if(start.charAt(startInd) != target.charAt(targetInd) 
+                || (start.charAt(startInd) == 'L' && startInd < targetInd)
+                || (start.charAt(startInd) == 'R' && startInd > targetInd)) return false;
 
-            // If one string is exhausted, both should be exhausted
-            if (startIndex == startLength || targetIndex == startLength) {
-                return startIndex == startLength && targetIndex == startLength;
-            }
-            // Check if the pieces match and follow movement rules
-            if (start.charAt(startIndex) != target.charAt(targetIndex) 
-            || (start.charAt(startIndex) == 'L' && startIndex < targetIndex) 
-            || (start.charAt(startIndex) == 'R' && startIndex > targetIndex)) return false;
-
-            startIndex++;
-            targetIndex++;
+            startInd++;
+            targetInd++;
         }
-
         return true;
     }
 }
