@@ -15,26 +15,26 @@
  */
 class Solution {
     private Map<Long, Integer> map = new HashMap<>();
-    private int count = 0, k = 0;
+    private int k = 0, count = 0;
 
     public int pathSum(TreeNode root, int targetSum) {
         k = targetSum;
-        preorder(root, 0);
-        return count;    
+        preorder(root, 0);    
+        return count;
     }
 
-    private void preorder(TreeNode root, long sum) {
+    private void preorder(TreeNode root, long currSum) {
         if(root == null) return;
 
-        sum+= root.val;
-        if(sum == k) count++;
-        count+= map.getOrDefault(sum - k, 0);
-        
-        map.put(sum, map.getOrDefault(sum, 0) + 1);
+        currSum+= root.val;
+        if(currSum == k) count++;
+        count+= map.getOrDefault(currSum - k, 0);
 
-        preorder(root.left, sum);
-        preorder(root.right, sum);
+        map.put(currSum, map.getOrDefault(currSum, 0) + 1);
 
-        map.put(sum, map.getOrDefault(sum, 0) - 1);
+        preorder(root.left, currSum);
+        preorder(root.right, currSum);
+
+        map.put(currSum, map.getOrDefault(currSum, 0) - 1);
     }
 }
