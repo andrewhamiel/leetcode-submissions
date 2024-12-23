@@ -1,32 +1,43 @@
 class Solution {
     private int[][] dirs = new int[][]{{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
-    private Map<String, Integer> visited = new HashMap<>();
+    private String target = "123450";
 
     public int slidingPuzzle(int[][] board) {
-        StringBuilder currState = new StringBuilder();
+        StringBuilder startState = new StringBuilder();
         int zeroInd = 0;
         for(int row = 0; row < board.length; row++) {
             for(int col = 0; col < board[0].length; col++) {
-                currState.append(board[row][col]);
+                startState.append(board[row][col]);
                 if(board[row][col] == 0) zeroInd = 3 * row + col;
             }
         }    
 
-        dfs(currState.toString(), board, zeroInd, 0);
+        Queue<Pair<String, Integer>> q = new LinkedList<>();
+        q.add(new Pair<>(startState.toString(), zeroInd));
+        Set<String> visited = new HashSet<>();
 
-        return visited.getOrDefault("123450", -1);
-    }
+        int moves = 0;
+        while(!q.isEmpty()) {
+            int size = q.size();
+            while(size-- > 0) {
+                Pair<String, Integer> p = q.poll();
+                String currState = p.getKey();
+                zeroInd = p.getValue();
+                if(currState.equals(target)) return moves;
 
-    private void dfs(String currState, int[][] board, int zeroInd, int moves) {
-        if(visited.containsKey(currState) && visited.get(currState) <= moves) return;
-
-        visited.put(currState, moves);
-
-        for(int nextInd : dirs[zeroInd]) {
-            char[] arr = currState.toCharArray();
-            swap(zeroInd, nextInd, arr);
-            dfs(new String(arr), board, nextInd, moves + 1);
+                for(int nextInd : dirs[zeroInd]) {
+                    char[] arr = currState.toCharArray();
+                    swap(zeroInd, nextInd, arr);
+                    String nextState = new String(arr);
+                    if(!visited.contains(nextState)) {
+                        visited.add(nextState);
+                        q.add(new Pair<>(nextState, nextInd));
+                    }
+                }
+            }
+            moves++;
         }
+        return -1;
     }
 
     private void swap(int i, int j, char[] arr) {
