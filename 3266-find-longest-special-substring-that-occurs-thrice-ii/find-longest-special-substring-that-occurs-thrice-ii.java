@@ -8,25 +8,28 @@ class Solution {
         for(char c : s.toCharArray()) {
             if(c == prev) substrLength++;
             else {
-                prev = c;
                 substrLength = 1;
+                prev = c;
             }
 
             int ind = c - 'a';
-            int minLength = Math.min(substrLengths[ind][0], Math.min(substrLengths[ind][1], substrLengths[ind][2]));
+            int minLength = substrLengths[ind][0];
+            for(int j = 1; j < substrLengths[ind].length; j++) minLength = Math.min(minLength, substrLengths[ind][j]);
 
             if(substrLength > minLength) {
-                if(substrLengths[ind][0] == minLength) substrLengths[ind][0] = substrLength;
-                else if(substrLengths[ind][1] == minLength) substrLengths[ind][1] = substrLength;
-                else substrLengths[ind][2] = substrLength;
+                for(int j = 0; j < substrLengths[ind].length; j++) {
+                    if(substrLengths[ind][j] == minLength) {
+                        substrLengths[ind][j] = substrLength;
+                        break;
+                    }
+                }
             }
         }
 
-        //Find longest special substring for each character
-        for(int i = 0; i < substrLengths.length; i++) {
-            int minLength = Integer.MAX_VALUE;
-            for(int j = 0; j < substrLengths[i].length; j++) minLength = Math.min(minLength, substrLengths[i][j]);
-            result = Math.max(result, minLength);
+        for(int[] substr : substrLengths) {
+            int minLength = substr[0];
+            for(int j = 0; j < substr.length; j++) minLength = Math.min(minLength, substr[j]);
+            result = Math.max(result, minLength); 
         }
         return result;
     }
