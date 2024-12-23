@@ -15,7 +15,8 @@ class Solution {
         //3. PrefixXOR
         int prefixXOR = 0, longest = 0;
         for(int i = 0; i < s.length(); i++) {
-            prefixXOR^= characterMap[s.charAt(i) - 'a'];
+            char c = s.charAt(i);
+            prefixXOR^= characterMap[c - 'a'];
             if(firstSeen[prefixXOR] == -1 && prefixXOR != 0) firstSeen[prefixXOR] = i;
             longest = Math.max(longest, i - firstSeen[prefixXOR]);
         }
