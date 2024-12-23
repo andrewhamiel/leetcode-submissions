@@ -16,8 +16,8 @@ class Solution {
         for(int nextNode : adj.get(child)) {
             if(nextNode == parent) continue;
             int childTime = dfs(nextNode, child, hasApple, adj);
-            if(childTime > 0 || hasApple.get(nextNode)) totalTime+= 2 + childTime; //Visiting and returning takes 2 units of time
+            if(childTime > 0 || hasApple.get(nextNode)) totalTime+= 2 + childTime; //Going to/from nodes takes 2 units of time
         }
         return totalTime;
-    } 
+    }
 }
