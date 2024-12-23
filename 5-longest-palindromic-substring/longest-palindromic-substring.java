@@ -1,6 +1,6 @@
 class Solution {
     public String longestPalindrome(String s) {
-        int leftInd = 0, rightInd = 0, longest = 0;
+        int longest = 0, leftInd = 0, rightInd = 0;
         for(int i = 0; i < s.length(); i++) {
             int oddLength = middleOut(i, i, s);
             int evenLength = middleOut(i, i + 1, s);
