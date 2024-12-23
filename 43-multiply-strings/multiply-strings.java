@@ -2,31 +2,31 @@ class Solution {
     public String multiply(String num1, String num2) {
         if(num1.equals("0") || num2.equals("0")) return "0";
 
-        StringBuilder firstNumber = new StringBuilder(num1), secondNumber = new StringBuilder(num2);
+        StringBuilder firstNum = new StringBuilder(num1), secondNum = new StringBuilder(num2);
 
         //Reverse strings
-        firstNumber.reverse();
-        secondNumber.reverse();
+        firstNum.reverse();
+        secondNum.reverse();
 
-        //Initialize result with all 0 digits
+        //Initialize result with all 0 digits to start
         StringBuilder result = new StringBuilder();
-        for(int i = 0; i < firstNumber.length() + secondNumber.length(); i++) result.append('0');
+        for(int i = 0; i < firstNum.length() + secondNum.length(); i++) result.append("0");
 
-        for(int place2 = 0; place2 < secondNumber.length(); place2++) {
-            int digit2 = secondNumber.charAt(place2) - '0';
-
-            for(int place1 = 0; place1 < firstNumber.length(); place1++) {
-                int digit1 = firstNumber.charAt(place1) - '0';
+        for(int place2 = 0; place2 < secondNum.length(); place2++) {
+            int secondDigit = secondNum.charAt(place2) - '0';
+            
+            for(int place1 = 0; place1 < firstNum.length(); place1++) {
+                int firstDigit = firstNum.charAt(place1) - '0';
 
                 int currPos = place1 + place2;
                 int carry = result.charAt(currPos) - '0';
-                int product = digit1 * digit2 + carry;
-
+                int product = firstDigit * secondDigit + carry;
+                
                 //Set ones digit
-                result.setCharAt(currPos, (char)(product % 10 + '0'));
+                result.setCharAt(currPos, (char)((product % 10) + '0'));
                 //Set tens digit
                 carry = (result.charAt(currPos + 1) - '0') + product/10;
-                result.setCharAt(currPos + 1, (char)(carry + '0'));
+                result.setCharAt(currPos + 1, (char) (carry + '0'));
             }
         }
 
