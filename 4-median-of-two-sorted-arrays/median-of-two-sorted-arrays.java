@@ -14,7 +14,7 @@ class Solution {
             int minRightB = partitionB == nums2.length ? Integer.MAX_VALUE : nums2[partitionB];
 
             if(maxLeftA <= minRightB && maxLeftB <= minRightA) {
-                if((nums1.length + nums2.length) % 2 == 0) return (double) (Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB))/2;
+                if((nums1.length + nums2.length) % 2 == 0) return (double)(Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB))/2;
                 else return (double) (Math.max(maxLeftA, maxLeftB));
             }else if(maxLeftA > minRightB) right = partitionA - 1;
             else left = partitionA + 1;
