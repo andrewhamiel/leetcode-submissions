@@ -14,14 +14,16 @@ class Solution {
     }
 
     private int dfs(String target, int[] currSticker) {
-        if(memo.containsKey(target)) return memo.get(target);
         StringBuilder remaining = new StringBuilder();
         int minStickers = 0;
+
+        if(memo.containsKey(target)) return memo.get(target);
+
         if(currSticker != null) {
             for(char c : target.toCharArray()) {
                 if(currSticker[c - 'a'] > 0) {
-                    currSticker[c - 'a']--;
                     minStickers = 1;
+                    currSticker[c - 'a']--;
                 }else remaining.append(c);
             }
         }else remaining = new StringBuilder(target);
