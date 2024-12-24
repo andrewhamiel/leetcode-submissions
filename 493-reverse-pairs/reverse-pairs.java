@@ -18,7 +18,7 @@ class Solution {
         int mid = start + (end - start)/2, count = 0, right = mid + 1;
         for(int left = start; left <= mid; left++) {
             while(right <= end && nums[left] > 2 * (long) nums[right]) right++;
-            //right is first element that does not satisfy condition of reverse pairs which is why you need to subtract 1
+            //right is now at first index where reverse pair condition does not hold true which is why we must subtract 1
             count+= right - mid - 1;
         }
         return count;
