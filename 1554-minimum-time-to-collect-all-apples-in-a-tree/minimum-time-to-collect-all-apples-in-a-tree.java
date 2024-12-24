@@ -14,7 +14,7 @@ class Solution {
         for(int nextNode : adj.getOrDefault(child, new ArrayList<>())) {
             if(nextNode == parent) continue;
             int childTime = dfs(nextNode, child, hasApple, adj);
-            if(childTime > 0 || hasApple.get(nextNode)) totalTime+= 2 + childTime; //Traveling to/from node takes 2 units of time
+            if(childTime > 0 || hasApple.get(nextNode)) totalTime+= childTime + 2; //Traveling to/from node takes 2 units of time
         }
         return totalTime;
     }
