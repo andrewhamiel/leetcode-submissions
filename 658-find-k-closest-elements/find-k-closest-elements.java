@@ -8,7 +8,7 @@ class Solution {
         }
 
         List<Integer> result = new ArrayList<>();
-        for(int i = left ; i < left + k; i++) result.add(arr[i]);
+        for(int i = left; i < left + k; i++) result.add(arr[i]);
         return result;
     }
 }
