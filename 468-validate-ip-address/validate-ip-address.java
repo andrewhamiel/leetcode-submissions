@@ -1,6 +1,6 @@
 class Solution {
     public String validIPAddress(String queryIP) {
-        //case 1: [[0-9]
+        //case 1: ([0-9]
         //case 2: |[1-9][0-9]
         //case 3: |1[0-9][0-9]
         //case 4: |2[0-4][0-9]
