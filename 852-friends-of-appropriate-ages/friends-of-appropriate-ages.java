@@ -3,7 +3,7 @@ class Solution {
         int[] freq = new int[121];
         for(int age : ages) freq[age]++;
 
-        for(int i = 1; i < 121; i++) freq[i]+= freq[i - 1];
+        for(int i = 1; i < freq.length; i++) freq[i]+= freq[i - 1];
 
         int friendRequests = 0;
         for(int age : ages) {
