@@ -30,9 +30,9 @@ class Solution {
     }
 
     class NodeValue {
-        int minVal;
-        int maxVal;
-        int maxSize;
+        int minVal = 0;
+        int maxVal = 0;
+        int maxSize = 0;
 
         public NodeValue(int minVal, int maxVal, int maxSize) {
             this.minVal = minVal;
