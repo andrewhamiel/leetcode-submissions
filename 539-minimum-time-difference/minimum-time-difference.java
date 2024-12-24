@@ -1,26 +1,32 @@
 class Solution {
     public int findMinDifference(List<String> timePoints) {
-        List<Integer> minutes = new ArrayList<>();
+        boolean[] minutes = new boolean[24 * 60];
+        int minMins = Integer.MAX_VALUE;
         for(String time : timePoints) {
             int mins = calculateMins(time);
-            minutes.add(mins);
+            if(minutes[mins]) return 0;
+            minutes[mins] = true;
+            minMins = Math.min(minMins, mins);
         }
 
-        Collections.sort(minutes);
-
-        int minDifference = Integer.MAX_VALUE;
-        for(int i = 1; i < minutes.size(); i++) {
-            minDifference = Math.min(minDifference, minutes.get(i) - minutes.get(i - 1));
+        int left = minMins, right = left + 1, maxMins = left, minDifference = Integer.MAX_VALUE;
+        while(right < minutes.length) {
+            if(minutes[right]) {
+                minDifference = Math.min(minDifference, right - left);
+                maxMins = right;
+                left = right;
+            }
+            right++;
         }
-        //Compare first and last minutes
-        int minutesFromMidnight = calculateMins("24:00") - minutes.get(minutes.size() - 1);
-        minDifference = Math.min(minDifference, minutesFromMidnight + minutes.get(0));
 
+        //Calculate between first and last element 
+        int minsFromMidnight = calculateMins("24:00") - maxMins;
+        minDifference = Math.min(minDifference, minsFromMidnight + minMins);
         return minDifference;
     }
 
     private int calculateMins(String time) {
         String[] split = time.split(":");
-        return Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]);
+        return 60 * Integer.parseInt(split[0]) + Integer.parseInt(split[1]);
     }
 }
