@@ -8,14 +8,15 @@ class Solution {
             if(missingNums(mid, arr) < k) left = mid + 1;
             else right = mid - 1;
         }
-        //arr[right] + k - missingNums(right, arr)
-        //arr[right] + k - arr[right] + right + 1
+
+        //nums[right] + k - missingNums(right, arr)
+        //nums[right] + k - nums[right] + right + 1
         //k + right + 1
         //k + left
         return k + left;
     }
 
     private int missingNums(int ind, int[] nums) {
-        return nums[ind] - ind - 1;
+        return nums[ind] - ind - 1; //1 is first num
     }
 }
