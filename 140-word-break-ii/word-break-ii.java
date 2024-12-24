@@ -13,7 +13,7 @@ class Solution {
                 curr = curr.children.get(c);
             }
             curr.isWord = true;
-        }
+        }    
 
         //2. Top-Down DP
         dp(0, new StringBuilder());
@@ -21,7 +21,7 @@ class Solution {
     }
 
     private void dp(int ind, StringBuilder sb) {
-        if(ind >= s.length() && !sb.isEmpty()) {
+        if(ind == s.length()) {
             result.add(sb.toString());
             return;
         }
@@ -33,13 +33,14 @@ class Solution {
 
             sb.append(c);
             curr = curr.children.get(c);
+
             if(curr.isWord) {
                 //2 options: use or do not use 
-                //1. Use
+                //1. Use 
                 StringBuilder using = new StringBuilder(sb);
                 if(i != s.length() - 1) using.append(" "); //If not at end of string 
                 dp(i + 1, using);
-                //2. Do not use: just continue
+                //2. Do not use. Just continue
             }
         }
     }
