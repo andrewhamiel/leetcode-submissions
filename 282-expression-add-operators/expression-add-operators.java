@@ -6,9 +6,8 @@ class Solution {
     public List<String> addOperators(String num, int target) {
         this.num = num;
         this.target = target;
-
         backtrack(0, 0, 0, 0, new ArrayList<>());
-        return result;
+        return result;    
     }
 
     private void backtrack(int ind, long value, long prev, long curr, List<String> expr) {
@@ -34,12 +33,13 @@ class Solution {
         backtrack(ind + 1, value + curr, curr, 0, expr);
         expr.subList(expr.size() - 2, expr.size()).clear();
 
-        //If expr not empty
+        //If numbers present in expression
         if(!expr.isEmpty()) {
             //5. Subtraction
             expr.addAll(Arrays.asList("-", String.valueOf(curr)));
             backtrack(ind + 1, value - curr, -curr, 0, expr);
             expr.subList(expr.size() - 2, expr.size()).clear();
+
             //6. Multiplication
             expr.addAll(Arrays.asList("*", String.valueOf(curr)));
             backtrack(ind + 1, value - prev + (prev * curr), prev * curr, 0, expr);
