@@ -12,7 +12,7 @@ class Solution {
     }
 
     private int solve(int day, int[] dp, int[] costs) {
-        //1. Base case
+        //1. Base case 
         if(day >= dp.length) return 0;
 
         //2. Memoization
