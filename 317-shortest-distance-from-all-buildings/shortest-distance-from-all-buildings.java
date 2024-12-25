@@ -8,7 +8,7 @@ class Solution {
             for(int col = 0; col < grid[0].length; col++) {
                 if(grid[row][col] == 1) minDistance = bfs(row, col, grid, totalSteps, emptyLandValue--);
             }
-        }
+        }    
         return minDistance == Integer.MAX_VALUE ? -1 : minDistance;
     }
 
@@ -16,13 +16,13 @@ class Solution {
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{i, j});
 
-        int steps = 1, minDistance = Integer.MAX_VALUE;
+        int minDistance = Integer.MAX_VALUE, steps = 1;
+
         while(!q.isEmpty()) {
             int size = q.size();
             while(size-- > 0) {
                 int[] cell = q.poll();
                 int row = cell[0], col = cell[1];
-
                 for(int[] dir : dirs) {
                     int newRow = row + dir[0], newCol = col + dir[1];
                     if(newRow >= 0 && newRow < grid.length && newCol >= 0 && newCol < grid[0].length
