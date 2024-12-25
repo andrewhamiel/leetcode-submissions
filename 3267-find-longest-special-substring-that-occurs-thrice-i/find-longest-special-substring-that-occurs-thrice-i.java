@@ -1,33 +1,34 @@
 class Solution {
-
     public int maximumLength(String s) {
-        // Create a map to store the count of all substrings
-        Map<Pair<Character, Integer>, Integer> count = new HashMap<>();
-        int substringLength = 0;
+        int[][] substrLengths = new int[26][3];
+        for(int[] row : substrLengths) Arrays.fill(row, -1);
 
-        for (int start = 0; start < s.length(); start++) {
-            char character = s.charAt(start);
-            substringLength = 0;
+        int currLength = 0, longest = -1;
+        char prev = '\0';
 
-            for (int end = start; end < s.length(); end++) {
-                // If the current character matches the initial character, increment the count
-                if (character == s.charAt(end)) {
-                    substringLength++;
-                    Pair<Character, Integer> key = new Pair<>(character, substringLength);
-                    count.put(key, count.getOrDefault(key, 0) + 1);
-                } else break;
+        for(char c : s.toCharArray()) {
+            if(c == prev) currLength++;
+            else {
+                prev = c;
+                currLength = 1;
+            }
+
+            int minLength = findMin((int)(c - 'a'), substrLengths);
+            if(currLength > minLength) {
+                if(substrLengths[c - 'a'][0] == minLength) substrLengths[c - 'a'][0] = currLength;
+                else if(substrLengths[c - 'a'][1] == minLength) substrLengths[c - 'a'][1] = currLength;
+                else substrLengths[c - 'a'][2] = currLength;
             }
         }
 
-        // Variable to store the longest substring length with frequency at least 3
-        int ans = 0;
-        for (Pair<Character, Integer> p : count.keySet()) {
-            int length = p.getValue();
-            if (count.get(p) >= 3 && length > ans) {
-                ans = length;
-            }
+        for(int ind = 0; ind < substrLengths.length; ind++) {
+            int minLength = findMin(ind, substrLengths);
+            longest = Math.max(longest, minLength);
         }
+        return longest;
+    }
 
-        return ans == 0 ? -1 : ans;
+    private int findMin(int ind, int[][] substrLengths) {
+        return Math.min(substrLengths[ind][0], Math.min(substrLengths[ind][1], substrLengths[ind][2]));
     }
 }
