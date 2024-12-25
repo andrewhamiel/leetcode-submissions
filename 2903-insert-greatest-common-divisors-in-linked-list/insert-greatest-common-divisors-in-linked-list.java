@@ -25,6 +25,7 @@ class Solution {
     }
 
     private int calculateGcd(int a, int b) {
+        //euclidian algorithm
         while(b != 0) {
             int tmp = b;
             b = a % b;
