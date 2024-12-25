@@ -3,12 +3,12 @@ class Solution {
 
     public int numSubseq(int[] nums, int target) {
         Arrays.sort(nums);
-        
-        int result = 0, left = 0, right = nums.length - 1;
+
+        int left = 0, right = nums.length - 1, result = 0;
         while(left <= right) {
             if(nums[left] + nums[right] > target) right--;
             else {
-                result = (int)(result + binaryExp(2, right - left)) % MOD;
+                result = (int) (result + binaryExp(2, right - left)) % MOD;
                 left++;
             }
         }    
