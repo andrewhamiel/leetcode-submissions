@@ -6,12 +6,13 @@ class Solution {
     public List<String> addOperators(String num, int target) {
         this.num = num;
         this.target = target;
+
         backtrack(0, 0, 0, 0, new ArrayList<>());
-        return result;    
+        return result;
     }
 
     private void backtrack(int ind, long value, long prev, long curr, List<String> expr) {
-        //1. Base case/exit condition
+        //1. Exit condition
         if(ind == num.length()) {
             if(value == target && curr == 0) {
                 StringBuilder sb = new StringBuilder();
@@ -21,11 +22,11 @@ class Solution {
             return;
         }
 
-        //2. Fix curr num, shift base 10 
+        //2. Fix curr, shift base 10
         curr*= 10;
         curr+= num.charAt(ind) - '0';
 
-        //3. No op if curr != 0 to avoid leading zeroes
+        //3. If curr != 0, no op
         if(curr != 0) backtrack(ind + 1, value, prev, curr, expr);
 
         //4. Addition
@@ -33,14 +34,13 @@ class Solution {
         backtrack(ind + 1, value + curr, curr, 0, expr);
         expr.subList(expr.size() - 2, expr.size()).clear();
 
-        //Only perform ops if expr not empty
-        if(expr.size() > 0) {
+        //If expr not empty
+        if(!expr.isEmpty()) {
             //5. Subtraction
             expr.addAll(Arrays.asList("-", String.valueOf(curr)));
             backtrack(ind + 1, value - curr, -curr, 0, expr);
             expr.subList(expr.size() - 2, expr.size()).clear();
-
-            //6. Multiplication 
+            //6. Multiplication
             expr.addAll(Arrays.asList("*", String.valueOf(curr)));
             backtrack(ind + 1, value - prev + (prev * curr), prev * curr, 0, expr);
             expr.subList(expr.size() - 2, expr.size()).clear();
