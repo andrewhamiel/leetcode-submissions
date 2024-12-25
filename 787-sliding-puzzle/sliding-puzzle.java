@@ -1,46 +1,45 @@
 class Solution {
     private int[][] dirs = new int[][]{{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
-    private String target = "123450";
+    private static final String TARGET = "123450";
 
     public int slidingPuzzle(int[][] board) {
         StringBuilder startState = new StringBuilder();
-        int startInd = 0;
+        int firstZero = 0;
         for(int row = 0; row < board.length; row++) {
             for(int col = 0; col < board[0].length; col++) {
                 startState.append(board[row][col]);
-                if(board[row][col] == 0) startInd = 3 * row + col;
+                if(board[row][col] == 0) firstZero = 3 * row + col;
             }
-        }    
-
+        }
         Queue<Pair<String, Integer>> q = new LinkedList<>();
-        q.add(new Pair<>(startState.toString(), startInd));
+        q.add(new Pair<>(startState.toString(), firstZero));
         Set<String> visited = new HashSet<>();
         visited.add(startState.toString());
 
         int moves = 0;
-        
+
         while(!q.isEmpty()) {
             int size = q.size();
             while(size-- > 0) {
                 Pair<String, Integer> p = q.poll();
                 String currState = p.getKey();
                 int zeroInd = p.getValue();
+                if(currState.equals(TARGET)) return moves;
 
-                if(currState.equals(target)) return moves;
-
-                for(int nextInd : dirs[zeroInd]) {
+                for(int nextZero : dirs[zeroInd]) {
                     char[] arr = currState.toCharArray();
-                    swap(zeroInd, nextInd, arr);
-                    String nextState = new String(arr);
-                    if(!visited.contains(nextState)) {
-                        visited.add(nextState);
-                        q.add(new Pair<>(nextState, nextInd));
+                    swap(zeroInd, nextZero, arr);
+                    String nextStr = new String(arr);
+                    if(!visited.contains(nextStr)) {
+                        visited.add(nextStr);
+                        q.add(new Pair<>(nextStr, nextZero));
                     }
                 }
             }
             moves++;
         }
         return -1;
+
     }
 
     private void swap(int i, int j, char[] arr) {
