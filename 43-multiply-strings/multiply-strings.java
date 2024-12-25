@@ -8,7 +8,6 @@ class Solution {
         firstNum.reverse();
         secondNum.reverse();
 
-        //Initialize result to all digits as '0'
         StringBuilder result = new StringBuilder();
         for(int i = 0; i < firstNum.length() + secondNum.length(); i++) result.append('0');
 
@@ -20,15 +19,16 @@ class Solution {
                 int currPos = place1 + place2;
                 int carry = result.charAt(currPos) - '0';
                 int product = firstDigit * secondDigit + carry;
+
                 //Set ones digit
                 result.setCharAt(currPos, (char) ((product % 10) + '0'));
                 //Set tens digit
                 carry = result.charAt(currPos + 1) - '0';
-                result.setCharAt(currPos + 1, (char) ((product/10) + carry + '0'));
+                result.setCharAt(currPos + 1, (char) ((product / 10) + carry + '0'));
             }
         }
 
-        //Remove potential last zero digit
+        //Remove leading zero if present
         if(result.charAt(result.length() - 1) == '0') result.deleteCharAt(result.length() - 1);
 
         result.reverse();
