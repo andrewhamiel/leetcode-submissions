@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    private List<Integer> result = new ArrayList<>();
+    List<Integer> result = new ArrayList<>();
 
     public List<Integer> boundaryOfBinaryTree(TreeNode root) {
         //1. Root
@@ -23,9 +23,9 @@ class Solution {
         addLeftBoundary(root);
         //3. Leaves
         addLeaves(root);
-        //4. Right Boundary
+        //4. Reverse right boundary
         addRightBoundary(root);
-        
+
         return result;
     }
 
