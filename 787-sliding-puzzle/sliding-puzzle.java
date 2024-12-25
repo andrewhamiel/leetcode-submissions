@@ -3,7 +3,8 @@ class Solution {
     private static final String TARGET = "123450";
 
     public int slidingPuzzle(int[][] board) {
-        StringBuilder startState = new StringBuilder();
+        //Find start state
+        StringBuilder startState = new StringBuilder();    
         int firstZero = 0;
         for(int row = 0; row < board.length; row++) {
             for(int col = 0; col < board[0].length; col++) {
@@ -11,6 +12,7 @@ class Solution {
                 if(board[row][col] == 0) firstZero = 3 * row + col;
             }
         }
+
         Queue<Pair<String, Integer>> q = new LinkedList<>();
         q.add(new Pair<>(startState.toString(), firstZero));
         Set<String> visited = new HashSet<>();
@@ -39,7 +41,6 @@ class Solution {
             moves++;
         }
         return -1;
-
     }
 
     private void swap(int i, int j, char[] arr) {
