@@ -1,6 +1,6 @@
 class Solution {
     public int longestSubarray(int[] nums) {
-        int longest = 0, currLength = 0, maxNum = 0;
+        int maxNum = 0, longest = 0, currLength = 0;
         for(int num : nums) {
             if(num > maxNum) {
                 maxNum = num;
