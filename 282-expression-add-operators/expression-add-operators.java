@@ -15,6 +15,7 @@ class Solution {
         if(ind == num.length()) {
             if(value == target && curr == 0) {
                 StringBuilder sb = new StringBuilder();
+                //Do not include first operator
                 for(int i = 1; i < expr.size(); i++) sb.append(expr.get(i));
                 result.add(sb.toString());
             }
