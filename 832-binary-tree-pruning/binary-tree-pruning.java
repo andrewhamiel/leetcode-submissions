@@ -15,14 +15,11 @@
  */
 class Solution {
     public TreeNode pruneTree(TreeNode root) {
-        //Base case
-        if(root == null) return root;
-
-        //Children 
+        if(root == null) return null;
+        //postorder traversal
         if(root.left != null) root.left = pruneTree(root.left);
         if(root.right != null) root.right = pruneTree(root.right);
 
-        //Postorder -> Evaluate root
-        return root.left == null && root.right == null && root.val != 1 ? null : root;
+        return root.left == null && root.right == null && root.val == 0 ? null : root;
     }
 }
