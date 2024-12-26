@@ -1,16 +1,16 @@
 class Solution {
     public int numFriendRequests(int[] ages) {
-        int[] freq = new int[121];
-        for(int age : ages) freq[age]++;
+        int[] freqs = new int[121];
+        for(int age : ages) freqs[age]++;
 
-        for(int i = 1; i < freq.length; i++) freq[i]+= freq[i - 1];
+        for(int i = 1; i < freqs.length; i++) freqs[i]+= freqs[i - 1];
 
-        int friendRequests = 0;
+        int totalFriendRequests = 0;
         for(int age : ages) {
-            int condition = age/2 + 7;
+            int condition = age / 2 + 7;
             if(condition >= age) continue;
-            friendRequests+= freq[age] - freq[condition] - 1;
+            totalFriendRequests+= freqs[age] - freqs[condition] - 1;
         }
-        return friendRequests;
+        return totalFriendRequests;
     }
 }
