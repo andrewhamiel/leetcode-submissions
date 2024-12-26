@@ -8,7 +8,7 @@ class Solution {
         while(left <= right) {
             if(nums[left] + nums[right] > target) right--;
             else {
-                result = (int) (result + binaryExp(2, right - left)) % MOD;
+                result = (result + (int) binaryExp(2, right - left)) % MOD;
                 left++;
             }
         }    
