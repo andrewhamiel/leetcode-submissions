@@ -2,7 +2,6 @@ class Solution {
     public int largestRectangleArea(int[] heights) {
         Deque<Integer> stack = new ArrayDeque<>();
         stack.addFirst(-1);
-
         int maxArea = 0;
         for(int i = 0; i < heights.length; i++) {
             while(stack.peekFirst() != -1 && heights[stack.peekFirst()] >= heights[i]) {
