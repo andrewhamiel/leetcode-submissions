@@ -10,7 +10,7 @@ class Solution {
         for(int age : ages) {
             int condition = age / 2 + 7;
             if(condition >= age) continue;
-            totalFriendRequests+= freqs[age] - freqs[condition] - 1; //Exclude person making request
+            totalFriendRequests+= freqs[age] - freqs[condition] - 1; //Exclude person requesting
         }
         return totalFriendRequests;
     }
