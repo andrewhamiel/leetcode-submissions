@@ -3,7 +3,6 @@ class Solution {
     private static final String TARGET = "123450";
 
     public int slidingPuzzle(int[][] board) {
-        //1. Find start state
         StringBuilder startState = new StringBuilder();
         int firstZero = 0;
         for(int row = 0; row < board.length; row++) {
@@ -11,9 +10,8 @@ class Solution {
                 startState.append(board[row][col]);
                 if(board[row][col] == 0) firstZero = 3 * row + col;
             }
-        }
+        }    
 
-        //2. BFS
         Queue<Pair<String, Integer>> q = new LinkedList<>();
         q.add(new Pair<>(startState.toString(), firstZero));
         Set<String> visited = new HashSet<>();
@@ -32,15 +30,15 @@ class Solution {
                 for(int nextZero : dirs[zeroInd]) {
                     char[] arr = currState.toCharArray();
                     swap(zeroInd, nextZero, arr);
-                    String nextStr = new String(arr);
-                    if(!visited.contains(nextStr)) {
-                        visited.add(nextStr);
-                        q.add(new Pair<>(nextStr, nextZero));
+                    String nextState = new String(arr);
+                    if(!visited.contains(nextState)) {
+                        visited.add(nextState);
+                        q.add(new Pair<>(nextState, nextZero));
                     }
                 }
             }
             moves++;
-        } 
+        }
         return -1;
     }
 
