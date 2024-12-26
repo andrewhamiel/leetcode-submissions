@@ -18,7 +18,7 @@ class Solution {
         int mid = start + (end - start)/2, count = 0, right = mid + 1;
         for(int left = start; left <= mid; left++) {
             while(right <= end && nums[left] > 2 * (long) nums[right]) right++;
-            //Right is now first index where condition does not hold true
+            //Right now at first index where condition does not hold true
             count+= right - mid - 1;
         }
         return count;
