@@ -16,10 +16,8 @@
 class Solution {
     public TreeNode pruneTree(TreeNode root) {
         if(root == null) return null;
-        //postorder traversal
-        if(root.left != null) root.left = pruneTree(root.left);
-        if(root.right != null) root.right = pruneTree(root.right);
-
+        root.left = pruneTree(root.left);
+        root.right = pruneTree(root.right);
         return root.left == null && root.right == null && root.val == 0 ? null : root;
     }
 }
