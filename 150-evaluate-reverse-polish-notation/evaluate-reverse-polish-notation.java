@@ -3,7 +3,7 @@ class Solution {
         Deque<Integer> stack = new ArrayDeque<>();
         for(String token : tokens) {
             char c = token.charAt(0);
-            //Handle negative numbers as well
+            //Handle digits and negative digits
             if(Character.isDigit(c) || token.length() > 1) stack.addFirst(Integer.parseInt(token));
             else {
                 int num2 = stack.removeFirst(), num1 = stack.removeFirst();
