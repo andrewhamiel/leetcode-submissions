@@ -6,11 +6,11 @@ class Solution {
             //Handle negative numbers as well
             if(Character.isDigit(c) || token.length() > 1) stack.addFirst(Integer.parseInt(token));
             else {
-                int num1 = stack.removeFirst(), num2 = stack.removeFirst();
-                if(token.equals("+")) stack.addFirst(num2 + num1);
-                else if(token.equals("-")) stack.addFirst(num2 - num1);
-                else if(token.equals("*")) stack.addFirst(num2 * num1);
-                else if(token.equals("/")) stack.addFirst(num2 / num1);
+                int num2 = stack.removeFirst(), num1 = stack.removeFirst();
+                if(c == '+') stack.addFirst(num1 + num2);
+                else if(c == '-') stack.addFirst(num1 - num2);
+                else if(c == '*') stack.addFirst(num1 * num2);
+                else if(c == '/') stack.addFirst(num1 / num2);
             }
         }
 
