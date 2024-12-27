@@ -4,7 +4,7 @@ class Solution {
         stack.addFirst(-1);
         int maxArea = 0;
         for(int i = 0; i < heights.length; i++) {
-            //Bar on top of stack can no longer form larger rectangle to the right
+            //block on top of stack can no longer form larger rectangle
             while(stack.peekFirst() != -1 && heights[stack.peekFirst()] >= heights[i]) {
                 int currHeight = heights[stack.removeFirst()], currWidth = i - stack.peekFirst() - 1;
                 maxArea = Math.max(maxArea, currWidth * currHeight);
