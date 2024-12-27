@@ -1,6 +1,6 @@
 class Solution {
     public int findPeakElement(int[] nums) {
-        int left = 0, right = nums.length - 1; //exclude from search space because comparing mid + 1
+        int left = 0, right = nums.length - 1; //Exclude from search space because comparing mid + 1
         //[left, right) variant
         while(left < right) {
             int mid = left + (right - left)/2;
