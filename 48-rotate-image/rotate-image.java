@@ -13,7 +13,7 @@ class Solution {
 
         //2. Reflect
         for(int row = 0; row < matrix.length; row++) {
-            int left = 0, right = matrix[0].length - 1;
+            int left = 0, right = matrix[row].length - 1;
             while(left < right) {
                 int tmp = matrix[row][left];
                 matrix[row][left++] = matrix[row][right];
