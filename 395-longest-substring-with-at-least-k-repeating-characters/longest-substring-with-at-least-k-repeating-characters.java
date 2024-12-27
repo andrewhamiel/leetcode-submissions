@@ -1,46 +1,40 @@
-public class Solution {
+class Solution {
     public int longestSubstring(String s, int k) {
         char[] arr = s.toCharArray();
         int[] freqs = new int[26];
-        int maxUnique = getMaxUniqueLetters(s);
-        int result = 0;
-        for (int currUnique = 1; currUnique <= maxUnique; currUnique++) {
-            // reset countMap
+        int maxUnique = getUniqueLetters(s), result = 0;
+
+        for(int currUnique = 1; currUnique <= maxUnique; currUnique++) {
+            //reset freqs 
             Arrays.fill(freqs, 0);
-            int windowStart = 0, windowEnd = 0, idx = 0, unique = 0, countAtLeastK = 0;
-            while (windowEnd < arr.length) {
-                // expand the sliding window
-                if (unique <= currUnique) {
-                    idx = arr[windowEnd] - 'a';
-                    if (freqs[idx] == 0) unique++;
-                    freqs[idx]++;
-                    if (freqs[idx] == k) countAtLeastK++;
-                    windowEnd++;
+            int left = 0, right = 0, ind = 0, unique = 0, countAtLeastK = 0;
+            while(right < arr.length) {
+                //Expand sliding window
+                if(unique <= currUnique) {
+                    char c = arr[right++];
+                    if(freqs[c - 'a'] == 0) unique++;
+                    freqs[c - 'a']++;
+                    if(freqs[c - 'a'] == k) countAtLeastK++; 
+                }else {
+                    //Shrink sliding window
+                    char c = arr[left++];
+                    if(freqs[c - 'a'] == k) countAtLeastK--;
+                    freqs[c - 'a']--;
+                    if(freqs[c - 'a'] == 0) unique--;
                 }
-                // shrink the sliding window
-                else {
-                    idx = arr[windowStart] - 'a';
-                    if (freqs[idx] == k) countAtLeastK--;
-                    freqs[idx]--;
-                    if (freqs[idx] == 0) unique--;
-                    windowStart++;
-                }
-                if (unique == currUnique && unique == countAtLeastK)
-                    result = Math.max(windowEnd - windowStart, result);
+                if(unique == currUnique && unique == countAtLeastK) result = Math.max(result, right - left);
             }
         }
-
         return result;
     }
 
-    // get the maximum number of unique letters in the string s
-    int getMaxUniqueLetters(String s) {
-        boolean seen[] = new boolean[26];
-        int maxUnique = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (!seen[s.charAt(i) - 'a'])  maxUnique++;
-            seen[s.charAt(i) - 'a'] = true;
+    private int getUniqueLetters(String s) {
+        int unique = 0;
+        boolean[] seen = new boolean[26];
+        for(char c : s.toCharArray()) {
+            if(!seen[c - 'a']) unique++;
+            seen[c - 'a'] = true;
         }
-        return maxUnique;
+        return unique;
     }
 }
