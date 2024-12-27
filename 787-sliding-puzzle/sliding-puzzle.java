@@ -25,6 +25,7 @@ class Solution {
                 Pair<String, Integer> p = q.poll();
                 String currState = p.getKey();
                 int zeroInd = p.getValue();
+
                 if(currState.equals(TARGET)) return moves;
 
                 for(int nextZero : dirs[zeroInd]) {
