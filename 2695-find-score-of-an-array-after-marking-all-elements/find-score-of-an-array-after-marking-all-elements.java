@@ -7,7 +7,7 @@ class Solution {
             int left = i;
             while(i + 1 < nums.length && nums[i + 1] < nums[i]) i++;
 
-            //Simulate marking rule by decrementing by 2
+            //Simulate marking neighbors by decrementing by 2
             for(int right = i; right >= left; right-= 2) result+= nums[right];
         }
         return result;
