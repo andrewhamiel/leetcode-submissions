@@ -10,7 +10,7 @@ class Solution {
 
         for(int day : days) isTravelNeeded.add(day);
 
-        return solve(1, dp);
+        return solve(1, dp);    
     }
 
     private int solve(int day, int[] dp) {
@@ -20,14 +20,14 @@ class Solution {
         //2. Memoization
         if(dp[day] != -1) return dp[day];
 
-        //3. If travel is not needed
+        //3. If travel not needed
         if(!isTravelNeeded.contains(day)) return solve(day + 1, dp);
 
-        //4. Minimum cost
+        //4. Min cost
         int oneDay = costs[0] + solve(day + 1, dp);
         int sevenDay = costs[1] + solve(day + 7, dp);
         int thirtyDay = costs[2] + solve(day + 30, dp);
 
-        return dp[day] = Math.min(oneDay, Math.min(sevenDay, thirtyDay));
+        return dp[day] = Math.min(oneDay, Math.min(sevenDay, thirtyDay)); 
     }
 }
