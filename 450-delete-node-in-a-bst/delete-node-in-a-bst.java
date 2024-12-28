@@ -20,8 +20,8 @@ class Solution {
         if(root.val < key) root.right = deleteNode(root.right, key);
         else if(root.val > key) root.left = deleteNode(root.left, key);
         else {
-            //1. Root, 2. Predecessor, 3. Inorder Successor
-            if(root.left == null && root.right == null) root = null;
+            //3 Cases: no children, left or both, only right
+            if(root.left == null && root.right == null) return null;
             else if(root.left != null) {
                 root.val = predecessor(root);
                 root.left = deleteNode(root.left, root.val);
