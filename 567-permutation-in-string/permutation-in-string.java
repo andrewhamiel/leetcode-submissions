@@ -10,6 +10,7 @@ class Solution {
             s2Freqs[s2.charAt(i) - 'a']++;
         }
 
+        //2. Sliding window
         for(int i = 0; i < s2.length() - s1.length(); i++) {
             if(matches(s1Freqs, s2Freqs)) return true;
             //Advance sliding window
@@ -21,7 +22,7 @@ class Solution {
     }
 
     private boolean matches(int[] s1Freqs, int[] s2Freqs) {
-        for(int i = 0; i < 26; i++) {
+        for(int i = 0; i < s1Freqs.length; i++) {
             if(s1Freqs[i] != s2Freqs[i]) return false;
         }
         return true;
