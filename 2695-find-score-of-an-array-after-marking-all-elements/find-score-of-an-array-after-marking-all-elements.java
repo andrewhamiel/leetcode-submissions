@@ -1,7 +1,7 @@
 class Solution {
     public long findScore(int[] nums) {
         long result = 0;
-        //Simulate windows of size 3 by incrementing by 2
+        //Simulate window size 3 by incrementing by 2
         for(int i = 0; i < nums.length; i+= 2) {
             //Find local minima
             int left = i;
