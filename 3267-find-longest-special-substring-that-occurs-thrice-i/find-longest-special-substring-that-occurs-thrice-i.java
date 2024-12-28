@@ -2,17 +2,17 @@ class Solution {
     public int maximumLength(String s) {
         int[][] substrLengths = new int[26][3];
         for(int[] row : substrLengths) Arrays.fill(row, -1);
-
-        int currLength = 0;
         char prev = '\0';
+        int currLength = 0;
+
         for(char c : s.toCharArray()) {
             if(c == prev) currLength++;
             else {
-                currLength = 1;
                 prev = c;
+                currLength = 1;
             }
 
-            int ind = (int) (c - 'a');
+            int ind = c - 'a';
             int minLength = findMin(ind, substrLengths);
             if(currLength > minLength) {
                 if(substrLengths[ind][0] == minLength) substrLengths[ind][0] = currLength;
@@ -21,12 +21,12 @@ class Solution {
             }
         }
 
-        int longest = -1;
+        int result = -1;
         for(int ind = 0; ind < substrLengths.length; ind++) {
             int minLength = findMin(ind, substrLengths);
-            longest = Math.max(longest, minLength);
+            result = Math.max(result, minLength);
         }
-        return longest;
+        return result;
     }
 
     private int findMin(int ind, int[][] substrLengths) {
