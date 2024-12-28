@@ -2,27 +2,27 @@ class Solution {
     public boolean checkInclusion(String s1, String s2) {
         if(s1.length() > s2.length()) return false;
 
-        int[] s1Map = new int[26], s2Map = new int[26];
+        int[] s1Freqs = new int[26], s2Freqs = new int[26];
 
-        //First K
+        //1. First K
         for(int i = 0; i < s1.length(); i++) {
-            s1Map[s1.charAt(i) - 'a']++;
-            s2Map[s2.charAt(i) - 'a']++;
+            s1Freqs[s1.charAt(i) - 'a']++;
+            s2Freqs[s2.charAt(i) - 'a']++;
         }
 
         for(int i = 0; i < s2.length() - s1.length(); i++) {
-            if(matches(s1Map, s2Map)) return true;
+            if(matches(s1Freqs, s2Freqs)) return true;
             //Advance sliding window
-            s2Map[s2.charAt(i + s1.length()) - 'a']++;
-            s2Map[s2.charAt(i) - 'a']--;
+            s2Freqs[s2.charAt(s1.length() + i) - 'a']++;
+            s2Freqs[s2.charAt(i) - 'a']--;
         }
-
-        return matches(s1Map, s2Map);
+        
+        return matches(s1Freqs, s2Freqs);
     }
 
-    private boolean matches(int[] s1Map, int[] s2Map) {
+    private boolean matches(int[] s1Freqs, int[] s2Freqs) {
         for(int i = 0; i < 26; i++) {
-            if(s1Map[i] != s2Map[i]) return false;
+            if(s1Freqs[i] != s2Freqs[i]) return false;
         }
         return true;
     }
