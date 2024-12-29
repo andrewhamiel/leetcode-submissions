@@ -3,15 +3,14 @@ class Solution {
 
     public int numSubseq(int[] nums, int target) {
         Arrays.sort(nums);
-
         int left = 0, right = nums.length - 1, result = 0;
         while(left <= right) {
             if(nums[left] + nums[right] > target) right--;
             else {
-                result = (result + (int) binaryExp(2, right - left)) % MOD;
+                result =  (result + (int) binaryExp(2, right - left)) % MOD;
                 left++;
             }
-        }    
+        }
         return result;
     }
 
