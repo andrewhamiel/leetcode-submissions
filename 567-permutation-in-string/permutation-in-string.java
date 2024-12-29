@@ -3,7 +3,6 @@ class Solution {
         if(s1.length() > s2.length()) return false;
 
         int[] s1Freqs = new int[26], s2Freqs = new int[26];
-
         //1. First K
         for(int i = 0; i < s1.length(); i++) {
             s1Freqs[s1.charAt(i) - 'a']++;
@@ -17,7 +16,7 @@ class Solution {
             s2Freqs[s2.charAt(s1.length() + i) - 'a']++;
             s2Freqs[s2.charAt(i) - 'a']--;
         }
-        
+
         return matches(s1Freqs, s2Freqs);
     }
 
