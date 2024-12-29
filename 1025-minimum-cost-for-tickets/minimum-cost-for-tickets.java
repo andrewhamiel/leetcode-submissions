@@ -3,18 +3,17 @@ class Solution {
     private int[] costs;
 
     public int mincostTickets(int[] days, int[] costs) {
-        this.costs = costs;
         int lastDay = days[days.length - 1];
         int[] dp = new int[lastDay + 1];
         Arrays.fill(dp, -1);
+        this.costs = costs;
 
         for(int day : days) isTravelNeeded.add(day);
-
-        return solve(1, dp);    
+        return solve(1, dp);
     }
 
     private int solve(int day, int[] dp) {
-        //1. Base case
+        //1. Base case/exit condition
         if(day >= dp.length) return 0;
 
         //2. Memoization
@@ -28,6 +27,6 @@ class Solution {
         int sevenDay = costs[1] + solve(day + 7, dp);
         int thirtyDay = costs[2] + solve(day + 30, dp);
 
-        return dp[day] = Math.min(oneDay, Math.min(sevenDay, thirtyDay)); 
+        return dp[day] = Math.min(oneDay, Math.min(sevenDay, thirtyDay));
     }
 }
