@@ -1,6 +1,6 @@
 class Solution {
     public void rotate(int[][] matrix) {
-        //2 steps
+        //2 Steps
 
         //1. Transpose
         for(int row = 0; row < matrix.length; row++) {
