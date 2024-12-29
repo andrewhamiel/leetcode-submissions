@@ -1,5 +1,5 @@
 class Solution {
-    private int[][] dirs = new int[][]{{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
+    private static final int[][] dirs = new int[][]{{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
     private static final String TARGET = "123450";
 
     public int slidingPuzzle(int[][] board) {
@@ -10,7 +10,7 @@ class Solution {
                 startState.append(board[row][col]);
                 if(board[row][col] == 0) firstZero = 3 * row + col;
             }
-        }    
+        }
 
         Queue<Pair<String, Integer>> q = new LinkedList<>();
         q.add(new Pair<>(startState.toString(), firstZero));
@@ -25,7 +25,6 @@ class Solution {
                 Pair<String, Integer> p = q.poll();
                 String currState = p.getKey();
                 int zeroInd = p.getValue();
-
                 if(currState.equals(TARGET)) return moves;
 
                 for(int nextZero : dirs[zeroInd]) {
