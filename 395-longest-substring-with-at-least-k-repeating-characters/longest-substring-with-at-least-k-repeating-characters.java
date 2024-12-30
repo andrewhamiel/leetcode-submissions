@@ -7,7 +7,6 @@ class Solution {
             int[] freqs = new int[26];
             int left = 0, right = 0, uniqueSeen = 0, containsAtLeastK = 0;
             while(right < arr.length) {
-                //Expand sliding window
                 if(uniqueSeen <= currUnique) {
                     char c = arr[right++];
                     if(freqs[c - 'a'] == 0) uniqueSeen++;
@@ -19,7 +18,7 @@ class Solution {
                     freqs[c - 'a']--;
                     if(freqs[c - 'a'] == 0) uniqueSeen--;
                 }
-                //Right currently at next character to be seen
+                //Right is at next element to be checked
                 if(uniqueSeen == currUnique && containsAtLeastK == currUnique) result = Math.max(result, right - left);
             }
         }
