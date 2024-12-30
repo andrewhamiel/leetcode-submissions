@@ -3,7 +3,8 @@ class Solution {
         int[] result = new int[nums.length];
         int left = 0, right = nums.length - 1;
         for(int i = nums.length - 1; i >= 0; i--) {
-            int powLeft = nums[left] * nums[left], powRight = nums[right] * nums[right];
+            int powLeft = nums[left] * nums[left];
+            int powRight = nums[right] * nums[right];
             if(powLeft >= powRight) {
                 result[i] = powLeft;
                 left++;
