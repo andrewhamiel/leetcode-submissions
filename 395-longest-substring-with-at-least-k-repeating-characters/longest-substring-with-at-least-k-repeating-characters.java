@@ -18,7 +18,8 @@ class Solution {
                     freqs[c - 'a']--;
                     if(freqs[c - 'a'] == 0) uniqueSeen--;
                 }
-                //Right is at next element to be checked
+
+                //Right at next index to be observed
                 if(uniqueSeen == currUnique && containsAtLeastK == currUnique) result = Math.max(result, right - left);
             }
         }
