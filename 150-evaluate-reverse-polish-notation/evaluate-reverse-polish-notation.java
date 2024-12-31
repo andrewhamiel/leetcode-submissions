@@ -14,9 +14,7 @@ class Solution {
         }
 
         int result = 0;
-        while(!stack.isEmpty()) {
-            result+= stack.removeFirst();
-        }
+        while(!stack.isEmpty()) result+= stack.removeFirst();
         return result;
     }
 }
