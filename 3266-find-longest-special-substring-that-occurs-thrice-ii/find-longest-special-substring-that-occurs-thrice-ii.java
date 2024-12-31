@@ -1,36 +1,34 @@
 class Solution {
     public int maximumLength(String s) {
-        int substrLength = 0, result = -1;
-        char prev = '\0';
         int[][] substrLengths = new int[26][3];
-        for(int[] arr : substrLengths) Arrays.fill(arr, -1);
-
+        for(int[] row : substrLengths) Arrays.fill(row, -1);
+        char prev = '\0';
+        int currLength = 0;
         for(char c : s.toCharArray()) {
-            if(c == prev) substrLength++;
+            if(c == prev) currLength++;
             else {
-                substrLength = 1;
+                currLength = 1;
                 prev = c;
             }
 
             int ind = c - 'a';
-            int minLength = substrLengths[ind][0];
-            for(int j = 1; j < substrLengths[ind].length; j++) minLength = Math.min(minLength, substrLengths[ind][j]);
-
-            if(substrLength > minLength) {
-                for(int j = 0; j < substrLengths[ind].length; j++) {
-                    if(substrLengths[ind][j] == minLength) {
-                        substrLengths[ind][j] = substrLength;
-                        break;
-                    }
-                }
+            int minLength = getMin(ind, substrLengths);
+            if(currLength > minLength) {
+                if(substrLengths[ind][0] == minLength) substrLengths[ind][0] = currLength;
+                else if(substrLengths[ind][1] == minLength) substrLengths[ind][1] = currLength;
+                else substrLengths[ind][2] = currLength;
             }
         }
 
-        for(int[] substr : substrLengths) {
-            int minLength = substr[0];
-            for(int j = 0; j < substr.length; j++) minLength = Math.min(minLength, substr[j]);
-            result = Math.max(result, minLength); 
+        int longest = -1;
+        for(int ind = 0; ind < substrLengths.length; ind++) {
+            int minLength = getMin(ind, substrLengths);
+            longest = Math.max(longest, minLength);
         }
-        return result;
+        return longest;
+    }
+
+    private int getMin(int ind, int[][] substrLengths) {
+        return Math.min(substrLengths[ind][0], Math.min(substrLengths[ind][1], substrLengths[ind][2]));
     }
 }
