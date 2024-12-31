@@ -2,7 +2,6 @@ class Solution {
     public int longestSubstring(String s, int k) {
         char[] arr = s.toCharArray();
         int maxUnique = getUniqueChars(arr), result = 0;
-        
         for(int currUnique = 1; currUnique <= maxUnique; currUnique++) {
             int[] freqs = new int[26];
             int left = 0, right = 0, uniqueSeen = 0, containsAtLeastK = 0;
@@ -19,7 +18,7 @@ class Solution {
                     if(freqs[c - 'a'] == 0) uniqueSeen--;
                 }
 
-                //Right at next index to be observed
+                //Right currently at next index to be observed
                 if(uniqueSeen == currUnique && containsAtLeastK == currUnique) result = Math.max(result, right - left);
             }
         }
