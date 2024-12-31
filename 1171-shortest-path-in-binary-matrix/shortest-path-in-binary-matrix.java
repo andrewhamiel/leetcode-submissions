@@ -1,7 +1,6 @@
 class Solution {
     private int[][] dirs = new int[][]{{0, -1}, {0, 1}, {-1, 0}, {1, 0}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
 
-    /* A* Approach */
     public int shortestPathBinaryMatrix(int[][] grid) {
         if(grid[0][0] == 1 || grid[grid.length - 1][grid[0].length - 1] == 1) return -1;
 
@@ -26,7 +25,7 @@ class Solution {
                         int totalEstimate = nextDistance + getEstimate(newRow, newCol, grid);
                         Candidate nextCandidate = new Candidate(newRow, newCol, nextDistance, totalEstimate);
                         minHeap.add(nextCandidate);
-                    }
+                }
             }
         }
         return -1;
