@@ -23,7 +23,7 @@ class Solution {
 
     public void cleanRoom(Robot robot) {
         this.robot = robot;
-        backtrack(0, 0, 0);
+        backtrack(0, 0, 0);    
     }
 
     private void backtrack(int row, int col, int dir) {
