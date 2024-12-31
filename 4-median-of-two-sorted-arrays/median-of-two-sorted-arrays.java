@@ -15,10 +15,10 @@ class Solution {
 
             if(maxLeftA <= minRightB && maxLeftB <= minRightA) {
                 if((nums1.length + nums2.length) % 2 == 0) return (double) (Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB))/2;
-                else return Math.max(maxLeftA, maxLeftB);
+                else return (double) (Math.max(maxLeftA, maxLeftB));
             }else if(maxLeftA > minRightB) right = partitionA - 1;
             else left = partitionA + 1;
         }
-        return -1.0;
+        return -1;
     }
 }
