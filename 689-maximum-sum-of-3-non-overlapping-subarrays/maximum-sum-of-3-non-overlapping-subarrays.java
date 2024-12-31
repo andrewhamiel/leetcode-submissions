@@ -1,56 +1,47 @@
 class Solution {
-    public int[] maxSumOfThreeSubarrays(int[] nums, int k) {       
-        // Variables to track the best indices for one, two, and three subarray configurations
+    public int[] maxSumOfThreeSubarrays(int[] nums, int k) {
+        //1. Keep track of best indeces for single, double, triple subarrays
         int bestSingleStart = 0;
-        int[] bestDoubleStart = { 0, k };
-        int[] bestTripleStart = { 0, k, k * 2 };
+        int[] bestDoubleStart = new int[]{0, k};
+        int[] bestTripleStart = new int[]{0, k, 2 * k};
 
-        // Compute the initial sums for the first three subarrays
-        int singleCurrSum = 0, doubleCurrSum = 0, tripleCurrSum = 0;
-        for (int i = 0; i < k; i++) {
-            int secondInd = i + k;
-            int thirdInd = i + 2 * k;
-            singleCurrSum += nums[i];           
-            doubleCurrSum+= nums[secondInd];
-            tripleCurrSum+= nums[thirdInd];
+        //2. First K
+        int currSingleSum = 0, currDoubleSum = 0, currTripleSum = 0;
+        for(int singleInd = 0; singleInd < k; singleInd++) {
+            int doubleInd = singleInd + k, tripleInd = doubleInd + k;
+            currSingleSum+= nums[singleInd];
+            currDoubleSum+= nums[doubleInd];
+            currTripleSum+= nums[tripleInd];
         }
 
-        // Track the best sums found so far
-        int bestSingleSum = singleCurrSum;
-        int bestDoubleSum = singleCurrSum + doubleCurrSum;
-        int bestTripleSum = singleCurrSum + doubleCurrSum + tripleCurrSum;
+        //3. Store best found so far
+        int bestSingleSum = currSingleSum, bestDoubleSum = bestSingleSum + currDoubleSum, bestTripleSum = bestDoubleSum + currTripleSum;
         
-
+        //4. Sliding window
         for(int right = k; right + 2 * k < nums.length; right++) {
-            int singleRight = right, doubleRight = right + k, tripleRight = right + 2 * k;
+            int singleRight = right, doubleRight = singleRight + k, tripleRight = doubleRight + k;
             int singleLeft = singleRight - k, doubleLeft = doubleRight - k, tripleLeft = tripleRight - k;
-            // Update the sums using the sliding window technique
-            singleCurrSum = singleCurrSum - nums[singleLeft++] + nums[singleRight];
-            doubleCurrSum = doubleCurrSum - nums[doubleLeft++] + nums[doubleRight];
-            tripleCurrSum = tripleCurrSum - nums[tripleLeft++] + nums[tripleRight];
+            //5. Advance Sliding Window
+            currSingleSum = currSingleSum - nums[singleLeft++] + nums[singleRight];
+            currDoubleSum = currDoubleSum - nums[doubleLeft++] + nums[doubleRight];
+            currTripleSum = currTripleSum - nums[tripleLeft++] + nums[tripleRight];
 
-            // Update the best single subarray start index if a better sum is found
-            if (singleCurrSum > bestSingleSum) {
+            //6. See if new windows now best
+            if(currSingleSum > bestSingleSum) {
+                bestSingleSum = currSingleSum;
                 bestSingleStart = singleLeft;
-                bestSingleSum = singleCurrSum;
             }
 
-            // Update the best double subarray start indices if a better sum is found
-            if (doubleCurrSum + bestSingleSum > bestDoubleSum) {
-                bestDoubleStart[0] = bestSingleStart;
-                bestDoubleStart[1] = doubleLeft;
-                bestDoubleSum = doubleCurrSum + bestSingleSum;
+            if(currDoubleSum + bestSingleSum > bestDoubleSum) {
+                bestDoubleSum = currDoubleSum + bestSingleSum;
+                bestDoubleStart = new int[]{bestSingleStart, doubleLeft};
             }
 
-            // Update the best triple subarray start indices if a better sum is found
-            if (tripleCurrSum + bestDoubleSum > bestTripleSum) {
-                bestTripleStart[0] = bestDoubleStart[0];
-                bestTripleStart[1] = bestDoubleStart[1];
-                bestTripleStart[2] = tripleLeft;
-                bestTripleSum = tripleCurrSum + bestDoubleSum;
+            if(currTripleSum + bestDoubleSum > bestTripleSum) {
+                bestTripleSum = currTripleSum + bestDoubleSum;
+                bestTripleStart = new int[]{bestDoubleStart[0], bestDoubleStart[1], tripleLeft};
             }
         }
-
         return bestTripleStart;
     }
 }
