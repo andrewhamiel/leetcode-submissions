@@ -14,31 +14,31 @@ class Solution {
             currTripleSum+= nums[tripleInd];
         }
 
-        //3. Store best found so far
+        //3. Keep track of best sums
         int bestSingleSum = currSingleSum, bestDoubleSum = bestSingleSum + currDoubleSum, bestTripleSum = bestDoubleSum + currTripleSum;
-        
+
         //4. Sliding window
         for(int right = k; right + 2 * k < nums.length; right++) {
             int singleRight = right, doubleRight = singleRight + k, tripleRight = doubleRight + k;
             int singleLeft = singleRight - k, doubleLeft = doubleRight - k, tripleLeft = tripleRight - k;
-            //5. Advance Sliding Window
+            //5. Advance sliding window
             currSingleSum = currSingleSum - nums[singleLeft++] + nums[singleRight];
             currDoubleSum = currDoubleSum - nums[doubleLeft++] + nums[doubleRight];
             currTripleSum = currTripleSum - nums[tripleLeft++] + nums[tripleRight];
 
-            //6. See if new windows now best
+            //6. Compare to best windows
             if(currSingleSum > bestSingleSum) {
                 bestSingleSum = currSingleSum;
                 bestSingleStart = singleLeft;
             }
 
-            if(currDoubleSum + bestSingleSum > bestDoubleSum) {
-                bestDoubleSum = currDoubleSum + bestSingleSum;
+            if(bestSingleSum + currDoubleSum > bestDoubleSum) {
+                bestDoubleSum = bestSingleSum + currDoubleSum;
                 bestDoubleStart = new int[]{bestSingleStart, doubleLeft};
             }
 
-            if(currTripleSum + bestDoubleSum > bestTripleSum) {
-                bestTripleSum = currTripleSum + bestDoubleSum;
+            if(bestDoubleSum + currTripleSum > bestTripleSum) {
+                bestTripleSum = bestDoubleSum + currTripleSum;
                 bestTripleStart = new int[]{bestDoubleStart[0], bestDoubleStart[1], tripleLeft};
             }
         }
