@@ -17,8 +17,7 @@
  */
 
 class Solution {
-    //right hand rule
-    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //up -> right -> down -> left
+    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //Right hand rule: Up -> Left
     private Set<Pair<Integer, Integer>> visited = new HashSet<>();
     private Robot robot;
 
@@ -27,14 +26,14 @@ class Solution {
         backtrack(0, 0, 0);
     }
 
-    private void backtrack(int row, int col, int dir){
+    private void backtrack(int row, int col, int dir) {
         visited.add(new Pair<>(row, col));
         robot.clean();
 
-        for(int i = 0; i < 4; i++){
-            int newDir = (dir + i) % 4;
+        for(int i = dir; i < dir + 4; i++) {
+            int newDir = i % 4;
             int newRow = row + dirs[newDir][0], newCol = col + dirs[newDir][1];
-            if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()){
+            if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()) {
                 backtrack(newRow, newCol, newDir);
                 goBack();
             }
@@ -42,7 +41,7 @@ class Solution {
         }
     }
 
-    private void goBack(){
+    private void goBack() {
         robot.turnRight();
         robot.turnRight();
         robot.move();
