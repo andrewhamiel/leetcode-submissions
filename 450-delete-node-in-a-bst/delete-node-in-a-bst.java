@@ -20,7 +20,7 @@ class Solution {
         if(root.val < key) root.right = deleteNode(root.right, key);
         else if(root.val > key) root.left = deleteNode(root.left, key);
         else {
-            //3 cases: leaf, left child present, right child only
+            //3 cases: leaf, left child present, only right child
             if(root.left == null && root.right == null) return null;
             else if(root.left != null) {
                 root.val = predecessor(root);
@@ -34,9 +34,9 @@ class Solution {
     }
 
     private int predecessor(TreeNode root) {
-        TreeNode curr = root.left;
-        while(curr.right != null) curr = curr.right;
-        return curr.val;
+        TreeNode predecessor = root.left;
+        while(predecessor.right != null) predecessor = predecessor.right;
+        return predecessor.val;
     }
 
     private int inorderSuccessor(TreeNode root) {
