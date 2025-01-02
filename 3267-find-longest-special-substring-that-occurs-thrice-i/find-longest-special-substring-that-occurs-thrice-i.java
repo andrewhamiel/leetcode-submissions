@@ -4,7 +4,6 @@ class Solution {
         for(int[] row : substrLengths) Arrays.fill(row, -1);
         char prev = '\0';
         int currLength = 0;
-
         for(char c : s.toCharArray()) {
             if(c == prev) currLength++;
             else {
@@ -13,7 +12,7 @@ class Solution {
             }
 
             int ind = c - 'a';
-            int minLength = findMin(ind, substrLengths);
+            int minLength = getMin(ind, substrLengths);
             if(currLength > minLength) {
                 if(substrLengths[ind][0] == minLength) substrLengths[ind][0] = currLength;
                 else if(substrLengths[ind][1] == minLength) substrLengths[ind][1] = currLength;
@@ -21,15 +20,14 @@ class Solution {
             }
         }
 
-        int result = -1;
+        int maxLength = -1;
         for(int ind = 0; ind < substrLengths.length; ind++) {
-            int minLength = findMin(ind, substrLengths);
-            result = Math.max(result, minLength);
+            maxLength = Math.max(maxLength, getMin(ind, substrLengths));
         }
-        return result;
+        return maxLength;
     }
 
-    private int findMin(int ind, int[][] substrLengths) {
+    private int getMin(int ind, int[][] substrLengths) {
         return Math.min(substrLengths[ind][0], Math.min(substrLengths[ind][1], substrLengths[ind][2]));
     }
 }
