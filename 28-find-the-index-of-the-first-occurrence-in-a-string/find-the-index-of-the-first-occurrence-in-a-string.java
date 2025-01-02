@@ -1,36 +1,52 @@
 class Solution {
-    public void lps(String needle, int[] pi){
-        int j=0;
-        for(int i=1; i<needle.length() ;i++){
-            if(needle.charAt(i)==needle.charAt(j)){
-                j++;
-                pi[i]= j;
-            }else{
-                if(j!=0){
-                    j = pi[j-1];
-                    i--;
-                }else{
-                    pi[i] = 0;
+    /* KMP */
+    public int strStr(String haystack, String needle) {
+        int m = needle.length(),n = haystack.length();
+        if (n < m) return -1;
+
+        // PREPROCESSING
+        // longest_border array
+        int[] longest_border = new int[m];
+        // Length of Longest Border for prefix before it.
+        int prev = 0;
+        // Iterating from index-1. longest_border[0] will always be 0
+        int i = 1;
+        while (i < m) {
+            if (needle.charAt(i) == needle.charAt(prev)) {
+                // Length of Longest Border Increased
+                prev += 1;
+                longest_border[i] = prev;
+                i += 1;
+            } else {
+                // Only empty border exist
+                if (prev == 0) {
+                    longest_border[i] = 0;
+                    i += 1;
                 }
+                // Try finding longest border for this i with reduced prev
+                else prev = longest_border[prev - 1];
             }
         }
 
-    }
-    public int strStr(String haystack, String needle) {
-        int j=0;
-        int[] pi = new int[needle.length()];
-        lps(needle, pi);
-        for(int i=0 ; i<haystack.length() ;i++){
-            if(needle.charAt(j)==haystack.charAt(i)){
-                j++;
-                if(j==needle.length()){
-                    return i-j+1;
+        // SEARCHING
+        int haystackPointer = 0;
+        // Pointer for needle. Also indicates number of characters matched in current window.
+        int needlePointer = 0;
+        while (haystackPointer < n) {
+            if (haystack.charAt(haystackPointer) == needle.charAt(needlePointer)) {
+                // Matched Increment Both
+                needlePointer += 1;
+                haystackPointer += 1;
+                // All characters matched
+                if (needlePointer == m) {
+                    // m characters behind last matching will be start of window
+                    return haystackPointer - m;
                 }
-            }else{
-                if(j!=0){
-                    j=pi[j-1];
-                    i--;
-                }
+            } else {
+                // Zero Matched
+                if (needlePointer == 0) haystackPointer += 1;
+                // Optimally shift left needlePointer. Don't change haystackPointer
+                else needlePointer = longest_border[needlePointer - 1];
             }
         }
         return -1;
