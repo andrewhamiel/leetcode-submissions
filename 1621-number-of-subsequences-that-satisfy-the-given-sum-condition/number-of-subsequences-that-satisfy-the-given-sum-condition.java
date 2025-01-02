@@ -9,7 +9,7 @@ class Solution {
         while(left <= right) {
             if(nums[left] + nums[right] > target) right--;
             else {
-                //For each num in [left, right], 2 choices: include or do not include
+                //For each num in range [left, right], two choices: use or do not use
                 //Total subsequences is 2^(right - left)
                 result = (result + (int) binaryExp(2, right - left)) % MOD;
                 left++;
@@ -27,7 +27,6 @@ class Solution {
                 result = (result * x) % MOD;
                 n--;
             }
-
             x = (x * x) % MOD;
             n/= 2;
         }
