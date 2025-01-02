@@ -1,45 +1,54 @@
 class Solution {
-    int RADIX = 26;
-    int MOD = 1000000033;    
-
+    /* KMP */
     public int strStr(String haystack, String needle) {
-        int m = needle.length(), n = haystack.length();
+        int m = needle.length(),n = haystack.length();
         if (n < m) return -1;
 
-        long MAX_WEIGHT = 1;
-        for (int i = 0; i < m; i++) MAX_WEIGHT = (MAX_WEIGHT * RADIX) % MOD;
-
-        // Compute hash of needle
-        long hashNeedle = hashValue(needle, RADIX, MOD, m), hashHay = 0;
-
-        // Check for each m-substring of haystack, starting at index windowStart
-        for (int windowStart = 0; windowStart <= n - m; windowStart++) {
-            // Compute hash of the First Substring
-            if (windowStart == 0) hashHay = hashValue(haystack, RADIX, MOD, m);
-            else {
-                // Update Hash using Previous Hash Value in O(1)
-                hashHay = (((hashHay * RADIX) % MOD) - (((int) (haystack.charAt(windowStart - 1) - 'a') * MAX_WEIGHT) % MOD) +
-                    (int) (haystack.charAt(windowStart + m - 1) - 'a') + MOD) 
-                    % MOD;
-            }
-            // If the hash matches, Check Character by Character.
-            // Because of Mod, spurious hits can be there.
-            if (hashNeedle == hashHay) {
-                for (int i = 0; i < m; i++) {
-                    if (needle.charAt(i) != haystack.charAt(i + windowStart)) break;
-                    if (i == m - 1) return windowStart;
+        // PREPROCESSING
+        // longest_border array
+        int[] longest_border = new int[m];
+        // Length of Longest Border for prefix before it.
+        int prev = 0;
+        // Iterating from index-1. longest_border[0] will always be 0
+        int i = 1;
+        while (i < m) {
+            if (needle.charAt(i) == needle.charAt(prev)) {
+                // Length of Longest Border Increased
+                prev += 1;
+                longest_border[i] = prev;
+                i += 1;
+            } else {
+                // Only empty border exist
+                if (prev == 0) {
+                    longest_border[i] = 0;
+                    i += 1;
                 }
+                // Try finding longest border for this i with reduced prev
+                else prev = longest_border[prev - 1];
+            }
+        }
+
+        // SEARCHING
+        int haystackPointer = 0;
+        // Pointer for needle. Also indicates number of characters matched in current window.
+        int needlePointer = 0;
+        while (haystackPointer < n) {
+            if (haystack.charAt(haystackPointer) == needle.charAt(needlePointer)) {
+                // Matched Increment Both
+                needlePointer += 1;
+                haystackPointer += 1;
+                // All characters matched
+                if (needlePointer == m) {
+                    // m characters behind last matching will be start of window
+                    return haystackPointer - m;
+                }
+            } else {
+                // Zero Matched
+                if (needlePointer == 0) haystackPointer += 1;
+                // Optimally shift left needlePointer. Don't change haystackPointer
+                else needlePointer = longest_border[needlePointer - 1];
             }
         }
         return -1;
-    }
-
-    private int hashValue(String string, int RADIX, int MOD, int m) {
-        long ans = 0, factor = 1;
-        for (int i = m - 1; i >= 0; i--) {
-            ans = (ans + (string.charAt(i) - 'a') * factor) % MOD;
-            factor = (factor * RADIX) % MOD;
-        }
-        return (int) ans;
     }
 }
