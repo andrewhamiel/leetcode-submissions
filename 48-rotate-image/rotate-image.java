@@ -10,7 +10,6 @@ class Solution {
                 matrix[col][row] = tmp;
             }
         }
-
         //2. Reflect
         for(int row = 0; row < matrix.length; row++) {
             int left = 0, right = matrix[row].length - 1;
