@@ -17,19 +17,20 @@
  */
 
 class Solution {
-    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //Right hand rule: Up -> Left
+    //Right hand rule
+    private static final int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //Up -> Right
     private Set<Pair<Integer, Integer>> visited = new HashSet<>();
     private Robot robot;
 
     public void cleanRoom(Robot robot) {
         this.robot = robot;
-        backtrack(0, 0, 0);    
+        backtrack(0, 0, 0);
     }
 
     private void backtrack(int row, int col, int dir) {
         visited.add(new Pair<>(row, col));
         robot.clean();
-
+        
         for(int i = dir; i < dir + 4; i++) {
             int newDir = i % 4;
             int newRow = row + dirs[newDir][0], newCol = col + dirs[newDir][1];
