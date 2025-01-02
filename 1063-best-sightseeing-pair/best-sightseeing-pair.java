@@ -1,6 +1,6 @@
 class Solution {
     public int maxScoreSightseeingPair(int[] values) {
-        //Intuition: Left -> values[i] + i, Right -> values[j] - i
+        //Intuition: Left -> values[i] + i, Right -> values[i] - i
         int maxLeftScore = values[0], result = 0;
         for(int i = 1; i < values.length; i++) {
             int currRightScore = values[i] - i;
