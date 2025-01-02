@@ -24,13 +24,13 @@ class Solution {
 
     public void cleanRoom(Robot robot) {
         this.robot = robot;
-        backtrack(0, 0, 0);
+        backtrack(0, 0, 0);    
     }
 
     private void backtrack(int row, int col, int dir) {
         visited.add(new Pair<>(row, col));
         robot.clean();
-        
+
         for(int i = dir; i < dir + 4; i++) {
             int newDir = i % 4;
             int newRow = row + dirs[newDir][0], newCol = col + dirs[newDir][1];
