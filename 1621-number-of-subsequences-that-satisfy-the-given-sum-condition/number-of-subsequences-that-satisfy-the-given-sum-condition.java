@@ -9,12 +9,12 @@ class Solution {
         while(left <= right) {
             if(nums[left] + nums[right] > target) right--;
             else {
-                //For each num in range [left, right], two choices: use or do not use
+                //For each subsequence in range [left, right], we have 2 choices: use or do not use
                 //Total subsequences is 2^(right - left)
                 result = (result + (int) binaryExp(2, right - left)) % MOD;
                 left++;
             }
-        }
+        }    
         return result;
     }
 
