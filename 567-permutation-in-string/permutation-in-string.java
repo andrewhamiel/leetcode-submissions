@@ -3,23 +3,17 @@ class Solution {
         if(s1.length() > s2.length()) return false;
 
         int[] s1Freqs = new int[26], s2Freqs = new int[26];
-
-        //1. First K
         for(int i = 0; i < s1.length(); i++) {
             s1Freqs[s1.charAt(i) - 'a']++;
             s2Freqs[s2.charAt(i) - 'a']++;
         }
 
-        //2. Sliding window
         for(int i = 0; i < s2.length() - s1.length(); i++) {
             if(matches(s1Freqs, s2Freqs)) return true;
-            
-            //Contract sliding window
+
             s2Freqs[s2.charAt(i) - 'a']--;
-            //Advance sliding window
             s2Freqs[s2.charAt(s1.length() + i) - 'a']++;
         }
-        
         return matches(s1Freqs, s2Freqs);
     }
 
