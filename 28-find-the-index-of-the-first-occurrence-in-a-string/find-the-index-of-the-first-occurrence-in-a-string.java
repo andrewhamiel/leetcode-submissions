@@ -1,10 +1,10 @@
 class Solution {
     public int strStr(String haystack, String needle) {
-        if(haystack.length() < needle.length()) return -1;
+        if(needle.length() > haystack.length()) return -1;
 
         //1. Preprocessing
         int[] longestBorder = new int[needle.length()];
-        int longestPrev = 0, ind = 1; //longestBorder[0] always 0 since suffix/prefix cannot be string
+        int longestPrev = 0, ind = 1; //longestBorder[0] always 0, string cannot be prefix/suffix of itself
         while(ind < needle.length()) {
             //Increase longest prev
             if(needle.charAt(ind) == needle.charAt(longestPrev)) {
@@ -23,10 +23,10 @@ class Solution {
                 haystackInd++;
                 needleInd++;
                 //All characters matched
-                if(needleInd == needle.length()) return haystackInd - needle.length();
+                if(needleInd == needle.length()) return haystackInd - needle.length(); 
             }else {
                 if(needleInd == 0) haystackInd++; //No characters matched
-                else needleInd = longestBorder[needleInd - 1]; 
+                else needleInd = longestBorder[needleInd - 1];
             }
         }
         return -1;
