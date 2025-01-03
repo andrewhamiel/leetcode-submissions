@@ -8,13 +8,13 @@ class Solution {
         for(int num : nums) totalSum+= num;
 
         this.target = target;
-        this.nums = nums;    
+        this.nums = nums;
 
-        //Instead of using [-totalSum, totalSum], we shift to fit array by adding totalSum to all results making range [0, 2 * totalSum]
+        //Instead of range [-totalSum, totalSum], we shift to fit in array by adding totalSum to each result making range [0, totalSum]
         memo = new int[nums.length][totalSum * 2 + 1];
         for(int[] row : memo) Arrays.fill(row, Integer.MIN_VALUE);
 
-        return calculate(0, 0);
+        return calculate(0, 0);    
     }
 
     private int calculate(int ind, int sum) {
