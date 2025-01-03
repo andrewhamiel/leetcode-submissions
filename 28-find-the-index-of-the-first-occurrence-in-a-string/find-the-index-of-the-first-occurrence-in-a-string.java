@@ -4,15 +4,15 @@ class Solution {
 
         //1. Preprocessing
         int[] longestBorder = new int[needle.length()];
-        int prevLongest = 0, ind = 1; //longestBorder[0] always 0, prefix/suffix can not be the string
+        int longestPrev = 0, ind = 1; //longestBorder[0] always 0, prefix/suffix cannot be string itself
         while(ind < needle.length()) {
-            //Increment longest length
-            if(needle.charAt(ind) == needle.charAt(prevLongest)) {
-                prevLongest++;
-                longestBorder[ind++] = prevLongest;
+            //Increase longest length
+            if(needle.charAt(ind) == needle.charAt(longestPrev)) {
+                longestPrev++;
+                longestBorder[ind++] = longestPrev;
             }else {
-                if(prevLongest == 0) longestBorder[ind++] = 0; //Only empty borders seen
-                else prevLongest = longestBorder[prevLongest - 1]; //Try finding longest border for this ind with reduced prev
+                if(longestPrev == 0) longestBorder[ind++] = 0; //Only empty borders exist
+                else longestPrev = longestBorder[longestPrev - 1]; //Try finding longest border for this ind with reduced prev
             }
         }
 
@@ -25,8 +25,8 @@ class Solution {
                 //All characters matched
                 if(needleInd == needle.length()) return haystackInd - needle.length();
             }else {
-                if(needleInd == 0) haystackInd++; //No chars matched
-                else needleInd = longestBorder[needleInd - 1]; //Optimally shift left. Leave haystackInd unchanged
+                if(needleInd == 0) haystackInd++; //No characters matched
+                else needleInd = longestBorder[needleInd - 1];
             }
         }
         return -1;
