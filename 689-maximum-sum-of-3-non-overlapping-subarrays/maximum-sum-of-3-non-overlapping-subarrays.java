@@ -1,6 +1,6 @@
 class Solution {
     public int[] maxSumOfThreeSubarrays(int[] nums, int k) {
-        //1. Keep track of indeces for best single, double, triple subarrays
+        //1. Keep track of indeces of best sum for single, double, triple subarrays
         int bestSingleStart = 0;
         int[] bestDoubleStart = new int[]{0, k};
         int[] bestTripleStart = new int[]{0, k, 2 * k};
@@ -14,7 +14,7 @@ class Solution {
             currTripleSum+= nums[tripleInd];
         }
 
-        //3. Keep track of best sums
+        //3. Store best sums seen
         int bestSingleSum = currSingleSum, bestDoubleSum = bestSingleSum + currDoubleSum, bestTripleSum = bestDoubleSum + currTripleSum;
 
         //4. Sliding window
@@ -25,8 +25,7 @@ class Solution {
             currSingleSum = currSingleSum - nums[singleLeft++] + nums[singleRight];
             currDoubleSum = currDoubleSum - nums[doubleLeft++] + nums[doubleRight];
             currTripleSum = currTripleSum - nums[tripleLeft++] + nums[tripleRight];
-
-            //6. Comapre to best
+            //6. Compare to best
             if(currSingleSum > bestSingleSum) {
                 bestSingleSum = currSingleSum;
                 bestSingleStart = singleLeft;
