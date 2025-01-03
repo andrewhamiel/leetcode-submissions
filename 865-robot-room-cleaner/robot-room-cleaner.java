@@ -17,8 +17,8 @@
  */
 
 class Solution {
-    //Right hand rule
-    private static final int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //Up -> Right
+    //Right Hand Rule
+    private static final int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //Up -> Left
     private Set<Pair<Integer, Integer>> visited = new HashSet<>();
     private Robot robot;
 
