@@ -4,15 +4,15 @@ class Solution {
 
         //1. Preprocessing
         int[] longestBorder = new int[needle.length()];
-        int longestPrev = 0, ind = 1; //longestBorder[0] always 0, prefix/suffix cannot be string itself
+        int longestPrev = 0, ind = 1; //longestBorder[0] always 0 since suffix/prefix cannot be string
         while(ind < needle.length()) {
-            //Increase longest length
+            //Increase longest prev
             if(needle.charAt(ind) == needle.charAt(longestPrev)) {
                 longestPrev++;
                 longestBorder[ind++] = longestPrev;
             }else {
-                if(longestPrev == 0) longestBorder[ind++] = 0; //Only empty borders exist
-                else longestPrev = longestBorder[longestPrev - 1]; //Try finding longest border for this ind with reduced prev
+                if(longestPrev == 0) longestBorder[ind++] = 0;
+                else longestPrev = longestBorder[longestPrev - 1];
             }
         }
 
@@ -26,7 +26,7 @@ class Solution {
                 if(needleInd == needle.length()) return haystackInd - needle.length();
             }else {
                 if(needleInd == 0) haystackInd++; //No characters matched
-                else needleInd = longestBorder[needleInd - 1];
+                else needleInd = longestBorder[needleInd - 1]; 
             }
         }
         return -1;
