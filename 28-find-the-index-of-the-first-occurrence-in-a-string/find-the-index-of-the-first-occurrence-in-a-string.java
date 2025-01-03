@@ -1,4 +1,8 @@
 class Solution {
+    /*
+    * KPM
+    * The LPS value tells us the length of the longest part of the already matched portion of the needle that can be reused as a prefix after the shift.
+    */
     public int strStr(String haystack, String needle) {
         if(needle.length() > haystack.length()) return -1;
 
