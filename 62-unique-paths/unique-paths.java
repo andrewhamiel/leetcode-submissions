@@ -1,7 +1,7 @@
 class Solution {
     public int uniquePaths(int m, int n) {
         long answer = 1;
-        for(int i = n; i < (m + n - 1); i++) {
+        for(int i = n; i < (n + m - 1); i++) {
             answer*= i;
             answer/= (i - n + 1);
         }
