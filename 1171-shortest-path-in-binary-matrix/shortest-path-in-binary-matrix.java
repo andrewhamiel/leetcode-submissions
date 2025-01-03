@@ -4,12 +4,12 @@ class Solution {
     public int shortestPathBinaryMatrix(int[][] grid) {
         if(grid[0][0] == 1 || grid[grid.length - 1][grid[0].length - 1] == 1) return -1;
 
-        Queue<Candidate> q = new LinkedList<>();
-        q.add(new Candidate(0, 0, 1, getEstimate(0, 0, grid)));
+        PriorityQueue<Candidate> minHeap = new PriorityQueue<>((a, b) -> a.totalEstimate - b.totalEstimate);
+        minHeap.add(new Candidate(0, 0, 1, getEstimate(0, 0, grid)));
         boolean[][] visited = new boolean[grid.length][grid[0].length];
 
-        while(!q.isEmpty()) {
-            Candidate best = q.poll();
+        while(!minHeap.isEmpty()) {
+            Candidate best = minHeap.poll();
             int row = best.row, col = best.col;
             //Exit condition
             if(row == grid.length - 1 && col == grid[0].length - 1) return best.currDistance;
@@ -19,12 +19,12 @@ class Solution {
 
             for(int[] dir : dirs) {
                 int newRow = row + dir[0], newCol = col + dir[1];
-                if(newRow >= 0 && newRow < grid.length && newCol >= 0 && newCol < grid[0].length
+                if(newRow >= 0 && newRow < grid.length && newCol >= 0 && newCol < grid[0].length 
                     && grid[newRow][newCol] == 0 && !visited[newRow][newCol]) {
                         int nextDistance = best.currDistance + 1;
-                        int totalEstimate = getEstimate(newRow, newCol, grid);
+                        int totalEstimate = nextDistance + getEstimate(newRow, newCol, grid);
                         Candidate nextCandidate = new Candidate(newRow, newCol, nextDistance, totalEstimate);
-                        q.add(nextCandidate);
+                        minHeap.add(nextCandidate);
                 }
             }
         }
