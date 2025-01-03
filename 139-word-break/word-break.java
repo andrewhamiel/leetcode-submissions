@@ -14,6 +14,7 @@ class Solution {
         //2. Bottom-up DP
         boolean[] dp = new boolean[s.length()];
         for(int i = 0; i < s.length(); i++) {
+            //If word seen at last index, we can break
             if(i == 0 || dp[i - 1]) {
                 TrieNode curr = root;
                 for(int j = i; j < s.length(); j++) {
