@@ -13,9 +13,7 @@ class Solution {
 
     private void reverse(int left, int[] nums) {
         int right = nums.length - 1;
-        while(left < right) {
-            swap(left++, right--, nums);
-        }
+        while(left < right) swap(left++, right--, nums);
     }
 
     private void swap(int i, int j, int[] nums) {
