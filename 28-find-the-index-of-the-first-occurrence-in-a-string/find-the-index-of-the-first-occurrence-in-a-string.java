@@ -1,52 +1,33 @@
 class Solution {
-    /* KMP */
     public int strStr(String haystack, String needle) {
-        int m = needle.length(),n = haystack.length();
-        if (n < m) return -1;
+        if(haystack.length() < needle.length()) return -1;
 
-        // PREPROCESSING
-        // longest_border array
-        int[] longest_border = new int[m];
-        // Length of Longest Border for prefix before it.
-        int prev = 0;
-        // Iterating from index-1. longest_border[0] will always be 0
-        int i = 1;
-        while (i < m) {
-            if (needle.charAt(i) == needle.charAt(prev)) {
-                // Length of Longest Border Increased
-                prev += 1;
-                longest_border[i] = prev;
-                i += 1;
-            } else {
-                // Only empty border exist
-                if (prev == 0) {
-                    longest_border[i] = 0;
-                    i += 1;
-                }
-                // Try finding longest border for this i with reduced prev
-                else prev = longest_border[prev - 1];
+        //1. Preprocessing
+        int[] longestBorder = new int[needle.length()];
+        int prevLongest = 0, ind = 1;
+        while(ind < needle.length()) {
+            //Increase longest length
+            if(needle.charAt(ind) == needle.charAt(prevLongest)) {
+                prevLongest++;
+                longestBorder[ind++] = prevLongest;
+            }else {
+                //Only empty border exist?
+                if(prevLongest == 0) longestBorder[ind++] = 0;
+                else prevLongest = longestBorder[prevLongest - 1]; //Try finding longest border for this ind with reduced prev?               
             }
         }
 
-        // SEARCHING
-        int haystackPointer = 0;
-        // Pointer for needle. Also indicates number of characters matched in current window.
-        int needlePointer = 0;
-        while (haystackPointer < n) {
-            if (haystack.charAt(haystackPointer) == needle.charAt(needlePointer)) {
-                // Matched Increment Both
-                needlePointer += 1;
-                haystackPointer += 1;
-                // All characters matched
-                if (needlePointer == m) {
-                    // m characters behind last matching will be start of window
-                    return haystackPointer - m;
-                }
-            } else {
-                // Zero Matched
-                if (needlePointer == 0) haystackPointer += 1;
-                // Optimally shift left needlePointer. Don't change haystackPointer
-                else needlePointer = longest_border[needlePointer - 1];
+        //2. Searching
+        int haystackPtr = 0, needlePtr = 0;
+        while(haystackPtr < haystack.length()) {
+            if(haystack.charAt(haystackPtr) == needle.charAt(needlePtr)) {
+                haystackPtr++;
+                needlePtr++;
+                //All characters matched
+                if(needlePtr == needle.length()) return haystackPtr - needle.length(); //m characters behind last matching will be start of window?
+            }else {
+                if(needlePtr == 0) haystackPtr++; //No chars matched
+                else needlePtr = longestBorder[needlePtr - 1]; //Optimally shift needlePtr left. Don't change haystack ptr?
             }
         }
         return -1;
