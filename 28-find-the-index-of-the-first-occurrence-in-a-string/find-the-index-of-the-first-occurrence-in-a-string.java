@@ -4,9 +4,9 @@ class Solution {
 
         //1. Preprocessing
         int[] longestBorder = new int[needle.length()];
-        int longestPrev = 0, ind = 1; //longestBorder[0] always 0 because string cannot be prefix/suffix of itself
+        int longestPrev = 0, ind = 1; //longestBorder[0] is always 0 because string cannot be prefix/suffix of itself
         while(ind < needle.length()) {
-            //Increment longest prev
+            //Increment longestPrev
             if(needle.charAt(ind) == needle.charAt(longestPrev)) {
                 longestPrev++;
                 longestBorder[ind++] = longestPrev;
@@ -16,7 +16,7 @@ class Solution {
             }
         }
 
-        //2. Searching 
+        //2. Searching
         int haystackInd = 0, needleInd = 0;
         while(haystackInd < haystack.length()) {
             if(haystack.charAt(haystackInd) == needle.charAt(needleInd)) {
