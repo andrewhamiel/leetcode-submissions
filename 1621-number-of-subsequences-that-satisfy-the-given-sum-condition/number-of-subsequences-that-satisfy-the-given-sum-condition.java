@@ -4,13 +4,11 @@ class Solution {
     public int numSubseq(int[] nums, int target) {
         //1. Sort
         Arrays.sort(nums);
-        //2. 2P and Binary Exp
+        //2. 2P and Binary Exp;
         int left = 0, right = nums.length - 1, result = 0;
         while(left <= right) {
             if(nums[left] + nums[right] > target) right--;
             else {
-                //For each subsequence in range: [left, right] we have two choices: use or do not use
-                //Total subsequences is 2^(right - left)
                 result = (result + (int) binaryExp(2, right - left)) % MOD;
                 left++;
             }
