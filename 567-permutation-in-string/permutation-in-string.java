@@ -8,11 +8,12 @@ class Solution {
             s2Freqs[s2.charAt(i) - 'a']++;
         }
 
+        //Sliding window
         for(int i = 0; i < s2.length() - s1.length(); i++) {
             if(matches(s1Freqs, s2Freqs)) return true;
 
-            s2Freqs[s2.charAt(i) - 'a']--;
-            s2Freqs[s2.charAt(s1.length() + i) - 'a']++;
+            s2Freqs[s2.charAt(i) - 'a']--; //Decrement sliding window
+            s2Freqs[s2.charAt(s1.length() + i) - 'a']++; //Expand sliding window
         }
         return matches(s1Freqs, s2Freqs);
     }
