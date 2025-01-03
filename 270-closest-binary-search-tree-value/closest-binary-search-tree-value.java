@@ -16,11 +16,11 @@
 class Solution {
     public int closestValue(TreeNode root, double target) {
         int closest = root.val;
-        while(root != null){
-          int curr = root.val;
-          if(Math.abs(target - curr) < Math.abs(target - closest)
-            || Math.abs(target - curr) == Math.abs(target - closest) && curr < closest) closest = curr;
-          root = curr < target ? root.right : root.left;
+        while(root != null) {
+            int curr = root.val;
+            if(Math.abs(target - curr) < Math.abs(target - closest)
+                || (Math.abs(target - curr) == Math.abs(target - closest) && curr < closest)) closest = curr;
+            root = curr < target ? root.right : root.left;
         }
         return closest;
     }
