@@ -6,9 +6,9 @@ class Solution {
         while(result.size() < rows * cols) {
             //left -> right
             for(int col = left; col <= right; col++) result.add(matrix[up][col]);
-            //up -> down
+            //right -> down
             for(int row = up + 1; row <= down; row++) result.add(matrix[row][right]);
-            //Make sure starting on different rows, then right -> left
+            //Make sure starting at different rows, then right -> left
             if(up != down) {
                 for(int col = right - 1; col >= left; col--) result.add(matrix[down][col]);
             }
