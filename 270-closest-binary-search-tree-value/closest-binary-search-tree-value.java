@@ -17,10 +17,10 @@ class Solution {
     public int closestValue(TreeNode root, double target) {
         int closest = root.val;
         while(root != null) {
-            int curr = root.val;
-            if(Math.abs(target - curr) < Math.abs(target - closest)
-                || (Math.abs(target - curr) == Math.abs(target - closest) && curr < closest)) closest = curr;
-            root = curr < target ? root.right : root.left;
+            int val = root.val;
+            double closestDiff = Math.abs(target - closest), currDiff = Math.abs(target - val);
+            if(currDiff < closestDiff || (currDiff == closestDiff && val < closest)) closest = val;
+            root = val < target ? root.right : root.left;
         }
         return closest;
     }
