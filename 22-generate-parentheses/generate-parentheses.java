@@ -1,27 +1,31 @@
 class Solution {
+    private List<String> result = new ArrayList<>();
+
     public List<String> generateParenthesis(int n) {
         if(n == 0) return new ArrayList<>();
-
-        List<String> result = new ArrayList<>();
-        helper(n, n, new StringBuilder(), result, 0);
+        backtrack(new StringBuilder(), 0, n, n);
         return result;
     }
 
-    private void helper(int leftCount, int rightCount, StringBuilder sb, List<String> result, int start){
-        if(leftCount == 0 && rightCount == 0){
+    private void backtrack(StringBuilder sb, int ind, int leftCount, int rightCount) {
+        //1. Exit condition
+        if(leftCount == 0 && rightCount == 0) {
             result.add(sb.toString());
             return;
         }
 
         int currLength = sb.length();
-        if(leftCount > 0){
-            sb.append("(");
-            helper(leftCount - 1, rightCount, sb, result, start + 1);
+
+        //2. If left parens left to add
+        if(leftCount > 0) {
+            sb.append('(');
+            backtrack(sb, ind + 1, leftCount - 1, rightCount);
             sb.deleteCharAt(currLength);
         }
-        if(rightCount > leftCount){
-            sb.append(")");
-            helper(leftCount, rightCount - 1, sb, result, start + 1);
+        //3. If valid to add right parens
+        if(leftCount < rightCount) {
+            sb.append(')');
+            backtrack(sb, ind + 1, leftCount, rightCount - 1);
             sb.deleteCharAt(currLength);
         }
     }
