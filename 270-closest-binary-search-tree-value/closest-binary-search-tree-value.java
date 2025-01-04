@@ -20,7 +20,7 @@ class Solution {
             int val = root.val;
             double closestDiff = Math.abs(target - closest), currDiff = Math.abs(target - val);
             if(currDiff < closestDiff || (currDiff == closestDiff && val < closest)) closest = val;
-            root = val < target ? root.right : root.left;
+            root = root.val < target ? root.right : root.left;
         }
         return closest;
     }
