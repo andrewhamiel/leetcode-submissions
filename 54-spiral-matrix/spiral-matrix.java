@@ -6,7 +6,7 @@ class Solution {
         while(result.size() < rows * cols) {
             //left -> right
             for(int col = left; col <= right; col++) result.add(matrix[up][col]);
-            //right -> down
+            //up -> down
             for(int row = up + 1; row <= down; row++) result.add(matrix[row][right]);
             //Make sure starting at different rows, then right -> left
             if(up != down) {
