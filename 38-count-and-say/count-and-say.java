@@ -3,7 +3,7 @@ class Solution {
         //1. Base cases
         if(n == 0) return "";
         if(n == 1) return "1";
-
+        ;
         //2. Recursion
         String s = countAndSay(n - 1);
         StringBuilder result = new StringBuilder();
@@ -24,7 +24,7 @@ class Solution {
             }
         }
 
-        //6. Append last number
+        //6. Append last variable
         result.append(count);
         result.append(prev);
 
