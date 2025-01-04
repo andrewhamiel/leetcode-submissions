@@ -1,10 +1,10 @@
 class Solution {
     public int uniquePaths(int m, int n) {
-        long answer = 1;
-        for(int i = n; i < (n + m - 1); i++) {
-            answer*= i;
-            answer/= (i - n + 1);
+        long result = 1;
+        for(int i = n; i < n + m - 1; i++) {
+            result*= i;
+            result/= (i - n + 1);
         }
-        return (int) answer;
+        return (int) result;
     }
 }
