@@ -24,7 +24,7 @@ class Solution {
                 list.add(candidates[i]);
                 backtrack(i + 1, sum + candidates[i], list);
                 list.remove(list.size() - 1);
-            }          
+            }
         }
     }
 }
