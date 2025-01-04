@@ -5,17 +5,16 @@ class Solution {
     private int[][] memo;
 
     public int findTargetSumWays(int[] nums, int target) {
-        //Find totalSum
         for(int num : nums) totalSum+= num;
 
         this.target = target;
         this.nums = nums;
 
-        //Fit range [-targetSum, targetSum] into array by making it [0, 2 * targetSum]
-        memo = new int[nums.length][2 * totalSum + 1];
+        //Make range [-totalSum, totalSum] fit into array with [0, 2 * totalSum]
+        memo = new int[nums.length][2 * totalSum + 1];    
         for(int[] row : memo) Arrays.fill(row, -1);
 
-        return calculate(0, 0);    
+        return calculate(0, 0);
     }
 
     private int calculate(int ind, int sum) {
