@@ -1,5 +1,5 @@
 class Solution {
-    private Set<List<Integer>> result = new HashSet<>();
+    private List<List<Integer>> result = new ArrayList<>();
     private int[] candidates;
     private int target = 0;
 
@@ -8,8 +8,8 @@ class Solution {
 
         this.candidates = candidates;
         this.target = target;
-        backtrack(0, 0, new ArrayList<>());    
-        return new ArrayList<>(result);
+        backtrack(0, 0, new ArrayList<>());
+        return result;    
     }
 
     private void backtrack(int ind, int sum, List<Integer> list) {
@@ -24,8 +24,7 @@ class Solution {
                 list.add(candidates[i]);
                 backtrack(i + 1, sum + candidates[i], list);
                 list.remove(list.size() - 1);
-            }
-            
+            }          
         }
     }
 }
