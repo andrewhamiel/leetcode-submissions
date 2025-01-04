@@ -1,6 +1,6 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        //Boyer-Moore voting algorithm
+        //Boyer-Moore Voting algorithm
         int count = 0, candidate = 0;
         for(int num : nums) {
             if(count == 0) candidate = num;
