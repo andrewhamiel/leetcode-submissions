@@ -1,15 +1,34 @@
 class Solution {
-    public List<String> generateParenthesis(int n) {
-        if (n == 0) return new ArrayList(Arrays.asList(""));
+    private List<String> result = new ArrayList<>();
 
-        List<String> result = new ArrayList();
-        for (int leftCount = 0; leftCount < n; leftCount++) {
-            for (String leftString : generateParenthesis(leftCount)) {
-                for (String rightString : generateParenthesis(n - 1 - leftCount)) {
-                    result.add("(" + leftString + ")" + rightString);
-                }
-            } 
-        } 
-        return result;
+    public List<String> generateParenthesis(int n) {
+        if(n == 0) return new ArrayList<>();
+        backtrack(new StringBuilder(),n, n);
+        return result;    
     }
+
+    private void backtrack(StringBuilder sb, int leftCount, int rightCount) {
+        //1. Exit condition
+        if(leftCount == 0 && rightCount == 0) {
+            result.add(sb.toString());
+            return;
+        }
+
+        int currLength = sb.length();
+
+        //2. Add left paren if remaining
+        if(leftCount > 0) {
+            sb.append('(');
+            backtrack(sb, leftCount - 1, rightCount);
+            sb.deleteCharAt(currLength);
+        }
+        //3. Add right paren if valid
+        if(leftCount < rightCount) {
+            sb.append(')');
+            backtrack(sb, leftCount, rightCount - 1);
+            sb.deleteCharAt(currLength);
+        }
+    }
+
+
 }
