@@ -6,17 +6,17 @@ class Solution {
 
     private List<List<Integer>> kSum(int left, int[] nums, long target, int k) {
         List<List<Integer>> result = new ArrayList<>();
-        //1. Exit Condition
+        //1. Exit condition
         if(left == nums.length) return result;
 
-        //2. Sum out of bounds. K nums left, if nums[left] > averageVal || nums[right] < averageVal not possible
+        //2. Sum out of bounds. K nums left, if nums[left] > averageVal || nums[right] < averageVal then not possible
         long averageVal = target / k;
         if(nums[left] > averageVal || nums[nums.length - 1] < averageVal) return result;
 
         //3. Base case 
         if(k == 2) return twoSumSorted(left, nums, target);
 
-        //4. KSum
+        //4. K Sum
         for(int i = left; i < nums.length; i++) {
             if(i == left || nums[i] != nums[i - 1]) {
                 for(List<Integer> subList : kSum(i + 1, nums, target - nums[i], k - 1)) {
@@ -31,7 +31,6 @@ class Solution {
 
     private List<List<Integer>> twoSumSorted(int left, int[] nums, long target) {
         List<List<Integer>> result = new ArrayList<>();
-        
         int right = nums.length - 1;
         while(left < right) {
             int sum = nums[left] + nums[right];
