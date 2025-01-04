@@ -7,22 +7,22 @@ class Solution {
                 operand*= 10;
                 operand+= (c - '0');
             }else if(c == '+') {
-                result+= operand * sign;
+                result+= (operand * sign);
+                operand = 0;
                 sign = 1;
-                operand = 0;
             }else if(c == '-') {
-                result+= operand * sign;
-                sign = -1;
+                result+= (operand * sign);
                 operand = 0;
+                sign = -1;
             }else if(c == '(') {
                 stack.addFirst(result);
                 stack.addFirst(sign);
                 result = 0;
                 sign = 1;
             }else if(c == ')') {
-                result+= sign * operand;
-                result*= stack.removeFirst();
-                result+= stack.removeFirst();
+                result+= (operand * sign);
+                result*= stack.removeFirst(); //Sign
+                result+= stack.removeFirst(); //Operand
                 operand = 0;
             }
         }
