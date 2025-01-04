@@ -1,26 +1,25 @@
 class Solution {
     /*
-    * KMP
-    * LPS aka Longest Border is longest prefix that is also a suffix to reuse prefixes
+    * KMP. LPS aka Longest Border tells us longest prefix that is also a suffix. We can reuse prefixes to compute
     */
     public int strStr(String haystack, String needle) {
         if(needle.length() > haystack.length()) return -1;
 
-        //1. Preprocess
+        //1. Preprocessing
         int[] longestBorder = new int[needle.length()];
-        int prevLongest = 0, ind = 1; //longestBorder[0] always 0
+        int prevLongest = 0, ind = 1; //longestBorder[0] is always 0. Cannot be prefix/suffix of self
         while(ind < needle.length()) {
-            //Expand prev longest border
-            if(needle.charAt(ind) == needle.charAt(prevLongest)){
+            //Increment prev longest 
+            if(needle.charAt(ind) == needle.charAt(prevLongest)) {
                 prevLongest++;
                 longestBorder[ind++] = prevLongest;
-            } else {
-                if(prevLongest == 0) longestBorder[ind++] = 0; //No matching chars
-                else prevLongest = longestBorder[prevLongest - 1]; //See if smaller previous match
+            }else {
+                if(prevLongest == 0) longestBorder[ind++] = 0; //No characters match
+                else prevLongest = longestBorder[prevLongest - 1]; //Look for smaller prefix for match
             }
         }
 
-        //2. Searching 
+        //2. Searching
         int haystackInd = 0, needleInd = 0;
         while(haystackInd < haystack.length()) {
             if(haystack.charAt(haystackInd) == needle.charAt(needleInd)) {
