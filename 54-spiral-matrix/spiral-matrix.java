@@ -6,13 +6,13 @@ class Solution {
         while(result.size() < rows * cols) {
             //left -> right
             for(int col = left; col <= right; col++) result.add(matrix[up][col]);
-            //Up -> down
+            //up -> down
             for(int row = up + 1; row <= down; row++) result.add(matrix[row][right]);
             //Make sure starting on different rows, then right -> left
             if(up != down) {
                 for(int col = right - 1; col >= left; col--) result.add(matrix[down][col]);
             }
-            //Make sure starting on different cols, then down -> up
+            //Make sure starting at different cols, then down -> up
             if(left != right) {
                 for(int row = down - 1; row > up; row--) result.add(matrix[row][left]);
             }
