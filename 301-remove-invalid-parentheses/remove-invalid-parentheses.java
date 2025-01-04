@@ -1,40 +1,54 @@
 class Solution {
-    Set<String> result = new HashSet<>();
-    int minRemoved = Integer.MAX_VALUE;
+    private Set<String> seen = new HashSet<>();
+    private String s = "";
+    private int minRemoved = Integer.MAX_VALUE;
 
     public List<String> removeInvalidParentheses(String s) {
-        helper(0, 0, 0, 0, s, new StringBuilder());
-        return new ArrayList<>(result);    
+        this.s = s;
+        backtrack(new StringBuilder(), 0, 0, 0, 0);
+        return new ArrayList<>(seen);    
     }
 
-    private void helper(int ind, int leftCount, int rightCount, int removed, String s, StringBuilder sb){
-        if(ind == s.length()){
-            if(leftCount == rightCount && removed <= minRemoved){
-                if(removed < minRemoved){
-                    result = new HashSet<>();
+    private void backtrack(StringBuilder sb, int ind, int leftCount, int rightCount, int removed) {
+        if(ind == s.length()) {
+            if(leftCount == rightCount && removed <= minRemoved) {
+                if(removed < minRemoved) {
+                    seen = new HashSet<>();
                     minRemoved = removed;
                 }
-                result.add(sb.toString());
+                seen.add(sb.toString());
             }
             return;
         }
-        int currLength = sb.length();
 
-        if(s.charAt(ind) == '('){
-            sb.append(s.charAt(ind));
-            helper(ind + 1, leftCount + 1, rightCount, removed, s, sb); //add
+        int currLength = sb.length();
+        char c = s.charAt(ind);
+
+        //1. ( - Add or do not add
+        //2. )
+        //3. Other chars - Add       
+        if(c == '(') {
+            //2. Add
+            sb.append(c);
+            backtrack(sb, ind + 1, leftCount + 1, rightCount, removed);
             sb.deleteCharAt(currLength);
-            helper(ind + 1, leftCount, rightCount, removed + 1, s, sb); //remove
-        }else if(s.charAt(ind) == ')'){
-            if(leftCount > rightCount){
-                sb.append(s.charAt(ind));
-                helper(ind + 1, leftCount, rightCount + 1, removed, s, sb); //add
+            //Do not add
+            backtrack(sb, ind + 1, leftCount, rightCount, removed + 1);
+        }else if(c == ')') {
+            if(rightCount >= leftCount) {
+                //No add
+                backtrack(sb, ind + 1, leftCount, rightCount, removed + 1);
+            }else {
+                //Add
+                sb.append(c);
+                backtrack(sb, ind + 1, leftCount, rightCount + 1, removed);
                 sb.deleteCharAt(currLength);
+                //No add
+                backtrack(sb, ind + 1, leftCount, rightCount, removed + 1);
             }
-            helper(ind + 1, leftCount, rightCount, removed + 1, s, sb); //remove
-        }else{
-            sb.append(s.charAt(ind));
-            helper(ind + 1, leftCount, rightCount, removed, s, sb);
+        }else {
+            sb.append(c);
+            backtrack(sb, ind + 1, leftCount, rightCount, removed);
             sb.deleteCharAt(currLength);
         }
     }
