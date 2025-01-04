@@ -4,25 +4,33 @@ class Solution {
         return dp(n);
     }
 
-    private String dp(int n){
+    private String dp(int n) {
+        //1. Base case 
         if(n == 1) return "1";
 
+        //2. Recursion
         StringBuilder result = new StringBuilder();
         String s = dp(n - 1);
-        char c = s.charAt(0);
         int count = 0;
+        char prev = s.charAt(0);
 
-        for(int i = 0; i < s.length(); i++){
-            if(s.charAt(i) == c) count++;
-            else{
+        //3. Count Variables
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if(c == prev) count++;
+            else {
+                //5. Append
                 result.append(count);
-                result.append(c);
+                result.append(prev);
+                //6. Reset variables
                 count = 1;
-                c = s.charAt(i);
+                prev = c;
             }
         }
+        //7. Set final num
         result.append(count);
-        result.append(c);
+        result.append(prev);
+
         return result.toString();
     }
 }
