@@ -10,11 +10,12 @@ class Solution {
     }
 
     private void backtrack(StringBuilder sb, int ind, int leftCount, int rightCount, int removed) {
+        //0. Exit Condition
         if(ind == s.length()) {
             if(leftCount == rightCount && removed <= minRemoved) {
                 if(removed < minRemoved) {
-                    seen = new HashSet<>();
                     minRemoved = removed;
+                    seen = new HashSet<>();
                 }
                 seen.add(sb.toString());
             }
@@ -23,29 +24,26 @@ class Solution {
 
         int currLength = sb.length();
         char c = s.charAt(ind);
-
-        //1. ( - Add or do not add
-        //2. )
-        //3. Other chars - Add       
+        //3 Cases
+        //1. ( - Add or Remove
+        //2. ) - Try to add, or Remove
+        //3. Other chars - Add
         if(c == '(') {
-            //2. Add
+            //1. Add
             sb.append(c);
             backtrack(sb, ind + 1, leftCount + 1, rightCount, removed);
             sb.deleteCharAt(currLength);
-            //Do not add
+            //Remove
             backtrack(sb, ind + 1, leftCount, rightCount, removed + 1);
         }else if(c == ')') {
-            if(rightCount >= leftCount) {
-                //No add
-                backtrack(sb, ind + 1, leftCount, rightCount, removed + 1);
-            }else {
-                //Add
+            //Attempt to add
+            if(leftCount > rightCount) {
                 sb.append(c);
                 backtrack(sb, ind + 1, leftCount, rightCount + 1, removed);
                 sb.deleteCharAt(currLength);
-                //No add
-                backtrack(sb, ind + 1, leftCount, rightCount, removed + 1);
             }
+            //Remove
+            backtrack(sb, ind + 1, leftCount, rightCount, removed + 1);
         }else {
             sb.append(c);
             backtrack(sb, ind + 1, leftCount, rightCount, removed);
