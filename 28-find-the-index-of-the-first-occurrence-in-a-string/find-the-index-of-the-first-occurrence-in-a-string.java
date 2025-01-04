@@ -1,35 +1,35 @@
 class Solution {
     /*
-    * KPM
-    * The LPS value tells us the length of the longest part of the already matched portion of the needle that can be reused as a prefix after the shift.
+    * KMP
+    * LPS aka Longest Border is longest prefix that is also a suffix to reuse prefixes
     */
     public int strStr(String haystack, String needle) {
         if(needle.length() > haystack.length()) return -1;
 
-        //1. Preprocessing
+        //1. Preprocess
         int[] longestBorder = new int[needle.length()];
-        int longestPrev = 0, ind = 1; //longestBorder[0] is always 0 because string cannot be prefix/suffix of itself
+        int prevLongest = 0, ind = 1; //longestBorder[0] always 0
         while(ind < needle.length()) {
-            //Increment longestPrev
-            if(needle.charAt(ind) == needle.charAt(longestPrev)) {
-                longestPrev++;
-                longestBorder[ind++] = longestPrev;
-            }else {
-                if(longestPrev == 0) longestBorder[ind++] = 0;
-                else longestPrev = longestBorder[longestPrev - 1];
+            //Expand prev longest border
+            if(needle.charAt(ind) == needle.charAt(prevLongest)){
+                prevLongest++;
+                longestBorder[ind++] = prevLongest;
+            } else {
+                if(prevLongest == 0) longestBorder[ind++] = 0; //No matching chars
+                else prevLongest = longestBorder[prevLongest - 1]; //See if smaller previous match
             }
         }
 
-        //2. Searching
+        //2. Searching 
         int haystackInd = 0, needleInd = 0;
         while(haystackInd < haystack.length()) {
             if(haystack.charAt(haystackInd) == needle.charAt(needleInd)) {
                 haystackInd++;
                 needleInd++;
-                //All characters matched
+                //All characters match
                 if(needleInd == needle.length()) return haystackInd - needle.length();
             }else {
-                if(needleInd == 0) haystackInd++; //No characters matched
+                if(needleInd == 0) haystackInd++; //No characters match
                 else needleInd = longestBorder[needleInd - 1];
             }
         }
