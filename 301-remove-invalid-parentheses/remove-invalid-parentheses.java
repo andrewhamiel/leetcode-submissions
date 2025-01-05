@@ -21,6 +21,7 @@ class Solution {
             }
             return;
         }
+        if(removed > minRemoved) return;
         
         int currLength = sb.length();
         char c = s.charAt(ind);
