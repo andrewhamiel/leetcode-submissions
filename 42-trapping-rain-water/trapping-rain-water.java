@@ -1,8 +1,9 @@
 class Solution {
     public int trap(int[] height) {
+        //2 monotonic sequences
         int left = 0, right = height.length - 1, leftHeight = height[left], rightHeight = height[right], vol = 0;
-        while(left < right) {
-            if(height[left] <= height[right]) {
+        while(left <= right) {
+            if(height[left] < height[right]) {
                 leftHeight = Math.max(leftHeight, height[left]);
                 vol+= leftHeight - height[left++];
             }else {
