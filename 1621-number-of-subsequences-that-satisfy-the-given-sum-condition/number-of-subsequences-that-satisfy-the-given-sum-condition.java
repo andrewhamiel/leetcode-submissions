@@ -10,7 +10,7 @@ class Solution {
         while(left <= right) {
             if(nums[left] + nums[right] > target) right--;
             else {
-                //Two choices for each num in range [left, right]: Include or do not include
+                //2 choices for nums in [left, right]: Include or not include
                 //Total subarrays is 2^(right - left)
                 result = (result + (int) binaryExp(2, right - left)) % MOD;
                 left++;
