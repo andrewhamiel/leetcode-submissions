@@ -8,12 +8,12 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>();
         //1. Exit condition
         if(left == nums.length) return result;
-        //2. Out of bounds sum. K nums left, if nums[left] > average val || nums[nums.length - 1] < averageVal then not possible
+        //2. Out of bounds sum. K nums left, if nums[left] > average val || nums[nums.length - 1] < average val then not possible
         long averageVal = target / k;
         if(nums[left] > averageVal || nums[nums.length - 1] < averageVal) return result;
-        //3. Base case 
+        //3. Base case
         if(k == 2) return twoSumSorted(left, nums, target);
-        //4. 4Sum
+        //4. KSum
         for(int i = left; i < nums.length; i++) {
             if(i == left || nums[i] != nums[i - 1]) {
                 for(List<Integer> subList : kSum(i + 1, nums, target - nums[i], k - 1)) {
