@@ -1,17 +1,17 @@
 class Solution {
     public int calculate(String s) {
         Deque<Integer> stack = new ArrayDeque<>();
-        int operand = 0, result = 0, sign = 1;
+        int operand = 0, sign = 1, result = 0;
         for(char c : s.toCharArray()) {
             if(Character.isDigit(c)) {
                 operand*= 10;
-                operand+= (c - '0');
+                operand+= c - '0';
             }else if(c == '+') {
-                result+= (operand * sign);
+                result+= operand * sign;
                 operand = 0;
                 sign = 1;
             }else if(c == '-') {
-                result+= (operand * sign);
+                result+= operand * sign;
                 operand = 0;
                 sign = -1;
             }else if(c == '(') {
@@ -20,12 +20,13 @@ class Solution {
                 result = 0;
                 sign = 1;
             }else if(c == ')') {
-                result+= (operand * sign);
-                result*= stack.removeFirst(); //Sign
-                result+= stack.removeFirst(); //Operand
+                result+= operand * sign;
+                result*= stack.removeFirst();
+                result+= stack.removeFirst();
                 operand = 0;
             }
         }
-        return result + (operand * sign);
+        result+= operand * sign;
+        return result;
     }
 }
