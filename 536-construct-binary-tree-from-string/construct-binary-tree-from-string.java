@@ -27,8 +27,7 @@ class Solution {
             if(Character.isDigit(s.charAt(i)) || s.charAt(i) == '-') {
                 Pair<Integer, Integer> p = getNumber(i, s);
                 i = p.getKey();
-                int val = p.getValue();
-                curr.val = val;
+                curr.val = p.getValue();
 
                 //First subtree will be left child if any data left
                 if(i < s.length() && s.charAt(i) == '(') {
@@ -37,13 +36,13 @@ class Solution {
                     stack.addFirst(curr.left);
                 }
             }else if(s.charAt(i) == '(' && curr.left != null) {
-                    //Left done
-                    stack.addFirst(curr);
-                    curr.right = new TreeNode();
-                    stack.addFirst(curr.right);
+                //Left done
+                stack.addFirst(curr);
+                curr.right = new TreeNode();
+                stack.addFirst(curr.right);
             }
         }
-        return stack.isEmpty() ? root : stack.removeFirst();
+        return !stack.isEmpty() ? stack.removeFirst() : root;
     }
 
     private Pair<Integer, Integer> getNumber(int ind, String s) {
@@ -58,7 +57,7 @@ class Solution {
             num*= 10;
             num+= (s.charAt(ind++) - '0');
         }
-
+        
         if(isNegative) num*= -1;
         return new Pair<>(ind, num);
     }
