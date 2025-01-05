@@ -18,7 +18,7 @@ class Solution {
             result+= s.charAt(ind++) - '0';
         }
 
-        //4. Rounding
+        //4. Round down
         result*= sign;
         if(result < Integer.MIN_VALUE || result > Integer.MAX_VALUE) {
             return result < Integer.MIN_VALUE ? Integer.MIN_VALUE : Integer.MAX_VALUE;
