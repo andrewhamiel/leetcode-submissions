@@ -8,11 +8,11 @@ class Solution {
             for(int col = left; col <= right; col++) result.add(matrix[up][col]);
             //up -> down
             for(int row = up + 1; row <= down; row++) result.add(matrix[row][right]);
-            //Make sure starting at different rows, then right -> left
+            //make sure rows are different, then right -> left
             if(up != down) {
                 for(int col = right - 1; col >= left; col--) result.add(matrix[down][col]);
             }
-            //Make sure starting at different cols, then down -> up
+            //make sure cols are different, then down -> up
             if(left != right) {
                 for(int row = down - 1; row > up; row--) result.add(matrix[row][left]);
             }
