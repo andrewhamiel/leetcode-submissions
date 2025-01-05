@@ -6,11 +6,11 @@ class Solution {
     public List<String> removeInvalidParentheses(String s) {
         this.s = s;
         backtrack(new StringBuilder(), 0, 0, 0, 0);
-        return new ArrayList<>(seen);    
+        return new ArrayList<>(seen);
     }
 
     private void backtrack(StringBuilder sb, int ind, int leftCount, int rightCount, int removed) {
-        //0. Exit condition
+        //0. Exit condition/base case
         if(ind == s.length()) {
             if(leftCount == rightCount && removed <= minRemoved) {
                 if(removed < minRemoved) {
@@ -21,14 +21,14 @@ class Solution {
             }
             return;
         }
-
+        
         int currLength = sb.length();
         char c = s.charAt(ind);
 
         //3 Cases
-        //1. ( - Add and Remove
-        //2. ) = Attempt to Add, Remove
-        //3. Other chars - Add
+        //1. Left Paren - Add, Remove
+        //2. Right Paren - Attempt to Add, Remove
+        //3. All other chars - Add
         if(c == '(') {
             //Add
             sb.append(c);
@@ -37,14 +37,14 @@ class Solution {
             //Remove
             backtrack(sb, ind + 1, leftCount, rightCount, removed + 1);
         }else if(c == ')') {
-            //Attempt to Add
+            //Attempt to add
             if(leftCount > rightCount) {
                 sb.append(c);
                 backtrack(sb, ind + 1, leftCount, rightCount + 1, removed);
                 sb.deleteCharAt(currLength);
             }
             //Remove
-            backtrack(sb, ind + 1, leftCount, rightCount, removed);
+            backtrack(sb, ind + 1, leftCount, rightCount, removed + 1);
         }else {
             //Add
             sb.append(c);
