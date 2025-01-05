@@ -5,12 +5,8 @@ class Solution {
             char c = strs[0].charAt(i);
             boolean isBreakFound = false;
             for(String str : strs) {
-                if(i >= str.length() || str.charAt(i) != c) {
-                    isBreakFound = true;
-                    break;
-                }
+                if(i >= str.length() || str.charAt(i) != c) return result.toString();
             }
-            if(isBreakFound) return result.toString();
             result.append(c);
         }
         return result.toString();
