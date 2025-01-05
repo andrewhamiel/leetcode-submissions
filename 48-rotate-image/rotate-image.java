@@ -2,7 +2,7 @@ class Solution {
     public void rotate(int[][] matrix) {
         //2 Steps
 
-        //1. Transpose
+        //1. Transpose: Swap rows/cols to flip diagonal top left -> bottom right
         for(int row = 0; row < matrix.length; row++) {
             for(int col = row; col < matrix[0].length; col++) {
                 int tmp = matrix[row][col];
@@ -11,7 +11,7 @@ class Solution {
             }
         }
 
-        //2. Reflect
+        //2. Reflect. Flip horizontally from left -> right
         for(int row = 0; row < matrix.length; row++) {
             int left = 0, right = matrix[row].length - 1;
             while(left < right) {
