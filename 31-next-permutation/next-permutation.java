@@ -1,5 +1,6 @@
 class Solution {
     public void nextPermutation(int[] nums) {
+        //Key intuition: monotonically non-increasing sequence, when reversed, becomes mononically non-decreasing
         int i = nums.length - 2;
         while(i >= 0 && nums[i] >= nums[i + 1]) i--;
 
