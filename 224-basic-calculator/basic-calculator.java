@@ -6,14 +6,10 @@ class Solution {
             if(Character.isDigit(c)) {
                 operand*= 10;
                 operand+= (c - '0');
-            }else if(c == '+') {
+            }else if(c == '+' || c == '-') {
                 result+= operand * sign;
                 operand = 0;
-                sign = 1;
-            }else if(c == '-') {
-                result+= operand * sign;
-                operand = 0;
-                sign = -1;
+                sign = c == '+' ? 1 : -1;
             }else if(c == '(') {
                 stack.addFirst(result);
                 stack.addFirst(sign);
