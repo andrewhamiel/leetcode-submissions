@@ -1,34 +1,33 @@
 class Solution {
-    Map<Character, List<Character>> map = new HashMap<>();
-    List<String> result = new ArrayList<>();
+    private List<String> result = new ArrayList<>();
+    private String digits = "";
+    private static final Map<Character, List<Character>> DIGIT_MAP = Map.of(
+            '2', List.of('a', 'b', 'c'),
+            '3', List.of('d', 'e', 'f'),
+            '4', List.of('g', 'h', 'i'),
+            '5', List.of('j', 'k', 'l'),
+            '6', List.of('m', 'n', 'o'),
+            '7', List.of('p', 'q', 'r', 's'),
+            '8', List.of('t', 'u', 'v'), 
+            '9', List.of('w', 'x', 'y', 'z'));
 
     public List<String> letterCombinations(String digits) {
-        if(digits == null || digits.length() == 0) return result;
-        populateMap();
-        backtrack(0, digits, new StringBuilder());
-        return result;
+        this.digits = digits;
+        backtrack(new StringBuilder(), 0);
+        return result;   
     }
 
-    private void backtrack(int ind, String digits, StringBuilder sb){
-        if(ind == digits.length()){
-            result.add(sb.toString());
+    private void backtrack(StringBuilder sb, int ind) {
+        if(ind == digits.length()) {
+            if(!sb.isEmpty()) result.add(sb.toString());
             return;
         }
 
-        for(char c : map.get(digits.charAt(ind))){
+        int currLength = sb.length();
+        for(char c : DIGIT_MAP.get(digits.charAt(ind))) {
             sb.append(c);
-            backtrack(ind + 1, digits, sb);
-            sb.deleteCharAt(sb.length() - 1);
-        }
-    }
-
-    private void populateMap(){
-        char c = 'a';
-        for(char digit = '2'; digit <= '9'; digit++){
-            List<Character> letters = new ArrayList<>();
-            for(int i = 0; i < 3; i++) letters.add(c++);
-            if(digit == '7' || digit == '9') letters.add(c++);
-            map.put(digit, letters);
+            backtrack(sb, ind + 1);
+            sb.deleteCharAt(currLength);
         }
     }
 }
