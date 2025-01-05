@@ -1,33 +1,37 @@
 class Solution {
     private List<String> result = new ArrayList<>();
     private String digits = "";
-    private static final Map<Character, List<Character>> DIGIT_MAP = Map.of(
-            '2', List.of('a', 'b', 'c'),
-            '3', List.of('d', 'e', 'f'),
-            '4', List.of('g', 'h', 'i'),
-            '5', List.of('j', 'k', 'l'),
-            '6', List.of('m', 'n', 'o'),
-            '7', List.of('p', 'q', 'r', 's'),
-            '8', List.of('t', 'u', 'v'), 
-            '9', List.of('w', 'x', 'y', 'z'));
+    private Map<Character, List<Character>> map = new HashMap<>();
 
     public List<String> letterCombinations(String digits) {
         this.digits = digits;
+        populateMap();    
         backtrack(new StringBuilder(), 0);
-        return result;   
+        return result;
     }
 
     private void backtrack(StringBuilder sb, int ind) {
+        //1. Exit condition
         if(ind == digits.length()) {
             if(!sb.isEmpty()) result.add(sb.toString());
             return;
         }
 
         int currLength = sb.length();
-        for(char c : DIGIT_MAP.get(digits.charAt(ind))) {
-            sb.append(c);
+        for(char letter : map.get(digits.charAt(ind))) {
+            sb.append(letter);
             backtrack(sb, ind + 1);
             sb.deleteCharAt(currLength);
+        }
+    }
+
+    private void populateMap() {
+        char letter = 'a';
+        for(char digit = '2'; digit <= '9'; digit++) {
+            List<Character> letters = new ArrayList<>();
+            for(int i = 0; i < 3; i++) letters.add(letter++);
+            if(digit == '7' || digit == '9') letters.add(letter++);
+            map.put(digit, letters);
         }
     }
 }
