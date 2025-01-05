@@ -1,52 +1,66 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    public TreeNode str2tree(String s) {       
-        if (s.isEmpty()) return null;
-        
+    public TreeNode str2tree(String s) {
+        if(s.isEmpty()) return null;
+
         TreeNode root = new TreeNode();
-        Stack<TreeNode> stack = new Stack<TreeNode>(); 
-        stack.add(root);
-        
-        for (int index = 0; index < s.length();) {
-            TreeNode node = stack.pop();          
-            // NOT_STARTED
-            if (Character.isDigit(s.charAt(index)) || s.charAt(index) == '-') {
-                Pair<Integer, Integer> numberData = this.getNumber(s, index);
-                int value = numberData.getKey();
-                index = numberData.getValue();
-                
-                node.val = value;
-                
-                // Next, if there is any data left, we check for the first subtree
-                // which according to the problem statement will always be the left child.
-                if (index < s.length() && s.charAt(index) == '(') {
-                    stack.add(node);
-                    node.left = new TreeNode();
-                    stack.add(node.left);
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.addFirst(root);
+
+        for(int i = 0; i < s.length(); i++) {
+            TreeNode curr = stack.removeFirst();
+            //Not started
+            if(Character.isDigit(s.charAt(i)) || s.charAt(i) == '-') {
+                Pair<Integer, Integer> p = getNumber(i, s);
+                i = p.getKey();
+                int val = p.getValue();
+
+                curr.val = val;
+
+                //First subtree will be left child if any data left
+                if(i < s.length() && s.charAt(i) == '(') {
+                    stack.addFirst(curr);
+                    curr.left = new TreeNode();
+                    stack.addFirst(curr.left);
                 }
-            } else if (s.charAt(index) == '(' && node.left != null) { // LEFT_DONE
-                stack.add(node);
-                node.right = new TreeNode();
-                stack.add(node.right);
+            }else if(s.charAt(i) == '(' && curr.left != null) {
+                    //Left done
+                    stack.addFirst(curr);
+                    curr.right = new TreeNode();
+                    stack.addFirst(curr.right);
             }
-            index++;
         }
-        return stack.empty() ? root : stack.pop();
+        return stack.isEmpty() ? root : stack.removeFirst();
     }
-    
-    public Pair<Integer, Integer> getNumber(String s, int index) {
-        boolean isNegative = false;    
-        // A negative number
-        if (s.charAt(index) == '-') {
+
+    private Pair<Integer, Integer> getNumber(int ind, String s) {
+        boolean isNegative = false;
+        if(s.charAt(ind) == '-') {
             isNegative = true;
-            index++;
+            ind++;
         }
-            
-        int number = 0;
-        while (index < s.length() && Character.isDigit(s.charAt(index))) {
-            number = number * 10 + (s.charAt(index) - '0');
-            index++;
+
+        int num = 0;
+        while(ind < s.length() && Character.isDigit(s.charAt(ind))) {
+            num*= 10;
+            num+= (s.charAt(ind++) - '0');
         }
-        
-        return new Pair<>(isNegative ? -number : number, index);
-    } 
+
+        if(isNegative) num*= -1;
+        return new Pair<>(ind, num);
+    }
 }
