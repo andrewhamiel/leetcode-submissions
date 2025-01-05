@@ -3,8 +3,8 @@ class Solution {
 
     public List<String> generateParenthesis(int n) {
         if(n == 0) return new ArrayList<>();
-        backtrack(new StringBuilder(), n, n);
-        return result;    
+        backtrack(new StringBuilder(), n, n);    
+        return result;
     }
 
     private void backtrack(StringBuilder sb, int leftCount, int rightCount) {
@@ -22,7 +22,7 @@ class Solution {
             backtrack(sb, leftCount - 1, rightCount);
             sb.deleteCharAt(currLength);
         }
-        //3. Add right paren if valid to do so
+        //3. Add right paren if possible
         if(leftCount < rightCount) {
             sb.append(')');
             backtrack(sb, leftCount, rightCount - 1);
