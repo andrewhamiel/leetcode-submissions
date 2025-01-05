@@ -28,7 +28,6 @@ class Solution {
                 Pair<Integer, Integer> p = getNumber(i, s);
                 i = p.getKey();
                 int val = p.getValue();
-
                 curr.val = val;
 
                 //First subtree will be left child if any data left
