@@ -8,10 +8,12 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>();
         //1. Exit condition
         if(left == nums.length) return result;
-        //2. Out of bounds sum. K nums left, if nums[left] > averageVal || nums[nums.length - 1] < averageVal then sum not possible
+        
+        //2. Out of bounds sum. K nums left, if nums[left] > average val || nums[nums.length - 1] < average val then not possible
         long averageVal = target / k;
         if(nums[left] > averageVal || nums[nums.length - 1] < averageVal) return result;
-        //3. Base case
+
+        //3.  Base case
         if(k == 2) return twoSumSorted(left, nums, target);
         //4. KSum
         for(int i = left; i < nums.length; i++) {
@@ -32,8 +34,8 @@ class Solution {
         while(left < right) {
             int sum = nums[left] + nums[right];
             if(sum == target) {
-                result.add(new ArrayList<>(Arrays.asList(nums[left++], nums[right--])));
-                while(left < nums.length && nums[left] == nums[left - 1]) left++;
+                result.add(new ArrayList<>(Arrays.asList(nums[left++], nums[right])));
+                while(left < right && nums[left] == nums[left - 1]) left++;
             }else if(sum < target) left++;
             else right--;
         }
