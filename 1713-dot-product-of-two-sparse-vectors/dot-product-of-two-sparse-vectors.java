@@ -7,11 +7,15 @@ class SparseVector {
     
 	// Return the dotProduct of two sparse vectors
     public int dotProduct(SparseVector vec) {
-        int dotProduct = 0, p = 0, q = 0;
-        while(p < pairs.size() && q < vec.pairs.size()) {
-            if(pairs.get(p)[0] == vec.pairs.get(q)[0]) dotProduct+= pairs.get(p++)[1] * vec.pairs.get(q++)[1];
-            else if(pairs.get(p)[0] < vec.pairs.get(q)[0]) p++;
-            else q++;
+        int dotProduct = 0, ptrA = 0, ptrB = 0;
+        while(ptrA < pairs.size() && ptrB < vec.pairs.size()) {
+            int[] pairA = pairs.get(ptrA), pairB = vec.pairs.get(ptrB);
+            if(pairA[0] == pairB[0]) {
+                dotProduct+= (pairA[1] * pairB[1]);
+                ptrA++;
+                ptrB++;
+            }else if(pairA[0] < pairB[0]) ptrA++;
+            else ptrB++;
         }
         return dotProduct;
     }
