@@ -4,8 +4,8 @@ class Solution {
         for(int i = 0; i < nums.length; i++) {
             sum+= nums[i];
             if(i >= k) sum-= nums[i - k];
-            if(i >= k - 1) result = Math.max(result, sum);
+            if(i + 1 >= k) result = Math.max(result, sum);
         }
-        return result/k;
+        return result / k;
     }
 }
