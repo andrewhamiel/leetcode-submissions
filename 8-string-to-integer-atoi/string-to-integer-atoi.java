@@ -1,28 +1,25 @@
 class Solution {
     public int myAtoi(String s) {
-        int sign = 1, ind = 0;
-        long result = 0;
         //1. Whitespace
         s = s.trim();
-
         //2. Sign
-        if(ind < s.length() && s.charAt(ind) == '+') ind++;
-        else if(ind < s.length() && s.charAt(ind) == '-') {
-            sign = -1;
-            ind++;
+        int sign = 1, ind = 0;
+        if(ind < s.length() && (s.charAt(ind) == '+' || s.charAt(ind) == '-')) {
+            sign = s.charAt(ind++) == '+' ? 1 : -1;
         }
-
         //3. Conversion
-        while(ind < s.length() && Character.isDigit(s.charAt(ind)) && result < Integer.MAX_VALUE) {
+        long result = 0;
+        while(ind < s.length() && Character.isDigit(s.charAt(ind)) && Math.abs(result) < Integer.MAX_VALUE) {
             result*= 10;
             result+= s.charAt(ind++) - '0';
         }
-
-        //4. Round down
         result*= sign;
+
+        //4. Rounding
         if(result < Integer.MIN_VALUE || result > Integer.MAX_VALUE) {
             return result < Integer.MIN_VALUE ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         }
+               
         return (int) result;
     }
 }
