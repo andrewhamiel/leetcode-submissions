@@ -7,10 +7,10 @@ class Solution {
         //2. Recursion
         String s = countAndSay(n - 1);
         StringBuilder result = new StringBuilder();
-        int count = 1;
-        char prev = s.charAt(0);
 
         //3. Count variables
+        int count = 1;
+        char prev = s.charAt(0);
         for(int i = 1; i < s.length(); i++) {
             char c = s.charAt(i);
             if(c == prev) count++;
@@ -22,7 +22,7 @@ class Solution {
             }
         }
 
-        //4. Append last variable
+        //4. Append last variables
         result.append(count);
         result.append(prev);
 
