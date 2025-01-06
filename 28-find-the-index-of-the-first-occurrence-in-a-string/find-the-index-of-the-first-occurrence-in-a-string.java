@@ -1,25 +1,21 @@
 class Solution {
-    /*
-    * KMP. LPS aka longest border finds longest prefix that is also suffix. Allows us to reuse prefixes
-    */
+    /* KMP. LPS aka Longest Border keeps track of longest substring that is both prefix and suffix. This allows us to reuse prefixes. */
     public int strStr(String haystack, String needle) {
-        if(needle.length() > haystack.length()) return -1;
-
         //1. Preprocessing
         int[] longestBorder = new int[needle.length()];
-        int prevLongest = 0, ind = 1; //longestBorder[0] always 0 because str cannot be prefix/suffix of self
+        int longestPrev = 0, ind = 1; //longestBorder[0] is always 0 -> cannot be prefix of itself
         while(ind < needle.length()) {
-            //Increment prevLongest
-            if(needle.charAt(ind) == needle.charAt(prevLongest)) {
-                prevLongest++;
-                longestBorder[ind++] = prevLongest;
+            //Expand longest prev
+            if(needle.charAt(ind) == needle.charAt(longestPrev)) {
+                longestPrev++;
+                longestBorder[ind++] = longestPrev;
             }else {
-                if(prevLongest == 0) longestBorder[ind++] = 0; //No characters match
-                else prevLongest = longestBorder[prevLongest - 1]; //Look for smaller calculated prefix match
+                if(longestPrev == 0) longestBorder[ind++] = 0; //No characters match
+                else longestPrev = longestBorder[longestPrev - 1]; //Look for longest border of shorter prefix
             }
         }
 
-        //2. Searching
+        //2. Search
         int haystackInd = 0, needleInd = 0;
         while(haystackInd < haystack.length()) {
             if(haystack.charAt(haystackInd) == needle.charAt(needleInd)) {
@@ -29,7 +25,7 @@ class Solution {
                 if(needleInd == needle.length()) return haystackInd - needle.length();
             }else {
                 if(needleInd == 0) haystackInd++; //No characters match
-                else needleInd = longestBorder[needleInd - 1]; //Look for smaller prefix match
+                else needleInd = longestBorder[needleInd - 1];
             }
         }
         return -1;
