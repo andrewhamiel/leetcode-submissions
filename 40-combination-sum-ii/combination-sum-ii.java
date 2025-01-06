@@ -17,7 +17,7 @@ class Solution {
             return;
         }
 
-        //2. Backtracking
+        //2. Backtrack
         for(int i = ind; i < candidates.length; i++) {
             if(i == ind || candidates[i] != candidates[i - 1]) {
                 list.add(candidates[i]);
