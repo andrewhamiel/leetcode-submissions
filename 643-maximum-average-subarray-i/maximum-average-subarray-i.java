@@ -6,6 +6,6 @@ class Solution {
             if(i >= k) sum-= nums[i - k];
             if(i + 1 >= k) result = Math.max(result, sum);
         }
-        return result / k;
+        return result/k;
     }
 }
