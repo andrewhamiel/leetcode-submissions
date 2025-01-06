@@ -12,12 +12,13 @@ class Solution {
                     String digits = String.valueOf(currLength);
                     for(int digit = 0; digit < digits.length(); digit++) chars[ind++] = digits.charAt(digit);
                 }
-                //Update values
+                //Reset values
                 prev = c;
                 currLength = 1;
             }
         }
-        //Final letter
+
+        //Final character
         chars[ind++] = prev;
         if(currLength > 1) {
             String digits = String.valueOf(currLength);
