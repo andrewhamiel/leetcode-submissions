@@ -17,24 +17,24 @@ class Solution {
     public TreeNode str2tree(String s) {
         Deque<TreeNode> stack = new ArrayDeque<>();
         StringBuilder sb = new StringBuilder();
-        
+
         for(char c : s.toCharArray()) {
             //1. Parens
             if(c == '(' || c == ')') {
-                //Add current value to stack
+                //Add curr val to stack
                 if(!sb.isEmpty()) {
                     stack.addFirst(new TreeNode(Integer.parseInt(sb.toString())));
                     sb = new StringBuilder();
                 }
-                //If closed paren, pop from stack
+                //If right paren, pop from stack and set as child node
                 if(c == ')') {
-                    TreeNode removed = stack.removeFirst();
-                    if(stack.peekFirst().left == null) stack.peekFirst().left = removed;
-                    else stack.peekFirst().right = removed;
+                    TreeNode child = stack.removeFirst();
+                    if(stack.peekFirst().left == null) stack.peekFirst().left = child;
+                    else stack.peekFirst().right = child;
                 }
-            }else sb.append(c); //Digit or sign
+            }else sb.append(c); //2. Digit or sign
         }
-        //Add remaining val if present ie -> s = "4"
+        //3. Add remaining val to stack if present -> ie s = "4"
         if(!sb.isEmpty()) stack.addFirst(new TreeNode(Integer.parseInt(sb.toString())));
 
         return stack.isEmpty() ? null : stack.removeFirst();
