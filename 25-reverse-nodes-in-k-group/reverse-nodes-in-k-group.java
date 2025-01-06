@@ -20,19 +20,19 @@ class Solution {
             }
             //2. Last group remains as is if size < k
             if(count == k) {
-                //3. Head is delinked -> becomes last element in reversed group
+                //3. Reversed K group is delinked -> head becomes last element in reversed group
                 ListNode reversedHead = reverseK(head, k);
-                //4. Set new head after first iteration
+                //4. Set newHead during first iteration
                 if(newHead == null) newHead = reversedHead;
-                //5. Connect previous groups to K group just reversed
+                //5. Link to previous k group
                 if(prevTail != null) prevTail.next = reversedHead;
-                //6. Set tail as last element in reversed K group
+                //6. Set tail as last element in k group
                 prevTail = head;
-                //7. Reset head as beginning of next K group
+                //7. Reset head as beginning of next k group
                 head = curr;
             }
         }
-        //Link final groups together
+        //8. Link final groups together
         if(prevTail != null) prevTail.next = head;
         return newHead;
     }
