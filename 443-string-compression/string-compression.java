@@ -6,24 +6,24 @@ class Solution {
             char c = chars[i];
             if(c == prev) currLength++;
             else {
-                //Add to chars
+                //Replace in array
                 chars[ind++] = prev;
                 if(currLength > 1) {
                     String digits = String.valueOf(currLength);
                     for(int digit = 0; digit < digits.length(); digit++) chars[ind++] = digits.charAt(digit);
-                }        
-                currLength = 1;        
+                }
+                //Update values
                 prev = c;
+                currLength = 1;
             }
         }
-
-        //Append last
+        //Final letter
         chars[ind++] = prev;
         if(currLength > 1) {
             String digits = String.valueOf(currLength);
-            for(int i = 0; i < digits.length(); i++) chars[ind++] = digits.charAt(i);
+            for(int digit = 0; digit < digits.length(); digit++) chars[ind++] = digits.charAt(digit);
         }
-
+        
         return ind;
     }
 }
