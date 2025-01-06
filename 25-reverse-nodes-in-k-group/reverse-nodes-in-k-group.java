@@ -12,7 +12,7 @@ class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode curr = head, newHead = null, prevTail = null;
         while(curr != null) {
-            //1. Advance K nodes
+            //1. Advance K nodes 
             int count = 0;
             while(curr != null && count < k) {
                 curr = curr.next;
@@ -20,19 +20,19 @@ class Solution {
             }
             //2. Last group remains as is if size < k
             if(count == k) {
-                //3. Reversed K group is delinked -> head becomes last element in reversed group
+                //3. Reversed k group becomes delinked -> head is last element in reversed group
                 ListNode reversedHead = reverseK(head, k);
                 //4. Set newHead during first iteration
                 if(newHead == null) newHead = reversedHead;
                 //5. Link to previous k group
                 if(prevTail != null) prevTail.next = reversedHead;
-                //6. Set tail as last element in k group
+                //6. Set tail as last element in reversed k group
                 prevTail = head;
-                //7. Reset head as beginning of next k group
+                //7. Reset head as first element in next group
                 head = curr;
             }
         }
-        //8. Link final groups together
+        //8. Link final group
         if(prevTail != null) prevTail.next = head;
         return newHead;
     }
