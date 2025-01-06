@@ -2,20 +2,19 @@ class Solution {
     private static final int MOD = 1_000_000_007;
 
     public int numSubseq(int[] nums, int target) {
-        //1. Sort. Maintains relative position of nums
+        //1. Sort -> maintains relative ordering
         Arrays.sort(nums);
-
-        //2. 2P and Binary Exp
+        //2. 2P and Binary Exp    
         int left = 0, right = nums.length - 1, result = 0;
         while(left <= right) {
             if(nums[left] + nums[right] > target) right--;
             else {
-                //2 choices for nums in [left, right]: Include or not include
+                //2 choices for each pair in [left, right]: Include or Do Not Include
                 //Total subarrays is 2^(right - left)
                 result = (result + (int) binaryExp(2, right - left)) % MOD;
                 left++;
             }
-        }    
+        }
         return result;
     }
 
