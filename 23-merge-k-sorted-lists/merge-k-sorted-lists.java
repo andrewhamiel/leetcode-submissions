@@ -14,6 +14,9 @@ class Solution {
         return mergeK(0, lists.length - 1, lists);
     }
 
+    /*
+    * Divide and Conquer
+    */
     private ListNode mergeK(int left, int right, ListNode[] lists) {
         if(left >= right) return lists[left];
         int mid = left + (right - left)/2;
@@ -22,7 +25,7 @@ class Solution {
     }
 
     private ListNode merge(ListNode a, ListNode b) {
-        ListNode curr = new ListNode(0), head = curr;
+        ListNode result = new ListNode(), curr = result;
         while(a != null || b != null) {
             if(a != null && b != null) {
                 if(a.val <= b.val) {
@@ -35,12 +38,12 @@ class Solution {
             }else if(a != null) {
                 curr.next = a;
                 a = a.next;
-            }else {
+            }else if(b != null) {
                 curr.next = b;
                 b = b.next;
             }
             curr = curr.next;
         }
-        return head.next;
+        return result.next;
     }
 }
