@@ -19,7 +19,7 @@ class Solution {
         while(root != null) {
             double closestDiff = Math.abs(target - closest), currDiff = Math.abs(target - root.val);
             if(currDiff < closestDiff || (currDiff == closestDiff && root.val < closest)) closest = root.val;
-            root = root.val < target ? root.right : root.left;
+            root = root.val > target ? root.left : root.right;
         }
         return closest;
     }
