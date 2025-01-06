@@ -20,15 +20,15 @@ class Solution {
             }
             //2. Last group remains as is if size < k
             if(count == k) {
-                //3. Head is delinked -> becomes last node in reversed group
+                //3. Head is delinked -> becomes last element in reversed group
                 ListNode reversedHead = reverseK(head, k);
-                //4. Set new head after reversing first K group
+                //4. Set new head after first iteration
                 if(newHead == null) newHead = reversedHead;
                 //5. Connect previous groups to K group just reversed
                 if(prevTail != null) prevTail.next = reversedHead;
                 //6. Set tail as last element in reversed K group
                 prevTail = head;
-                //7. Reset head to beginning of next K group
+                //7. Reset head as beginning of next K group
                 head = curr;
             }
         }
