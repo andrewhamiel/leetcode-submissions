@@ -1,27 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
     public TreeNode str2tree(String s) {
-        final Deque<TreeNode> stack = new ArrayDeque<>();
-        final StringBuilder sb = new StringBuilder();
-        
-        for (char c: s.toCharArray()) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        StringBuilder sb = new StringBuilder();
+
+        for(char c : s.toCharArray()) {
             //1. Parens
-            if (c == '(' || c == ')') {
+            if(c == '(' || c == ')') {
                 //Add current value to stack
-                if (sb.length() > 0) { 
+                if(sb.length() > 0) {
                     stack.addFirst(new TreeNode(Integer.parseInt(sb.toString())));
-                    sb.delete(0, sb.length());
+                    sb = new StringBuilder();
                 }
-                //If close paren, start popping
-                if (c == ')') { 
-                    TreeNode top = stack.removeFirst();
-                    if (stack.peekFirst().left == null) stack.peekFirst().left = top;
-                    else stack.peekFirst().right = top;
+                //If close parens, pop from stack
+                if(c == ')') {
+                    TreeNode removed = stack.removeFirst();
+                    if(stack.peekFirst().left == null) stack.peekFirst().left = removed;
+                    else stack.peekFirst().right = removed;
                 }
-            } else sb.append(c); //2. Digit or sign
+            }else sb.append(c); //2. Digit or sign
         }
-        //3. Place unadded value on stack if present ie -> s = "4"
-        if (sb.length() > 0) stack.addFirst(new TreeNode(Integer.parseInt(sb.toString())));
-        
+        //3. Add remaining value to stack if present
+        if(sb.length() > 0) stack.addFirst(new TreeNode(Integer.parseInt(sb.toString())));
+
         return stack.isEmpty() ? null : stack.removeFirst();
     }
 }
