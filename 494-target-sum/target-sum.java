@@ -12,11 +12,11 @@ class Solution {
         this.nums = nums;
         this.target = target;
 
-        //To make range of sums [-totalSum, totalSum] fit into array, make range [2 * targetSum]
-        memo = new int[nums.length][2 * totalSum + 1];     
+        //Make range [-totalSum, totalSum] fit into 2D array
+        memo = new int[nums.length][2 * totalSum + 1];
         for(int[] row : memo) Arrays.fill(row, -1);
 
-        return calculate(0, 0);
+        return calculate(0, 0);    
     }
 
     private int calculate(int ind, int sum) {
@@ -26,7 +26,7 @@ class Solution {
         //2. Memoization
         if(memo[ind][totalSum + sum] != -1) return memo[ind][totalSum + sum];
 
-        //3. Two choices: Add or subtract
-        return memo[ind][totalSum + sum] = calculate(ind + 1, sum + nums[ind]) + calculate(ind + 1, sum - nums[ind]);
+        //3. For each num in array, Two choices: Add or Subtract
+        return  memo[ind][totalSum + sum] = calculate(ind + 1, sum + nums[ind]) + calculate(ind + 1, sum - nums[ind]);
     }
 }
