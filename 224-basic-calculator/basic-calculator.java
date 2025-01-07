@@ -1,11 +1,11 @@
 class Solution {
     public int calculate(String s) {
         Deque<Integer> stack = new ArrayDeque<>();
-        int operand = 0, result = 0, sign = 1;
+        int operand = 0, sign = 1, result = 0;
         for(char c : s.toCharArray()) {
             if(Character.isDigit(c)) {
                 operand*= 10;
-                operand+= (c - '0');
+                operand+= c - '0';
             }else if(c == '+' || c == '-') {
                 result+= operand * sign;
                 operand = 0;
