@@ -1,11 +1,11 @@
 class Solution {
     public void rotate(int[][] matrix) {
-        //Key intuition: on 2D plane, 90 degree rotation is (x, y) -> (y, -x)
-        //2 Steps
+        //Key intuition: 90 degree rotation in 2D coordinate system -> (x, y) -> (y, -x)
+        //2 steps
 
-        //1. Transpose: Flip across diagonal from top left -> bottom right
+        //1. Transpose: flip diagonally from top left -> bottom right
         for(int row = 0; row < matrix.length; row++) {
-            //Avoid duplicate swaps
+            //Avoid duplicate swap
             for(int col = row; col < matrix[0].length; col++) {
                 int tmp = matrix[row][col];
                 matrix[row][col] = matrix[col][row];
@@ -13,7 +13,7 @@ class Solution {
             }
         }
 
-        //2. Reflect: Flip horizontally from left -> right
+        //2. Reflect horizontally from left -> right
         for(int row = 0; row < matrix.length; row++) {
             int left = 0, right = matrix[row].length - 1;
             while(left < right) {
