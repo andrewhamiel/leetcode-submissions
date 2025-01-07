@@ -5,14 +5,14 @@ class Solution {
 
         Queue<String> q = new LinkedList<>();
         q.add(beginWord);
-        words.remove(beginWord);
 
-        int ladderLength = 1;
+        int wordLength = 1;
+
         while(!q.isEmpty()) {
             int size = q.size();
             while(size-- > 0) {
                 String currWord = q.poll();
-                if(currWord.equals(endWord)) return ladderLength;
+                if(currWord.equals(endWord)) return wordLength;
 
                 for(String nextWord : getNeighbors(currWord)) {
                     if(words.contains(nextWord)) {
@@ -21,7 +21,7 @@ class Solution {
                     }
                 }
             }
-            ladderLength++;
+            wordLength++;
         }
         return 0;
     }
@@ -30,14 +30,14 @@ class Solution {
         Set<String> result = new HashSet<>();
         char[] arr = currWord.toCharArray();
         for(int i = 0; i < arr.length; i++) {
-            char prevChar = arr[i];
+            char prevLetter = arr[i];
             for(char c = 'a'; c <= 'z'; c++) {
-                if(c != prevChar) {
+                if(c != prevLetter) {
                     arr[i] = c;
                     result.add(new String(arr));
                 }
             }
-            arr[i] = prevChar;
+            arr[i] = prevLetter;
         }
         return result;
     }
