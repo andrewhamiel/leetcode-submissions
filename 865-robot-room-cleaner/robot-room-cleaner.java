@@ -18,7 +18,7 @@
 
 class Solution {
     //Right hand rule
-    private static final int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //Up -> left
+    private int[][] dirs = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; //Up -> Left
     private Set<Pair<Integer, Integer>> visited = new HashSet<>();
     private Robot robot;
 
@@ -34,7 +34,6 @@ class Solution {
         for(int i = dir; i < dir + 4; i++) {
             int newDir = i % 4;
             int newRow = row + dirs[newDir][0], newCol = col + dirs[newDir][1];
-            //Only visit valid cells once
             if(!visited.contains(new Pair<>(newRow, newCol)) && robot.move()) {
                 backtrack(newRow, newCol, newDir);
                 goBack();
