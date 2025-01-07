@@ -16,8 +16,8 @@
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
         Deque<TreeNode> stack = new ArrayDeque<>();
-
-        //Inorder
+        
+        //Inorder traversal
         while(true) {
             //Left
             while(root != null) {
