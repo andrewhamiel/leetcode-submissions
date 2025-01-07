@@ -1,9 +1,9 @@
 class Solution {
     public boolean isValidSudoku(char[][] board) {
-        int[] rows = new int[9], cols = new int[9], boxes = new int[9];
+        int[] rows = new int[board.length], cols = new int[board.length], boxes = new int[board.length];
         for(int row = 0; row < board.length; row++) {
             for(int col = 0; col < board[0].length; col++) {
-                //1. Check position for number
+                //1. Check for number at pos
                 if(board[row][col] == '.') continue;
 
                 int val = board[row][col] - '0';
