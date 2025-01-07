@@ -18,7 +18,6 @@ class Solution {
             odd = odd.next;
             even = even.next;
         }
-
         odd.next = evenHead;
         return head;
     }
