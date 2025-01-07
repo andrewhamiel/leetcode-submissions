@@ -1,32 +1,34 @@
 class Solution {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
-        //1. Find groups
         UnionFind uf = new UnionFind(accounts.size());
-        Map<String, Integer> groups = new HashMap<>();
+        //1. Find groups
+        Map<String, Integer> emails = new HashMap<>();
         for(int i = 0; i < accounts.size(); i++) {
             List<String> account = accounts.get(i);
             for(int j = 1; j < account.size(); j++) {
                 String email = account.get(j);
-                if(!groups.containsKey(email)) groups.put(email, i);
-                else uf.union(groups.get(email), i);
+                if(emails.containsKey(email)) uf.union(emails.get(email), i);
+                else emails.put(email, i);
             }
         }
-        //2. Connect components by group
+
+        //2. Group components
         Map<Integer, List<String>> components = new HashMap<>();
-        for(String email : groups.keySet()) {
-            int group = groups.get(email);
-            int rankedGroup = uf.find(group);
+        for(String email : emails.keySet()) {
+            int unrankedGroup = emails.get(email);
+            int rankedGroup = uf.find(unrankedGroup);
             components.computeIfAbsent(rankedGroup, k -> new ArrayList<>()).add(email);
         }
+
         //3. Build result
         List<List<String>> result = new ArrayList<>();
         for(int rankedGroup : components.keySet()) {
-            List<String> emails = components.get(rankedGroup);
+            List<String> emailList = components.get(rankedGroup);
             String accountName = accounts.get(rankedGroup).get(0);
-            Collections.sort(emails);
+            Collections.sort(emailList);
             List<String> list = new ArrayList<>();
             list.add(accountName);
-            list.addAll(emails);
+            list.addAll(emailList);
             result.add(list);
         }
         return result;
@@ -39,6 +41,7 @@ class Solution {
         public UnionFind(int n) {
             group = new int[n];
             rank = new int[n];
+
             for(int i = 0; i < n; i++) {
                 group[i] = i;
                 rank[i] = 1;
