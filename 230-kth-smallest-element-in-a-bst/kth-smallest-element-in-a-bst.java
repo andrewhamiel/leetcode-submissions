@@ -15,20 +15,18 @@
  */
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
-        Deque<TreeNode> stack = new ArrayDeque<>();
-        //Inorder traversal
-        while(true) {
-            //Left
-            while(root != null) {
-                stack.addFirst(root);
-                root = root.left;
-            }
-            //Root
-            root = stack.removeFirst();
-            k--;
-            if(k == 0) return root.val;
-            //Right
-            root = root.right;
-        }
+        List<Integer> result = new ArrayList<>();
+        inorder(root, result);
+        return result.get(k - 1);
+    }
+
+    private void inorder(TreeNode root, List<Integer> result) {
+        if(root == null) return;
+        //Left
+        inorder(root.left, result);
+        //Root
+        result.add(root.val);
+        //Right
+        inorder(root.right, result);
     }
 }
