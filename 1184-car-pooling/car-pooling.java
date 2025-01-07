@@ -7,10 +7,10 @@ class Solution {
             timestamps[to]-= passengers;
         }
 
-        int currPassengers = 0;
+        int numPassengers = 0;
         for(int i = 0; i < timestamps.length; i++) {
-            currPassengers+= timestamps[i];
-            if(currPassengers > capacity) return false;
+            numPassengers+= timestamps[i];
+            if(numPassengers > capacity) return false;
         }
         return true;
     }
