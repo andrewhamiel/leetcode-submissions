@@ -1,24 +1,26 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
         int maxPile = 0;
-        for(int pile : piles) maxPile = Math.max(maxPile, pile);
+        for(int pile : piles) {
+            maxPile = Math.max(maxPile, pile);
+        }
 
         int left = 1, right = maxPile;
-        while(left < right){
+        while(left < right) {
             int mid = left + (right - left)/2;
-            if(isFeasible(piles, h, mid)) right = mid;
+            if(isFeasible(mid, piles, h)) right = mid;
             else left = mid + 1;
         }
-        return right;
+        return left;
     }
 
-    private boolean isFeasible(int[] piles, int h, int capacity){
-        int hours = 0;
-        for(int bananas : piles){
-            hours+= (bananas/capacity);
+    private boolean isFeasible(int capacity, int[] piles, int h) {
+        int currHours = 0;
+        for(int bananas : piles) {
+            currHours+= bananas / capacity;
             int rem = bananas % capacity;
-            if(rem > 0) hours++;
+            if(rem > 0) currHours++;
         }
-        return hours <= h;
+        return currHours <= h;
     }
 }
