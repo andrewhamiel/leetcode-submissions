@@ -4,13 +4,16 @@ class Solution {
         for(int asteroid : asteroids) {
             while(!stack.isEmpty() && stack.peekFirst() > 0 && asteroid < 0) {
                 int sum = stack.peekFirst() + asteroid;
-                if(sum < 0) stack.removeFirst();
-                else if(sum == 0) {
+                if(sum == 0) {
+                    //Both explode
                     asteroid = 0;
                     stack.removeFirst();
-                }else if(sum > 0) {
+                }else if(sum < 0) {
+                    //Asteroid on stack explodes
+                    stack.removeFirst();
+                }else {
+                    //Asteroid explodes
                     asteroid = 0;
-                    break;
                 }
             }
             if(asteroid != 0) stack.addFirst(asteroid);
