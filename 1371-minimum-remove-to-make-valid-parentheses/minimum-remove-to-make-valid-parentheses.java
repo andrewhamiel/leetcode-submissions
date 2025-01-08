@@ -1,20 +1,32 @@
 class Solution {
+
     public String minRemoveToMakeValid(String s) {
-        Deque<Integer> leftParens = new ArrayDeque<>();
-        Set<Integer> toBeRemoved = new HashSet<>();
-        for(int i = 0; i < s.length(); i++) {
+        // Pass 1: Remove all invalid ")"
+        StringBuilder sb = new StringBuilder();
+        int leftParens = 0, balance = 0;
+        for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if(c == '(') leftParens.addFirst(i);
-            else if(c == ')') {
-                if(!leftParens.isEmpty()) leftParens.removeFirst();
-                else toBeRemoved.add(i);
+            if (c == '(') {
+                leftParens++;
+                balance++;
+            } if (c == ')') {
+                if (balance == 0) continue;
+                balance--;
             }
+            sb.append(c);
         }
 
-        while(!leftParens.isEmpty()) toBeRemoved.add(leftParens.removeFirst());
-
+        // Pass 2: Remove the rightmost "("
         StringBuilder result = new StringBuilder();
-        for(int i = 0; i < s.length(); i++) if(!toBeRemoved.contains(i)) result.append(s.charAt(i));
+        int openToKeep = leftParens - balance;
+        for (int i = 0; i < sb.length(); i++) {
+            char c = sb.charAt(i);
+            if (c == '(') {
+                openToKeep--;
+                if (openToKeep < 0) continue;
+            }
+            result.append(c);
+        }
 
         return result.toString();
     }
