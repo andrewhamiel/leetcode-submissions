@@ -20,28 +20,27 @@ class Node {
 */
 
 class Solution {
-    private Node first = null, last = null;
-
+    Node first = null, last = null;
     public Node treeToDoublyList(Node root) {
-        if(root == null) return root;
-
+        if(root == null) return root;      
+        
         inorder(root);
-
+        
         //Make circular
         first.left = last;
         last.right = first;
-        return first;    
+        return first;
     }
 
     private void inorder(Node root) {
         if(root == null) return;
         //Left
         inorder(root.left);
-        //Root
+        //Root 
         if(first == null) first = root;
         else {
             last.right = root;
-            root.left = last;        
+            root.left = last;
         }
         last = root;
         //Right
