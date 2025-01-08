@@ -6,8 +6,8 @@ class Solution {
             map.put(interval[1], map.getOrDefault(interval[1], 0) + 1);
         }
 
-        List<int[]> list = new ArrayList<>();
         int currCount = 0, min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        List<int[]> list = new ArrayList<>();
         for(int key : map.keySet()) {
             currCount+= map.get(key);
             min = Math.min(min, key);
@@ -18,7 +18,7 @@ class Solution {
                 max = Integer.MIN_VALUE;
             }
         }
-
+        
         int[][] result = new int[list.size()][2];
         for(int i = 0; i < result.length; i++) result[i] = list.get(i);
         return result;
