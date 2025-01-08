@@ -20,12 +20,12 @@ class Node {
 */
 
 class Solution {
-    Node first = null, last = null;
+    private Node first = null, last = null;
+
     public Node treeToDoublyList(Node root) {
-        if(root == null) return root;      
-        
+        if(root == null) return root;
+
         inorder(root);
-        
         //Make circular
         first.left = last;
         last.right = first;
@@ -36,11 +36,11 @@ class Solution {
         if(root == null) return;
         //Left
         inorder(root.left);
-        //Root 
+        //Root
         if(first == null) first = root;
         else {
-            last.right = root;
             root.left = last;
+            last.right = root;
         }
         last = root;
         //Right
