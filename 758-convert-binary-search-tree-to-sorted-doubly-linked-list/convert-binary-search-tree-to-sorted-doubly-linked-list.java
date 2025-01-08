@@ -22,32 +22,38 @@ class Node {
 class Solution {
     public Node treeToDoublyList(Node root) {
         if(root == null) return root;
+        //First -> smallest, last -> largest
         Node first = null, last = null;
-
-        while(root != null){
-            if(root.left != null){
+        
+        //Morris inorder traversal: left -> root -> right
+        while(root != null) {
+            if(root.left != null) {
                 Node predecessor = root.left;
                 while(predecessor.right != null && predecessor.right != root) predecessor = predecessor.right;
 
-                if(predecessor.right == null){
-                    //unexplored
+                if(predecessor.right == null) {
+                    //Unexplored
                     predecessor.right = root;
                     root = root.left;
-                }else{
+                }else {
+                    //Link last and root
                     if(last != null) last.right = root;
                     root.left = last;
                     last = root;
                     root = root.right;
                 }
-            }else{
+            }else {
+                //First iteration that root.left is null must be smallest element
                 if(first == null) first = root;
+                //Link last and root
                 if(last != null) last.right = root;
                 root.left = last;
                 last = root;
                 root = root.right;
             }
         }
-        
+
+        //make circular
         first.left = last;
         last.right = first;
         return first;
