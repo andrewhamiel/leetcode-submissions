@@ -16,7 +16,7 @@
 class Solution {
     public int sumNumbers(TreeNode root) {
         int result = 0, currNum = 0;
-        //Morris preorder
+        //Morris preorder traversal
         while(root != null) {
             if(root.left != null) {
                 TreeNode predecessor = root.left;
@@ -33,10 +33,9 @@ class Solution {
                     currNum+= root.val;
                     root = root.left;
                 }else {
+                    //If leaf, add to sum
                     if(predecessor.left == null) result+= currNum;
-                    for(int i = 0; i < steps; i++) {
-                        currNum/= 10;
-                    }
+                    for(int i = 0; i < steps; i++) currNum/= 10;
                     predecessor.right = null;
                     root = root.right;
                 }
