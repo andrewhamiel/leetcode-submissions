@@ -14,22 +14,30 @@
  * }
  */
 class Solution {
-    private int sum = 0;
-
     public int sumNumbers(TreeNode root) {
-        dfs(root, 0);   
-        return sum; 
-    }
+        if(root == null) return 0;
 
-    private void dfs(TreeNode root, int currSum) {
-        if(root == null) return;
+        Queue<Pair<TreeNode, Integer>> q = new LinkedList<>();
+        q.add(new Pair<>(root, 0));
 
-        currSum*= 10;
-        currSum+= root.val;
-        if(root.left == null && root.right == null) sum+= currSum;
-        else {
-            dfs(root.left, currSum);
-            dfs(root.right, currSum);
+        int sum = 0;
+
+        while(!q.isEmpty()) {
+            int size = q.size();
+            while(size-- > 0) {
+                Pair<TreeNode, Integer> p = q.poll();
+                TreeNode curr = p.getKey();
+                int currSum = p.getValue();
+                
+                currSum*= 10;
+                currSum+= curr.val;
+
+                if(curr.left == null && curr.right == null) sum+= currSum;
+
+                if(curr.left != null) q.add(new Pair<>(curr.left, currSum));
+                if(curr.right != null) q.add(new Pair<>(curr.right, currSum));
+            }
         }
+        return sum;
     }
 }
