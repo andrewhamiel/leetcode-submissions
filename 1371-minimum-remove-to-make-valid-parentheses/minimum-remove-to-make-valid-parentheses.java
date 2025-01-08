@@ -6,8 +6,8 @@ class Solution {
             char c = s.charAt(i);
             if(c == '(') leftParens.addFirst(i);
             else if(c == ')') {
-                if(leftParens.isEmpty()) toBeRemoved.add(i);
-                else leftParens.removeFirst();
+                if(!leftParens.isEmpty()) leftParens.removeFirst();
+                else toBeRemoved.add(i);
             }
         }
 
@@ -15,7 +15,7 @@ class Solution {
 
         StringBuilder result = new StringBuilder();
         for(int i = 0; i < s.length(); i++) if(!toBeRemoved.contains(i)) result.append(s.charAt(i));
-        
+
         return result.toString();
     }
 }
