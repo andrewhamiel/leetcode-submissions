@@ -10,25 +10,11 @@ class Node {
 
 class Solution {
     public Node lowestCommonAncestor(Node p, Node q) {
-        Node parent = findParent(p);
-        return lca(parent, p, q);
-    }
-
-    private Node findParent(Node p){
-        Node curr = p;
-        while(curr.parent != null) curr = curr.parent;
-        return curr;
-    }
-
-    private Node lca(Node root, Node p, Node q){
-        if(root == null) return root;
-
-        if(root == p || root == q) return root;
-
-        Node left = lca(root.left, p, q);
-        Node right = lca(root.right, p, q);
-
-        if(left != null && right != null) return root;
-        return left != null ? left : right;
+        Node pPtr = p, qPtr = q;
+        while(pPtr != qPtr) {
+            pPtr = pPtr.parent == null ? q : pPtr.parent;
+            qPtr = qPtr.parent == null ? p : qPtr.parent;
+        }
+        return pPtr;
     }
 }
