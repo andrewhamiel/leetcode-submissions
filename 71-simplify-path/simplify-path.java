@@ -12,6 +12,7 @@ class Solution {
         while(!stack.isEmpty()) {
             result.append("/").append(stack.removeLast());
         }
+
         return result.isEmpty() ? "/" : result.toString();
     }
 }
