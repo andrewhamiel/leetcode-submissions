@@ -6,31 +6,30 @@ class Solution {
     private int quickselect(int left, int right, int[] nums, int k) {
         if(left >= right) return nums[left];
 
-        int pivotIndex = new Random().nextInt(right - left) + left;
-        pivotIndex = partition(left, right, nums, pivotIndex);
+        int pivotInd = new Random().nextInt(right - left) + left;
+        pivotInd = partition(left, right, nums, pivotInd);
 
-        if(pivotIndex == k) return nums[k];
-        else if(pivotIndex < k) {
-            pivotIndex++;
-            while(pivotIndex < k && nums[pivotIndex] == nums[pivotIndex - 1]) pivotIndex++;
-            return quickselect(pivotIndex, right, nums, k);
-        }else{
-            pivotIndex--;
-            while(pivotIndex > k && nums[pivotIndex] == nums[pivotIndex + 1]) pivotIndex--;
-            return quickselect(left, pivotIndex, nums, k);
+        if(pivotInd == k) return nums[k];
+        else if(pivotInd < k) {
+            pivotInd++;
+            while(pivotInd < k && nums[pivotInd] == nums[pivotInd - 1]) pivotInd++; //Avoid duplicates
+            return quickselect(pivotInd, right, nums, k);
+        }else {
+            pivotInd--;
+            while(pivotInd > k && nums[pivotInd] == nums[pivotInd + 1]) pivotInd--;
+            return quickselect(left, pivotInd, nums, k);
         }
     }
 
-    private int partition(int left, int right, int[] nums, int pivotIndex) {
-        int pivotValue = nums[pivotIndex];
-        swap(pivotIndex, right, nums);
-        int swapIndex = left;
-        
+    private int partition(int left, int right, int[] nums, int pivotInd) {
+        int pivotValue = nums[pivotInd];
+        swap(pivotInd, right, nums);
+        int swapInd = left;
         for(int i = left; i <= right; i++) {
-            if(nums[i] > pivotValue) swap(swapIndex++, i, nums);
+            if(nums[i] > pivotValue) swap(swapInd++, i, nums);
         }
-        swap(swapIndex, right, nums);
-        return swapIndex;
+        swap(swapInd, right, nums);
+        return swapInd;
     }
 
     private void swap(int i, int j, int[] nums) {
