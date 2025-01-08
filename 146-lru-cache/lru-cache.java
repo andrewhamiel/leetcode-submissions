@@ -5,9 +5,9 @@ class LRUCache {
     private int capacity = 0;
 
     public LRUCache(int capacity) {
-        this.capacity = capacity;
-        tail.prev = head;
         head.next = tail;
+        tail.prev = head;
+        this.capacity = capacity;
     }
     
     public int get(int key) {
@@ -35,11 +35,16 @@ class LRUCache {
         }
     }
 
-    private void add(Node node) { 
+    private void moveToFront(Node node) {
+        remove(node);
+        add(node);
+    }
+
+    private void add(Node node) {
         node.next = head.next;
         head.next.prev = node;
+        head.next = node;
         node.prev = head;
-        head.next = node;       
     }
 
     private void remove(Node node) {
@@ -49,11 +54,6 @@ class LRUCache {
         prevNode.next = nextNode;
     }
 
-    private void moveToFront(Node node) {
-        remove(node);
-        add(node);
-    }
-
     private Node popTail() {
         Node poppedTail = tail.prev;
         remove(poppedTail);
@@ -61,10 +61,10 @@ class LRUCache {
     }
 
     class Node {
-        int key = 0;
-        int val = 0;
         Node next;
         Node prev;
+        int key = 0;
+        int val = 0;
     }
 }
 
