@@ -17,7 +17,6 @@ class Solution {
                 result*= x;
                 n--;
             }
-
             x*= x;
             n/= 2;
         }
