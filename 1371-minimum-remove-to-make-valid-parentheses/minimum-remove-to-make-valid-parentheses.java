@@ -1,29 +1,27 @@
 class Solution {
-
     public String minRemoveToMakeValid(String s) {
-        // Pass 1: Remove all invalid ")"
-        StringBuilder sb = new StringBuilder();
+        //1. Remove all invalid ')'
         int leftParens = 0, balance = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c == '(') {
+        StringBuilder sb = new StringBuilder();
+        for(char c : s.toCharArray()) {
+            if(c == '(') {
                 leftParens++;
                 balance++;
-            } if (c == ')') {
-                if (balance == 0) continue;
+            }else if(c == ')') {
+                if(balance == 0) continue; //To not add paren
                 balance--;
             }
             sb.append(c);
         }
 
-        // Pass 2: Remove the rightmost "("
+        //2. Remove rightmost '('
         StringBuilder result = new StringBuilder();
         int openToKeep = leftParens - balance;
-        for (int i = 0; i < sb.length(); i++) {
+        for(int i = 0; i < sb.length(); i++) {
             char c = sb.charAt(i);
-            if (c == '(') {
+            if(c == '(') {
+                if(openToKeep == 0) continue;
                 openToKeep--;
-                if (openToKeep < 0) continue;
             }
             result.append(c);
         }
