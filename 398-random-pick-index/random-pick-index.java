@@ -1,17 +1,14 @@
 class Solution {
     Map<Integer, List<Integer>> map = new HashMap<>();
-    Random rand = new Random();
+    private Random rand = new Random();
 
     public Solution(int[] nums) {
-        for(int i = 0; i < nums.length; i++){
-            map.putIfAbsent(nums[i], new ArrayList<>());
-            map.get(nums[i]).add(i);
-        }
+        for(int i = 0; i < nums.length; i++) map.computeIfAbsent(nums[i], k -> new ArrayList<>()).add(i);
     }
     
     public int pick(int target) {
-        List<Integer> indeces = map.get(target);
-        return indeces.get(rand.nextInt(indeces.size()));
+        List<Integer> list = map.get(target);
+        return list.get(rand.nextInt(list.size()));
     }
 }
 
