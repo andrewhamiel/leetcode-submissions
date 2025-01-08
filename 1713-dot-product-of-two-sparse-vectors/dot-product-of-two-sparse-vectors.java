@@ -1,5 +1,5 @@
 class SparseVector {
-    private List<int[]> pairs = new ArrayList<>();
+    List<int[]> pairs = new ArrayList<>();
     
     SparseVector(int[] nums) {
         for(int i = 0; i < nums.length; i++) {
@@ -9,15 +9,15 @@ class SparseVector {
     
 	// Return the dotProduct of two sparse vectors
     public int dotProduct(SparseVector vec) {
-        int aPtr = 0, bPtr = 0, dotProduct = 0;
-        while(aPtr < pairs.size() && bPtr < vec.pairs.size()) {
-            int[] pairA = pairs.get(aPtr), pairB = vec.pairs.get(bPtr);
+        int ptrA = 0, ptrB = 0, dotProduct = 0;
+        while(ptrA < pairs.size() && ptrB < vec.pairs.size()) {
+            int[] pairA = pairs.get(ptrA), pairB = vec.pairs.get(ptrB);
             if(pairA[0] == pairB[0]) {
                 dotProduct+= (pairA[1] * pairB[1]);
-                aPtr++;
-                bPtr++;
-            }else if(pairA[0] < pairB[0]) aPtr++;
-            else bPtr++;
+                ptrA++;
+                ptrB++;
+            }else if(pairA[0] < pairB[0]) ptrA++;
+            else ptrB++;
         }
         return dotProduct;
     }
