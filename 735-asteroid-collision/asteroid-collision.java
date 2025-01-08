@@ -1,14 +1,14 @@
 class Solution {
     public int[] asteroidCollision(int[] asteroids) {
         Deque<Integer> stack = new ArrayDeque<>();
-        for(int asteroid : asteroids){
-            while(!stack.isEmpty() && stack.peekFirst() > 0 && asteroid < 0){
+        for(int asteroid : asteroids) {
+            while(!stack.isEmpty() && stack.peekFirst() > 0 && asteroid < 0) {
                 int sum = stack.peekFirst() + asteroid;
                 if(sum < 0) stack.removeFirst();
-                else if(sum == 0){
+                else if(sum == 0) {
                     asteroid = 0;
                     stack.removeFirst();
-                }else if(sum > 0){
+                }else if(sum > 0) {
                     asteroid = 0;
                     break;
                 }
@@ -17,7 +17,7 @@ class Solution {
         }
 
         int[] result = new int[stack.size()];
-        for(int i = 0; i < result.length; i++) result[i] = stack.removeLast();
+        for(int i = result.length - 1; i >= 0; i--) result[i] = stack.removeFirst();
         return result;
     }
 }
