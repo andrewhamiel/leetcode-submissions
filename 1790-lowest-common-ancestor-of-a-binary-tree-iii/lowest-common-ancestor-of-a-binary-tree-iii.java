@@ -16,11 +16,12 @@ class Solution {
     }
 
     private Node lca(Node root, Node p, Node q) {
-        if(root == null) return null;
+        if(root == null) return root;
         if(root == p || root == q) return root;
-        
+
         Node left = lca(root.left, p, q);
         Node right = lca(root.right, p, q);
+
         if(left != null && right != null) return root;
         return left != null ? left : right;
     }
