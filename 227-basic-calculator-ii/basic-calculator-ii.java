@@ -1,7 +1,7 @@
 class Solution {
     public int calculate(String s) {
         char op = '+';
-        int curr = 0, prev = 0, result = 0;
+        int result = 0, curr = 0, prev = 0;
         for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if(Character.isDigit(c)) {
@@ -9,9 +9,9 @@ class Solution {
                 curr+= c - '0';
             }
             if(i == s.length() - 1 || (!Character.isDigit(c) && !Character.isWhitespace(c))) {
-                if(op == '+' || op == '-') {                   
-                    if(op == '-') curr*= -1;
+                if(op == '+' || op == '-') {
                     result+= prev;
+                    if(op == '-') curr*= -1;
                     prev = curr;
                 }else if(op == '*') prev*= curr;
                 else if(op == '/') prev/= curr;
@@ -21,7 +21,7 @@ class Solution {
             }
         }
 
-        //Add remaining prev
+        //Add final operand
         result+= prev;
         return result;
     }
