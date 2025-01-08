@@ -1,14 +1,14 @@
 class Solution {
     public int calculate(String s) {
         char op = '+';
-        int result = 0, curr = 0, prev = 0;
+        int curr = 0, prev = 0, result = 0;
         for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if(Character.isDigit(c)) {
                 curr*= 10;
                 curr+= c - '0';
             }
-            if(i == s.length() - 1 || (!Character.isDigit(c) && !Character.isWhitespace(c))) {
+            if(i == s.length() - 1 || (!Character.isWhitespace(c) && !Character.isDigit(c))) {
                 if(op == '+' || op == '-') {
                     result+= prev;
                     if(op == '-') curr*= -1;
@@ -20,8 +20,7 @@ class Solution {
                 curr = 0;
             }
         }
-
-        //Add last operand
+        //Add final operand
         result+= prev;
         return result;
     }
