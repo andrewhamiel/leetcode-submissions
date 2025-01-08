@@ -1,16 +1,17 @@
 class Solution {
     private int[] w;
     private int total = 0;
-    private Random rand = new Random();
 
     public Solution(int[] w) {
-        for(int i = 1; i < w.length; i++) w[i]+= w[i - 1];
+        for(int i = 1; i < w.length; i++) {
+            w[i]+= w[i - 1];
+        }
         this.w = w;
         total = w[w.length - 1];
     }
     
     public int pickIndex() {
-        double target = rand.nextDouble(total);
+        double target = new Random().nextDouble(total);
         int left = 0, right = w.length;
         while(left < right) {
             int mid = left + (right - left)/2;
