@@ -8,7 +8,6 @@ class Solution {
 
         int pivotInd = new Random().nextInt(right - left) + left;
         pivotInd = partition(left, right, nums, pivotInd);
-
         if(pivotInd == k) return nums[k];
         else if(pivotInd < k) {
             pivotInd++;
