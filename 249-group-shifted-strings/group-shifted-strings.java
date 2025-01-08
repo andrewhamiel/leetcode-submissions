@@ -6,8 +6,7 @@ class Solution {
             String hash = getHash(str);
             map.computeIfAbsent(hash, k -> new ArrayList<>()).add(str);
         }
-
-        for(String hash : map.keySet()) result.add(map.get(hash));
+        result.addAll(map.values());
         return result;
     }
 
