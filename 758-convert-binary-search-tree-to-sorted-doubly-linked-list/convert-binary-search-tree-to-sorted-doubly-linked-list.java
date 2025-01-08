@@ -22,8 +22,8 @@ class Node {
 class Solution {
     public Node treeToDoublyList(Node root) {
         if(root == null) return root;
-
         Node first = null, last = null;
+
         //Morris inorder traversal
         while(root != null) {
             if(root.left != null) {
@@ -35,7 +35,7 @@ class Solution {
                     predecessor.right = root;
                     root = root.left;
                 }else {
-                    //Link last and root
+                    //Link last and root nodes
                     if(last != null) last.right = root;
                     root.left = last;
                     last = root;
@@ -44,7 +44,6 @@ class Solution {
             }else {
                 //First iteration that root.left is null must be min element
                 if(first == null) first = root;
-                //Link last and root
                 if(last != null) last.right = root;
                 root.left = last;
                 last = root;
