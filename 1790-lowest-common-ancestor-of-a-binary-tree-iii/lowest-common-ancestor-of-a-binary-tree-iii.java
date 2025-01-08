@@ -10,32 +10,11 @@ class Node {
 
 class Solution {
     public Node lowestCommonAncestor(Node p, Node q) {
-        int pDepth = getDepth(p), qDepth = getDepth(q);
-
-        while(pDepth > qDepth) {
-            p = p.parent;
-            pDepth--;
+        Node pPtr = p, qPtr = q;
+        while(pPtr != qPtr) {
+            pPtr = pPtr.parent == null ? q : pPtr.parent;
+            qPtr = qPtr.parent == null ? p : qPtr.parent;
         }
-
-        while(qDepth > pDepth) {
-            q = q.parent;
-            qDepth--;
-        }
-
-        while(p != q) {
-            p = p.parent;
-            q = q.parent;
-        }
-        return p;
-    }
-
-    private int getDepth(Node p) {
-        Node curr = p;
-        int depth = 1;
-        while(curr.parent != null) {
-            curr = curr.parent;
-            depth++;
-        }
-        return depth;
+        return pPtr;
     }
 }
