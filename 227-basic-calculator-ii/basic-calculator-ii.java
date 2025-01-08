@@ -21,7 +21,7 @@ class Solution {
             }
         }
 
-        //Add final operand
+        //Add last operand
         result+= prev;
         return result;
     }
