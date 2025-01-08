@@ -22,8 +22,8 @@ class Node {
 class Solution {
     public Node treeToDoublyList(Node root) {
         if(root == null) return root;
-        Node first = null, last = null;
 
+        Node first = null, last = null;
         //Morris inorder traversal
         while(root != null) {
             if(root.left != null) {
