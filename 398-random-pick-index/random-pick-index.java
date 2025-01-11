@@ -7,6 +7,7 @@ class Solution {
     }
     
     public int pick(int target) {
+        //Reservoir Sampling
         int count = 0, ind = 0;
         for(int i = 0; i < nums.length; i++) {
             if(nums[i] == target) {
