@@ -20,7 +20,6 @@ class Solution {
                     if(!curr.children.containsKey(c)) break;
 
                     curr = curr.children.get(c);
-
                     if(curr.isWord) dp[j] = true;
                 }
             }
