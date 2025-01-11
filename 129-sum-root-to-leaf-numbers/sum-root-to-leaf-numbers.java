@@ -15,37 +15,26 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        int result = 0, currNum = 0;
-        //Morris preorder traversal
-        while(root != null) {
-            if(root.left != null) {
-                TreeNode predecessor = root.left;
-                int steps = 1;
-                while(predecessor.right != null && predecessor.right != root) {
-                    predecessor = predecessor.right;
-                    steps++;
-                }
+        int sum = 0;
+        Queue<Pair<TreeNode, Integer>> q = new LinkedList<>();
+        q.add(new Pair<>(root, 0));
 
-                if(predecessor.right == null) {
-                    //Unexplored
-                    predecessor.right = root;
-                    currNum*= 10;
-                    currNum+= root.val;
-                    root = root.left;
-                }else {
-                    //If leaf, add to sum
-                    if(predecessor.left == null) result+= currNum;
-                    for(int i = 0; i < steps; i++) currNum/= 10;
-                    predecessor.right = null;
-                    root = root.right;
-                }
-            }else {
-                currNum*= 10;
-                currNum+= root.val;
-                if(root.right == null) result+= currNum;
-                root = root.right;
+        while(!q.isEmpty()) {
+            int size = q.size();
+            while(size-- > 0) {
+                Pair<TreeNode, Integer> p = q.poll();
+                TreeNode curr = p.getKey();
+                int currSum = p.getValue();
+
+                currSum*= 10;
+                currSum+= curr.val;
+
+                if(curr.left == null && curr.right == null) sum+= currSum;
+
+                if(curr.left != null) q.add(new Pair<>(curr.left, currSum));
+                if(curr.right != null) q.add(new Pair<>(curr.right, currSum));
             }
         }
-        return result;
+        return sum;
     }
 }
