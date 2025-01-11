@@ -23,7 +23,7 @@ class Solution {
     public Node treeToDoublyList(Node root) {
         if(root == null) return root;
         Node first = null, last = null;
-        //Inorder morris traversal
+        //Inorder Morris traversal
         while(root != null) {
             if(root.left != null) {
                 Node predecessor = root.left;
@@ -33,7 +33,7 @@ class Solution {
                     //Unexplored 
                     predecessor.right = root;
                     root = root.left;
-                }else {                   
+                }else {
                     if(last != null) last.right = root;
                     root.left = last;
                     last = root;
@@ -47,7 +47,7 @@ class Solution {
                 root = root.right;
             }
         }
-        //link last/first nodes    
+        //Link first/last nodes 
         first.left = last;
         last.right = first;
         return first;
