@@ -1,6 +1,6 @@
 class Solution {
     public String shiftingLetters(String s, int[][] shifts) {
-        //1. Cumulative sum of shifts stored
+        //1. Cumulative sum of shifts
         int[] diffArray = new int[s.length()];
 
         //2. Process shifts
@@ -18,18 +18,18 @@ class Solution {
             }
         }
 
-        //4. Strings immutable in java, so convert to char array to replace characters
+        //4. Strings immutable in java, so convert to char array so we can replace characters
         char[] result = s.toCharArray();
         int shiftCount = 0;
 
-        //5. Apply shifts
+        //5. Apply shifts 
         for(int i = 0; i < result.length; i++) {
-            //6. Update shift count with cumulative sum. Wrap around to keep non-negative
+            //6. Update shift count. Wrap around to keep non-negative
             shiftCount = (shiftCount + diffArray[i]) % 26;
             if(shiftCount < 0) shiftCount+= 26;
 
-            //7. Shift char[i] to appropriate letter
-            int shiftedCharInd = (result[i] - 'a'  + shiftCount) % 26;
+            //7. Shift character to appropriate letter
+            int shiftedCharInd = (result[i] - 'a' + shiftCount) % 26;
             char shiftedChar = (char) (shiftedCharInd + 'a');
             result[i] = shiftedChar;
         }
