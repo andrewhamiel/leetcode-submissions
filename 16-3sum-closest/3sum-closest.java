@@ -4,8 +4,8 @@ class Solution {
         int closest = 100_000;
         for(int i = 0; i < nums.length - 2; i++) {
             if(i == 0 || nums[i] != nums[i - 1]) {
-                int sum = nums[i] + twoSumSorted(i + 1, nums, target - nums[i]);
-                if(Math.abs(target - sum) < Math.abs(target - closest)) closest = sum;
+                int candidate = nums[i] + twoSumSorted(i + 1, nums, target - nums[i]);
+                if(Math.abs(target - candidate) < Math.abs(target - closest)) closest = candidate;
             }
         }
         return closest;
@@ -16,7 +16,8 @@ class Solution {
         while(left < right) {
             int sum = nums[left] + nums[right];
             if(Math.abs(target - sum) < Math.abs(target - closest)) closest = sum;
-            if(sum == target) return sum;
+
+            if(sum == target) return closest;
             else if(sum < target) left++;
             else right--;
         }
