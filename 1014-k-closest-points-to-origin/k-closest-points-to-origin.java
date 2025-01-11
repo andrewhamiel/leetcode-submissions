@@ -1,31 +1,32 @@
 class Solution {
     public int[][] kClosest(int[][] points, int k) {
         quickselect(0, points.length - 1, points, k - 1);
+
         int[][] result = new int[k][2];
-        for(int i = 0; i < k; i++) result[i] = points[i];
+        for(int i = 0; i < result.length; i++) result[i] = points[i];
         return result;
     }
 
     private void quickselect(int left, int right, int[][] points, int k) {
         if(left >= right) return;
 
-        int pivotIndex = new Random().nextInt(right - left) + left;
-        pivotIndex = partition(left, right, points, pivotIndex);
+        int pivotInd = new Random().nextInt(right - left) + left;
+        pivotInd = partition(left, right, points, pivotInd);
 
-        if(pivotIndex == k) return;
-        else if(pivotIndex < k) quickselect(pivotIndex + 1, right, points, k);
-        else quickselect(left, pivotIndex - 1, points, k);
+        if(pivotInd == k) return;
+        else if(pivotInd < k) quickselect(pivotInd + 1, right, points, k);
+        else quickselect(left, pivotInd - 1, points, k);
     }
 
     private int partition(int left, int right, int[][] points, int pivotInd) {
         int pivotDistance = getDistance(pivotInd, points);
         swap(pivotInd, right, points);
-        int swapIndex = left;
+        int swapInd = left;
         for(int i = left; i <= right; i++) {
-            if(getDistance(i, points) < pivotDistance) swap(swapIndex++, i, points);
+            if(getDistance(i, points) < pivotDistance) swap(swapInd++, i, points);
         }
-        swap(swapIndex, right, points);
-        return swapIndex;
+        swap(swapInd, right, points);
+        return swapInd;
     }
 
     private void swap(int i, int j, int[][] points) {
@@ -34,7 +35,7 @@ class Solution {
         points[j] = tmp;
     }
 
-    private int getDistance(int i, int[][] points) {
-        return (points[i][0] * points[i][0]) + (points[i][1] * points[i][1]);
+    private int getDistance(int pivotInd, int[][] points) {
+        return (points[pivotInd][0] * points[pivotInd][0]) + (points[pivotInd][1] * points[pivotInd][1]);
     }
 }
