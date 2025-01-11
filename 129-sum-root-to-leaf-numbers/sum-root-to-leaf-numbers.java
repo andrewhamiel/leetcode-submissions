@@ -15,7 +15,7 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        int sum = 0, currDigit = 0;
+        int result  = 0, currDigit = 0;
         //Inorder Morris traversal
         while(root != null) {
             if(root.left != null) {
@@ -27,24 +27,24 @@ class Solution {
                 }
 
                 if(predecessor.right == null) {
-                    //Unexplored 
+                    //Unexplored
                     currDigit*= 10;
                     currDigit+= root.val;
                     predecessor.right = root;
                     root = root.left;
                 }else {
+                    if(predecessor.left == null) result+= currDigit;
                     predecessor.right = null;
-                    if(predecessor.left == null) sum+= currDigit;
-                    for(int i = steps; i > 0; i--) currDigit/= 10;
+                    for(int i = 0; i < steps; i++) currDigit/= 10;
                     root = root.right;
                 }
             }else {
                 currDigit*= 10;
                 currDigit+= root.val;
-                if(root.right == null) sum+= currDigit;
+                if(root.right == null) result+= currDigit;
                 root = root.right;
             }
         }
-        return sum;
+        return result;
     }
 }
