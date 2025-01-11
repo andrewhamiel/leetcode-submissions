@@ -1,35 +1,33 @@
 class Solution {
-    private Set<String> seen = new HashSet<>();
+    private Set<String> result = new HashSet<>();
     private String s = "";
     private int minRemoved = Integer.MAX_VALUE;
 
     public List<String> removeInvalidParentheses(String s) {
         this.s = s;
         backtrack(new StringBuilder(), 0, 0, 0, 0);
-        return new ArrayList<>(seen);
+        return new ArrayList<>(result);   
     }
 
     private void backtrack(StringBuilder sb, int ind, int leftCount, int rightCount, int removed) {
-        //0. Exit condition/base case
+        //1. Exit condition
         if(ind == s.length()) {
             if(leftCount == rightCount && removed <= minRemoved) {
                 if(removed < minRemoved) {
                     minRemoved = removed;
-                    seen = new HashSet<>();
+                    result = new HashSet<>();
                 }
-                seen.add(sb.toString());
+                result.add(sb.toString());
             }
             return;
         }
-        if(removed > minRemoved) return;
-        
+
         int currLength = sb.length();
         char c = s.charAt(ind);
 
-        //3 Cases
-        //1. Left Paren - Add, Remove
-        //2. Right Paren - Attempt to Add, Remove
-        //3. All other chars - Add
+        //2. Left paren: Add, remove
+        //3. Right paren: Add if valid, remove
+        //4. Other chars: Add
         if(c == '(') {
             //Add
             sb.append(c);
@@ -51,6 +49,6 @@ class Solution {
             sb.append(c);
             backtrack(sb, ind + 1, leftCount, rightCount, removed);
             sb.deleteCharAt(currLength);
-        }
+        }     
     }
 }
