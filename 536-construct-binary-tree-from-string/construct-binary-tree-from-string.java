@@ -12,30 +12,40 @@
  *         this.right = right;
  *     }
  * }
+ currNum: 1 
+ stack: {4}
+ 4.left = 2
+ 4.right = 3
  */
 class Solution {
     public TreeNode str2tree(String s) {
+        //Preorder traversal
         Deque<TreeNode> stack = new ArrayDeque<>();
-        StringBuilder sb = new StringBuilder();
-
+        StringBuilder currNum = new StringBuilder();
         for(char c : s.toCharArray()) {
-            //1. Parens
+            //1. Parens or Digit/sign
             if(c == '(' || c == ')') {
-                //Add curr val to stack
-                if(!sb.isEmpty()) {
-                    stack.addFirst(new TreeNode(Integer.parseInt(sb.toString())));
-                    sb = new StringBuilder();
+                //2. Add num to stack
+                if(!currNum.isEmpty()) {
+                    int val = Integer.parseInt(currNum.toString());
+                    stack.addFirst(new TreeNode(val));
+                    currNum = new StringBuilder();
                 }
-                //If right paren, pop from stack and set as child node
+                //3. If right paren, pop from stack and link to parent             
                 if(c == ')') {
                     TreeNode child = stack.removeFirst();
-                    if(stack.peekFirst().left == null) stack.peekFirst().left = child;
-                    else stack.peekFirst().right = child;
+                    TreeNode parent = stack.peekFirst();
+                    if(parent.left == null) parent.left = child;
+                    else parent.right = child;
                 }
-            }else sb.append(c); //2. Digit or sign
+            }else currNum.append(c);
         }
-        //3. Add remaining val to stack if present -> ie s = "4"
-        if(!sb.isEmpty()) stack.addFirst(new TreeNode(Integer.parseInt(sb.toString())));
+
+        //4. Add remaining number to stack if present
+        if(!currNum.isEmpty()) {
+            int val = Integer.parseInt(currNum.toString());
+            stack.addFirst(new TreeNode(val));
+        }
 
         return stack.isEmpty() ? null : stack.removeFirst();
     }
