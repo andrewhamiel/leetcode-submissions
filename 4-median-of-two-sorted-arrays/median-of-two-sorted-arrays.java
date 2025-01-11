@@ -3,6 +3,7 @@ class Solution {
         if(nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);
 
         int left = 0, right = nums1.length;
+        //[left, right] variant
         while(left <= right) {
             int partitionA = left + (right - left)/2;
             int partitionB = (nums1.length + nums2.length + 1)/2 - partitionA;
@@ -15,7 +16,7 @@ class Solution {
 
             if(maxLeftA <= minRightB && maxLeftB <= minRightA) {
                 if((nums1.length + nums2.length) % 2 == 0) return (double) (Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB))/2;
-                else return (double) Math.max(maxLeftA, maxLeftB);
+                else return (double) (Math.max(maxLeftA, maxLeftB));
             }else if(maxLeftA > minRightB) right = partitionA - 1;
             else left = partitionA + 1;
         }
