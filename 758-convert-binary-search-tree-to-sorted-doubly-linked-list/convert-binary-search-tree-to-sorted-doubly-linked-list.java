@@ -20,30 +20,36 @@ class Node {
 */
 
 class Solution {
-    private Node first = null, last = null;
-
     public Node treeToDoublyList(Node root) {
         if(root == null) return root;
+        Node first = null, last = null;
+        //Inorder morris traversal
+        while(root != null) {
+            if(root.left != null) {
+                Node predecessor = root.left;
+                while(predecessor.right != null && predecessor.right != root) predecessor = predecessor.right;
 
-        inorder(root);
-        //Make circular
+                if(predecessor.right == null) {
+                    //Unexplored 
+                    predecessor.right = root;
+                    root = root.left;
+                }else {                   
+                    if(last != null) last.right = root;
+                    root.left = last;
+                    last = root;
+                    root = root.right;
+                }
+            }else {
+                if(first == null) first = root;
+                if(last != null) last.right = root;
+                root.left = last;
+                last = root;
+                root = root.right;
+            }
+        }
+        //link last/first nodes    
         first.left = last;
         last.right = first;
         return first;
-    }
-
-    private void inorder(Node root) {
-        if(root == null) return;
-        //Left
-        inorder(root.left);
-        //Root
-        if(first == null) first = root;
-        else {
-            root.left = last;
-            last.right = root;
-        }
-        last = root;
-        //Right
-        inorder(root.right);
     }
 }
