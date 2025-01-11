@@ -15,7 +15,7 @@
  */
 class Solution {
     public int closestValue(TreeNode root, double target) {
-        int closest = root.val;
+        int closest = Integer.MAX_VALUE;
         while(root != null) {
             double closestDiff = Math.abs(target - closest), currDiff = Math.abs(target - root.val);
             if(currDiff < closestDiff || (currDiff == closestDiff && root.val < closest)) closest = root.val;
