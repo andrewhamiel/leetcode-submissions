@@ -7,9 +7,9 @@ class Solution {
                 if(board[row][col] == '.') continue;
 
                 int val = board[row][col] - '0';
-                int pos = 1 << (val - 1);
+                int pos = 1 << (val - 1); //Only bit corresponding to number val is set to 1
 
-                //2. Check row
+                //2. Check row. num & num == 1, so returns false if already present in pos
                 if((rows[row] & pos) > 0) return false;
                 rows[row]|= pos;
 
