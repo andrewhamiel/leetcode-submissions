@@ -29,7 +29,7 @@ class Solution {
                     currNum = new StringBuilder();
                 }
 
-                //3. If right paren, pop from stack and link to parent
+                //3. If right paren, remove from stack and link to parent
                 if(c == ')') {
                     TreeNode child = stack.removeFirst();
                     TreeNode parent = stack.peekFirst();
@@ -39,7 +39,7 @@ class Solution {
             }else currNum.append(c);
         }
 
-        //4. Add remaining num to stack if present. ie "4"
+        //4. Add remaining num to stack if present ie "4"
         if(!currNum.isEmpty()) {
             int val = Integer.parseInt(currNum.toString());
             stack.addFirst(new TreeNode(val));
