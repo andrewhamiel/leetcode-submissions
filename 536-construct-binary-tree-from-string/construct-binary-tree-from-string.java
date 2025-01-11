@@ -12,14 +12,10 @@
  *         this.right = right;
  *     }
  * }
- currNum: 1 
- stack: {4}
- 4.left = 2
- 4.right = 3
  */
 class Solution {
     public TreeNode str2tree(String s) {
-        //Preorder traversal
+        //Key Intuition: String ordered in preorder fashion
         Deque<TreeNode> stack = new ArrayDeque<>();
         StringBuilder currNum = new StringBuilder();
         for(char c : s.toCharArray()) {
@@ -31,7 +27,7 @@ class Solution {
                     stack.addFirst(new TreeNode(val));
                     currNum = new StringBuilder();
                 }
-                //3. If right paren, pop from stack and link to parent             
+                //3. If right paren, pop from stack and link to parent
                 if(c == ')') {
                     TreeNode child = stack.removeFirst();
                     TreeNode parent = stack.peekFirst();
@@ -41,7 +37,7 @@ class Solution {
             }else currNum.append(c);
         }
 
-        //4. Add remaining number to stack if present
+        //4. Add remaining num to stack if present. i.e. "4"
         if(!currNum.isEmpty()) {
             int val = Integer.parseInt(currNum.toString());
             stack.addFirst(new TreeNode(val));
