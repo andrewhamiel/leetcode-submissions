@@ -47,7 +47,8 @@ class Solution {
                 root = root.right;
             }
         }
-        //Link first/last nodes 
+        
+        //Link first/last nodes
         first.left = last;
         last.right = first;
         return first;
