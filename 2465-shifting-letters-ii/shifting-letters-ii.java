@@ -3,12 +3,11 @@ class Solution {
         //1. Cumulative sum of shifts
         int[] diffArray = new int[s.length()];
 
-        //2. Process shifts
+        //2. Process shifts 
         for(int[] shift : shifts) {
             int start = shift[0], end = shift[1], direction = shift[2];
             //3. Forward or backward
             if(direction == 1) {
-                //Forward
                 diffArray[start]++;
                 if(end + 1 < s.length()) diffArray[end + 1]--;
             }else {
@@ -18,11 +17,11 @@ class Solution {
             }
         }
 
-        //4. Strings immutable in java, so convert to char array so we can replace characters
+        //4. Strings immutable in java, so convert to char array to replace characters
         char[] result = s.toCharArray();
         int shiftCount = 0;
 
-        //5. Apply shifts 
+        //5. Apply shifts
         for(int i = 0; i < result.length; i++) {
             //6. Update shift count. Wrap around to keep non-negative
             shiftCount = (shiftCount + diffArray[i]) % 26;
