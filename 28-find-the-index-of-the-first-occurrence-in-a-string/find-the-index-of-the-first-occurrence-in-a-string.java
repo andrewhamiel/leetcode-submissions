@@ -1,17 +1,17 @@
 class Solution {
-    /* KMP. LPS aka Longest Border keeps track of longest substring that is both prefix and suffix. This allows us to reuse prefixes. */
     public int strStr(String haystack, String needle) {
-        //1. Preprocessing
+        //Key intuition: longest border, KMP
         int[] longestBorder = new int[needle.length()];
-        int longestPrev = 0, ind = 1; //longestBorder[0] is always 0 -> cannot be prefix of itself
+        //1. Preprocess
+        int longestPrev = 0, ind = 1; //longestBorder[0] always 0, cannot be prefix of self
         while(ind < needle.length()) {
             //Expand longest prev
-            if(needle.charAt(ind) == needle.charAt(longestPrev)) {
+            if(needle.charAt(longestPrev) == needle.charAt(ind)) {
                 longestPrev++;
                 longestBorder[ind++] = longestPrev;
             }else {
                 if(longestPrev == 0) longestBorder[ind++] = 0; //No characters match
-                else longestPrev = longestBorder[longestPrev - 1]; //Look for longest border of shorter prefix
+                else longestPrev = longestBorder[longestPrev - 1]; //Rollback to previous prefix
             }
         }
 
@@ -24,8 +24,8 @@ class Solution {
                 //All characters match
                 if(needleInd == needle.length()) return haystackInd - needle.length();
             }else {
-                if(needleInd == 0) haystackInd++; //No characters match
-                else needleInd = longestBorder[needleInd - 1];
+                if(needleInd == 0) haystackInd++; //No chars match
+                else needleInd = longestBorder[needleInd - 1]; //Find prev prefix as starting point
             }
         }
         return -1;
