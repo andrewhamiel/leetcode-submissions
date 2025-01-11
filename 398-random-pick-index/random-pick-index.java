@@ -1,19 +1,26 @@
 class Solution {
-    Map<Integer, List<Integer>> map = new HashMap<>();
-    private Random rand = new Random();
 
+    private int[] nums;
+    private Random rand;
+    
     public Solution(int[] nums) {
-        for(int i = 0; i < nums.length; i++) map.computeIfAbsent(nums[i], k -> new ArrayList<>()).add(i);
+        this.nums = nums;
+        this.rand = new Random();
     }
     
     public int pick(int target) {
-        List<Integer> list = map.get(target);
-        return list.get(rand.nextInt(list.size()));
+        int count = 0, ind = 0;
+        for (int i = 0; i < nums.length; i++) {
+            // if nums[i] is equal to target, i is a potential candidate
+            // which needs to be chosen uniformly at random
+            if (nums[i] == target) {
+                // increment the count of total candidates
+                // available to be chosen uniformly at random
+                count++;
+                // we pick the current number with probability 1 / count (reservoir sampling)
+                if (rand.nextInt(count) == 0) ind = i;
+            }
+        }
+        return ind;
     }
 }
-
-/**
- * Your Solution object will be instantiated and called as such:
- * Solution obj = new Solution(nums);
- * int param_1 = obj.pick(target);
- */
