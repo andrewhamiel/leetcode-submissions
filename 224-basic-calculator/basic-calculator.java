@@ -8,8 +8,8 @@ class Solution {
                 operand+= c - '0';
             }else if(c == '+' || c == '-') {
                 result+= operand * sign;
-                operand = 0;
                 sign = c == '+' ? 1 : -1;
+                operand = 0;
             }else if(c == '(') {
                 stack.addFirst(result);
                 stack.addFirst(sign);
@@ -22,6 +22,7 @@ class Solution {
                 operand = 0;
             }
         }
+        //Add last element
         result+= operand * sign;
         return result;
     }
