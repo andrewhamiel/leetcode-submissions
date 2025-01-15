@@ -15,10 +15,10 @@
  */
 class Solution {
     public int closestValue(TreeNode root, double target) {
-        int closest = Integer.MAX_VALUE;
+        int closest = root.val;
         while(root != null) {
-            double closestDiff = Math.abs(target - closest), currDiff = Math.abs(target - root.val);
-            if(currDiff < closestDiff || (currDiff == closestDiff && root.val < closest)) closest = root.val;
+            if(Math.abs(target - root.val) < Math.abs(target - closest)
+                || (Math.abs(target - root.val) == Math.abs(target - closest) && root.val < closest)) closest = root.val;
             root = root.val > target ? root.left : root.right;
         }
         return closest;
