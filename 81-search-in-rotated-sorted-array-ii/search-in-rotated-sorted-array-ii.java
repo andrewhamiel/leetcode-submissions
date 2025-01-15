@@ -6,7 +6,7 @@ class Solution {
             int mid = left + (right - left)/2;
             //1. Check mid
             if(nums[mid] == target) return true;
-            //2. See if BS will be helpful. Cannot determine partition if nums[left] == nums[mid]
+            //2. See if BS will be helpful. If nums[left] == nums[right], cannot determine next partition
             if(nums[left] == nums[mid]) {
                 left++;
                 continue;
