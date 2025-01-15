@@ -9,8 +9,8 @@ class Solution {
         StringBuilder result = new StringBuilder();
 
         //3. Count variables
-        int count = 1;
         char prev = s.charAt(0);
+        int count = 1;
         for(int i = 1; i < s.length(); i++) {
             char c = s.charAt(i);
             if(c == prev) count++;
@@ -21,8 +21,8 @@ class Solution {
                 prev = c;
             }
         }
-
-        //4. Append last variables
+        
+        //4. Append final variable
         result.append(count);
         result.append(prev);
 
