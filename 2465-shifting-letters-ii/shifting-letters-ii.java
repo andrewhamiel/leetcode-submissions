@@ -3,7 +3,7 @@ class Solution {
         //1. Cumulative sum of shifts
         int[] diffArray = new int[s.length()];
 
-        //2. Process shifts 
+        //2. Process shifts
         for(int[] shift : shifts) {
             int start = shift[0], end = shift[1], direction = shift[2];
             //3. Forward or backward
@@ -11,13 +11,12 @@ class Solution {
                 diffArray[start]++;
                 if(end + 1 < s.length()) diffArray[end + 1]--;
             }else {
-                //Backward
                 diffArray[start]--;
                 if(end + 1 < s.length()) diffArray[end + 1]++;
             }
         }
 
-        //4. Strings immutable in java, so convert to char array to replace characters
+        //4. Strings immutable in java, so convert to char array to replace chars
         char[] result = s.toCharArray();
         int shiftCount = 0;
 
@@ -29,7 +28,7 @@ class Solution {
 
             //7. Shift character to appropriate letter
             int shiftedCharInd = (result[i] - 'a' + shiftCount) % 26;
-            char shiftedChar = (char) (shiftedCharInd + 'a');
+            char shiftedChar = (char)(shiftedCharInd + 'a');
             result[i] = shiftedChar;
         }
 
