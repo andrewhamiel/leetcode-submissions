@@ -20,19 +20,19 @@ class Solution {
         char[] result = s.toCharArray();
         int shiftCount = 0;
 
-        //5. Apply shifts
+        //5. Process Shifts
         for(int i = 0; i < result.length; i++) {
             //6. Update shift count. Wrap around to keep non-negative
             shiftCount = (shiftCount + diffArray[i]) % 26;
             if(shiftCount < 0) shiftCount+= 26;
 
-            //7. Shift character to appropriate letter
+            //7. Shift appropriate number of chars
             int shiftedCharInd = (result[i] - 'a' + shiftCount) % 26;
-            char shiftedChar = (char)(shiftedCharInd + 'a');
+            char shiftedChar = (char) (shiftedCharInd + 'a');
             result[i] = shiftedChar;
         }
 
-        //8. Convert back to string
+        //8. Convert back to String
         return new String(result);
     }
 }
