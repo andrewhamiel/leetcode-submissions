@@ -1,16 +1,16 @@
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
         Arrays.sort(nums);
-        
         return kSum(0, nums, target, 4);
     }
 
     private List<List<Integer>> kSum(int left, int[] nums, long target, int k) {
         List<List<Integer>> result = new ArrayList<>();
+
         //1. Exit condition
         if(left == nums.length) return result;
 
-        //2. Out of bounds sums. K sums left, if nums[left] > averageVal or nums[nums.length - 1] < average val, not possilbe
+        //2. Out of bounds sum. k nums left, if nums[left] > averageVal or nums[nums.length - 1] < averageVal, then not possible
         long averageVal = target / k;
         if(nums[left] > averageVal || nums[nums.length - 1] < averageVal) return result;
 
