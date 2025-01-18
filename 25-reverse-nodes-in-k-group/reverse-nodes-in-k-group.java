@@ -10,30 +10,31 @@
  */
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode curr = head, prevTail = null, newHead = null;
+        ListNode curr = head, newHead = null, prevTail = null;
         while(curr != null) {
-            //1. Advance K nodes
-            int count = 0;
-            while(curr != null && count < k) {
+            //1. Iterate through group
+            int size = 0;
+            while(curr != null && size < k) {
                 curr = curr.next;
-                count++;
+                size++;
             }
-            //2. Last group remains as is if size < k
-            if(count == k) {
-                //3. Reversed group becomes delinked -> head is now last element of reversed group
-                ListNode reversedHead = reverseK(head, k);
-                //4. Set newHead during first iteration
-                if(newHead == null) newHead = reversedHead;
-                //5. Link previous group to head of new k group
-                if(prevTail != null) prevTail.next = reversedHead;
-                //6. Set prevTail as last element in k group
+            //2. Last group remains unchanged if less than k nodes
+            if(size == k) {
+                //3. Reverse k-group, head will point to last node in curr group
+                ListNode reverseHead = reverseK(head, k);
+                //4. During first iteration, set new head
+                if(newHead == null) newHead = reverseHead;
+                //5. Connect group with previous group
+                if(prevTail != null) prevTail.next = reverseHead;
+                //6. Set prevTail as last node in k group
                 prevTail = head;
-                //7. Reset head as first element in next group
+                //7. Reset head to first node in next k group
                 head = curr;
             }
         }
-        //8. Link final groups together
+        //8. Connect last two groups together
         if(prevTail != null) prevTail.next = head;
+
         return newHead;
     }
 
