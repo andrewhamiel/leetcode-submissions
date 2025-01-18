@@ -16,7 +16,7 @@ class Solution {
         while(left < right) {
             int sum = nums[left] + nums[right];
             if(Math.abs(target - sum) < Math.abs(target - closest)) closest = sum;
-            
+
             if(sum == target) return closest;
             else if(sum < target) left++;
             else right--;
