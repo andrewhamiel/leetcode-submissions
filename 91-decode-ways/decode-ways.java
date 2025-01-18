@@ -2,16 +2,19 @@ class Solution {
     public int numDecodings(String s) {
         if(s.charAt(0) == '0') return 0;
 
-        int twoBack = 1, oneBack = 1;
-        for(int i = 1; i < s.length(); i++) {
-            int current = 0;
-            if(s.charAt(i) != '0') current = oneBack;
 
-            int tensDigit = Integer.parseInt(s.substring(i - 1, i + 1));
-            if(tensDigit >= 10 && tensDigit <= 26) current+= twoBack;
+        int oneBack = 1, twoBack = 1, prevDigit = s.charAt(0) - '0';
+        for(int i = 1; i < s.length(); i++) {
+            int currDigit = s.charAt(i) - '0';
+            int currWays = 0;
+            if(currDigit != 0) currWays = oneBack;
+
+            int tensDigit = prevDigit * 10 + currDigit;
+            if(tensDigit >= 10 && tensDigit <= 26) currWays+= twoBack;
 
             twoBack = oneBack;
-            oneBack = current;
+            oneBack = currWays;
+            prevDigit = currDigit;
         }
         return oneBack;
     }
