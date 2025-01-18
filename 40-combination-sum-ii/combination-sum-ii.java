@@ -1,26 +1,29 @@
 class Solution {
     private List<List<Integer>> result = new ArrayList<>();
     private int[] candidates;
-    private int target = 0;
-    
+
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        //1. Sort to maintain relative order
         Arrays.sort(candidates);
+        //2. Backtrack
         this.candidates = candidates;
-        this.target = target;
-        backtrack(0, 0, new ArrayList<>());
-        return result;
+        backtrack(0, target, new ArrayList<>());
+
+        return result; 
     }
 
     private void backtrack(int ind, int sum, List<Integer> list) {
-        if(sum == target) result.add(new ArrayList<>(list));
-        if(ind == candidates.length || sum > target) return;
+        //1. Base cases
+        if(sum == 0) result.add(new ArrayList<>(list));
+        if(sum < 0 || ind == candidates.length) return;
 
+        //2. Backtrack
         for(int i = ind; i < candidates.length; i++) {
             if(i == ind || candidates[i] != candidates[i - 1]) {
                 list.add(candidates[i]);
-                backtrack(i + 1, sum + candidates[i], list);
+                backtrack(i + 1, sum - candidates[i], list);
                 list.remove(list.size() - 1);
             }
-        }  
+        }
     }
 }
