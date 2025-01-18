@@ -9,20 +9,17 @@ class Solution {
                 //Replace in array
                 chars[compressedInd++] = prev;
                 if(currLength > 1) {
-                    String digits = String.valueOf(currLength);
-                    for(char digit : digits.toCharArray()) chars[compressedInd++] = digit;
-                }
+                    for(char digit : String.valueOf(currLength).toCharArray()) chars[compressedInd++] = digit;
+                }               
                 //Reset values
                 prev = c;
                 currLength = 1;
             }
         }
-
-        //Last char
+        //Last letter
         chars[compressedInd++] = prev;
         if(currLength > 1) {
-            String digits = String.valueOf(currLength);
-            for(char digit : digits.toCharArray()) chars[compressedInd++] = digit;
+            for(char digit : String.valueOf(currLength).toCharArray()) chars[compressedInd++] = digit;
         }
         return compressedInd;
     }
