@@ -1,8 +1,8 @@
 class Solution {
     public int uniquePaths(int m, int n) {
-        //Math: Catalan numbers
+        //Catalan numbers: n!/(n - k)!
         long result = 1;
-        for(int i = n; i < (m + n - 1); i++) {
+        for(int i = n; i < n + m - 1; i++) {
             result*= i;
             result/= (i - n + 1);
         }
