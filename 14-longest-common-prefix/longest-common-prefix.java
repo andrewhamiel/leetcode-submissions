@@ -1,5 +1,6 @@
 class Solution {
     public String longestCommonPrefix(String[] strs) {
+        //Horizontal scanning 
         StringBuilder result = new StringBuilder();
         for(int i = 0; i < strs[0].length(); i++) {
             char c = strs[0].charAt(i);
@@ -8,7 +9,6 @@ class Solution {
             }
             result.append(c);
         }
-        
         return result.toString();
     }
 }
