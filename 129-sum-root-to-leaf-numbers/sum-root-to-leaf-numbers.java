@@ -15,8 +15,8 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        int result  = 0, currDigit = 0;
-        //Inorder Morris traversal
+        int result = 0, currDigit = 0;
+        //Morris Inorder traversal
         while(root != null) {
             if(root.left != null) {
                 TreeNode predecessor = root.left;
@@ -32,16 +32,16 @@ class Solution {
                     currDigit+= root.val;
                     predecessor.right = root;
                     root = root.left;
-                }else {
-                    if(predecessor.left == null) result+= currDigit;
+                }else {                   
+                    if(predecessor.left == null) result+= currDigit; //Leaf node
+                    for(int i = steps; i > 0; i--) currDigit/= 10;
                     predecessor.right = null;
-                    for(int i = 0; i < steps; i++) currDigit/= 10;
                     root = root.right;
                 }
             }else {
                 currDigit*= 10;
                 currDigit+= root.val;
-                if(root.right == null) result+= currDigit;
+                if(root.right == null) result+= currDigit; //Leaf node
                 root = root.right;
             }
         }
