@@ -1,17 +1,17 @@
 class SparseVector {
-    private List<int[]> list = new ArrayList<>();
+    private List<int[]> pairs = new ArrayList<>();
     
     SparseVector(int[] nums) {
         for(int i = 0; i < nums.length; i++) {
-            if(nums[i] != 0) list.add(new int[]{i, nums[i]});
+            if(nums[i] != 0) pairs.add(new int[]{i, nums[i]});
         }
     }
     
 	// Return the dotProduct of two sparse vectors
     public int dotProduct(SparseVector vec) {
-        int dotProduct = 0, ptrA = 0, ptrB = 0;
-        while(ptrA < list.size() && ptrB < vec.list.size()) {
-            int[] a = list.get(ptrA), b = vec.list.get(ptrB);
+        int ptrA = 0, ptrB = 0, dotProduct = 0;
+        while(ptrA < pairs.size() && ptrB < vec.pairs.size()) {
+            int[] a = pairs.get(ptrA), b = vec.pairs.get(ptrB);
             if(a[0] == b[0]) {
                 dotProduct+= a[1] * b[1];
                 ptrA++;
