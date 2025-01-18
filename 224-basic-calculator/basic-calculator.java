@@ -3,6 +3,10 @@ class Solution {
         Deque<Integer> stack = new ArrayDeque<>();
         int operand = 0, sign = 1, result = 0;
         for(char c : s.toCharArray()) {
+            //1. Digit
+            //2. Addition or Subtraction
+            //3. Left paren
+            //4. Right paren
             if(Character.isDigit(c)) {
                 operand*= 10;
                 operand+= c - '0';
@@ -22,7 +26,8 @@ class Solution {
                 operand = 0;
             }
         }
-        //Add last element
+
+        //Compute final operand
         result+= operand * sign;
         return result;
     }
