@@ -7,15 +7,14 @@ class Solution {
     }
     
     public int pick(int target) {
-        //Reservoir Sampling
-        int count = 0, ind = 0;
+        int count = 0, result = 0;
         for(int i = 0; i < nums.length; i++) {
             if(nums[i] == target) {
                 count++;
-                if(rand.nextInt(count) == 0) ind = i;
+                if(rand.nextInt(count) == 0) result = i; 
             }
         }
-        return ind;
+        return result;
     }
 }
 
