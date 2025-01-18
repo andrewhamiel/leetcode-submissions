@@ -1,10 +1,9 @@
 class Solution {
-    private List<String> result = new ArrayList<>();
+    private Set<String> result = new HashSet<>();
 
     public List<String> generateParenthesis(int n) {
-        if(n == 0) return new ArrayList<>();
         backtrack(new StringBuilder(), n, n);
-        return result;    
+        return new ArrayList<>(result);    
     }
 
     private void backtrack(StringBuilder sb, int leftCount, int rightCount) {
@@ -16,14 +15,14 @@ class Solution {
 
         int currLength = sb.length();
 
-        //2. Add left paren if any remaining
+        //2. Add left if available
         if(leftCount > 0) {
             sb.append('(');
             backtrack(sb, leftCount - 1, rightCount);
             sb.deleteCharAt(currLength);
-        }
+        }       
 
-        //3. Add right paren if valid
+        //3. Add right if valid
         if(leftCount < rightCount) {
             sb.append(')');
             backtrack(sb, leftCount, rightCount - 1);
