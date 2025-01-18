@@ -1,14 +1,14 @@
 class Solution {
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
-        int closest = 100_000;
+        int closestSum = 100_000;
         for(int i = 0; i < nums.length - 2; i++) {
             if(i == 0 || nums[i] != nums[i - 1]) {
-                int candidate = nums[i] + twoSumSorted(i + 1, nums, target - nums[i]);
-                if(Math.abs(target - candidate) < Math.abs(target - closest)) closest = candidate;
+                int localClosestSum = nums[i] + twoSumSorted(i + 1, nums, target - nums[i]);
+                if(Math.abs(target - localClosestSum) < Math.abs(target - closestSum)) closestSum = localClosestSum;
             }
         }
-        return closest;
+        return closestSum;
     }
 
     private int twoSumSorted(int left, int[] nums, int target) {
@@ -16,7 +16,7 @@ class Solution {
         while(left < right) {
             int sum = nums[left] + nums[right];
             if(Math.abs(target - sum) < Math.abs(target - closest)) closest = sum;
-
+            
             if(sum == target) return closest;
             else if(sum < target) left++;
             else right--;
