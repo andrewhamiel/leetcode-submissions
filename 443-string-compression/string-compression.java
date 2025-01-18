@@ -10,17 +10,19 @@ class Solution {
                 chars[compressedInd++] = prev;
                 if(currLength > 1) {
                     String digits = String.valueOf(currLength);
-                    for(int digit = 0; digit < digits.length(); digit++) chars[compressedInd++] = digits.charAt(digit);
+                    for(char digit : digits.toCharArray()) chars[compressedInd++] = digit;
                 }
+                //Reset values
                 prev = c;
                 currLength = 1;
             }
         }
+
         //Last char
         chars[compressedInd++] = prev;
         if(currLength > 1) {
             String digits = String.valueOf(currLength);
-            for(int digit = 0; digit < digits.length(); digit++) chars[compressedInd++] = digits.charAt(digit);
+            for(char digit : digits.toCharArray()) chars[compressedInd++] = digit;
         }
         return compressedInd;
     }
