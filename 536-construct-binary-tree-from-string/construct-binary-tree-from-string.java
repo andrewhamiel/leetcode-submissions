@@ -18,18 +18,17 @@ class Solution {
         //Key Intuition: String ordered in preorder fashion
         Deque<TreeNode> stack = new ArrayDeque<>();
         StringBuilder currNum = new StringBuilder();
-
         for(char c : s.toCharArray()) {
             //1. Parens or Digit/sign
             if(c == '(' || c == ')') {
-                //2. Add num to stack
+                //2. Push num to stack if not empty
                 if(!currNum.isEmpty()) {
                     int val = Integer.parseInt(currNum.toString());
                     stack.addFirst(new TreeNode(val));
                     currNum = new StringBuilder();
                 }
 
-                //3. If right paren, remove from stack and link to parent
+                //3. Right paren. Pop from stack and connect child to parent
                 if(c == ')') {
                     TreeNode child = stack.removeFirst();
                     TreeNode parent = stack.peekFirst();
@@ -44,7 +43,7 @@ class Solution {
             int val = Integer.parseInt(currNum.toString());
             stack.addFirst(new TreeNode(val));
         }
-
+        
         return stack.isEmpty() ? null : stack.removeFirst();
     }
 }
