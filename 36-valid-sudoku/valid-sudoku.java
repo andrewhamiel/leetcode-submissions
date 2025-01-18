@@ -6,8 +6,8 @@ class Solution {
                 //1. Check value at pos
                 if(board[row][col] == '.') continue;
                 int val = board[row][col] - '0';
-                int pos = 1 << (val - 1); //0-indexed bitmask. Only sets bit at position of val
-                //2. Check row. num & num == 1, so if already present in row return false;
+                int pos = 1 << (val - 1); //0-indexed bitmask. Only sets the (val - 1)th bit
+                //2. Check row. num & num == 1, so if present return false
                 if((rows[row] & pos) > 0) return false;
                 rows[row]|= pos;
                 //3. Check col
