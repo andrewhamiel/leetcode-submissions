@@ -9,13 +9,14 @@ class Solution {
         }
         //3. Conversion
         long result = 0;
-        while(ind < s.length() && Character.isDigit(s.charAt(ind)) && result < Integer.MAX_VALUE) {
+        while(ind < s.length() && Character.isDigit(s.charAt(ind))) {
             result*= 10;
             result+= s.charAt(ind++) - '0';
+            if(result < Integer.MIN_VALUE || result > Integer.MAX_VALUE) break;
         }
         result*= sign;
         //4. Rounding
-        if(result < Integer.MIN_VALUE || result > Integer.MAX_VALUE ) {
+        if(result < Integer.MIN_VALUE || result > Integer.MAX_VALUE) {
             return result < Integer.MIN_VALUE ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         }
         return (int) result;
