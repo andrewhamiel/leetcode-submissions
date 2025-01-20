@@ -1,12 +1,12 @@
 class Solution {
     public List<List<String>> groupStrings(String[] strings) {
-        Map<String, List<String>> map = new HashMap<>();
+        Map<String, List<String>> collissions = new HashMap<>();
         for(String str : strings) {
             String hash = getHash(str);
-            map.computeIfAbsent(hash, k -> new ArrayList<>()).add(str);
+            collissions.computeIfAbsent(hash, k -> new ArrayList<>()).add(str);
         }
         List<List<String>> result = new ArrayList<>();
-        result.addAll(map.values());
+        result.addAll(collissions.values());
         return result;
     }
 
@@ -19,9 +19,9 @@ class Solution {
         return result.toString();
     }
 
-    private char getShiftedChar(char c, char firstChar) {
-        int preMod = c - firstChar - 'a' + 26;
+    private char getShiftedChar(char c, char first) {
+        int preMod = c - first - 'a' + 26;
         int preShift = preMod % 26;
-        return (char) (preShift + 'a');
+        return (char)(preShift + 'a');
     }
 }
