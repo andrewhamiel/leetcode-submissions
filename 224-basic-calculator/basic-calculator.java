@@ -1,12 +1,12 @@
 class Solution {
     public int calculate(String s) {
         Deque<Integer> stack = new ArrayDeque<>();
-        int operand = 0, sign = 1, result = 0;
+        int operand = 0, result = 0, sign = 1;
         for(char c : s.toCharArray()) {
-            //1. Digit
-            //2. Addition or Subtraction
-            //3. Left paren
-            //4. Right paren
+            //1. Num
+            //2. Sign
+            //3. Left Paren
+            //4. Right Paren
             if(Character.isDigit(c)) {
                 operand*= 10;
                 operand+= c - '0';
@@ -27,7 +27,6 @@ class Solution {
             }
         }
 
-        //Compute final operand
         result+= operand * sign;
         return result;
     }
