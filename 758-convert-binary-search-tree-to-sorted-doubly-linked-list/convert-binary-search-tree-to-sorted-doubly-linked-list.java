@@ -37,6 +37,7 @@ class Solution {
                     if(last != null) last.right = root;
                     root.left = last;
                     last = root;
+                    //Do not need to delink predecessor to maintain right connections
                     root = root.right;
                 }
             }else {
@@ -47,8 +48,8 @@ class Solution {
                 root = root.right;
             }
         }
-        
-        //Link first and last nodes
+
+        //Connect first and last nodes
         first.left = last;
         last.right = first;
         return first;
