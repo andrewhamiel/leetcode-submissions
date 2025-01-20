@@ -1,18 +1,17 @@
 class Solution {
     public String simplifyPath(String path) {
-        Deque<String> stack = new ArrayDeque<>();
+        Deque<String> deq = new ArrayDeque<>();
         for(String dir : path.split("/")) {
             if(dir.isEmpty() || dir.equals(".")) continue;
             else if(dir.equals("..")) {
-                if(!stack.isEmpty()) stack.removeFirst();
-            }else stack.addFirst(dir);
+                if(!deq.isEmpty()) deq.removeFirst();
+            }else deq.addFirst(dir);
         }
 
         StringBuilder result = new StringBuilder();
-        while(!stack.isEmpty()) {
-            result.append("/").append(stack.removeLast());
+        while(!deq.isEmpty()) {
+            result.append('/').append(deq.removeLast());
         }
-
         return result.isEmpty() ? "/" : result.toString();
     }
 }
