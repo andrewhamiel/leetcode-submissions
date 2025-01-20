@@ -17,8 +17,7 @@ class Solution {
                     freqs[c - 'a']--;
                     if(freqs[c - 'a'] == 0) uniqueSeen--;
                 }
-
-                //Right currently at next index to be evaluated
+                //Right at next index to process
                 if(uniqueSeen == currUnique && containsAtLeastK == currUnique) result = Math.max(result, right - left);
             }
         }
@@ -26,12 +25,13 @@ class Solution {
     }
 
     private int getUniqueChars(char[] arr) {
-        int unique = 0;
         boolean[] seen = new boolean[26];
+        int unique = 0;
         for(char c : arr) {
             if(!seen[c - 'a']) unique++;
             seen[c - 'a'] = true;
         }
+
         return unique;
     }
 }
