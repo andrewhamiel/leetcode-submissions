@@ -8,10 +8,11 @@ class Solution {
 
         int pivotInd = new Random().nextInt(right - left) + left;
         pivotInd = partition(left, right, nums, pivotInd);
+
         if(pivotInd == k) return nums[k];
         else if(pivotInd < k) {
             pivotInd++;
-            while(pivotInd < k && nums[pivotInd] == nums[pivotInd - 1]) pivotInd++; //Avoid duplicates
+            while(pivotInd < k && nums[pivotInd] == nums[pivotInd - 1]) pivotInd++;
             return quickselect(pivotInd, right, nums, k);
         }else {
             pivotInd--;
