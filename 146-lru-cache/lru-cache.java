@@ -1,13 +1,40 @@
 class LRUCache {
-    private Node head = new Node();
-    private Node tail = new Node();
+    private Node head, tail;
     private Map<Integer, Node> map = new HashMap<>();
     private int capacity = 0;
 
     public LRUCache(int capacity) {
+        head = new Node();
+        tail = new Node();
         head.next = tail;
         tail.prev = head;
+
         this.capacity = capacity;
+    }
+
+    private void add(Node node) {
+        node.next = head.next;
+        head.next.prev = node;
+        node.prev = head;
+        head.next = node;
+    }
+
+    private void remove(Node node) {
+        Node nextNode = node.next;
+        Node prevNode = node.prev;
+        nextNode.prev = prevNode;
+        prevNode.next = nextNode;
+    }
+
+    private void moveToFront(Node node) {
+        remove(node);
+        add(node);
+    }
+
+    private Node popTail() {
+        Node poppedTail = tail.prev;
+        remove(poppedTail);
+        return poppedTail;
     }
     
     public int get(int key) {
@@ -33,31 +60,6 @@ class LRUCache {
                 map.remove(poppedTail.key);
             }
         }
-    }
-
-    private void moveToFront(Node node) {
-        remove(node);
-        add(node);
-    }
-
-    private void add(Node node) {
-        node.next = head.next;
-        head.next.prev = node;
-        head.next = node;
-        node.prev = head;
-    }
-
-    private void remove(Node node) {
-        Node nextNode = node.next;
-        Node prevNode = node.prev;
-        nextNode.prev = prevNode;
-        prevNode.next = nextNode;
-    }
-
-    private Node popTail() {
-        Node poppedTail = tail.prev;
-        remove(poppedTail);
-        return poppedTail;
     }
 
     class Node {
