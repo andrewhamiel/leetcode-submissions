@@ -1,25 +1,26 @@
 class Solution {
     public int maxLength(int[] ribbons, int k) {
-        int l = 1;
-        int r = 100001;
-        while (l < r) {
-            int mid = l + ((r - l) >> 1);
-            
-            if (!isCutPossible(ribbons, mid, k)) {
-                r = mid;
-            } else {
-                l = mid + 1;
-            }
+        int maxRibbonLength = 0;
+        for(int ribbon : ribbons) {
+            maxRibbonLength = Math.max(maxRibbonLength, ribbon);
         }
-        return l - 1;
+
+        int left = 1, right = maxRibbonLength + 1;
+        //[left, right) variant
+        while(left < right) {
+            int mid = left + (right - left)/2;
+
+            if(!isFeasible(mid, ribbons, k)) right = mid;
+            else left = mid + 1;
+        }
+        return left - 1;
     }
 
-        public boolean isCutPossible(int[] ribbons, int length, int k) {
-        int count = 0;
-        for (int ribbon: ribbons) {
-            count += (ribbon / length);
-        } // I could've written an early 'return' here to save some computation, but for me, the more "if", the more likely to bug
-        return count >= k;
+    private boolean isFeasible(int capacity, int[] ribbons, int k) {
+        int currSegments = 0;
+        for(int ribbon : ribbons) {
+            currSegments+= ribbon / capacity;
+        }
+        return currSegments >= k;
     }
-
 }
