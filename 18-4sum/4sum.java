@@ -10,7 +10,7 @@ class Solution {
         //1. Exit condition
         if(left == nums.length) return result;
 
-        //2. Out of bounds sum. k nums left, if nums[left] > averageVal or nums[nums.length - 1] < averageVal, then not possible
+        //2. Out of bounds. K nums left, if nums[left] > averageVal or nums[nums.length - 1] < averageVal then not possible
         long averageVal = target / k;
         if(nums[left] > averageVal || nums[nums.length - 1] < averageVal) return result;
 
@@ -37,7 +37,7 @@ class Solution {
             int sum = nums[left] + nums[right];
             if(sum == target) {
                 result.add(new ArrayList<>(Arrays.asList(nums[left++], nums[right])));
-                while(left < right && nums[left] == nums[left - 1]) left++;
+                while(left < right && nums[left] == nums[left - 1]) left++; //Avoid duplicates
             }else if(sum < target) left++;
             else right--;
         }
