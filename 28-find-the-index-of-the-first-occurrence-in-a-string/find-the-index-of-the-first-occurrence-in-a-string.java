@@ -1,18 +1,20 @@
 class Solution {
     public int strStr(String haystack, String needle) {
         int[] longestBorder = new int[needle.length()];
-        //1. Preprocess
-        int longestPrev = 0, ind = 1; //LongestBorder[0] = 0 because cannot be suffix of itself
+        int prevLongest = 0, ind = 1; //LongestBorder[0] always 0, cannot be prefix of self
+        //1. Processing
         while(ind < needle.length()) {
-            if(needle.charAt(ind) == needle.charAt(longestPrev)) {
-                longestPrev++;
-                longestBorder[ind++] = longestPrev;
+            if(needle.charAt(ind) == needle.charAt(prevLongest)) {
+                //Expand border
+                prevLongest++;
+                longestBorder[ind++] = prevLongest;
             }else {
-                if(longestPrev == 0) longestBorder[ind++] = 0; //No characters match
-                else longestPrev = longestBorder[longestPrev - 1];
+                if(prevLongest == 0) longestBorder[ind++] = 0; //No matches
+                else prevLongest = longestBorder[prevLongest - 1]; //Next smallest border
             }
         }
-        //2. Search
+
+        //2. Searching
         int haystackInd = 0, needleInd = 0;
         while(haystackInd < haystack.length()) {
             if(haystack.charAt(haystackInd) == needle.charAt(needleInd)) {
