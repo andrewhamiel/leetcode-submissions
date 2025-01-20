@@ -1,15 +1,15 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        int maxBananas = 0;
+        int maxPile = 0;
         for(int pile : piles) {
-            maxBananas = Math.max(maxBananas, pile);
+            maxPile = Math.max(maxPile, pile);
         }
-        
-        int left = 1, right = maxBananas;
+
+        int left = 1, right = maxPile;
         while(left < right) {
             int mid = left + (right - left)/2;
             if(isFeasible(mid, piles, h)) right = mid;
-            else left = mid + 1;
+            else left = mid + 1; 
         }
         return right;
     }
