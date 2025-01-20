@@ -1,7 +1,7 @@
 class Solution {
     public int calculate(String s) {
         char op = '+';
-        int curr = 0, prev = 0, result = 0;
+        int result = 0, prev = 0, curr = 0;
         for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if(Character.isDigit(c)) {
@@ -20,7 +20,7 @@ class Solution {
                 curr = 0;
             }
         }
-        //Add final operand
+        
         result+= prev;
         return result;
     }
