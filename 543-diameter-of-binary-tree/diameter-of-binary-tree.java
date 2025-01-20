@@ -17,16 +17,16 @@ class Solution {
     private int diameter = 0;
 
     public int diameterOfBinaryTree(TreeNode root) {
-        if(root == null) return 0;
-        postorder(root);
+        dfs(root);
         return diameter;    
     }
 
-    private int postorder(TreeNode root) {
+    private int dfs(TreeNode root) {
         if(root == null) return 0;
 
-        int left = postorder(root.left), right = postorder(root.right);
+        int left = dfs(root.left), right = dfs(root.right);
         diameter = Math.max(diameter, left + right);
+
         return 1 + Math.max(left, right);
     }
 }
