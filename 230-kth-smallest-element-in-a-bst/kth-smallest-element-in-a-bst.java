@@ -28,7 +28,7 @@ class Solution {
                 }else {
                     k--;
                     if(k == 0) return root.val;
-                    predecessor.right = root;
+                    predecessor.right = null;
                     root = root.right;
                 }
             }else {
