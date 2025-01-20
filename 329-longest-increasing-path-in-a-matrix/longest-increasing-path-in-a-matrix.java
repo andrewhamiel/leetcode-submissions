@@ -14,7 +14,6 @@ class Solution {
         if(row < 0 || row >= matrix.length || col < 0 || col >= matrix[0].length || matrix[row][col] <= prevVal) return 0;
 
         if(memo[row][col] != 0) return memo[row][col];
-        memo[row][col] = 1;
 
         int currVal = matrix[row][col];
 
@@ -23,6 +22,6 @@ class Solution {
         int up = dfs(row -1, col, matrix, memo, currVal);
         int down = dfs(row + 1, col, matrix, memo, currVal);
 
-        return memo[row][col] = memo[row][col] + Math.max(left, Math.max(right, Math.max(up, down)));
+        return memo[row][col] = 1 + Math.max(left, Math.max(right, Math.max(up, down)));
     }
 }
