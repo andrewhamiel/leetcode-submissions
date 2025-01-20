@@ -3,7 +3,7 @@ class Solution {
         //1. Whitespace
         s = s.trim();
         //2. Sign
-        int ind = 0, sign = 1;
+        int sign = 1, ind = 0;
         if(ind < s.length() && (s.charAt(ind) == '+' || s.charAt(ind) == '-')) {
             sign = s.charAt(ind++) == '+' ? 1 : -1;
         }
