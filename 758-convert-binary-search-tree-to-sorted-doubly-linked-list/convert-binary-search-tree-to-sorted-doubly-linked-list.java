@@ -21,7 +21,7 @@ class Node {
 
 class Solution {
     public Node treeToDoublyList(Node root) {
-        if(root == null) return null;
+        if(root == null) return root;
         Node first = null, last = null;
         //Inorder Morris Traversal
         while(root != null) {
@@ -47,8 +47,8 @@ class Solution {
                 root = root.right;
             }
         }
-
-        //Connect first/last nodes
+        
+        //Link first and last nodes
         first.left = last;
         last.right = first;
         return first;
