@@ -12,29 +12,30 @@ class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode curr = head, newHead = null, prevTail = null;
         while(curr != null) {
-            //1. Iterate through group
+            //1. Iterate through K-group
             int size = 0;
             while(curr != null && size < k) {
                 curr = curr.next;
                 size++;
             }
-            //2. Last group remains unchanged if less than k nodes
+
+            //2. Final group remains as is if size < k
             if(size == k) {
-                //3. Reverse k-group, head will point to last node in curr group
-                ListNode reverseHead = reverseK(head, k);
-                //4. During first iteration, set new head
-                if(newHead == null) newHead = reverseHead;
-                //5. Connect group with previous group
-                if(prevTail != null) prevTail.next = reverseHead;
-                //6. Set prevTail as last node in k group
+                //3. Head now points to last node in current k-group
+                ListNode reversedHead = reverseK(head, k);
+                //4. Set newHead during first iteration
+                if(newHead == null) newHead = reversedHead;
+                //5. Link previous k-group to current group
+                if(prevTail != null) prevTail.next = reversedHead;
+                //6. Set tail as last node in curr k-group
                 prevTail = head;
-                //7. Reset head to first node in next k group
+                //7. Reset head as first element in next group
                 head = curr;
             }
         }
-        //8. Connect last two groups together
-        if(prevTail != null) prevTail.next = head;
 
+        //8. Link final groups together
+        if(prevTail != null) prevTail.next = head;
         return newHead;
     }
 
