@@ -1,31 +1,22 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
-        //1. Remove invalid ')'
-        StringBuilder sb = new StringBuilder();
-        int leftParens = 0, balance = 0;
-        for(char c : s.toCharArray()) {
-            if(c == '(') {
-                leftParens++;
-                balance++;
-            }else if(c == ')') {
-                if(balance == 0) continue;
-                balance--;
+        Set<Integer> toBeRemoved = new HashSet<>();
+        Deque<Integer> leftParens = new ArrayDeque<>();
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if(c == '(') leftParens.add(i);
+            else if(c == ')') {
+                if(!leftParens.isEmpty()) leftParens.removeFirst();
+                else toBeRemoved.add(i);
             }
-            sb.append(c);
         }
 
-        //2. Remove extra rightmost '('
+        while(!leftParens.isEmpty()) toBeRemoved.add(leftParens.removeFirst());
+
         StringBuilder result = new StringBuilder();
-        int leftRemaining = leftParens - balance;
-        for(int i = 0; i < sb.length(); i++) {
-            char c = sb.charAt(i);
-            if(c == '(') {
-                if(leftRemaining == 0) continue;
-                leftRemaining--;
-            }
-            result.append(c);
+        for(int i = 0; i < s.length(); i++) {
+            if(!toBeRemoved.contains(i)) result.append(s.charAt(i));
         }
-
         return result.toString();
     }
 }
