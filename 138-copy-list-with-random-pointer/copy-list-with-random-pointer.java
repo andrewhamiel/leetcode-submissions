@@ -15,32 +15,29 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        if(head == null) return head;
-
+        if(head == null) return null;
+        //1. Interweave
         Node curr = head;
         while(curr != null) {
-            Node nextNode = new Node(curr.val);
-            nextNode.next = curr.next;
-            curr.next = nextNode;
-            curr = curr.next.next;
+            Node copy = new Node(curr.val);
+            copy.next = curr.next;
+            curr.next = copy;
+            curr = copy.next;
         }
-
-        //Interweave
+        //2. Copy randoms
         curr = head;
-        while(curr != null) {
-            curr.next.random = curr.random != null ? curr.random.next : null;
+        while(curr != null && curr.next != null) {
+            curr.next.random = curr.random == null ? null : curr.random.next;
             curr = curr.next.next;
         }
-
-        //Outerweave
+        //3. Outerweave
         Node oldPtr = head, newPtr = head.next, newHead = newPtr;
-        while(oldPtr != null) {
-            oldPtr.next = oldPtr.next.next;
-            newPtr.next = newPtr.next != null ? newPtr.next.next : null;
+        while(oldPtr != null && newPtr != null) {
+            oldPtr.next = newPtr.next;
+            newPtr.next = newPtr.next == null ? null : newPtr.next.next;
             oldPtr = oldPtr.next;
             newPtr = newPtr.next;
         }
         return newHead;
-        
     }
 }
