@@ -1,26 +1,22 @@
 class Solution {
     public String customSortString(String order, String s) {
-        char[] freqs = new char[26];
-        for(char c : s.toCharArray()) {
-            freqs[c - 'a']++;
-        }
+        int[] sFreqs = new int[26];
+        for(char c : s.toCharArray()) sFreqs[c - 'a']++;
 
         StringBuilder result = new StringBuilder();
         for(char c : order.toCharArray()) {
-            while(freqs[c - 'a'] > 0) {
+            while(sFreqs[c - 'a'] > 0) {
                 result.append(c);
-                freqs[c - 'a']--;
+                sFreqs[c - 'a']--;
             }
         }
 
-        //append remaining chars
-        for(int i = 0; i < freqs.length; i++) {
-            while(freqs[i] > 0) {
+        for(int i = 0; i < sFreqs.length; i++) {
+            while(sFreqs[i] > 0) {
                 result.append((char)(i + 'a'));
-                freqs[i]--;
+                sFreqs[i]--;
             }
         }
-
         return result.toString();
     }
 }
