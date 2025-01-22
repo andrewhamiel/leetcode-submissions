@@ -11,21 +11,18 @@
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists == null || lists.length == 0) return null;
-        return mergeK(0, lists.length - 1, lists);
+        return divideAndConquer(0, lists.length - 1, lists);
     }
 
-    /*
-    * Divide and Conquer
-    */
-    private ListNode mergeK(int left, int right, ListNode[] lists) {
+    private ListNode divideAndConquer(int left, int right, ListNode[] lists) {
         if(left >= right) return lists[left];
         int mid = left + (right - left)/2;
-        ListNode leftNode = mergeK(left, mid, lists), rightNode = mergeK(mid + 1, right, lists);
+        ListNode leftNode = divideAndConquer(left, mid, lists), rightNode = divideAndConquer(mid + 1, right, lists);
         return merge(leftNode, rightNode);
     }
 
     private ListNode merge(ListNode a, ListNode b) {
-        ListNode result = new ListNode(), curr = result;
+        ListNode curr = new ListNode(), head = curr;
         while(a != null || b != null) {
             if(a != null && b != null) {
                 if(a.val <= b.val) {
@@ -38,12 +35,12 @@ class Solution {
             }else if(a != null) {
                 curr.next = a;
                 a = a.next;
-            }else if(b != null) {
+            }else {
                 curr.next = b;
                 b = b.next;
             }
             curr = curr.next;
         }
-        return result.next;
+        return head.next;
     }
 }
