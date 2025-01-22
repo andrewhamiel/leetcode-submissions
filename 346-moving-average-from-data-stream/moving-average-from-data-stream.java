@@ -1,22 +1,17 @@
 class MovingAverage {
-
-    Queue<Integer> stream;
-    int size;
-    long sum;
+    private double sum = 0.0;
+    private int size = 0;
+    private Queue<Integer> q = new LinkedList<>();
 
     public MovingAverage(int size) {
-        sum = 0;
         this.size = size;
-        stream = new LinkedList<>();
     }
     
     public double next(int val) {
-        if(stream.size() == size){
-            sum-= stream.poll();
-        }
         sum+= val;
-        stream.add(val);
-        return (double) sum/stream.size();
+        if(q.size() == size)sum-= q.poll();
+        q.add(val);
+        return sum / q.size();
     }
 }
 
