@@ -3,7 +3,6 @@ class Solution {
         if(missingNums(arr.length - 1, arr) < k) return arr[arr.length - 1] + k - missingNums(arr.length - 1, arr);
 
         int left = 0, right = arr.length - 1;
-        //[left, right] invariant 
         while(left <= right) {
             int mid = left + (right - left)/2;
             if(missingNums(mid, arr) < k) left = mid + 1;
@@ -17,6 +16,6 @@ class Solution {
     }
 
     private int missingNums(int ind, int[] nums) {
-        return nums[ind] - ind - 1; //first number is 1
+        return nums[ind] - ind - 1; //1 is first num
     }
 }
