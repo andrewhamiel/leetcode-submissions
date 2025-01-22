@@ -21,7 +21,7 @@ class Node {
 
 class Solution {
     public Node treeToDoublyList(Node root) {
-        if(root == null) return root;
+        if(root == null) return null;
         Node first = null, last = null;
         //Inorder Morris traversal
         while(root != null) {
@@ -37,7 +37,7 @@ class Solution {
                     if(last != null) last.right = root;
                     root.left = last;
                     last = root;
-                    //Do not need to delink to maintain right relationships
+                    //Do not need to unlink predecessor to keep left -> right connection
                     root = root.right;
                 }
             }else {
@@ -48,8 +48,7 @@ class Solution {
                 root = root.right;
             }
         }
-
-        //Link first and last nodes
+        //Link first and last together
         first.left = last;
         last.right = first;
         return first;
