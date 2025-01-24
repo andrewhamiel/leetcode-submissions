@@ -1,14 +1,14 @@
 class Solution {
     public int minAddToMakeValid(String s) {
-        int leftCount = 0, count = 0;
+        int leftCount = 0, toAdd = 0;
         for(char c : s.toCharArray()) {
             if(c == '(') leftCount++;
             else if(c == ')') {
                 if(leftCount > 0) leftCount--;
-                else count++;
+                else toAdd++;
             }
         }
-        count+= leftCount;
-        return count;
+        toAdd+= leftCount;
+        return toAdd;
     }
 }
