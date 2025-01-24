@@ -1,9 +1,8 @@
 class Solution {
     public void rotate(int[][] matrix) {
-        //rotation on 2D plane: (x, y) -> (y, -x)
-        //2 steps
+        //2 Steps: Transpose and Reflect
 
-        //1. Transpose: flip across diagonal from top left -> bottom right
+        //1. Transpose: swap across diagonal axis from top left -> bottom right
         for(int row = 0; row < matrix.length; row++) {
             //Avoid duplicate swaps
             for(int col = row; col < matrix[0].length; col++) {
@@ -12,8 +11,7 @@ class Solution {
                 matrix[col][row] = tmp;
             }
         }
-
-        //2. Reflect: flip horizontally from left -> right
+        //2. Reflect. Flip horizontally across y-axis
         for(int row = 0; row < matrix.length; row++) {
             int left = 0, right = matrix[row].length - 1;
             while(left < right) {
