@@ -9,6 +9,7 @@ class RandomizedSet {
     
     public boolean insert(int val) {
         if(map.containsKey(val)) return false;
+
         map.put(val, list.size());
         list.add(val);
         return true;
@@ -18,13 +19,13 @@ class RandomizedSet {
         if(!map.containsKey(val)) return false;
 
         int lastElement = list.get(list.size() - 1);
-        int ind = map.get(val);
+        int removedInd = map.get(val);
 
-        map.put(lastElement, ind);
-        list.set(ind, lastElement);
+        map.put(lastElement, removedInd);
+        list.set(removedInd, lastElement);
 
         map.remove(val);
-        list.remove(list.size() - 1);
+        list.remove(list.size() -1);
 
         return true;
     }
