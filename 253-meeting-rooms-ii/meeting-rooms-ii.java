@@ -1,22 +1,20 @@
 class Solution {
     public int minMeetingRooms(int[][] intervals) {
-        int[] startTimes = new int[intervals.length], endTimes = new int[intervals.length];
-        for(int i = 0; i < intervals.length; i++) {
-            startTimes[i] = intervals[i][0];
-            endTimes[i] = intervals[i][1];
+        PriorityQueue<Integer> startTimes = new PriorityQueue<>(), endTimes = new PriorityQueue<>();
+        for(int[] interval : intervals) {
+            startTimes.add(interval[0]);
+            endTimes.add(interval[1]);
         }
-        Arrays.sort(startTimes);
-        Arrays.sort(endTimes);
 
-        int startInd = 0, endInd = 0, usedRooms = 0;
-        while(startInd < intervals.length) {
-            //A meeting ended before this meeting started
-            if(startTimes[startInd] >= endTimes[endInd]) {
+        int usedRooms = 0;
+        while(!startTimes.isEmpty()) {
+            int startTime = startTimes.peek(), endTime = endTimes.peek();
+            if(startTime >= endTime) {
+                endTimes.poll();
                 usedRooms--;
-                endInd++;
             }
             usedRooms++;
-            startInd++;
+            startTimes.poll();
         }
         return usedRooms;
     }
