@@ -35,7 +35,7 @@ class Solution {
                 if(head.next != null) head.right.next = head.next.left;
                 head = head.next;
             }
-            leftmost = leftmost.left; //Advance to next level
+            leftmost = leftmost.left;
         }
         return root;
     }
