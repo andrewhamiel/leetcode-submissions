@@ -27,7 +27,7 @@ class Solution {
         return dp[s.length() - 1];
     }
 
-    class TrieNode {
+    class TrieNode { 
         Map<Character, TrieNode> children = new HashMap<>();
         boolean isWord = false;
     }
