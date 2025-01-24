@@ -6,8 +6,8 @@ class Solution {
                 int sum = stack.peekFirst() + asteroid;
                 if(sum == 0) {
                     //Both explode
-                    asteroid = 0;
                     stack.removeFirst();
+                    asteroid = 0;
                 }else if(sum < 0) {
                     //Asteroid on stack explodes
                     stack.removeFirst();
@@ -19,8 +19,8 @@ class Solution {
             if(asteroid != 0) stack.addFirst(asteroid);
         }
 
-        int[] result = new int[stack.size()];
-        for(int i = result.length - 1; i >= 0; i--) result[i] = stack.removeFirst();
-        return result;
-    }
+    int[] result = new int[stack.size()];
+    for(int i = result.length - 1; i >= 0; i--) result[i] = stack.removeFirst();
+    return result;
+    }   
 }
