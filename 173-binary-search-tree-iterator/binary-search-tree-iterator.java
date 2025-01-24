@@ -21,9 +21,10 @@ class BSTIterator {
     }
 
     private void leftmost(TreeNode root) {
-        while(root != null) {
-            stack.addFirst(root);
-            root = root.left;
+        TreeNode curr = root;
+        while(curr != null) {
+            stack.addFirst(curr);
+            curr = curr.left;
         }
     }
     
