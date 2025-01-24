@@ -29,13 +29,14 @@ class Solution {
         return swapInd;
     }
 
+    private int getDistance(int ind, int[][] points) {
+        int[] point = points[ind];
+        return (point[0] * point[0]) + (point[1] * point[1]);
+    }
+
     private void swap(int i, int j, int[][] points) {
         int[] tmp = points[i];
         points[i] = points[j];
         points[j] = tmp;
-    }
-
-    private int getDistance(int pivotInd, int[][] points) {
-        return (points[pivotInd][0] * points[pivotInd][0]) + (points[pivotInd][1] * points[pivotInd][1]);
     }
 }
