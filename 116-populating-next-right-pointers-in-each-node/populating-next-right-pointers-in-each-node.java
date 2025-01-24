@@ -23,12 +23,18 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
-        if(root == null) return root;
-        Node prev = null;
+        //1. Base case: if root  is null
+        if(root == null) return null;
+        //2. Level-order traversal
         Queue<Node> q = new LinkedList<>();
         q.add(root);
+
         
+
+        //BFS
         while(!q.isEmpty()) {
+            //Iterate level by level
+            Node prev = null;
             int size = q.size();
             while(size-- > 0) {
                 Node curr = q.poll();
@@ -36,10 +42,9 @@ class Solution {
 
                 if(curr.left != null) q.add(curr.left);
                 if(curr.right != null) q.add(curr.right);
-
+//q: [], size = 1, prev = 7, curr = 7
                 prev = curr;
             }
-            prev = null;
         }
         return root;
     }
