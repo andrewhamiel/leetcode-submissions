@@ -2,18 +2,18 @@ class Solution {
     private Map<Integer, Integer> map = new HashMap<>();
 
     public int[] topKFrequent(int[] nums, int k) {
-        for(int num : nums) map.put(num, map.getOrDefault(num, 0) + 1);
+        for(int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }    
 
         int[] freqs = new int[map.size()];
         int ind = 0;
-        for(int num : map.keySet()) {
-            freqs[ind++] = num;
-        }
+        for(int num : map.keySet()) freqs[ind++] = num;
 
         quickselect(0, freqs.length - 1, freqs, k - 1);
 
         int[] result = new int[k];
-        for(int i = 0; i < result.length; i++) result[i] = freqs[i];
+        for(int i = 0; i < k; i++) result[i] = freqs[i];
         return result;
     }
 
