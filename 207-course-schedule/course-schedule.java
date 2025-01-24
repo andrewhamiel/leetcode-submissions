@@ -2,30 +2,33 @@ class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         Map<Integer, GNode> adj = new HashMap<>();
         for(int[] prerequisite : prerequisites) {
-            adj.putIfAbsent(prerequisite[0], new GNode());
-            adj.putIfAbsent(prerequisite[1], new GNode());
-            adj.get(prerequisite[0]).indegrees++;
-            adj.get(prerequisite[1]).outdegrees.add(prerequisite[0]);
+            int firstCourse = prerequisite[1], secondCourse = prerequisite[0];
+            adj.putIfAbsent(firstCourse, new GNode());
+            adj.putIfAbsent(secondCourse, new GNode());
+            adj.get(firstCourse).nextCourses.add(secondCourse);
+            adj.get(secondCourse).dependencies++;
         }
 
-        Queue<Integer> noPrereqs = new LinkedList<>();
-        for(int key : adj.keySet()) if(adj.get(key).indegrees == 0) noPrereqs.add(key);
+        Queue<Integer> noDeps = new LinkedList<>();
+        for(int course = 0; course < numCourses; course++) if(adj.getOrDefault(course, new GNode()).dependencies == 0) noDeps.add(course);
+
         Set<Integer> visited = new HashSet<>();
 
-        while(!noPrereqs.isEmpty()){
-            int course = noPrereqs.poll();
-            visited.add(course);
-            for(int nextCourse : adj.get(course).outdegrees){
-                GNode nextNode = adj.get(nextCourse);
-                nextNode.indegrees--;
-                if(nextNode.indegrees == 0) noPrereqs.add(nextCourse); 
+        while(!noDeps.isEmpty()) {
+            int currCourse = noDeps.poll();
+            visited.add(currCourse);
+
+            for(int nextCourse : adj.getOrDefault(currCourse, new GNode()).nextCourses) {
+                adj.get(nextCourse).dependencies--;
+                if(adj.get(nextCourse).dependencies == 0) noDeps.add(nextCourse);
             }
         }
-        return visited.size() == adj.keySet().size();
+
+        return visited.size() == numCourses;
     }
 
     class GNode {
-        List<Integer> outdegrees = new ArrayList<>();
-        int indegrees = 0;
+        int dependencies = 0;
+        List<Integer> nextCourses = new ArrayList<>();
     }
 }
