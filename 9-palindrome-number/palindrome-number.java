@@ -8,6 +8,7 @@ class Solution {
             revertedNum+= x % 10;
             x/= 10;
         }
+
         return revertedNum == x || revertedNum / 10 == x;
     }
 }
