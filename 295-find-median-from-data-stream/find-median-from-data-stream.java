@@ -20,7 +20,7 @@ class MedianFinder {
     public double findMedian() {
         int size = left.size() + right.size();
         if(size % 2 == 0) return (double) (left.peek() + right.peek())/2;
-        else return (double) (left.peek());
+        else return (double) left.peek();
     }
 }
 
