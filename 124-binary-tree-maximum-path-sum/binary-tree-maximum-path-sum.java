@@ -14,19 +14,18 @@
  * }
  */
 class Solution {
-    Map<Integer, Integer> map = new HashMap<>();
-    int maxSum = Integer.MIN_VALUE;
+    private int maxSum = Integer.MIN_VALUE;
 
     public int maxPathSum(TreeNode root) {
-        dfs(root);
-        return maxSum;    
+        dfs(root);  
+        return maxSum;  
     }
 
     private int dfs(TreeNode root) {
         if(root == null) return 0;
 
-        int leftSum = Math.max(dfs(root.left), 0), rightSum = Math.max(dfs(root.right), 0);
-        maxSum = Math.max(maxSum, root.val + leftSum + rightSum);
-        return root.val + Math.max(leftSum, rightSum);
+        int left = Math.max(dfs(root.left), 0), right = Math.max(dfs(root.right), 0);
+        maxSum = Math.max(maxSum, root.val + left + right);
+        return root.val + Math.max(left, right);
     }
 }
