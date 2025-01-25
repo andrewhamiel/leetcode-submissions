@@ -1,15 +1,16 @@
 class Solution {
     public int removeDuplicates(int[] nums) {
-        if(nums.length == 0) return 0;
-
-        int left = 0, right = 1;
-        while(right < nums.length){
-            if(nums[right] != nums[left]){
-                left++;
-                nums[left] = nums[right];
-            }
-            right++;
+        int unique = 0, nonUnique = 0;
+        while(nonUnique < nums.length) {
+            if(nonUnique < nums.length - 1 && nums[nonUnique] == nums[nonUnique + 1]) nonUnique++;
+            else swap(unique++, nonUnique++, nums);
         }
-        return left + 1;
+        return unique;
+    }
+
+    private void swap(int i, int j, int[] nums) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 }
