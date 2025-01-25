@@ -2,16 +2,20 @@ class Solution {
     public String decodeString(String s) {
         Deque<Integer> countStack = new ArrayDeque<>();
         Deque<StringBuilder> stringStack = new ArrayDeque<>();
-        int currNum = 0;
+        int currCount = 0;
         StringBuilder currString = new StringBuilder();
         for(char c : s.toCharArray()) {
+            //1. Digit
+            //2. Open bracket
+            //3. Closed bracket
+            //4. letter
             if(Character.isDigit(c)) {
-                currNum*= 10;
-                currNum+= c - '0';
+                currCount*= 10;
+                currCount+= c - '0';
             }else if(c == '[') {
-                countStack.addFirst(currNum);
+                countStack.addFirst(currCount);
                 stringStack.addFirst(currString);
-                currNum = 0;
+                currCount = 0;
                 currString = new StringBuilder();
             }else if(c == ']') {
                 StringBuilder decoded = stringStack.removeFirst();
