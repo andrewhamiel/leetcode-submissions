@@ -18,17 +18,15 @@ class Solution {
         Deque<TreeNode> stack = new ArrayDeque<>();
         StringBuilder currNum = new StringBuilder();
         for(char c : s.toCharArray()) {
-            //1. Left or Right Paren
-            //2. Digit or Sign
+            //1. Left or right paren
+            //2. Digit or sign
             if(c == '(' || c == ')') {
-                //If value is present, add to stack
                 if(!currNum.isEmpty()) {
                     int val = Integer.parseInt(currNum.toString());
                     stack.addFirst(new TreeNode(val));
                     currNum = new StringBuilder();
                 }
 
-                //If right paren, pop from stack and connect to parent
                 if(c == ')') {
                     TreeNode child = stack.removeFirst();
                     TreeNode parent = stack.peekFirst();
@@ -38,7 +36,7 @@ class Solution {
             }else currNum.append(c);
         }
 
-        //3. Add remaining num to stack if present. ie "4"
+        //Add remaining num to stack if present i.e. "4"
         if(!currNum.isEmpty()) {
             int val = Integer.parseInt(currNum.toString());
             stack.addFirst(new TreeNode(val));
