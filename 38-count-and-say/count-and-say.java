@@ -8,7 +8,7 @@ class Solution {
         String s = countAndSay(n - 1);
         StringBuilder result = new StringBuilder();
 
-        //3. Count variables
+        //3. Count nums
         char prev = s.charAt(0);
         int count = 1;
         for(int i = 1; i < s.length(); i++) {
@@ -21,11 +21,9 @@ class Solution {
                 prev = c;
             }
         }
-        
-        //4. Append final variable
-        result.append(count);
-        result.append(prev);
 
+        //4. Last num
+        result.append(count).append(prev);
         return result.toString();
     }
 }
