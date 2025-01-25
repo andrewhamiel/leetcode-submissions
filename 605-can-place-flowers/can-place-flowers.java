@@ -1,19 +1,15 @@
 class Solution {
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
-        int count = 0;
-        for(int i = 0; i < flowerbed.length; i++) {
-            //Already has flower planted
+        for(int i = 0; i < flowerbed.length && n > 0; i++) {
             if(flowerbed[i] == 1) continue;
 
-            boolean isLeftFree = i == 0 || flowerbed[i - 1] == 0;
-            boolean isRightFree = i == flowerbed.length - 1 || flowerbed[i + 1] == 0;
-
-            if(isLeftFree && isRightFree) {
+            boolean canPlaceLeft = i == 0 || flowerbed[i - 1] == 0;
+            boolean canPlaceRight = i == flowerbed.length - 1 || flowerbed[i + 1] == 0;
+            if(canPlaceLeft && canPlaceRight) {
                 flowerbed[i] = 1;
-                count++;
+                n--;
             }
         }
-        
-        return count >= n;
+        return n == 0;
     }
 }
