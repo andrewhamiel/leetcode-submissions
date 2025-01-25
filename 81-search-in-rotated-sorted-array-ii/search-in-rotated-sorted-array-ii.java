@@ -6,16 +6,16 @@ class Solution {
         //[left, right] variant
         while(left <= right) {
             int mid = left + (right - left)/2;
-            //1. Check mid
+            //1. Compare mid to target
             if(nums[mid] == target) return true;
-            //2. See if BS helpful. If nums[left] == nums[mid], cannot tell which partition to go to next
+            //2. See if BS helpful
             if(nums[left] == nums[mid]) {
                 left++;
                 continue;
             }
             //3. Find next partition
             if(nums[left] < nums[mid]) {
-                if(nums[mid] > target && nums[left] <= target) right = mid - 1;
+                if(nums[left] <= target && nums[mid] > target) right = mid - 1;
                 else left = mid + 1;
             }else {
                 if(nums[left] > target && nums[mid] < target) left = mid + 1;
