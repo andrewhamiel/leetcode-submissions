@@ -9,7 +9,7 @@ class Solution {
         for(int age : ages) {
             int condition = age / 2 + 7;
             if(condition >= age) continue;
-            totalFriendRequests+= freqs[age] - freqs[condition] - 1; //Exclude requesting self
+            totalFriendRequests+= freqs[age] - freqs[condition] - 1; //Cannot request self
         }
         return totalFriendRequests;
     }
