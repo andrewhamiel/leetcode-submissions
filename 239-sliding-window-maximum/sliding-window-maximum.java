@@ -19,9 +19,9 @@ class Solution {
     }
 
     private void cleanDeque(int i, int[] nums, Deque<Integer> deq, int k) {
-        //If out of window
+        //If out of sliding window
         if(!deq.isEmpty() && deq.peekFirst() == i - k) deq.removeFirst();
-        //Remove nums in deq < nums[i]
+        //Remove nums from deq < nums[i]
         while(!deq.isEmpty() && nums[deq.peekLast()] <= nums[i]) deq.removeLast();
     }
 }
