@@ -18,12 +18,12 @@ class Solution {
         List<Integer> result = new ArrayList<>();
         //1. Root
         if(!isLeaf(root)) result.add(root.val);
-        //2. Left Boundary
+        //2. Left boundary
         leftBoundary(root, result);
         //3. Leaves
         addLeaves(root, result);
         //4. Reverse right boundary
-        rightBoundary(root, result);
+        reverseRightBoundary(root, result);
 
         return result;
     }
@@ -45,18 +45,19 @@ class Solution {
 
         if(isLeaf(root)) result.add(root.val);
         else {
-            if(root.left != null) addLeaves(root.left, result);
-            if(root.right != null) addLeaves(root.right, result);
+            addLeaves(root.left, result);
+            addLeaves(root.right, result);
         }
     }
 
-    private void rightBoundary(TreeNode root, List<Integer> result) {
+    private void reverseRightBoundary(TreeNode root, List<Integer> result) {
         Deque<Integer> stack = new ArrayDeque<>();
         TreeNode curr = root.right;
         while(curr != null) {
             if(!isLeaf(curr)) stack.addFirst(curr.val);
             curr = curr.right != null ? curr.right : curr.left;
         }
+
         while(!stack.isEmpty()) result.add(stack.removeFirst());
     }
 }
