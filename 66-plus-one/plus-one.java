@@ -1,21 +1,16 @@
 class Solution {
     public int[] plusOne(int[] digits) {
-        digits[digits.length - 1]++;
         int carry = 0;
-        boolean isBreakFound = false;
+        digits[digits.length - 1]++;
         for(int i = digits.length - 1; i >= 0; i--) {
-            digits[i]+= carry;
-            
-            carry = digits[i] / 10;
-            if(digits[i] < 10) break;
-            digits[i]%= 10;
+            int sum = digits[i] + carry;
+            digits[i] = sum % 10;
+            if(sum < 10) return digits;
+            carry = sum / 10;
         }
-        if(carry > 0) {
-            int[] result = new int[digits.length + 1];
-            result[0] = carry;
-            for(int i = 1; i < result.length; i++) result[i] = digits[i - 1];
-            return result;
-        }
-        return digits;
+        //All numbers '9' if we reach this point
+        int[] result = new int[digits.length + 1];
+        result[0] = 1; 
+        return result;
     }
 }
