@@ -8,7 +8,7 @@ class Solution {
             reversedNum+= (x % 10);
             x/= 10;
         }
-        //Even length or odd length remove a num
+        //Even length same, odd length remove a digit
         return reversedNum == x || reversedNum / 10 == x;
     }
 }
