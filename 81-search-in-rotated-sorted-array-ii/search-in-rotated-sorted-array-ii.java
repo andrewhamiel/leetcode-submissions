@@ -6,9 +6,9 @@ class Solution {
         //[left, right] variant
         while(left <= right) {
             int mid = left + (right - left)/2;
-            //1. Compare mid to target
+            //1. Check mid
             if(nums[mid] == target) return true;
-            //2. See if BS helpful
+            //2. See if BS will be helpful
             if(nums[left] == nums[mid]) {
                 left++;
                 continue;
