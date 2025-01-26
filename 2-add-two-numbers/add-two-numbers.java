@@ -32,12 +32,7 @@ class Solution {
             }
             curr = curr.next;
         }
-        
-        //If a carry remains
-        if(carry > 0) {
-            curr.next = new ListNode(carry);
-            curr = curr.next;
-        }
+        if(carry > 0) curr.next = new ListNode(carry);
         return head.next;
     }
 }
