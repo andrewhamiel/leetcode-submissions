@@ -6,15 +6,16 @@ class Solution {
             endTimes.add(interval[1]);
         }
 
-        int usedRooms = 0;
+        int roomsRequired = 0;
         while(!startTimes.isEmpty()) {
-            int startTime = startTimes.poll(), endTime = endTimes.peek();
-            usedRooms++;
+            int startTime = startTimes.poll();
+            roomsRequired++;
+            int endTime = endTimes.peek();
             if(startTime >= endTime) {
+                roomsRequired--;
                 endTimes.poll();
-                usedRooms--;
             }
         }
-        return usedRooms;
+        return roomsRequired;
     }
 }
