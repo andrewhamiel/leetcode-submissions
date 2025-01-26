@@ -18,7 +18,7 @@ class Solution {
         Deque<TreeNode> stack = new ArrayDeque<>();
         StringBuilder currNum = new StringBuilder();
         for(char c : s.toCharArray()) {
-            //1. Left or right paren
+            //1. Left or right parens
             //2. Digit or sign
             if(c == '(' || c == ')') {
                 if(!currNum.isEmpty()) {
@@ -36,11 +36,12 @@ class Solution {
             }else currNum.append(c);
         }
 
-        //Add remaining num to stack if present i.e. "4"
+        //Handle remaining num i.e. "4"
         if(!currNum.isEmpty()) {
             int val = Integer.parseInt(currNum.toString());
             stack.addFirst(new TreeNode(val));
         }
+
         return stack.isEmpty() ? null : stack.removeFirst();
     }
 }
