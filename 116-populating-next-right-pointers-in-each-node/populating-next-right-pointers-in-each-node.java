@@ -23,7 +23,7 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
-        if(root == null) return root;
+        if(root == null) return null;
 
         Node leftmost = root.left, head = root;
         while(leftmost != null) {
