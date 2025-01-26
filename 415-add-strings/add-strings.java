@@ -1,30 +1,32 @@
 class Solution {
     public String addStrings(String num1, String num2) {
         StringBuilder result = new StringBuilder();
-
-        int ptrA = num1.length() - 1, ptrB = num2.length() - 1;
         int carry = 0;
-        while(ptrA >= 0 || ptrB >= 0) {
-            if(ptrA >= 0 && ptrB >= 0) {
-                int digit1 = num1.charAt(ptrA--) - '0';
-                int digit2 = num2.charAt(ptrB--) - '0';
-                int sum = digit1 + digit2 + carry;
-                result.append((char) ((sum % 10) + '0'));
-                carry = sum / 10;
-            }else if(ptrA >= 0) {
-                int digit1 = num1.charAt(ptrA--) - '0';
-                int sum = digit1 + carry;
-                result.append((char) ((sum % 10) + '0'));
-                carry = sum / 10;
-            }else if(ptrB >= 0) {
-                int digit2 = num2.charAt(ptrB--) - '0';
-                int sum = digit2 + carry;
-                result.append((char) ((sum % 10) + '0'));
-                carry = sum / 10;
+        int firstInd = num1.length() - 1, secondInd = num2.length() - 1;
+        while(firstInd >= 0 || secondInd >= 0) {
+            if(firstInd >= 0 && secondInd >= 0) {
+                int firstNum = num1.charAt(firstInd--) - '0';
+                int secondNum = num2.charAt(secondInd--) - '0';
+                int val = firstNum + secondNum + carry;
+                result.append((char)((val % 10) + '0'));
+                carry = val / 10;
+            }else if(firstInd >= 0) {
+                int firstNum = num1.charAt(firstInd--) - '0';
+                int val = firstNum + carry;
+                result.append((char)((val % 10) + '0'));
+                carry = val / 10;
+            }else if(secondInd >= 0) {
+                int secondNum = num2.charAt(secondInd--) - '0';
+                int val = secondNum + carry;
+                result.append((char)((val % 10) + '0'));
+                carry = val / 10;
             }
         }
-
-        if(carry != 0) result.append((char)(carry + '0'));
+        //Last carry if present
+        if(carry > 0) {
+            result.append((char)(carry + '0'));
+        }
+        
         result.reverse();
         return result.toString();
     }
