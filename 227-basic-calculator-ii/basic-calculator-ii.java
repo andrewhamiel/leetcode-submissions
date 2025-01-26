@@ -8,7 +8,7 @@ class Solution {
                 curr*= 10;
                 curr+= c - '0';
             }
-            if(i == s.length() - 1 || (!Character.isWhitespace(c) && !Character.isDigit(c))) {
+            if(i == s.length() - 1 || (!Character.isDigit(c) && !Character.isWhitespace(c))) {
                 if(op == '+' || op == '-') {
                     result+= prev;
                     if(op == '-') curr*= -1;
@@ -20,7 +20,7 @@ class Solution {
                 curr = 0;
             }
         }
-        
+
         result+= prev;
         return result;
     }
