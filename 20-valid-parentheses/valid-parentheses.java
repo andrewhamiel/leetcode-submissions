@@ -4,7 +4,7 @@ class Solution {
         Deque<Character> stack = new ArrayDeque<>();
         for(char c : s.toCharArray()) {
             if(rightMapping.containsKey(c)) {
-                if(stack.isEmpty() || rightMapping.get(c) != stack.peekFirst()) return false;
+                if(stack.isEmpty() || stack.peekFirst() != rightMapping.get(c)) return false;
                 else stack.removeFirst();
             }else stack.addFirst(c);
         }
