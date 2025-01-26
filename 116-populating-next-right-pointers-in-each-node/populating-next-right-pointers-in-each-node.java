@@ -25,16 +25,14 @@ class Solution {
     public Node connect(Node root) {
         if(root == null) return root;
 
-        Node leftmost = root;
-        while(leftmost.left != null) {
-            Node head = leftmost;
+        Node leftmost = root.left, head = root;
+        while(leftmost != null) {
             while(head != null) {
-                //Connection 1
                 head.left.next = head.right;
-                //Connection 2
-                if(head.next != null) head.right.next = head.next.left;
+                head.right.next = head.next == null ? null : head.next.left;
                 head = head.next;
             }
+            head = leftmost;
             leftmost = leftmost.left;
         }
         return root;
