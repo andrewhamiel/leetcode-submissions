@@ -13,7 +13,7 @@ class Solution {
         quickselect(0, freqs.length - 1, freqs, k - 1);
 
         int[] result = new int[k];
-        for(int i = 0; i < k; i++) result[i] = freqs[i];
+        for(int i = 0; i < result.length; i++) result[i] = freqs[i];
         return result;
     }
 
@@ -22,7 +22,6 @@ class Solution {
 
         int pivotInd = new Random().nextInt(right - left) + left;
         pivotInd = partition(left, right, nums, pivotInd);
-
         if(pivotInd == k) return;
         else if(pivotInd < k) quickselect(pivotInd + 1, right, nums, k);
         else quickselect(left, pivotInd - 1, nums, k);
