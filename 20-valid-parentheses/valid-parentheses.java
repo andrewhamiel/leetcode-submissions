@@ -1,15 +1,13 @@
 class Solution {
     public boolean isValid(String s) {
-        Map<Character, Character> rightMap = Map.of(')', '(', ']', '[', '}', '{');
-        
-        Deque<Character> stack = new ArrayDeque<>();
-        for(int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if(rightMap.containsKey(c)) {
-                char leftChar = rightMap.get(c);
-                if(stack.isEmpty() || stack.removeFirst() != leftChar) return false;
-            }else stack.addFirst(c);
+        Map<Character, Character> rightMapping = Map.of(')', '(', '}', '{', ']', '[');
+        Deque<Character> leftChars = new ArrayDeque<>();
+        for(char c : s.toCharArray()) {
+            if(rightMapping.containsKey(c)){
+                if(leftChars.isEmpty() || rightMapping.get(c) != leftChars.peekFirst()) return false;
+                else leftChars.removeFirst();
+            }else leftChars.addFirst(c);
         }
-        return stack.isEmpty();
+        return leftChars.isEmpty();
     }
 }
