@@ -10,23 +10,22 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
+        //1. Find size
         int size = 0;
-        ListNode curr = head;
+        ListNode curr =  head;
         while(curr != null) {
             curr = curr.next;
             size++;
         }
-
-        if(size - n == 0) return head.next;
-
-        int currNode = 1;
+        //2. Remove nth node
         curr = head;
-        while(curr != null && currNode < size - n) {
+        //Advance to pointer before nth node
+        for(int currNode = 1; currNode < size - n; currNode++) {
             curr = curr.next;
-            currNode++;
         }
-
-        curr.next = curr.next.next;
+        //3. Link to nth + 1 node if present
+        if(size == n) head = head.next;
+        else curr.next = curr.next.next;
         return head;
     }
 }
