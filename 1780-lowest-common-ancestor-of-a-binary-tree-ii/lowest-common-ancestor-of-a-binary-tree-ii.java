@@ -1,26 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 class Solution {
-    boolean nodesFound = false;
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        TreeNode ans = dfs(root, p, q);
-        return nodesFound ? ans : null;
-    }
-    private TreeNode dfs(TreeNode node, TreeNode p, TreeNode q) {
-        if (node == null)
-          return null;
-        TreeNode left = dfs(node.left, p, q);
-        TreeNode right = dfs(node.right, p, q);
-        int conditions = 0;
-        if (node == p || node == q)
-          conditions++;
-        if (left != null)
-          conditions++;
-        if (right != null)
-          conditions++;
-        if (conditions == 2)
-          nodesFound = true;
+    private boolean nodesFound = false;
 
-        if ((left != null && right != null) || node == p || node == q) 
-            return node;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode result = lca(root, p, q);
+        return nodesFound ? result : null;
+    }
+
+    private TreeNode lca(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null) return root;
+
+        int conditions = 0;
+        if(root == p || root == q) conditions++;
+        TreeNode left = lca(root.left, p, q);
+        TreeNode right = lca(root.right, p, q);
+
+        if(left != null) conditions++;
+        if(right != null) conditions++;
+
+        if(conditions == 2) nodesFound = true;
+
+        if(root == p || root == q || (left != null && right != null)) return root;
         return left != null ? left : right;
     }
 }
