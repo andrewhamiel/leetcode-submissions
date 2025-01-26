@@ -1,13 +1,17 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        int first = binarySearch(nums, target, true);
-        if(first == -1) return new int[]{-1, -1};
-        int second = binarySearch(nums, target, false);
-        return new int[]{first, second};
+        if(nums == null || nums.length == 0) return new int[]{-1, -1};
+
+        int firstInd = binarySearch(nums, target, true);
+        if(firstInd == -1) return new int[]{-1, -1};
+        
+        int secondInd = binarySearch(nums, target, false);
+        return new int[]{firstInd, secondInd};
     }
 
     private int binarySearch(int[] nums, int target, boolean isLeft) {
         int left = 0, right = nums.length - 1;
+        //[left, right] variant
         while(left <= right) {
             int mid = left + (right - left)/2;
             if(isLeft) {
