@@ -1,7 +1,7 @@
 class MovingAverage {
-    private double sum = 0.0;
-    private int size = 0;
     private Queue<Integer> q = new ArrayDeque<>();
+    private int size = 0;
+    private double sum = 0.0;
 
     public MovingAverage(int size) {
         this.size = size;
