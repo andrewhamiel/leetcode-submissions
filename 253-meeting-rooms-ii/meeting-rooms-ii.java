@@ -5,17 +5,17 @@ class Solution {
             startTimes.add(interval[0]);
             endTimes.add(interval[1]);
         }
-
-        int roomsRequired = 0;
+        
+        int usedRooms = 0;
         while(!startTimes.isEmpty()) {
             int startTime = startTimes.poll();
-            roomsRequired++;
+            usedRooms++;
             int endTime = endTimes.peek();
             if(startTime >= endTime) {
-                roomsRequired--;
+                usedRooms--;
                 endTimes.poll();
             }
         }
-        return roomsRequired;
+        return usedRooms;
     }
 }
