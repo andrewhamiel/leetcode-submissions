@@ -13,6 +13,7 @@ class Solution {
                 if(wordInd >= word.length() || word.charAt(wordInd++) != abbr.charAt(abbrInd++)) return false;
             }
         }
+
         wordInd+= currNum;
         return wordInd == word.length();
     }
