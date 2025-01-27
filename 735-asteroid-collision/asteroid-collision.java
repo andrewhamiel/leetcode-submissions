@@ -7,7 +7,6 @@ class Solution {
                 if(sum > 0) asteroid = 0;
                 else if(sum < 0) stack.removeFirst();
                 else {
-                    //Both explode
                     stack.removeFirst();
                     asteroid = 0;
                 }
