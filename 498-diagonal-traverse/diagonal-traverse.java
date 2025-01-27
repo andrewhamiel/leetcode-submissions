@@ -9,12 +9,12 @@ class Solution {
             if(direction == 1) {
                 newRow--;
                 newCol++;
-            }else { 
+            }else {
                 newRow++;
                 newCol--;
             }
 
-            //Out of bounds
+            //Out of bounds 
             if(newRow < 0 || newRow >= rows || newCol < 0 || newCol >= cols) {
                 if(direction == 1) {
                     row+= (col == cols - 1 ? 1 : 0);
