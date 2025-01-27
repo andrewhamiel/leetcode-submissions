@@ -20,7 +20,7 @@ class Solution {
         if(!isLeaf(root)) result.add(root.val);
         //2. Left boundary
         leftBoundary(root, result);
-        //3. Leaves
+        //3. Add leaves
         addLeaves(root, result);
         //4. Reverse right boundary
         reverseRightBoundary(root, result);
