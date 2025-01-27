@@ -1,11 +1,10 @@
 class Solution {
-    private int rows = 0;
     private int cols = 0;
 
     public int kthSmallest(int[][] matrix, int k) {
-        rows = matrix.length;
+        int rows = matrix.length;
         cols = matrix[0].length;
-        return quickselect(0, rows * cols  - 1, matrix, k - 1);
+        return quickselect(0, rows * cols - 1, matrix, k - 1);
     }
 
     private int quickselect(int left, int right, int[][] matrix, int k) {
@@ -13,7 +12,7 @@ class Solution {
 
         int pivotInd = new Random().nextInt(right - left) + left;
         pivotInd = partition(left, right, matrix, pivotInd);
-        
+
         if(pivotInd == k) return matrix[k / cols][k % cols];
         else if(pivotInd < k) return quickselect(pivotInd + 1, right, matrix, k);
         else return quickselect(left, pivotInd - 1, matrix, k);
