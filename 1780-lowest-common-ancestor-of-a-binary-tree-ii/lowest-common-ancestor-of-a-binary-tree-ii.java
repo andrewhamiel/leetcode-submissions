@@ -20,6 +20,7 @@ class Solution {
 
         int conditions = 0;
         if(root == p || root == q) conditions++;
+
         TreeNode left = lca(root.left, p, q);
         TreeNode right = lca(root.right, p, q);
 
@@ -28,7 +29,7 @@ class Solution {
 
         if(conditions == 2) nodesFound = true;
 
-        if(root == p || root == q || (left != null && right != null)) return root;
+        if((left != null && right != null) || root == p || root == q) return root;
         return left != null ? left : right;
     }
 }
