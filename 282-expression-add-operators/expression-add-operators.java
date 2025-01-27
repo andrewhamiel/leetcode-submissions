@@ -21,16 +21,16 @@ class Solution {
             return;
         }
 
-        //2. Fix curr num, shift base 10
+        //2. Fix curr, shift base 10
         curr*= 10;
         curr+= num.charAt(ind) - '0';
-        //3. If curr != 0, no op to avoid leading zeroes
+        //3. If curr != 0, no op to avoid leading zero
         if(curr != 0) backtrack(ind + 1, value, prev, curr, expr);
         //4. Addition
         expr.addAll(Arrays.asList("+", String.valueOf(curr)));
         backtrack(ind + 1, value + curr, curr, 0, expr);
         expr.subList(expr.size() - 2, expr.size()).clear();
-        //5. If not emtpy expression
+        //5. If not empty expression
         if(!expr.isEmpty()) {
             //6. Subtraction
             expr.addAll(Arrays.asList("-", String.valueOf(curr)));
