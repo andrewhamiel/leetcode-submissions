@@ -13,9 +13,8 @@ class Solution {
         ListNode curr = head, prev = head;
         int size = 0;
         while(curr != null) {
-            
             if(size - n > 0) prev = prev.next;
-            curr = curr.next;            
+            curr = curr.next;
             size++;
         }
 
