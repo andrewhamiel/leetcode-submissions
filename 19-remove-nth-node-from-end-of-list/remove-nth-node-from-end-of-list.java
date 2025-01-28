@@ -20,6 +20,7 @@ class Solution {
 
         if(size == n) head = head.next;
         else prev.next = prev.next.next;
+        
         return head;
     }
 }
