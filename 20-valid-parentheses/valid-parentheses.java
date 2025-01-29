@@ -6,7 +6,7 @@ class Solution {
             char c = s.charAt(i);
             if(rightMapping.containsKey(c)) {
                 if(stack.isEmpty() || stack.removeFirst() != rightMapping.get(c)) return false;
-            } else stack.addFirst(c);
+            }else stack.addFirst(c);
         }
         return stack.isEmpty();
     }
