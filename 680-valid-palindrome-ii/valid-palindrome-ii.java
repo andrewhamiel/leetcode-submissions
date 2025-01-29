@@ -3,10 +3,8 @@ class Solution {
         int left = 0, right = s.length() - 1;
         while(left < right) {
             if(s.charAt(left) != s.charAt(right)) return isPalindrome(left + 1, right, s) || isPalindrome(left, right - 1, s);
-            else {
-                left++;
-                right--;
-            }
+            left++;
+            right--;
         }
         return true;
     }
