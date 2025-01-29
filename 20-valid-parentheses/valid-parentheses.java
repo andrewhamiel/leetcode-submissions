@@ -8,6 +8,7 @@ class Solution {
                 if(stack.isEmpty() || stack.removeFirst() != rightMapping.get(c)) return false;
             }else stack.addFirst(c);
         }
+        
         return stack.isEmpty();
     }
 }
