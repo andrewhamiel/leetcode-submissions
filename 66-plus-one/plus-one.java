@@ -8,7 +8,7 @@ class Solution {
             carry = sum / 10;
             if(sum < 10) return digits;
         }
-        //If we are here, all digits were 9. new array with first digit 1
+        //If we are here, all digits 9
         int[] result = new int[digits.length + 1];
         result[0] = 1;
         return result;
