@@ -16,7 +16,7 @@ class Solution {
     private int countPairs(int start, int end, int[] nums) {
         int mid = start + (end - start)/2, right = mid + 1, count = 0;
         for(int left = start; left <= mid; left++) {
-            while(right <= end && nums[left] >  2 * (long)nums[right]) right++;
+            while(right <= end && nums[left] > 2 * (long) nums[right]) right++;
             count+= right - mid - 1;
         }
         return count;
