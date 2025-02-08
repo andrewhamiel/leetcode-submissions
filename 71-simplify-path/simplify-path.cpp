@@ -5,18 +5,17 @@ public:
 
         stringstream ss(path);
         string dir;
-
         while(getline(ss, dir, '/')) {
             if(dir.empty() || dir == ".") continue;
             else if(dir == "..") {
-                if(!stack.empty()) stack.pop_front();
-            }else stack.push_front(dir);
+                if(!stack.empty()) stack.pop_back();
+            }else stack.push_back(dir);
         }
 
         string result;
         while(!stack.empty()) {
-            result+= "/" + stack.back();
-            stack.pop_back();
+            result+= "/" + stack.front();
+            stack.pop_front();
         }
         return result.empty() ? "/" : result;
     }
