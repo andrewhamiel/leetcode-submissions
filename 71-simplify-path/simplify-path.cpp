@@ -1,22 +1,23 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        vector<string> stack;
+        deque<string> stack;
 
-        //used to split by '/'
         stringstream ss(path);
-        string tmp;
-        while(getline(ss, tmp, '/')) {
-            if(tmp == ".."){
-                if(!stack.empty()) stack.pop_back();
-            }else if(tmp != "." && !tmp.empty()){
-                stack.push_back(tmp);
-            }
+        string dir;
+
+        while(getline(ss, dir, '/')) {
+            if(dir.empty() || dir == ".") continue;
+            else if(dir == "..") {
+                if(!stack.empty()) stack.pop_front();
+            }else stack.push_front(dir);
         }
 
-        string result = "";
-        for(auto str : stack) result+= "/" + str;
-
+        string result;
+        while(!stack.empty()) {
+            result+= "/" + stack.back();
+            stack.pop_back();
+        }
         return result.empty() ? "/" : result;
     }
 };
